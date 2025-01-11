@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project1.Controllers;
+using Project1.Interfaces;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Project1
 {
@@ -8,6 +11,9 @@ namespace Project1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private ISprite _textSprite;
+        private ISprite _activeSprite;
+        private Texture2D _texture;
 
         public Game1()
         {
@@ -26,7 +32,13 @@ namespace Project1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+           
 
+            
+            Texture2D texture = Content.Load<Texture2D>("Images/Link");
+            _texture = Content.Load<Texture2D>("Images/Link");
+
+            _activeSprite = new NMoveNAnim(texture, new Vector2(250, 250));
             // TODO: use this.Content to load your game content here
         }
 
@@ -36,7 +48,7 @@ namespace Project1
                 Exit();
 
             // TODO: Add your update logic here
-
+            _activeSprite?.Update();
             base.Update(gameTime);
         }
 
@@ -45,7 +57,10 @@ namespace Project1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            _spriteBatch.Begin();
+            Rectangle destinationRectangle = new Rectangle(325, 250, 64, 64); // x, y, width, height
+            _spriteBatch.Draw(_texture, destinationRectangle, Color.White);
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
