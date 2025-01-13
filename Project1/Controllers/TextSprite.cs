@@ -17,7 +17,7 @@ namespace Project1.Controllers
             _position = position;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             // No update logic needed for static text
         }

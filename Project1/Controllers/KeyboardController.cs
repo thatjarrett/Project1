@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
 using Project1.Interfaces;
+using Microsoft.Xna.Framework;
+
 
 namespace Project1.Controllers
 {
@@ -16,7 +18,7 @@ namespace Project1.Controllers
         {
             _commands = commands;
         }
-        public void Update() {
+        public void Update(GameTime gameTime) {
 
             KeyboardState state = Keyboard.GetState();
             foreach (var key in _commands.Keys)

@@ -6,57 +6,70 @@ namespace Project1.Controllers
 {
     internal class MoveAnim : ISprite
     {
-        private Texture2D _texture;      // The sprite sheet texture
-        private Vector2 _position;      // The sprite's position
-        private Vector2 _velocity;      // The sprite's velocity (direction and speed)
-        private int _frameCount;        // Total number of animation frames
-        private int _currentFrame;      // The current animation frame
-        private int _frameWidth;        // Width of a single frame
-        private double _frameTimer;     // Timer for animation
-        private double _frameInterval;  // Time between frames (in seconds)
+        private Texture2D _texture;      // Sprite sheet
+        private Vector2 _position;      // Position
+        private Vector2 _velocity;      // Movement velocity
+        private int _frameWidth;        // Width of each frame
+        private int _frameHeight;       // Height of each frame
+        private int _startFrame;        // Start frame for animation
+        private int _endFrame;          // End frame for animation
+        private int _currentFrame;      // Current frame in animation
+        private double _frameTimer;     // Time elapsed for animation
+        private double _frameInterval;  // Time between frames
 
-        public MoveAnim(Texture2D texture, Vector2 startPosition, Vector2 velocity, int frameCount, double frameInterval)
+        public MoveAnim(Texture2D texture, Vector2 position, Vector2 velocity, int frameWidth, int frameHeight, int startFrame, int endFrame, double frameInterval)
         {
             _texture = texture;
-            _position = startPosition;
+            _position = position;
             _velocity = velocity;
-            _frameCount = frameCount;
-            _currentFrame = 0;
-            _frameWidth = texture.Width / frameCount; // Divide texture width by frame count
+            _frameWidth = frameWidth;
+            _frameHeight = frameHeight;
+            _startFrame = startFrame;
+            _endFrame = endFrame;
+            _currentFrame = startFrame;  // Start at the first frame in the range
             _frameTimer = 0;
-            _frameInterval = frameInterval;          // Time between each frame
+            _frameInterval = frameInterval;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Viewport viewport)
         {
-            // Update the position based on velocity
+            // Update position based on velocity
             _position += _velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Update the animation frame
-            _frameTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            // Boundary wrapping logic
+            if (_position.X > viewport.Width) _position.X = -_frameWidth;
+            if (_position.X + _frameWidth < 0) _position.X = viewport.Width;
+            if (_position.Y > viewport.Height) _position.Y = -_frameHeight;
+            if (_position.Y + _frameHeight < 0) _position.Y = viewport.Height;
 
+            // Update animation frame
+            _frameTimer += gameTime.ElapsedGameTime.TotalSeconds;
             if (_frameTimer >= _frameInterval)
             {
-                _currentFrame = (_currentFrame + 1) % _frameCount; // Loop through frames
-                _frameTimer = 0; // Reset the timer
+                _currentFrame++;
+                if (_currentFrame > _endFrame)
+                    _currentFrame = _startFrame; // Loop back to the start frame
+                _frameTimer = 0; // Reset timer
             }
         }
-        public void Update()
+
+        // Implement ISprite's Update(GameTime)
+        public void Update(GameTime gameTime)
         {
-            // Call the Update method with GameTime parameter
-            Update(new GameTime());
+            // You can pass the viewport dynamically from your Game class
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Calculate the source rectangle for the current animation frame
+            // Calculate source rectangle for the current frame
             Rectangle sourceRectangle = new Rectangle(
-                _currentFrame * _frameWidth, // X position of the frame
-                0,                          // Y position (top of texture)
-                _frameWidth,                // Width of the frame
-                _texture.Height             // Full height of the texture
+                _currentFrame * _frameWidth, // Frame column
+                0,                          // Frame row (0 for the first row)
+                _frameWidth,
+                _frameHeight
             );
 
-            // Draw the current frame
+            // Draw current frame
             spriteBatch.Draw(_texture, _position, sourceRectangle, Color.White);
         }
     }

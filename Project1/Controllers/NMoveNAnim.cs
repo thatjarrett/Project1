@@ -18,9 +18,9 @@ namespace Project1.Controllers
         }
 
         
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-           
+           //yaaaaaay
         }
 
         public void Draw(SpriteBatch spriteBatch)
