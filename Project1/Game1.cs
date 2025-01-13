@@ -10,8 +10,8 @@ namespace Project1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private ISprite _textSprite;   // For rendering text
-        private ISprite _activeSprite; // For rendering the animated sprite
+        private ISprite _textSprite;   
+        private ISprite _activeSprite; 
 
         public Game1()
         {
@@ -29,14 +29,14 @@ namespace Project1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Load the sprite sheet and font
+            
             Texture2D spriteSheet = Content.Load<Texture2D>("Images/Link Spritesheet");
             Texture2D staticTexture = Content.Load<Texture2D>("Images/Link");
             SpriteFont font = Content.Load<SpriteFont>("Images/File");
             _activeSprite = new NMoveNAnim
             (
                 staticTexture,
-                new Vector2(100, 100)
+                new Vector2(350, 170)
             );
             // Create a static text sprite
             _textSprite = new TextSprite(
@@ -45,12 +45,15 @@ namespace Project1
                 new Vector2(200, 400)
             );
 
-            // Create the animated sprite (e.g., 4 frames, 0.25 seconds per frame)
+            
 
         }
 
         protected override void Update(GameTime gameTime)
         {
+            var viewport = GraphicsDevice.Viewport;
+            int screenWidth = viewport.Width;
+            int screenHeight = viewport.Height;
             var mouseState = Mouse.GetState();
             var keyboardState = Keyboard.GetState();
             if (mouseState.RightButton == ButtonState.Pressed || (keyboardState.IsKeyDown(Keys.D0) || keyboardState.IsKeyDown(Keys.NumPad0)))
@@ -63,7 +66,7 @@ namespace Project1
             {
                 _activeSprite = new NMoveNAnim(
                     Content.Load<Texture2D>("Images/Link"),
-                    new Vector2(100, 100)
+                    new Vector2(350, 170), 3.0f
                 );
             }
             if (keyboardState.IsKeyDown(Keys.D2) || keyboardState.IsKeyDown(Keys.NumPad2)) // Animated sprite
@@ -78,8 +81,8 @@ namespace Project1
             {
                 _activeSprite = new MoveNAnim(
                     Content.Load<Texture2D>("Images/LinkJump"),
-                    new Vector2(300, 200),
-                    new Vector2(0, 100), 50
+                    new Vector2(-300, 200),
+                    new Vector2(0, 100), 50, 3.0f
                 );
             }
             if (keyboardState.IsKeyDown(Keys.D4) || keyboardState.IsKeyDown(Keys.NumPad4))
@@ -89,14 +92,51 @@ namespace Project1
                     new Vector2(300, 200),                             // Starting position
                     new Vector2(100, 0),                               // Velocity 
                     16,                                                // Frame width (pixels)
-                    23,                                                // Frame height (pixels)
+                    27,                                                // Frame height (pixels)
                     2,
                     3,
-                    0.2
+                    0.2,
+                    3.0f
                 );
             }
+            if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                if (mouseState.X < screenWidth / 2 && mouseState.Y < screenHeight / 2) // Top-left
+                {
+                    _activeSprite = new NMoveNAnim(
+                        Content.Load<Texture2D>("Images/Link"),
+                        new Vector2(350, 170), 3.0f
+                    );
+                }
 
-            // Update the active sprite
+                if (mouseState.X >= screenWidth / 2 && mouseState.Y < screenHeight / 2) // Top-right
+                {
+                    _activeSprite = new NMoveAnim(
+                        Content.Load<Texture2D>("Images/Link Spritesheet"),
+                        new Vector2(300, 200),
+                        20, 24, 60, 4, 16, 0.15
+                    );
+                }
+
+                if (mouseState.X < screenWidth / 2 && mouseState.Y >= screenHeight / 2) // Bottom-left
+                {
+                    _activeSprite = new MoveNAnim(
+                        Content.Load<Texture2D>("Images/LinkJump"),
+                        new Vector2(-300, 200),
+                        new Vector2(0, 100), 50, 3.0f
+                    );
+                }
+
+                if (mouseState.X >= screenWidth / 2 && mouseState.Y >= screenHeight / 2) // Bottom-right
+                {
+                    _activeSprite = new MoveAnim(
+                        Content.Load<Texture2D>("Images/Link Spritesheet"),
+                        new Vector2(300, 200),
+                        new Vector2(100, 0), 16, 27, 2, 3, 0.2, 3.0f
+                    );
+                }
+            }
+            
             if (_activeSprite is MoveAnim moveAnim)
             {
                 moveAnim.Update(gameTime, GraphicsDevice.Viewport);
@@ -115,7 +155,7 @@ namespace Project1
 
             _spriteBatch.Begin();
 
-            // Draw both sprites
+            
             _textSprite?.Draw(_spriteBatch);
             _activeSprite?.Draw(_spriteBatch);
 

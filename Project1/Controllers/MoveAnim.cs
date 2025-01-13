@@ -6,18 +6,19 @@ namespace Project1.Controllers
 {
     internal class MoveAnim : ISprite
     {
-        private Texture2D _texture;      // Sprite sheet
-        private Vector2 _position;      // Position
-        private Vector2 _velocity;      // Movement velocity
-        private int _frameWidth;        // Width of each frame
-        private int _frameHeight;       // Height of each frame
-        private int _startFrame;        // Start frame for animation
-        private int _endFrame;          // End frame for animation
-        private int _currentFrame;      // Current frame in animation
-        private double _frameTimer;     // Time elapsed for animation
-        private double _frameInterval;  // Time between frames
+        private Texture2D _texture; 
+        private Vector2 _position;     
+        private Vector2 _velocity;     
+        private int _frameWidth;       
+        private int _frameHeight;      
+        private int _startFrame;        
+        private int _endFrame;          
+        private int _currentFrame;      
+        private double _frameTimer;     
+        private double _frameInterval;  
+        private float _scale;           
 
-        public MoveAnim(Texture2D texture, Vector2 position, Vector2 velocity, int frameWidth, int frameHeight, int startFrame, int endFrame, double frameInterval)
+        public MoveAnim(Texture2D texture, Vector2 position, Vector2 velocity, int frameWidth, int frameHeight, int startFrame, int endFrame, double frameInterval, float scale = 1.0f)
         {
             _texture = texture;
             _position = position;
@@ -29,6 +30,7 @@ namespace Project1.Controllers
             _currentFrame = startFrame;  // Start at the first frame in the range
             _frameTimer = 0;
             _frameInterval = frameInterval;
+            _scale = scale; // Initialize scale
         }
 
         public void Update(GameTime gameTime, Viewport viewport)
@@ -37,10 +39,10 @@ namespace Project1.Controllers
             _position += _velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Boundary wrapping logic
-            if (_position.X > viewport.Width) _position.X = -_frameWidth;
-            if (_position.X + _frameWidth < 0) _position.X = viewport.Width;
-            if (_position.Y > viewport.Height) _position.Y = -_frameHeight;
-            if (_position.Y + _frameHeight < 0) _position.Y = viewport.Height;
+            if (_position.X > viewport.Width) _position.X = -_frameWidth * _scale;
+            if (_position.X + _frameWidth * _scale < 0) _position.X = viewport.Width;
+            if (_position.Y > viewport.Height) _position.Y = -_frameHeight * _scale;
+            if (_position.Y + _frameHeight * _scale < 0) _position.Y = viewport.Height;
 
             // Update animation frame
             _frameTimer += gameTime.ElapsedGameTime.TotalSeconds;
@@ -53,10 +55,9 @@ namespace Project1.Controllers
             }
         }
 
-        // Implement ISprite's Update(GameTime)
         public void Update(GameTime gameTime)
         {
-            // You can pass the viewport dynamically from your Game class
+            // overload
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -69,8 +70,18 @@ namespace Project1.Controllers
                 _frameHeight
             );
 
-            // Draw current frame
-            spriteBatch.Draw(_texture, _position, sourceRectangle, Color.White);
+            // Draw current frame with scaling
+            spriteBatch.Draw(
+                _texture,
+                _position,
+                sourceRectangle,
+                Color.White,
+                0f,               
+                Vector2.Zero,     
+                _scale,           // Scale factor
+                SpriteEffects.None,
+                0f                
+            );
         }
     }
 }

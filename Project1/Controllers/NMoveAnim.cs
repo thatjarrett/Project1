@@ -6,16 +6,16 @@ namespace Project1.Controllers
 {
     internal class NMoveAnim : ISprite
     {
-        private readonly Texture2D _texture;  // The sprite sheet
-        private readonly Vector2 _position;  // The sprite's position
-        private readonly int _frameWidth;    // Width of a single frame
-        private readonly int _frameHeight;   // Height of a single frame
-        private readonly int _columns;      // Number of frames in a row
-        private readonly int _startFrame;   // Starting frame of the animation
-        private readonly int _frameCount;   // Total frames in the animation
-        private int _currentFrame;           // Current animation frame
-        private double _frameTimer;          // Timer to control frame switching
-        private readonly double _frameInterval; // Time between frames in seconds
+        private readonly Texture2D _texture; 
+        private readonly Vector2 _position;  
+        private readonly int _frameWidth;   
+        private readonly int _frameHeight;   
+        private readonly int _columns;     
+        private readonly int _startFrame;   
+        private readonly int _frameCount;   
+        private int _currentFrame;           
+        private double _frameTimer;         
+        private readonly double _frameInterval;
 
         public NMoveAnim(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int startFrame, int frameCount, int columns, double frameInterval)
         {
@@ -67,11 +67,11 @@ namespace Project1.Controllers
                 _position,
                 sourceRectangle,
                 Color.White,
-                0f,                // No rotation
-                Vector2.Zero,      // Origin at the top-left corner
-                3f,                // Scale the sprite by 3x
+                0f,                
+                Vector2.Zero,      
+                3f,               
                 SpriteEffects.None,
-                0f                 // Layer depth
+                0f                
             );
         }
 

@@ -6,9 +6,9 @@ namespace Project1.Controllers
 {
     internal class TextSprite : ISprite
     {
-        private readonly string _text;         // The text to display
-        private readonly SpriteFont _font;    // The font used to render the text
-        private readonly Vector2 _position;  // The position of the text on the screen
+        private readonly string _text;         
+        private readonly SpriteFont _font;    
+        private readonly Vector2 _position;  
 
         public TextSprite(string text, SpriteFont font, Vector2 position)
         {

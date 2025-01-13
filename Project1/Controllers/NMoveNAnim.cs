@@ -7,25 +7,35 @@ namespace Project1.Controllers
 {
     internal class NMoveNAnim : ISprite
     {
-        private Texture2D _texture; 
+        private Texture2D _texture;
         private Vector2 _position;
+        private float _scale; // Scale factor for sprite size
 
-        
-        public NMoveNAnim(Texture2D texture, Vector2 position)
+        public NMoveNAnim(Texture2D texture, Vector2? position = null, float scale = 3.0f)
         {
             _texture = texture;
-            _position = position;
+            _position = position ?? new Vector2(400, 150);
+            _scale = scale; // Initialize scale
         }
 
-        
         public void Update(GameTime gameTime)
         {
-           //yaaaaaay
+            // yaaaaaay
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, Color.White);
+            spriteBatch.Draw(
+                _texture,
+                _position,
+                null,             
+                Color.White,
+                0f,               
+                Vector2.Zero,     
+                _scale,           // Scale factor
+                SpriteEffects.None,
+                0f               
+            );
         }
     }
 }
