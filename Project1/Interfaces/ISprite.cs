@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project1.Interfaces
 {
-    internal interface ISprite
+    public interface ISprite
     {
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
