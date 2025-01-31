@@ -6,12 +6,20 @@ namespace Project1
 {
     public class Link
     {
-        private ILinkState currentState;  // Manages state transitions
-        private Texture2D spriteSheet;   // Link's spritesheet
-        private Vector2 position;        // Link's position in the game world
-        private Rectangle sourceRect;    // Section of the spritesheet to draw
-        private int spriteWidth = 32;    // Adjust as per your sprite size
+        private ILinkState currentState;
+        private Texture2D spriteSheet;
+        private Vector2 position;
+        private Rectangle sourceRect;
+        private int spriteWidth = 32;
         private int spriteHeight = 32;
+        private bool isInvincible = false;
+        private double invincibleTime = 0;
+        private const double InvincibilityDuration = 1.0; // 1 second
+
+        // Animation-related variables
+        private int frameIndex = 0;      // Current animation frame
+        private int frameCounter = 0;    // Counts updates for animation delay
+        private const int frameDelay = 10; // Change frame every 10 updates
 
         public Link(Texture2D texture, Vector2 startPos)
         {
@@ -26,30 +34,87 @@ namespace Project1
             currentState.Enter(this);
         }
 
+        public void SetInvincible(bool value)
+        {
+            isInvincible = value;
+            if (value)
+                invincibleTime = InvincibilityDuration;
+        }
+
         public void HandleInput(KeyboardState keyboardState)
         {
             currentState.HandleInput(this, keyboardState);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime) // ✅ Keeping `Update(GameTime gameTime)`
         {
             currentState.Update(this, gameTime);
+            UpdateAnimation(); // ✅ Frame-based animation updates here
+
+            if (isInvincible)
+            {
+                invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (invincibleTime <= 0)
+                    isInvincible = false;
+            }
+        }
+
+        private void UpdateAnimation()
+        {
+            frameCounter++;
+
+            if (frameCounter >= frameDelay) // Change frame every `frameDelay` updates
+            {
+                frameCounter = 0;
+                frameIndex++;
+            }
+
+            SetAnimation(currentState.ToString()); // Ensure the correct animation
         }
 
         public void SetAnimation(string action)
         {
-            if (action == "Idle")
-                sourceRect = new Rectangle(0, 0, spriteWidth, spriteHeight); // Example: Idle position in sprite sheet
-            else if (action == "MoveUp")
-                sourceRect = new Rectangle(spriteWidth, 0, spriteWidth, spriteHeight);
-            else if (action == "MoveDown")
-                sourceRect = new Rectangle(spriteWidth * 2, 0, spriteWidth, spriteHeight);
-            else if (action == "MoveLeft")
-                sourceRect = new Rectangle(spriteWidth * 3, 0, spriteWidth, spriteHeight);
-            else if (action == "MoveRight")
-                sourceRect = new Rectangle(spriteWidth * 4, 0, spriteWidth, spriteHeight);
-            else if (action == "Attack")
-                sourceRect = new Rectangle(spriteWidth * 5, 0, spriteWidth, spriteHeight);
+            int row = 0;
+            int maxFrames = 1;
+
+            if (action.Contains("Idle"))
+            {
+                row = 0;
+                maxFrames = 1;
+            }
+            else if (action.Contains("MoveUp"))
+            {
+                row = 1;
+                maxFrames = 2;
+            }
+            else if (action.Contains("MoveDown"))
+            {
+                row = 2;
+                maxFrames = 2;
+            }
+            else if (action.Contains("MoveLeft"))
+            {
+                row = 3;
+                maxFrames = 2;
+            }
+            else if (action.Contains("MoveRight"))
+            {
+                row = 4;
+                maxFrames = 2;
+            }
+            else if (action.Contains("Attack"))
+            {
+                row = 5;
+                maxFrames = 2;
+            }
+            else if (action.Contains("Damage"))
+            {
+                row = 6;
+                maxFrames = 2;
+            }
+
+            frameIndex %= maxFrames; 
+            sourceRect = new Rectangle(frameIndex * spriteWidth, row * spriteHeight, spriteWidth, spriteHeight);
         }
 
         public void Move(int dx, int dy)
@@ -65,7 +130,7 @@ namespace Project1
 
         public bool AnimationFinished()
         {
-            return true; // Replace with actual logic if needed
+            return frameIndex == 0; // Reset after completing cycle
         }
 
         public void Draw(SpriteBatch spriteBatch)

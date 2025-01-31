@@ -22,6 +22,8 @@ namespace Project1
                 link.ChangeState(new LinkMoveRightState());
             else if (keyboardState.IsKeyDown(Keys.Z))
                 link.ChangeState(new LinkAttackState());
+            else if (keyboardState.IsKeyDown(Keys.E))  
+                link.ChangeState(new LinkDamageState());
         }
 
         public void Update(Link link, GameTime gameTime) { }
