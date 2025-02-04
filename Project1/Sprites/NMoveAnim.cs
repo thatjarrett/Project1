@@ -2,19 +2,19 @@
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 
-namespace Project1.Controllers
+namespace Project1.Sprites
 {
     internal class NMoveAnim : ISprite
     {
-        private readonly Texture2D _texture; 
-        private readonly Vector2 _position;  
-        private readonly int _frameWidth;   
-        private readonly int _frameHeight;   
-        private readonly int _columns;     
-        private readonly int _startFrame;   
-        private readonly int _frameCount;   
-        private int _currentFrame;           
-        private double _frameTimer;         
+        private readonly Texture2D _texture;
+        private readonly Vector2 _position;
+        private readonly int _frameWidth;
+        private readonly int _frameHeight;
+        private readonly int _columns;
+        private readonly int _startFrame;
+        private readonly int _frameCount;
+        private int _currentFrame;
+        private double _frameTimer;
         private readonly double _frameInterval;
 
         public NMoveAnim(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int startFrame, int frameCount, int columns, double frameInterval)
@@ -67,11 +67,11 @@ namespace Project1.Controllers
                 _position,
                 sourceRectangle,
                 Color.White,
-                0f,                
-                Vector2.Zero,      
-                3f,               
+                0f,
+                Vector2.Zero,
+                3f,
                 SpriteEffects.None,
-                0f                
+                0f
             );
         }
 

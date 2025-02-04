@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 
-namespace Project1.Controllers
+namespace Project1.Sprites
 {
     internal class NMoveNAnim : ISprite
     {
@@ -28,13 +28,13 @@ namespace Project1.Controllers
             spriteBatch.Draw(
                 _texture,
                 _position,
-                null,             
+                null,
                 Color.White,
-                0f,               
-                Vector2.Zero,     
+                0f,
+                Vector2.Zero,
                 _scale,           // Scale factor
                 SpriteEffects.None,
-                0f               
+                0f
             );
         }
     }

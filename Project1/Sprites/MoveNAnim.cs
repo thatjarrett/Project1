@@ -2,16 +2,16 @@
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 
-namespace Project1.Controllers
+namespace Project1.Sprites
 {
     internal class MoveNAnim : ISprite
     {
         private Texture2D _texture;
         private Vector2 _position;
-        private Vector2 _velocity;  
-        private float _upperLimit;  
-        private float _lowerLimit;  
-        private float _scale;       
+        private Vector2 _velocity;
+        private float _upperLimit;
+        private float _lowerLimit;
+        private float _scale;
         public MoveNAnim(Texture2D texture, Vector2 position, Vector2 velocity, float movementRange, float scale = 1.0f)
         {
             _texture = texture;
@@ -41,13 +41,13 @@ namespace Project1.Controllers
             spriteBatch.Draw(
                 _texture,
                 _position,
-                null,             
+                null,
                 Color.White,
-                0f,               
-                Vector2.Zero,     
+                0f,
+                Vector2.Zero,
                 _scale,           // Scale factor
                 SpriteEffects.None,
-                0f                
+                0f
             );
         }
     }

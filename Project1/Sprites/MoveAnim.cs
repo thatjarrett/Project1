@@ -2,21 +2,21 @@
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 
-namespace Project1.Controllers
+namespace Project1.Sprites
 {
     internal class MoveAnim : ISprite
     {
-        private Texture2D _texture; 
-        private Vector2 _position;     
-        private Vector2 _velocity;     
-        private int _frameWidth;       
-        private int _frameHeight;      
-        private int _startFrame;        
-        private int _endFrame;          
-        private int _currentFrame;      
-        private double _frameTimer;     
-        private double _frameInterval;  
-        private float _scale;           
+        private Texture2D _texture;
+        private Vector2 _position;
+        private Vector2 _velocity;
+        private int _frameWidth;
+        private int _frameHeight;
+        private int _startFrame;
+        private int _endFrame;
+        private int _currentFrame;
+        private double _frameTimer;
+        private double _frameInterval;
+        private float _scale;
 
         public MoveAnim(Texture2D texture, Vector2 position, Vector2 velocity, int frameWidth, int frameHeight, int startFrame, int endFrame, double frameInterval, float scale = 1.0f)
         {
@@ -76,11 +76,11 @@ namespace Project1.Controllers
                 _position,
                 sourceRectangle,
                 Color.White,
-                0f,               
-                Vector2.Zero,     
+                0f,
+                Vector2.Zero,
                 _scale,           // Scale factor
                 SpriteEffects.None,
-                0f                
+                0f
             );
         }
     }

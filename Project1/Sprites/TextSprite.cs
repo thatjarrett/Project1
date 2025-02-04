@@ -2,13 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 
-namespace Project1.Controllers
+namespace Project1.Sprites
 {
     internal class TextSprite : ISprite
     {
-        private readonly string _text;         
-        private readonly SpriteFont _font;    
-        private readonly Vector2 _position;  
+        private readonly string _text;
+        private readonly SpriteFont _font;
+        private readonly Vector2 _position;
 
         public TextSprite(string text, SpriteFont font, Vector2 position)
         {
