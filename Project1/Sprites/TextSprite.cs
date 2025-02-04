@@ -22,10 +22,10 @@ namespace Project1.Sprites
             // No update logic needed for static text
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             // Draw the text
-            spriteBatch.DrawString(_font, _text, _position, Color.White);
+            spriteBatch.DrawString(_font, _text, position, Color.White);
         }
     }
 }

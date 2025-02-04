@@ -44,7 +44,7 @@ namespace Project1.Sprites
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             // Calculate the actual frame index in the sprite sheet
             int frameIndex = _startFrame + _currentFrame;
@@ -64,7 +64,7 @@ namespace Project1.Sprites
             // Draw the sprite with scaling
             spriteBatch.Draw(
                 _texture,
-                _position,
+                position,
                 sourceRectangle,
                 Color.White,
                 0f,

@@ -60,7 +60,7 @@ namespace Project1.Sprites
             // overload
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             // Calculate source rectangle for the current frame
             Rectangle sourceRectangle = new Rectangle(
@@ -73,7 +73,7 @@ namespace Project1.Sprites
             // Draw current frame with scaling
             spriteBatch.Draw(
                 _texture,
-                _position,
+                position,
                 sourceRectangle,
                 Color.White,
                 0f,

@@ -36,11 +36,11 @@ namespace Project1.Sprites
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(
                 _texture,
-                _position,
+                position,
                 null,
                 Color.White,
                 0f,

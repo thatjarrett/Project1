@@ -8,13 +8,14 @@ namespace Project1.Sprites
     internal class NMoveNAnim : ISprite
     {
         private Texture2D _texture;
-        private Vector2 _position;
+        private Rectangle _sourceRectangle;
         private float _scale; // Scale factor for sprite size
 
-        public NMoveNAnim(Texture2D texture, Vector2? position = null, float scale = 3.0f)
+        public NMoveNAnim(Texture2D texture, Rectangle rectangle, Vector2? position = null,  float scale = 3.0f)
         {
             _texture = texture;
-            _position = position ?? new Vector2(400, 150);
+            _sourceRectangle = rectangle;
+         
             _scale = scale; // Initialize scale
         }
 
@@ -23,12 +24,12 @@ namespace Project1.Sprites
             // yaaaaaay
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(
                 _texture,
-                _position,
-                null,
+                position,
+                _sourceRectangle,
                 Color.White,
                 0f,
                 Vector2.Zero,
