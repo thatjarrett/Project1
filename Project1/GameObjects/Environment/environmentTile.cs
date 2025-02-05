@@ -18,7 +18,7 @@ namespace Project1.GameObjects.Environment
             _sprite = sprite;
         }
         public void Update(GameTime gameTime) {
-            
+            _sprite.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch) { 
             _sprite.Draw(spriteBatch, _position);

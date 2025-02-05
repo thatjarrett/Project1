@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Project1.GameObjects.Environment;
 using Project1.Interfaces;
 using Project1.Entities;
+using System;
 
 public class Game1 : Game
 {
@@ -37,18 +38,23 @@ public class Game1 : Game
         ISprite blueGapSprite = new NMoveNAnim(environmentTexture, new Rectangle(498, 18, 16, 16));
         ISprite stairsSprite = new NMoveNAnim(environmentTexture, new Rectangle(515, 18, 16, 16));
 
+        Rectangle[] fireFrames = new Rectangle[] { new Rectangle(52, 1, 16, 16), new Rectangle(69, 1, 16, 16) };
+        ISprite fireSprite = new NMoveAnim(npcTexture, fireFrames,5);
+
         statueTile statueTile = new statueTile(new Vector2(100,100),true,statueLeftSprite);
         statueTile statueTile2 = new statueTile(new Vector2(148, 100), true, statueRightSprite);
         statueTile squareBlock = new statueTile(new Vector2(196, 100), true, squareBlockSprite);
         statueTile blueGap = new statueTile(new Vector2(244, 100), true, blueGapSprite);
         statueTile stairs = new statueTile(new Vector2(292, 100), false, stairsSprite);
+        statueTile fire = new statueTile(new Vector2(340,100),true, fireSprite);
 
         tiles.Add(statueTile);
         tiles.Add(statueTile2);
         tiles.Add(squareBlock);
         tiles.Add(blueGap);
         tiles.Add(stairs);
-        
+        tiles.Add(fire);
+
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
         //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
@@ -86,8 +92,12 @@ public class Game1 : Game
 
         keyboardController.Update(gameTime);
         link.Update(gameTime);
-
+        foreach (var tile in tiles)
+        {
+            tile.Update(gameTime);
+        }
         base.Update(gameTime);
+        
     }
 
     protected override void Draw(GameTime gameTime)
