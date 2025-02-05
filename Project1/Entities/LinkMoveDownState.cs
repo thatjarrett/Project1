@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using Project1.Interfaces;
 namespace Project1.Entities
 {
     public class LinkMoveDownState : ILinkState

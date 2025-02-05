@@ -14,7 +14,7 @@ namespace Project1.Commands
 
         public void Execute()
         {
-            _link.ChangeState(new LinkDamageState(), _link.PreviousDirection);
+            _link.ChangeState(new LinkDamageState(_link.PreviousDirection));
         }
     }
 }

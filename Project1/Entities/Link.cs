@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Project1.Interfaces;
 namespace Project1.Entities
 {
     public class Link

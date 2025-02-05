@@ -7,6 +7,7 @@ using Project1.Sprites;
 using System.Collections.Generic;
 using Project1.GameObjects.Environment;
 using Project1.Interfaces;
+using Project1.Entities;
 
 public class Game1 : Game
 {
@@ -30,7 +31,7 @@ public class Game1 : Game
         Texture2D linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         Texture2D environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
         Texture2D npcTexture = Content.Load<Texture2D>("Images/oldMan");
-
+        
         ISprite statueLeftSprite = new NMoveNAnim(environmentTexture,new Rectangle(515,1,16,16));
         ISprite statueRightSprite = new NMoveNAnim(environmentTexture, new Rectangle(498, 1, 16, 16));
         ISprite squareBlockSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 1, 16, 16));
@@ -48,7 +49,7 @@ public class Game1 : Game
         tiles.Add(squareBlock);
         tiles.Add(blueGap);
         tiles.Add(stairs);
-
+        
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
         //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
@@ -57,7 +58,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         base.Initialize();
-
+        /*
         var commands = new Dictionary<Keys, ICommand>
     {
         { Keys.W, new MoveUpCommand(link) },
@@ -72,9 +73,9 @@ public class Game1 : Game
         { Keys.E, new DamageCommand(link) }         
     };
 
-        keyboardController = new KeyboardController(commands);
+        keyboardController = new KeyboardController(commands); */
     }
-
+        
     protected override void Update(GameTime gameTime)
     {
         var keyboardState = Keyboard.GetState();
@@ -84,7 +85,7 @@ public class Game1 : Game
             Exit();
         }
 
-        keyboardController.Update(gameTime);
+        //keyboardController.Update(gameTime);
         link.Update(gameTime);
 
         base.Update(gameTime);
