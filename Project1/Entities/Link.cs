@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.Diagnostics;
 using Project1.Interfaces;
 namespace Project1.Entities
 {
@@ -35,7 +35,7 @@ namespace Project1.Entities
 
         public void ChangeState(ILinkState newState)
         {
-            Console.WriteLine($"Changing state to: {newState.GetType().Name}");
+            Debug.WriteLine($"Changing state to: {newState.GetType().Name}");
             if (newState is LinkMoveUpState) PreviousDirection = Direction.Up;
             if (newState is LinkMoveDownState) PreviousDirection = Direction.Down;
             if (newState is LinkMoveLeftState) PreviousDirection = Direction.Left;

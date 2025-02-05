@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 
@@ -13,11 +14,13 @@ namespace Project1.Entities
 
         public LinkAttackState(Direction previousDirection)
         {
+
             _previousDirection = previousDirection;
         }
 
         public void Enter(Link link)
         {
+            Debug.WriteLine("attack");
             link.SetAnimation(GetAttackAnimationName());
             elapsedTime = 0;
         }
@@ -49,10 +52,12 @@ namespace Project1.Entities
 
         public void Update(Link link, GameTime gameTime)
         {
+            
             elapsedTime += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (elapsedTime >= AttackDuration)
             {
+                Debug.WriteLine("previous direction " + _previousDirection);
                 link.ChangeState(new LinkIdleState(_previousDirection)); // Return to previous idle direction
             }
         }

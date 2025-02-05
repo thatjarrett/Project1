@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-
+using System.Diagnostics;
 using Project1.Interfaces;
 namespace Project1.Entities
 {
@@ -9,6 +9,7 @@ namespace Project1.Entities
         private Direction _facingDirection = Direction.Down;
         public void Enter(Link link)
         {
+            Debug.WriteLine("move down state");
             link.SetAnimation("MoveDown");
         }
 
