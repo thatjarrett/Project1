@@ -18,7 +18,7 @@ namespace Project1.Entities
         {
             Debug.WriteLine("move right");
             _link.Move(2,0); // Moves Link right
-            _link.ChangeState(new LinkMoveRightState());
+            _link.MoveRight();
         }
     }
 }

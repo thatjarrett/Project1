@@ -14,8 +14,8 @@ namespace Project1.Entities
 
         public void Execute()
         {
-            _link.Move(-2, 0); // Moves Link left
-            _link.ChangeState(new LinkMoveLeftState());
+           
+            _link.MoveLeft();
         }
     }
 }

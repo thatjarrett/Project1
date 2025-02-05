@@ -15,7 +15,7 @@ namespace Project1.Entities
         public void Execute()
         {
             _link.Move(0, -2); // Moves Link up
-            _link.ChangeState(new LinkMoveUpState());
+            _link.MoveUp();
         }
     }
 }
