@@ -27,11 +27,21 @@ namespace Project1.Entities
             position = startPos;
             currentState = new LinkIdleState(Direction.Down); // Start in Idle state
         }
+        public Direction PreviousDirection { get; private set; } = Direction.Down;
+
+        private ILinkState _currentState;
 
         public void ChangeState(ILinkState newState)
         {
-            currentState = newState;
-            currentState.Enter(this);
+
+            if (newState is LinkMoveUpState) PreviousDirection = Direction.Up;
+            if (newState is LinkMoveDownState) PreviousDirection = Direction.Down;
+            if (newState is LinkMoveLeftState) PreviousDirection = Direction.Left;
+            if (newState is LinkMoveRightState) PreviousDirection = Direction.Right;
+
+            // Change the current state
+            _currentState = newState;
+            _currentState.Enter(this);
         }
 
         public void SetInvincible(bool value)

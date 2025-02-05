@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Project1.Entities;
 
-namespace Project1
+namespace Project1.Interfaces
 {
     public interface ILinkState
     {

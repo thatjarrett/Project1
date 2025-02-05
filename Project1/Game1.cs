@@ -2,17 +2,11 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Project1.Controllers;
-<<<<<<< HEAD
-using Project1.Entities;
-using Project1.Interfaces;
-using System.Collections.Generic;
-=======
 using Project1;
 using Project1.Sprites;
 using System.Collections.Generic;
 using Project1.GameObjects.Environment;
 using Project1.Interfaces;
->>>>>>> 0895e9e4577d78924758881193204d83699c710b
 
 public class Game1 : Game
 {
@@ -20,13 +14,9 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private KeyboardController keyboardController;
     private Link link;
-<<<<<<< HEAD
-    
-=======
 
     private List<environmentTile> tiles = new List<environmentTile>();
 
->>>>>>> 0895e9e4577d78924758881193204d83699c710b
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
