@@ -1,7 +1,7 @@
 ﻿using Project1.Interfaces;
 using Project1.Entities;
 
-namespace Project1.Commands
+namespace Project1.Entities
 {
     internal class MoveUpCommand : ICommand
     {
@@ -14,6 +14,7 @@ namespace Project1.Commands
 
         public void Execute()
         {
+            _link.Move(0, -2); // Moves Link up
             _link.ChangeState(new LinkMoveUpState());
         }
     }

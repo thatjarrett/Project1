@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Project1.Controllers;
-using Project1;
 using Project1.Sprites;
 using System.Collections.Generic;
 using Project1.GameObjects.Environment;
@@ -58,7 +57,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         base.Initialize();
-        /*
+        
         var commands = new Dictionary<Keys, ICommand>
     {
         { Keys.W, new MoveUpCommand(link) },
@@ -73,7 +72,7 @@ public class Game1 : Game
         { Keys.E, new DamageCommand(link) }         
     };
 
-        keyboardController = new KeyboardController(commands); */
+        keyboardController = new KeyboardController(commands); 
     }
         
     protected override void Update(GameTime gameTime)
@@ -85,7 +84,7 @@ public class Game1 : Game
             Exit();
         }
 
-        //keyboardController.Update(gameTime);
+        keyboardController.Update(gameTime);
         link.Update(gameTime);
 
         base.Update(gameTime);

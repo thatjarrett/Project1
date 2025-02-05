@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -34,7 +35,7 @@ namespace Project1.Entities
 
         public void ChangeState(ILinkState newState)
         {
-
+            Console.WriteLine($"Changing state to: {newState.GetType().Name}");
             if (newState is LinkMoveUpState) PreviousDirection = Direction.Up;
             if (newState is LinkMoveDownState) PreviousDirection = Direction.Down;
             if (newState is LinkMoveLeftState) PreviousDirection = Direction.Left;
@@ -52,26 +53,26 @@ namespace Project1.Entities
                 invincibleTime = InvincibilityDuration;
         }
 
-        public void MoveLeft(KeyboardState keyboardState)
+        public void MoveLeft()
         {
             currentState.MoveLeft(this);
         }
-        public void MoveRight(KeyboardState keyboardState)
+        public void MoveRight()
         {
             currentState.MoveRight(this);
         }
-        public void MoveUp(KeyboardState keyboardState)
+        public void MoveUp()
         {
             currentState.MoveUp(this);
         }
-        public void MoveDown(KeyboardState keyboardState)
+        public void MoveDown()
         {
             currentState.MoveDown(this);
         }
-        public void Update(GameTime gameTime) // ✅ Keeping `Update(GameTime gameTime)`
+        public void Update(GameTime gameTime)
         {
             currentState.Update(this, gameTime);
-            UpdateAnimation(); // ✅ Frame-based animation updates here
+            UpdateAnimation();
 
             if (isInvincible)
             {

@@ -1,7 +1,8 @@
 ﻿using Project1.Interfaces;
 using Project1.Entities;
+using System;
 
-namespace Project1.Commands
+namespace Project1.Entities
 {
     internal class DamageCommand : ICommand
     {
@@ -14,6 +15,7 @@ namespace Project1.Commands
 
         public void Execute()
         {
+            Console.WriteLine("DamageCommand Executed! Changing state to LinkDamageState...");
             _link.ChangeState(new LinkDamageState(_link.PreviousDirection));
         }
     }

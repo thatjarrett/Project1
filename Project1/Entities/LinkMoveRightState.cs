@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 
@@ -19,7 +20,7 @@ namespace Project1.Entities
         }
         public void MoveRight(Link link)
         {
-            
+            Debug.WriteLine("move right state");
         }
         public void MoveUp(Link link)
         {

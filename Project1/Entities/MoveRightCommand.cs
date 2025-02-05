@@ -1,7 +1,9 @@
 ﻿using Project1.Interfaces;
 using Project1.Entities;
+using System;
+using System.Diagnostics;
 
-namespace Project1.Commands
+namespace Project1.Entities
 {
     internal class MoveRightCommand : ICommand
     {
@@ -14,6 +16,8 @@ namespace Project1.Commands
 
         public void Execute()
         {
+            Debug.WriteLine("move right");
+            _link.Move(2,0); // Moves Link right
             _link.ChangeState(new LinkMoveRightState());
         }
     }

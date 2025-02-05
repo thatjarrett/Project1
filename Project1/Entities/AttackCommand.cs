@@ -1,7 +1,7 @@
 ﻿using Project1.Interfaces;
 using Project1.Entities;
 
-namespace Project1.Commands
+namespace Project1.Entities
 {
     internal class AttackCommand : ICommand
     {
@@ -14,7 +14,7 @@ namespace Project1.Commands
 
         public void Execute()
         {
-            _link.ChangeState(new LinkAttackState(_link.PreviousDirection));
+            _link.ChangeState(new LinkAttackState(_link.PreviousDirection)); 
         }
     }
 }
