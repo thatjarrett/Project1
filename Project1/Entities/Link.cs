@@ -31,7 +31,7 @@ namespace Project1.Entities
         }
         public Direction PreviousDirection { get; private set; } = Direction.Down;
 
-        private ILinkState _currentState;
+       
 
         public void ChangeState(ILinkState newState)
         {
@@ -42,8 +42,8 @@ namespace Project1.Entities
             if (newState is LinkMoveRightState) PreviousDirection = Direction.Right;
 
             // Change the current state
-            _currentState = newState;
-            _currentState.Enter(this);
+            currentState = newState;
+            currentState.Enter(this);
         }
 
         public void SetInvincible(bool value)

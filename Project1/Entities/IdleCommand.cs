@@ -1,21 +1,20 @@
 ﻿using Project1.Interfaces;
 using Project1.Entities;
 
-namespace Project1.Entities
+namespace Project1.Commands
 {
-    internal class MoveDownCommand : ICommand
+    internal class IdleCommand : ICommand
     {
         private readonly Link _link;
 
-        public MoveDownCommand(Link link)
+        public IdleCommand(Link link)
         {
             _link = link;
         }
 
         public void Execute()
         {
-            
-            _link.MoveDown();
+            _link.ChangeState(new LinkIdleState(_link.PreviousDirection)); // Stop movement
         }
     }
 }

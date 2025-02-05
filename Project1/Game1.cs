@@ -8,6 +8,7 @@ using Project1.GameObjects.Environment;
 using Project1.Interfaces;
 using Project1.Entities;
 using System;
+using Project1.Commands;
 
 public class Game1 : Game
 {
@@ -75,10 +76,11 @@ public class Game1 : Game
         { Keys.D, new MoveRightCommand(link) },
         { Keys.Right, new MoveRightCommand(link) }, 
         { Keys.Z, new AttackCommand(link) },
-        { Keys.E, new DamageCommand(link) }         
+        { Keys.E, new DamageCommand(link) } 
+            
     };
 
-        keyboardController = new KeyboardController(commands); 
+        keyboardController = new KeyboardController(commands, new IdleCommand(link)); 
     }
         
     protected override void Update(GameTime gameTime)
