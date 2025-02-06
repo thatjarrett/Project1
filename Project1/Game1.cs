@@ -54,6 +54,7 @@ public class Game1 : Game
         environmentTile stairs = new stairsTile(new Vector2(292, 100));
         environmentTile fire = new fireTile(new Vector2(340, 100));
         environmentTile oldMan = new oldManTile(new Vector2(388, 100));
+        environmentTile pushBlock = new pushableBlock(new Vector2(436, 100));
 
         tiles.Add(statueTile);
         tiles.Add(statueTile2);
@@ -62,6 +63,7 @@ public class Game1 : Game
         tiles.Add(stairs);
         tiles.Add(fire);
         tiles.Add(oldMan);
+        tiles.Add(pushBlock);
 
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
