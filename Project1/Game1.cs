@@ -9,6 +9,7 @@ using Project1.Interfaces;
 using Project1.Entities;
 using System;
 using Project1.Commands;
+using Project1.GameObjects.Background;
 
 public class Game1 : Game
 {
@@ -18,6 +19,8 @@ public class Game1 : Game
     private Link link;
 
     private List<environmentTile> tiles = new List<environmentTile>();
+
+    private List<backgroundTile> bTiles = new List<backgroundTile>();
 
     Texture2D linkTexture;
     Texture2D environmentTexture;
@@ -32,7 +35,11 @@ public class Game1 : Game
 
     ISprite fireSprite;
 
+    ISprite ladderSprite;
+
     Dictionary<int, ISprite> spritesIDs;
+
+    Dictionary<int, ISprite> bSpritesIDs;
 
     public Game1()
     {
@@ -64,6 +71,10 @@ public class Game1 : Game
         tiles.Add(fire);
         tiles.Add(oldMan);
         tiles.Add(pushBlock);
+
+        backgroundTile ladder = new Ladder(12, 14);
+
+        bTiles.Add(ladder);
 
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
@@ -99,6 +110,11 @@ public class Game1 : Game
             {6,oldManSprite},
         };
 
+        bSpritesIDs = new Dictionary<int, ISprite>
+        {
+            {0,ladderSprite}
+        };
+
         setTileSprites();
         keyboardController = new KeyboardController(commands, new IdleCommand(link));
     }
@@ -127,6 +143,11 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin();
+
+
+        foreach (var b in bTiles) {
+            b.draw(_spriteBatch);
+        }
 
         foreach (var tile in tiles)
         {
@@ -168,6 +189,8 @@ public class Game1 : Game
 
         Rectangle[] fireFrames = new Rectangle[] { new Rectangle(52, 1, 16, 16), new Rectangle(69, 1, 16, 16) };
         fireSprite = new NMoveAnim(npcTexture, fireFrames, 5);
+
+        ladderSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 35, 16, 16));
     }
 
     protected void createItemSprites()
@@ -185,6 +208,10 @@ public class Game1 : Game
         foreach (var tile in tiles)
         {
             tile.setSprite(spritesIDs[tile.getTileID()]);
+        }
+
+        foreach (var btile in bTiles) {
+            btile.setSprite(bSpritesIDs[btile.getID()]);
         }
 
     }
