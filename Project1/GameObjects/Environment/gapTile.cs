@@ -5,14 +5,12 @@ using Project1.Interfaces;
 
 namespace Project1.GameObjects.Environment
 {
-    public class statueTile : environmentTile
+    public class gapTile : environmentTile
     {
-        public statueTile(Vector2 pos, bool collides, ISprite sprite):
-            base(pos, collides = true, sprite)
+        public gapTile(Vector2 pos):
+            base(pos, true, 3)
         {
             
         }
-
-        
     }
 }
