@@ -50,6 +50,7 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        link = new Link(new Vector2(350, 170));
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         createSprites();
@@ -79,7 +80,7 @@ public class Game1 : Game
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
         //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
-        link = new Link(linkTexture, new Vector2(350, 170));
+        
     }
     protected override void Initialize()
     {
@@ -164,15 +165,11 @@ public class Game1 : Game
 
     protected void createSprites()
     {
+        linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         createItemSprites();
-        createLinkSprites();
+        link.createLinkSprites(linkTexture);
         createEnemySprites();
         createEnvironmentSprites();
-    }
-
-    protected void createLinkSprites()
-    {
-        linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
     }
 
     protected void createEnvironmentSprites()

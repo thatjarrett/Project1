@@ -39,7 +39,7 @@ namespace Project1.Sprites
             
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects)
         {
             spriteBatch.Draw(
                 _texture,
@@ -49,7 +49,7 @@ namespace Project1.Sprites
                 0f,
                 Vector2.Zero,
                 _scale,           // Scale factor
-                SpriteEffects.None,
+                spriteEffects,
                 0f
             );
         }

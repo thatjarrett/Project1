@@ -4,34 +4,49 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
 using Project1.Interfaces;
+using Project1.Sprites;
+using System.Reflection.Metadata;
 namespace Project1.Entities
 {
     public class Link
     {
         private ILinkState currentState;
-        private Texture2D spriteSheet;
         private Vector2 position;
-        private Rectangle sourceRect;
-        private int spriteWidth = 32;
-        private int spriteHeight = 32;
         private bool isInvincible = false;
         private double invincibleTime = 0;
         private const double InvincibilityDuration = 1.0; // 1 second
 
-        // Animation-related variables
-        private int frameIndex = 0;      // Current animation frame
-        private int frameCounter = 0;    // Counts updates for animation delay
-        private const int frameDelay = 10; // Change frame every 10 updates
+        private ISprite linkSprite;
 
-        public Link(Texture2D texture, Vector2 startPos)
+        private ISprite walkSideSprite;
+        private ISprite walkUpSprite;
+        private ISprite walkDownSprite;
+
+        private ISprite currentIdleSprite;
+        private ISprite idleSideSprite;
+        private ISprite idleUpSprite;
+        private ISprite idleDownSprite;
+
+        private ISprite currentAttackSprite;
+        private ISprite attackSideSprite;
+        private ISprite attackUpSprite;
+        private ISprite attackDownSprite;
+
+        private ISprite currentInteractSprite;
+        private ISprite interactSideSprite;
+        private ISprite interactUpSprite;
+        private ISprite interactDownSprite;
+
+        private SpriteEffects currentSpriteEffect = SpriteEffects.None;
+
+        public Link(Vector2 startPos)
         {
-            spriteSheet = texture;
             position = startPos;
             currentState = new LinkIdleState(Direction.Down); // Start in Idle state
         }
         public Direction PreviousDirection { get; private set; } = Direction.Down;
 
-       
+
 
         public void ChangeState(ILinkState newState)
         {
@@ -72,7 +87,6 @@ namespace Project1.Entities
         public void Update(GameTime gameTime)
         {
             currentState.Update(this, gameTime);
-            UpdateAnimation();
 
             if (isInvincible)
             {
@@ -80,65 +94,10 @@ namespace Project1.Entities
                 if (invincibleTime <= 0)
                     isInvincible = false;
             }
+            linkSprite.Update(gameTime);
+
         }
 
-        private void UpdateAnimation()
-        {
-            frameCounter++;
-
-            if (frameCounter >= frameDelay) // Change frame every `frameDelay` updates
-            {
-                frameCounter = 0;
-                frameIndex++;
-            }
-
-            SetAnimation(currentState.ToString()); // Ensure the correct animation
-        }
-
-        public void SetAnimation(string action)
-        {
-            int row = 0;
-            int maxFrames = 1;
-
-            if (action.Contains("Idle"))
-            {
-                row = 0;
-                maxFrames = 1;
-            }
-            else if (action.Contains("MoveUp"))
-            {
-                row = 1;
-                maxFrames = 2;
-            }
-            else if (action.Contains("MoveDown"))
-            {
-                row = 2;
-                maxFrames = 2;
-            }
-            else if (action.Contains("MoveLeft"))
-            {
-                row = 3;
-                maxFrames = 2;
-            }
-            else if (action.Contains("MoveRight"))
-            {
-                row = 4;
-                maxFrames = 2;
-            }
-            else if (action.Contains("Attack"))
-            {
-                row = 5;
-                maxFrames = 2;
-            }
-            else if (action.Contains("Damage"))
-            {
-                row = 6;
-                maxFrames = 2;
-            }
-
-            frameIndex %= maxFrames;
-            sourceRect = new Rectangle(frameIndex * spriteWidth, row * spriteHeight, spriteWidth, spriteHeight);
-        }
 
         public void Move(int dx, int dy)
         {
@@ -151,14 +110,101 @@ namespace Project1.Entities
             // Logic to trigger attack
         }
 
-        public bool AnimationFinished()
-        {
-            return frameIndex == 0; // Reset after completing cycle
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, position, sourceRect, Color.White);
+            linkSprite.Draw(spriteBatch, position,currentSpriteEffect);
+        }
+        public void createLinkSprites(Texture2D linkTexture)
+        {
+            Rectangle[] walkSide = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
+            Rectangle[] walkUp = new Rectangle[] { new Rectangle(69, 11, 16, 16), new Rectangle(86, 11, 16, 16) };
+            Rectangle[] walkDown = new Rectangle[] { new Rectangle(1, 11, 16, 16), new Rectangle(18, 11, 16, 16) };
+
+            Rectangle[] attackSide = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
+            Rectangle[] attackUp = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
+            Rectangle[] attackDown = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
+
+            Rectangle[] interactSide = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
+            Rectangle[] interactUp = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
+            Rectangle[] interactDown = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
+
+            ISprite walkLeftSprite = new NMoveAnim(linkTexture, walkSide, 5);
+
+            walkSideSprite = new NMoveAnim(linkTexture, walkSide, 5);
+            walkUpSprite = new NMoveAnim(linkTexture, walkUp, 5);
+            walkDownSprite = new NMoveAnim(linkTexture, walkDown, 5);
+
+            idleSideSprite = new NMoveNAnim(linkTexture,new Rectangle(2, 29, 15, 16)); 
+            idleUpSprite = new NMoveNAnim(linkTexture, new Rectangle(69, 11, 16, 16));
+            idleDownSprite = new NMoveNAnim(linkTexture, new Rectangle(1, 11, 16, 16));
+
+            attackSideSprite = new NMoveAnim(linkTexture, attackSide, 5);
+            attackUpSprite = new NMoveAnim(linkTexture, attackUp, 5);
+            attackDownSprite = new NMoveAnim(linkTexture, attackDown, 5);
+
+            interactSideSprite = new NMoveAnim(linkTexture, interactSide, 5);
+            interactUpSprite = new NMoveAnim(linkTexture, interactUp, 5);
+            interactDownSprite = new NMoveAnim(linkTexture, interactDown, 5);
+
+            currentIdleSprite = idleDownSprite;
+            currentAttackSprite = idleDownSprite;
+            currentInteractSprite = interactDownSprite;
+            linkSprite = currentIdleSprite;
+            
+        }
+
+        public void SetAnimation(string action)
+        {
+            if (action.Contains("Idle"))
+            {
+                linkSprite = currentIdleSprite;
+            }
+            else if (action.Contains("MoveUp"))
+            {
+                linkSprite = walkUpSprite;
+                currentIdleSprite = idleUpSprite;
+                currentAttackSprite = attackSideSprite;
+                currentInteractSprite = interactUpSprite;
+
+                currentSpriteEffect = SpriteEffects.None;
+            }
+            else if (action.Contains("MoveDown"))
+            {
+                linkSprite = walkDownSprite;
+                currentIdleSprite = idleDownSprite;
+                currentAttackSprite = attackDownSprite;
+                currentInteractSprite = interactDownSprite;
+
+                currentSpriteEffect = SpriteEffects.None;
+            }
+            else if (action.Contains("MoveLeft"))
+            {
+                linkSprite = walkSideSprite;
+
+                currentIdleSprite = idleSideSprite;
+                currentAttackSprite = attackSideSprite;
+                currentInteractSprite = interactSideSprite;
+
+                currentSpriteEffect = SpriteEffects.FlipHorizontally;
+            }
+            else if (action.Contains("MoveRight"))
+            {
+                linkSprite = walkSideSprite;
+                currentIdleSprite = idleSideSprite;
+                currentAttackSprite = attackSideSprite;
+                currentInteractSprite = interactSideSprite;
+
+                currentSpriteEffect = SpriteEffects.None;
+            }
+            else if (action.Contains("Attack"))
+            {
+                linkSprite = currentAttackSprite;
+            }
+            else if (action.Contains("Damage"))
+            {
+                linkSprite = currentInteractSprite;
+            }
         }
     }
 }
+   

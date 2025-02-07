@@ -22,7 +22,7 @@ namespace Project1.GameObjects.Background
         public void draw(SpriteBatch sb)
         {
             Vector2 v = new Vector2(x, why);
-            sprite.Draw(sb, v);
+            sprite.Draw(sb, v, SpriteEffects.None);
         }
 
         public bool isTraversable()

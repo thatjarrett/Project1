@@ -24,7 +24,7 @@ namespace Project1.GameObjects.Environment
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            _sprite.Draw(spriteBatch, _position);
+            _sprite.Draw(spriteBatch, _position, SpriteEffects.None);
         }
 
         public void setSprite(ISprite sprite)
