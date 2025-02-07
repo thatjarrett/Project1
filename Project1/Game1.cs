@@ -10,6 +10,7 @@ using Project1.Entities;
 using System;
 using Project1.Commands;
 using Project1.GameObjects.Background;
+using Project1.GameObjects.Items;
 
 public class Game1 : Game
 {
@@ -25,6 +26,7 @@ public class Game1 : Game
     Texture2D linkTexture;
     Texture2D environmentTexture;
     Texture2D npcTexture;
+    Texture2D itemTexture;
 
     ISprite statueLeftSprite;
     ISprite statueRightSprite;
@@ -37,9 +39,13 @@ public class Game1 : Game
 
     ISprite ladderSprite;
 
+    ISprite boomerang;
+
     Dictionary<int, ISprite> spritesIDs;
 
     Dictionary<int, ISprite> bSpritesIDs;
+
+    private List<ISprite> itemsList = new List<ISprite>();
 
     public Game1()
     {
@@ -76,6 +82,8 @@ public class Game1 : Game
         backgroundTile ladder = new Ladder(12, 14);
 
         bTiles.Add(ladder);
+
+        itemsList.Add(boomerang);
 
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
@@ -137,6 +145,11 @@ public class Game1 : Game
         }
         base.Update(gameTime);
 
+        foreach(var item in itemsList)
+        {
+            item.Update(gameTime);
+        }
+
     }
 
     protected override void Draw(GameTime gameTime)
@@ -154,6 +167,12 @@ public class Game1 : Game
         {
             tile.Draw(_spriteBatch);
         }
+
+        foreach (var item in itemsList)
+        {
+            item.Draw(_spriteBatch,new Vector2(300,200), SpriteEffects.None);
+        }
+
         //Keep link below the tiles so he's drawn above them
         link.Draw(_spriteBatch);
         _spriteBatch.End();
@@ -170,6 +189,7 @@ public class Game1 : Game
         link.createLinkSprites(linkTexture);
         createEnemySprites();
         createEnvironmentSprites();
+        createItemSprites();
     }
 
     protected void createEnvironmentSprites()
@@ -192,7 +212,8 @@ public class Game1 : Game
 
     protected void createItemSprites()
     {
-        //Create sprites for items here
+        itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
+        boomerang = new Boomerang(itemTexture);
     }
 
     protected void createEnemySprites()
