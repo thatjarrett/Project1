@@ -38,6 +38,9 @@ public class Game1 : Game
     ISprite fireSprite;
 
     ISprite ladderSprite;
+    ISprite whiteBrickSprite;
+    ISprite blueFloorSprite;
+    ISprite blueSandSprite;
 
     ISprite boomerang;
 
@@ -80,8 +83,15 @@ public class Game1 : Game
         tiles.Add(pushBlock);
 
         backgroundTile ladder = new Ladder(12, 14);
+        backgroundTile whiteBrick = new WhiteBrick(60, 14);
+        backgroundTile blueFloor = new BlueFloor(108, 14);
+        backgroundTile blueSand = new BlueSand(156, 14);
+
 
         bTiles.Add(ladder);
+        bTiles.Add(whiteBrick);
+        bTiles.Add(blueFloor);
+        bTiles.Add(blueSand);
 
         itemsList.Add(boomerang);
 
@@ -121,7 +131,10 @@ public class Game1 : Game
 
         bSpritesIDs = new Dictionary<int, ISprite>
         {
-            {0,ladderSprite}
+            {0,ladderSprite},
+            {1, whiteBrickSprite},
+            {2, blueFloorSprite},
+            {3, blueSandSprite}
         };
 
         setTileSprites();
@@ -208,6 +221,10 @@ public class Game1 : Game
         fireSprite = new NMoveAnim(npcTexture, fireFrames, 5);
 
         ladderSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 35, 16, 16));
+        whiteBrickSprite = new NMoveNAnim(environmentTexture, new Rectangle(464, 35, 16, 16));
+        blueFloorSprite = new NMoveNAnim(environmentTexture, new Rectangle(464, 1, 16, 16));
+        blueSandSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 18, 16, 16));
+
     }
 
     protected void createItemSprites()
