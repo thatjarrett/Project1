@@ -35,6 +35,34 @@ public class Game1 : Game
     ISprite stairsSprite;
     ISprite oldManSprite;
 
+    ISprite topWallSprite;
+    ISprite topPlainWallSprite;
+    ISprite topOpenDoorSprite;
+    ISprite topBombedOpeningSprite;
+    ISprite topKeyLockedDoorSprite;
+    ISprite topDiamondLockedDoorSprite;
+
+    ISprite bottomWallSprite;
+    ISprite bottomPlainWallSprite;
+    ISprite bottomOpenDoorSprite;
+    ISprite bottomBombedOpeningSprite;
+    ISprite bottomKeyLockedDoorSprite;
+    ISprite bottomDiamondLockedDoorSprite;
+
+    ISprite leftWallSprite;
+    ISprite leftPlainWallSprite;
+    ISprite leftOpenDoorSprite;
+    ISprite leftBombedOpeningSprite;
+    ISprite leftKeyLockedDoorSprite;
+    ISprite leftDiamondLockedDoorSprite;
+
+    ISprite rightWallSprite;
+    ISprite rightPlainWallSprite;
+    ISprite rightOpenDoorSprite;
+    ISprite rightBombedOpeningSprite;
+    ISprite rightKeyLockedDoorSprite;
+    ISprite rightDiamondLockedDoorSprite;
+
     ISprite fireSprite;
 
     ISprite ladderSprite;
@@ -73,6 +101,34 @@ public class Game1 : Game
         environmentTile oldMan = new oldManTile(new Vector2(388, 100));
         environmentTile pushBlock = new pushableBlock(new Vector2(436, 100));
 
+        environmentTile topWall = new wallTile(new Vector2(0, 0), 7);
+        environmentTile topPlainWall = new doorTile(new Vector2(336, 0), 8);
+        environmentTile topOpenDoor = new doorTile(new Vector2(336, 0), 9);
+        environmentTile topKeyLockedDoor = new doorTile(new Vector2(336, 0), 11);
+        environmentTile topDiamondLockedDoor = new doorTile(new Vector2(336, 0), 12);
+        environmentTile topBombedOpening = new doorTile(new Vector2(336, 0), 10);
+
+        environmentTile bottomWall = new wallTile(new Vector2(0, 384), 13);
+        environmentTile bottomPlainWall = new doorTile(new Vector2(336, 384), 14);
+        environmentTile bottomOpenDoor = new doorTile(new Vector2(336, 384), 15);
+        environmentTile bottomKeyLockedDoor = new doorTile(new Vector2(336, 384), 17);
+        environmentTile bottomDiamondLockedDoor = new doorTile(new Vector2(336, 384), 18);
+        environmentTile bottomBombedOpening = new doorTile(new Vector2(336, 384), 16);
+
+        environmentTile leftWall = new wallTile(new Vector2(0, 96), 19);
+        environmentTile leftPlainWall = new doorTile(new Vector2(0, 216), 20);
+        environmentTile leftOpenDoor = new doorTile(new Vector2(0, 216), 21);
+        environmentTile leftKeyLockedDoor = new doorTile(new Vector2(0, 216), 23);
+        environmentTile leftDiamondLockedDoor = new doorTile(new Vector2(0, 216), 24);
+        environmentTile leftBombedOpening = new doorTile(new Vector2(0, 216), 22);
+
+        environmentTile rightWall = new wallTile(new Vector2(672, 96), 25);
+        environmentTile rightPlainWall = new doorTile(new Vector2(672, 216), 26);
+        environmentTile rightOpenDoor = new doorTile(new Vector2(672, 216), 27);
+        environmentTile rightKeyLockedDoor = new doorTile(new Vector2(672, 216), 29);
+        environmentTile rightDiamondLockedDoor = new doorTile(new Vector2(672, 216), 30);
+        environmentTile rightBombedOpening = new doorTile(new Vector2(672, 216), 28);
+
         tiles.Add(statueTile);
         tiles.Add(statueTile2);
         tiles.Add(squareBlock);
@@ -81,6 +137,34 @@ public class Game1 : Game
         tiles.Add(fire);
         tiles.Add(oldMan);
         tiles.Add(pushBlock);
+
+        tiles.Add(topWall);
+        tiles.Add(topPlainWall);
+        tiles.Add(topOpenDoor);
+        tiles.Add(topKeyLockedDoor);
+        tiles.Add(topDiamondLockedDoor);
+        tiles.Add(topBombedOpening);
+
+        tiles.Add(bottomWall);
+        tiles.Add(bottomPlainWall);
+        tiles.Add(bottomOpenDoor);
+        tiles.Add(bottomKeyLockedDoor);
+        tiles.Add(bottomDiamondLockedDoor);
+        tiles.Add(bottomBombedOpening);
+
+        tiles.Add(leftWall);
+        tiles.Add(leftPlainWall);
+        tiles.Add(leftOpenDoor);
+        tiles.Add(leftKeyLockedDoor);
+        tiles.Add(leftDiamondLockedDoor);
+        tiles.Add(leftBombedOpening);
+
+        tiles.Add(rightWall);
+        tiles.Add(rightPlainWall);
+        tiles.Add(rightOpenDoor);
+        tiles.Add(rightKeyLockedDoor);
+        tiles.Add(rightDiamondLockedDoor);
+        tiles.Add(rightBombedOpening);
 
         backgroundTile ladder = new Ladder(12, 14);
         backgroundTile whiteBrick = new WhiteBrick(60, 14);
@@ -127,6 +211,30 @@ public class Game1 : Game
             {4,stairsSprite},
             {5,fireSprite},
             {6,oldManSprite},
+            {7,topWallSprite},
+            {8,topPlainWallSprite},
+            {9,topOpenDoorSprite},
+            {10,topBombedOpeningSprite},
+            {11,topKeyLockedDoorSprite},
+            {12,topDiamondLockedDoorSprite},
+            {13,bottomWallSprite},
+            {14,bottomPlainWallSprite},
+            {15,bottomOpenDoorSprite},
+            {16,bottomBombedOpeningSprite},
+            {17,bottomKeyLockedDoorSprite},
+            {18,bottomDiamondLockedDoorSprite},
+            {19,leftWallSprite},
+            {20,leftPlainWallSprite},
+            {21,leftOpenDoorSprite},
+            {22,leftBombedOpeningSprite},
+            {23,leftKeyLockedDoorSprite},
+            {24,leftDiamondLockedDoorSprite},
+            {25,rightWallSprite},
+            {26,rightPlainWallSprite},
+            {27,rightOpenDoorSprite},
+            {28,rightBombedOpeningSprite},
+            {29,rightKeyLockedDoorSprite},
+            {30,rightDiamondLockedDoorSprite},
         };
 
         bSpritesIDs = new Dictionary<int, ISprite>
@@ -216,6 +324,34 @@ public class Game1 : Game
         blueGapSprite = new NMoveNAnim(environmentTexture, new Rectangle(498, 18, 16, 16));
         stairsSprite = new NMoveNAnim(environmentTexture, new Rectangle(515, 18, 16, 16));
         oldManSprite = new NMoveNAnim(npcTexture,new Rectangle(1,1, 16, 16));
+
+        topWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 1, 256, 32));
+        topPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 1, 32, 32));
+        topOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 1, 32, 32));
+        topKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 1, 32, 32));
+        topDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 1, 32, 32));
+        topBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 1, 32, 32));
+
+        bottomWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 145, 256, 32));
+        bottomPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 100, 32, 32));
+        bottomOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 100, 32, 32));
+        bottomKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 100, 32, 32));
+        bottomDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 100, 32, 32));
+        bottomBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 100, 32, 32));
+
+        leftWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 33, 32, 96));
+        leftPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 34, 32, 32));
+        leftOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 34, 32, 32));
+        leftKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 34, 32, 32));
+        leftDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 34, 32, 32));
+        leftBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 34, 32, 32));
+
+        rightWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(225, 33, 32, 96));
+        rightPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 67, 32, 32));
+        rightOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 67, 32, 32));
+        rightKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 67, 32, 32));
+        rightDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 67, 32, 32));
+        rightBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 67, 32, 32));
 
         Rectangle[] fireFrames = new Rectangle[] { new Rectangle(52, 1, 16, 16), new Rectangle(69, 1, 16, 16) };
         fireSprite = new NMoveAnim(npcTexture, fireFrames, 5);
