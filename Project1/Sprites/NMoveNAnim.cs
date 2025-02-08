@@ -10,6 +10,7 @@ namespace Project1.Sprites
         private Texture2D _texture;
         private Rectangle _sourceRectangle;
         private float _scale; // Scale factor for sprite size
+        Color color = Color.White;
 
         public NMoveNAnim(Texture2D texture, Rectangle rectangle, float scale = 3.0f)
         {
@@ -30,13 +31,17 @@ namespace Project1.Sprites
                 _texture,
                 position,
                 _sourceRectangle,
-                Color.White,
+                color,
                 0f,
                 Vector2.Zero,
                 _scale,           // Scale factor
                 spriteEffects,
                 0f
             );
+        }
+        public void SetColor(Color _color)
+        {
+            color = _color;
         }
     }
 }

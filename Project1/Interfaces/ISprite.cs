@@ -12,5 +12,8 @@ namespace Project1.Interfaces
     {
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects);
+
+        void SetColor(Color color);
+
     }
 }

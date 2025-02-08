@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Project1.Interfaces;
+using System.Drawing;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 
 namespace Project1.GameObjects.Items
@@ -33,13 +36,16 @@ namespace Project1.GameObjects.Items
                 destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2 * 8);
             }
           
-            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
+            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState],Color.White);
         }
 
         public void Update(GameTime gameTime)
         {
             frameState = (gameTime.TotalGameTime.Seconds) % 2;
 
+        }
+        public void SetColor(Color _color)
+        {
         }
     }
 }
