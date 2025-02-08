@@ -138,7 +138,7 @@ public class Game1 : Game
         tiles.Add(oldMan);
         tiles.Add(pushBlock);
 
-        tiles.Add(topWall);
+        /*tiles.Add(topWall);
         tiles.Add(topPlainWall);
         tiles.Add(topOpenDoor);
         tiles.Add(topKeyLockedDoor);
@@ -164,7 +164,7 @@ public class Game1 : Game
         tiles.Add(rightOpenDoor);
         tiles.Add(rightKeyLockedDoor);
         tiles.Add(rightDiamondLockedDoor);
-        tiles.Add(rightBombedOpening);
+        tiles.Add(rightBombedOpening);*/
 
         backgroundTile ladder = new Ladder(12, 14);
         backgroundTile whiteBrick = new WhiteBrick(60, 14);
