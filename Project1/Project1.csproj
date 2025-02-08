@@ -23,6 +23,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Entities\UseItemCommand.cs" />
     <None Include="GameObjects\Background\WhiteBrick.cs" />
   </ItemGroup>
   <ItemGroup>

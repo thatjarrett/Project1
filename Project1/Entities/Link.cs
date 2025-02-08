@@ -84,6 +84,10 @@ namespace Project1.Entities
         {
             currentState.MoveDown(this);
         }
+        public void Item(int itemNumber)
+        {
+            currentState.Item(this, itemNumber);
+        }
         public void Update(GameTime gameTime)
         {
             currentState.Update(this, gameTime);

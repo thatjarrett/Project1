@@ -190,16 +190,25 @@ public class Game1 : Game
 
         var commands = new Dictionary<Keys, ICommand>
     {
-        { Keys.W, new MoveUpCommand(link) },
-        { Keys.Up, new MoveUpCommand(link) },
-        { Keys.S, new MoveDownCommand(link) },
-        { Keys.Down, new MoveDownCommand(link) },
-        { Keys.A, new MoveLeftCommand(link) },
-        { Keys.Left, new MoveLeftCommand(link) },
-        { Keys.D, new MoveRightCommand(link) },
-        { Keys.Right, new MoveRightCommand(link) },
-        { Keys.Z, new AttackCommand(link) },
-        { Keys.E, new DamageCommand(link) }
+{ Keys.W, new MoveUpCommand(link) },
+{ Keys.Up, new MoveUpCommand(link) },
+{ Keys.S, new MoveDownCommand(link) },
+{ Keys.Down, new MoveDownCommand(link) },
+{ Keys.A, new MoveLeftCommand(link) },
+{ Keys.Left, new MoveLeftCommand(link) },
+{ Keys.D, new MoveRightCommand(link) },
+{ Keys.Right, new MoveRightCommand(link) },
+{ Keys.Z, new AttackCommand(link) },
+{ Keys.E, new DamageCommand(link) },
+{ Keys.D1, new UseItemCommand(link, 1) },
+{ Keys.D2, new UseItemCommand(link, 2) },
+{ Keys.D3, new UseItemCommand(link, 3) },
+{ Keys.D4, new UseItemCommand(link, 4) },
+{ Keys.D5, new UseItemCommand(link, 5) },
+{ Keys.D6, new UseItemCommand(link, 6) },
+{ Keys.D7, new UseItemCommand(link, 7) },
+{ Keys.D8, new UseItemCommand(link, 8) },
+{ Keys.D9, new UseItemCommand(link, 9) }
 
     };
         spritesIDs = new Dictionary<int, ISprite>

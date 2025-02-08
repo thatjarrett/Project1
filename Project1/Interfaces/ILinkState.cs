@@ -13,6 +13,7 @@ namespace Project1.Interfaces
         void MoveDown(Link link);
         void Attack(Link link);
         void Damage(Link link);
+        void Item(Link link, int itemNumber);
         void Update(Link link, GameTime gameTime);
     }
 }

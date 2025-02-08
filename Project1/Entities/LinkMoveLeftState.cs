@@ -36,6 +36,10 @@ namespace Project1.Entities
         {
             link.ChangeState(new LinkDamageState(_facingDirection));
         }
+        public void Item(Link link, int itemNumber)
+        {
+            link.ChangeState(new LinkUseItemState(_facingDirection));
+        }
         public void Update(Link link, GameTime gameTime)
         {
             link.Move(-2, 0); // Move left

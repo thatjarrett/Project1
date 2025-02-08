@@ -47,9 +47,12 @@ namespace Project1.Entities
         }
         public void Damage(Link link)
         {
-           
+            link.ChangeState(new LinkDamageState(_previousDirection));
         }
-
+        public void Item(Link link, int itemNumber)
+        {
+            
+        }
         public void Update(Link link, GameTime gameTime)
         {
             
