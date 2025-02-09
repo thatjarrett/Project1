@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 
@@ -19,7 +20,7 @@ namespace Project1.Entities
         public void Enter(Link link)
         {
             link.SetAnimation("Item"); // Play item animation
-               
+            
             elapsedTime = 0;             // Reset timer
         }
 
@@ -54,7 +55,7 @@ namespace Project1.Entities
         public void Update(Link link, GameTime gameTime)
         {
             elapsedTime += gameTime.ElapsedGameTime.TotalSeconds;
-
+            Debug.WriteLine("use item.");
             if (elapsedTime >= ItemDuration)
             {
                 

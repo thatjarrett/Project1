@@ -89,7 +89,7 @@ namespace Project1.Entities
         }
         public void Item(int itemNumber)
         {
-            //currentState.Item(this, itemNumber);
+            currentState.Item(this, itemNumber);
         }
         public void Update(GameTime gameTime)
         {
