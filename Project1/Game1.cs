@@ -18,8 +18,11 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private KeyboardController keyboardController;
     private Link link;
+    private Aquamentus aquamentus; 
 
     private List<environmentTile> tiles = new List<environmentTile>();
+
+    //private List<Enemy> enemies = new List<Enemy>();
 
     private List<backgroundTile> bTiles = new List<backgroundTile>();
 
@@ -27,6 +30,7 @@ public class Game1 : Game
     Texture2D environmentTexture;
     Texture2D npcTexture;
     Texture2D itemTexture;
+    Texture2D aquamentusTexture;
 
     ISprite statueLeftSprite;
     ISprite statueRightSprite;
@@ -89,6 +93,7 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         link = new Link(new Vector2(350, 170));
+        aquamentus = new Aquamentus(new Vector2(500, 170));
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         createSprites();
@@ -274,6 +279,7 @@ public class Game1 : Game
 
         keyboardController.Update(gameTime);
         link.Update(gameTime);
+        aquamentus.Update(gameTime);
         foreach (var tile in tiles)
         {
             tile.Update(gameTime);
@@ -309,6 +315,7 @@ public class Game1 : Game
         }
 
         //Keep link below the tiles so he's drawn above them
+        aquamentus.Draw(_spriteBatch);
         link.Draw(_spriteBatch);
         _spriteBatch.End();
 
@@ -387,6 +394,9 @@ public class Game1 : Game
     protected void createEnemySprites()
     {
         //Create sprites for enemies here
+        aquamentusTexture = Content.Load<Texture2D>("Images/bosses");
+        //enemyTexture = Content.Load<Texture2D>("Images/enemies");
+        aquamentus.createEnemySprites(aquamentusTexture);
     }
     public void RestartGame()
     {
