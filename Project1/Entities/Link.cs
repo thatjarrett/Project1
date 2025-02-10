@@ -6,12 +6,15 @@ using System.Diagnostics;
 using Project1.Interfaces;
 using Project1.Sprites;
 using System.Reflection.Metadata;
+using Project1.Projectiles;
+using System.Collections.Generic;
 namespace Project1.Entities
 {
     public class Link
     {
         private ILinkState currentState;
         private Vector2 position;
+        private Vector2 faceDirection;
         private bool isInvincible = false;
         private double invincibleTime = 0;
         private const double InvincibilityDuration = 1.0; // 1 second
@@ -37,10 +40,18 @@ namespace Project1.Entities
         private ISprite interactUpSprite;
         private ISprite interactDownSprite;
 
+        private ISprite swordBeamHorizontal;
+        private ISprite swordBeamVertical;
+        private ISprite arrowHorizontal;
+        private ISprite arrowVertical;
+        private ISprite boomerang;
+
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
 
         int damageFrameCounter = 0;
         bool hurting = false;
+
+        private List<Projectile> projectilesList = new List<Projectile>();
 
         public Link(Vector2 startPos)
         {
@@ -89,7 +100,23 @@ namespace Project1.Entities
         }
         public void Item(int itemNumber)
         {
+
             currentState.Item(this, itemNumber);
+            Projectile projectile = null;
+            switch (itemNumber)
+            {
+                case 1:
+                     projectile = new StraightProjectile(position, faceDirection, swordBeamHorizontal, swordBeamVertical, 5);
+                    break;
+                case 2:
+                    projectile = new StraightProjectile(position, faceDirection, arrowHorizontal, arrowVertical, 5);
+                    break;
+
+            }
+            if (projectile != null)
+            {
+                projectilesList.Add(projectile);
+            }
         }
         public void Update(GameTime gameTime)
         {
@@ -102,7 +129,10 @@ namespace Project1.Entities
                     isInvincible = false;
             }
             linkSprite.Update(gameTime);
-
+            foreach (var projectile in projectilesList)
+            {
+                projectile.Update(gameTime);
+            }
         }
 
 
@@ -139,7 +169,12 @@ namespace Project1.Entities
             {
                 linkSprite.Draw(spriteBatch, position, currentSpriteEffect);
             }
-            
+
+            foreach (var projectile in projectilesList)
+            {
+                projectile.Draw(spriteBatch);
+            }
+
         }
         public void createLinkSprites(Texture2D linkTexture)
         {
@@ -148,10 +183,8 @@ namespace Project1.Entities
             Rectangle[] walkDown = new Rectangle[] { new Rectangle(1, 11, 16, 16), new Rectangle(18, 11, 16, 16) };
 
             Rectangle[] attackSide = new Rectangle[] { new Rectangle(1, 77, 16, 16), new Rectangle(18, 77, 27, 17), new Rectangle(46, 77, 23, 17), new Rectangle(70, 77, 19, 17) };
-            Rectangle[] attackUp = new Rectangle[] { new Rectangle(1, 109, 16, 16), new Rectangle(18, 97, 16, 28), new Rectangle(35, 98, 16, 27), new Rectangle(52, 106, 16, 19) };
+            Rectangle[] attackUp = new Rectangle[] { new Rectangle(1, 97, 16, 28), new Rectangle(18, 97, 16, 28), new Rectangle(35, 97, 16, 28), new Rectangle(52, 97, 16, 28) };
             Rectangle[] attackDown = new Rectangle[] { new Rectangle(1, 47, 16, 16), new Rectangle(18, 47, 16, 27), new Rectangle(35, 47, 16, 23), new Rectangle(53, 47, 16, 19) };
-
-            ISprite walkLeftSprite = new NMoveAnim(linkTexture, walkSide, 5);
 
             walkSideSprite = new NMoveAnim(linkTexture, walkSide, 5);
             walkUpSprite = new NMoveAnim(linkTexture, walkUp, 5);
@@ -162,7 +195,7 @@ namespace Project1.Entities
             idleDownSprite = new NMoveNAnim(linkTexture, new Rectangle(1, 11, 16, 16));
 
             attackSideSprite = new NMoveAnim(linkTexture, attackSide, 5);
-            attackUpSprite = new NMoveAnim(linkTexture, attackUp, 5);
+            attackUpSprite = new NMoveAnim(linkTexture, attackUp, 5, 3, new Vector2(0, 12));
             attackDownSprite = new NMoveAnim(linkTexture, attackDown, 5);
 
             interactSideSprite = new NMoveNAnim(linkTexture, new Rectangle(124, 11, 15, 16));
@@ -173,7 +206,9 @@ namespace Project1.Entities
             currentAttackSprite = idleDownSprite;
             currentInteractSprite = interactDownSprite;
             linkSprite = currentIdleSprite;
-            
+            faceDirection = new Vector2(0, 1);
+
+            createProjectileSprites(linkTexture);
         }
 
         public void SetAnimation(string action)
@@ -188,7 +223,7 @@ namespace Project1.Entities
                 currentIdleSprite = idleUpSprite;
                 currentAttackSprite = attackUpSprite;
                 currentInteractSprite = interactUpSprite;
-
+                faceDirection = new Vector2(0, -1);
                 currentSpriteEffect = SpriteEffects.None;
             }
             else if (action.Contains("MoveDown"))
@@ -197,7 +232,7 @@ namespace Project1.Entities
                 currentIdleSprite = idleDownSprite;
                 currentAttackSprite = attackDownSprite;
                 currentInteractSprite = interactDownSprite;
-
+                faceDirection = new Vector2(0, 1);
                 currentSpriteEffect = SpriteEffects.None;
             }
             else if (action.Contains("MoveLeft"))
@@ -207,7 +242,7 @@ namespace Project1.Entities
                 currentIdleSprite = idleSideSprite;
                 currentAttackSprite = attackSideSprite;
                 currentInteractSprite = interactSideSprite;
-
+                faceDirection = new Vector2(-1, 0);
                 currentSpriteEffect = SpriteEffects.FlipHorizontally;
             }
             else if (action.Contains("MoveRight"))
@@ -216,7 +251,7 @@ namespace Project1.Entities
                 currentIdleSprite = idleSideSprite;
                 currentAttackSprite = attackSideSprite;
                 currentInteractSprite = interactSideSprite;
-
+                faceDirection = new Vector2(1, 0);
                 currentSpriteEffect = SpriteEffects.None;
             }
             else if (action.Contains("Attack"))
@@ -227,13 +262,24 @@ namespace Project1.Entities
             {
                 hurting = true;
             }
-            else if (action.Contains("Interact"))
+            else if (action.Contains("Item"))
             {
                 linkSprite = currentInteractSprite;
+
             }
             if (!action.Contains("Damage")){
                 hurting = false;
             }
+        }
+        private void createProjectileSprites(Texture2D texture)
+        {
+            arrowHorizontal = new NMoveNAnim(texture, new Rectangle(10, 185, 16, 16));
+            arrowVertical = new NMoveNAnim(texture, new Rectangle(1, 185, 8, 16));
+
+            swordBeamHorizontal = new NMoveAnim(texture, new Rectangle[] { new Rectangle(45, 154, 16, 16), new Rectangle(115, 154, 16, 16) },5);
+            swordBeamVertical = new NMoveAnim(texture, new Rectangle[] { new Rectangle(36, 154, 8, 16), new Rectangle(106, 154, 8, 16) }, 5);
+
+            boomerang = new NMoveAnim(texture, new Rectangle[] { new Rectangle(64, 185, 8, 16), new Rectangle(73, 185, 8, 16) }, 5);
         }
     }
 }
