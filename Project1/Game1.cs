@@ -73,6 +73,11 @@ public class Game1 : Game
     ISprite boomerang;
     ISprite HeartContainer;
 
+    private int currentBlockIndex = 0;
+    private int currentItemIndex = 0;
+    private int currentNPCIndex = 0;
+
+
     Dictionary<int, ISprite> spritesIDs;
 
     Dictionary<int, ISprite> bSpritesIDs;
@@ -213,7 +218,13 @@ public class Game1 : Game
 { Keys.D8, new UseItemCommand(link, 8) },
 { Keys.D9, new UseItemCommand(link, 9) },
 { Keys.Q, new QuitCommand(this) },   
-{ Keys.R, new ResetCommand(this) }
+{ Keys.R, new ResetCommand(this) },
+{ Keys.T, new CycleBlockCommand(this, false) }, // Previous block
+{ Keys.Y, new CycleBlockCommand(this, true) },  // Next block
+{ Keys.U, new CycleItemCommand(this, false) }, // Previous item
+{ Keys.I, new CycleItemCommand(this, true) },  // Next item
+{ Keys.O, new CycleNPCCommand(this, false) }, // Previous NPC
+{ Keys.P, new CycleNPCCommand(this, true) }   // Next NPC
 
     };
         spritesIDs = new Dictionary<int, ISprite>
@@ -382,6 +393,23 @@ public class Game1 : Game
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
         boomerang = new Boomerang(itemTexture);
         HeartContainer = new HeartContainer(itemTexture);
+    }
+    public void CycleBlock(bool forward)
+    {
+        if (tiles.Count == 0) return;
+        currentBlockIndex = (currentBlockIndex + (forward ? 1 : tiles.Count - 1)) % tiles.Count;
+    }
+
+    public void CycleItem(bool forward)
+    {
+        if (itemsList.Count == 0) return;
+        currentItemIndex = (currentItemIndex + (forward ? 1 : itemsList.Count - 1)) % itemsList.Count;
+    }
+
+    public void CycleNPC(bool forward)
+    {
+        if (bTiles.Count == 0) return;
+        currentNPCIndex = (currentNPCIndex + (forward ? 1 : bTiles.Count - 1)) % bTiles.Count;
     }
 
     protected void createEnemySprites()
