@@ -46,6 +46,8 @@ namespace Project1.Entities
         private ISprite arrowVertical;
         private ISprite boomerang;
 
+        private BoomerangProjectile boomerangThrowable;
+
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
 
         int damageFrameCounter = 0;
@@ -111,7 +113,9 @@ namespace Project1.Entities
                 case 2:
                     projectile = new StraightProjectile(position, faceDirection, arrowHorizontal, arrowVertical, 5);
                     break;
-
+                case 3:
+                    boomerangThrowable.Throw(position,faceDirection);
+                    break;
             }
             if (projectile != null)
             {
@@ -133,6 +137,7 @@ namespace Project1.Entities
             {
                 projectile.Update(gameTime);
             }
+            boomerangThrowable.Update(gameTime, position);
         }
 
 
@@ -174,6 +179,7 @@ namespace Project1.Entities
             {
                 projectile.Draw(spriteBatch);
             }
+            boomerangThrowable.Draw(spriteBatch);
 
         }
         public void createLinkSprites(Texture2D linkTexture)
@@ -279,7 +285,8 @@ namespace Project1.Entities
             swordBeamHorizontal = new NMoveAnim(texture, new Rectangle[] { new Rectangle(45, 154, 16, 16), new Rectangle(115, 154, 16, 16) },5);
             swordBeamVertical = new NMoveAnim(texture, new Rectangle[] { new Rectangle(36, 154, 8, 16), new Rectangle(106, 154, 8, 16) }, 5);
 
-            boomerang = new NMoveAnim(texture, new Rectangle[] { new Rectangle(64, 185, 8, 16), new Rectangle(73, 185, 8, 16) }, 5);
+            boomerang = new NMoveAnim(texture, new Rectangle[] { new Rectangle(64, 185, 8, 16), new Rectangle(73, 185, 8, 16), new Rectangle(82, 185, 8, 16), new Rectangle(73, 185, 8, 16) }, 5);
+            boomerangThrowable = new BoomerangProjectile(boomerang);
         }
     }
 }
