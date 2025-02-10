@@ -201,6 +201,7 @@ public class Game1 : Game
 { Keys.D, new MoveRightCommand(link) },
 { Keys.Right, new MoveRightCommand(link) },
 { Keys.Z, new AttackCommand(link) },
+{ Keys.N, new AttackCommand(link) },
 { Keys.E, new DamageCommand(link) },
 { Keys.D1, new UseItemCommand(link, 1) },
 { Keys.D2, new UseItemCommand(link, 2) },
@@ -210,7 +211,9 @@ public class Game1 : Game
 { Keys.D6, new UseItemCommand(link, 6) },
 { Keys.D7, new UseItemCommand(link, 7) },
 { Keys.D8, new UseItemCommand(link, 8) },
-{ Keys.D9, new UseItemCommand(link, 9) }
+{ Keys.D9, new UseItemCommand(link, 9) },
+{ Keys.Q, new QuitCommand(this) },   
+{ Keys.R, new ResetCommand(this) }
 
     };
         spritesIDs = new Dictionary<int, ISprite>
@@ -385,6 +388,18 @@ public class Game1 : Game
     {
         //Create sprites for enemies here
     }
+    public void RestartGame()
+    {
+        _graphics.Dispose(); // Clean up graphics resources
+        Content.Unload(); // Unload all content
+
+        //  new instance
+        Game1 newGame = new Game1();
+        newGame.Run();
+
+        Exit();
+    }
+
 
     protected void setTileSprites()
     {

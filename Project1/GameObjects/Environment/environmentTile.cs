@@ -20,7 +20,10 @@ namespace Project1.GameObjects.Environment
         }
         public void Update(GameTime gameTime)
         {
-            _sprite.Update(gameTime);
+            if (_sprite != null)
+            {
+                _sprite.Update(gameTime);
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
