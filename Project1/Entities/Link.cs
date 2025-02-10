@@ -39,6 +39,9 @@ namespace Project1.Entities
 
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
 
+        int damageFrameCounter = 0;
+        bool hurting = false;
+
         public Link(Vector2 startPos)
         {
             position = startPos;
@@ -84,6 +87,10 @@ namespace Project1.Entities
         {
             currentState.MoveDown(this);
         }
+        public void Item(int itemNumber)
+        {
+            currentState.Item(this, itemNumber);
+        }
         public void Update(GameTime gameTime)
         {
             currentState.Update(this, gameTime);
@@ -112,7 +119,27 @@ namespace Project1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            linkSprite.Draw(spriteBatch, position,currentSpriteEffect);
+            if (hurting)
+            {
+                damageFrameCounter++;
+            }
+            else
+            {
+                damageFrameCounter = 0;
+            }
+            if (damageFrameCounter > 0)
+            {
+                linkSprite.SetColor(Color.Magenta);
+            }
+            else
+            {
+                linkSprite.SetColor(Color.White);
+            }
+            if ((damageFrameCounter/5)%2==0)
+            {
+                linkSprite.Draw(spriteBatch, position, currentSpriteEffect);
+            }
+            
         }
         public void createLinkSprites(Texture2D linkTexture)
         {
@@ -120,13 +147,9 @@ namespace Project1.Entities
             Rectangle[] walkUp = new Rectangle[] { new Rectangle(69, 11, 16, 16), new Rectangle(86, 11, 16, 16) };
             Rectangle[] walkDown = new Rectangle[] { new Rectangle(1, 11, 16, 16), new Rectangle(18, 11, 16, 16) };
 
-            Rectangle[] attackSide = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
-            Rectangle[] attackUp = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
-            Rectangle[] attackDown = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
-
-            Rectangle[] interactSide = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
-            Rectangle[] interactUp = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
-            Rectangle[] interactDown = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
+            Rectangle[] attackSide = new Rectangle[] { new Rectangle(1, 77, 16, 16), new Rectangle(18, 77, 27, 17), new Rectangle(46, 77, 23, 17), new Rectangle(70, 77, 19, 17) };
+            Rectangle[] attackUp = new Rectangle[] { new Rectangle(1, 109, 16, 16), new Rectangle(18, 97, 16, 28), new Rectangle(35, 98, 16, 27), new Rectangle(52, 106, 16, 19) };
+            Rectangle[] attackDown = new Rectangle[] { new Rectangle(1, 47, 16, 16), new Rectangle(18, 47, 16, 27), new Rectangle(35, 47, 16, 23), new Rectangle(53, 47, 16, 19) };
 
             ISprite walkLeftSprite = new NMoveAnim(linkTexture, walkSide, 5);
 
@@ -142,9 +165,9 @@ namespace Project1.Entities
             attackUpSprite = new NMoveAnim(linkTexture, attackUp, 5);
             attackDownSprite = new NMoveAnim(linkTexture, attackDown, 5);
 
-            interactSideSprite = new NMoveAnim(linkTexture, interactSide, 5);
-            interactUpSprite = new NMoveAnim(linkTexture, interactUp, 5);
-            interactDownSprite = new NMoveAnim(linkTexture, interactDown, 5);
+            interactSideSprite = new NMoveNAnim(linkTexture, new Rectangle(124, 11, 15, 16));
+            interactUpSprite = new NMoveNAnim(linkTexture, new Rectangle(141, 11, 15, 16));
+            interactDownSprite = new NMoveNAnim(linkTexture, new Rectangle(107, 11, 16, 16));
 
             currentIdleSprite = idleDownSprite;
             currentAttackSprite = idleDownSprite;
@@ -163,7 +186,7 @@ namespace Project1.Entities
             {
                 linkSprite = walkUpSprite;
                 currentIdleSprite = idleUpSprite;
-                currentAttackSprite = attackSideSprite;
+                currentAttackSprite = attackUpSprite;
                 currentInteractSprite = interactUpSprite;
 
                 currentSpriteEffect = SpriteEffects.None;
@@ -202,7 +225,14 @@ namespace Project1.Entities
             }
             else if (action.Contains("Damage"))
             {
+                hurting = true;
+            }
+            else if (action.Contains("Interact"))
+            {
                 linkSprite = currentInteractSprite;
+            }
+            if (!action.Contains("Damage")){
+                hurting = false;
             }
         }
     }

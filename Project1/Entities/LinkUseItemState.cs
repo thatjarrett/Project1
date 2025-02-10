@@ -1,25 +1,26 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 
 using Project1.Interfaces;
 namespace Project1.Entities
 {
-    public class LinkDamageState : ILinkState
+    public class LinkUseItemState : ILinkState
     {
-        private const double DamageDuration = 1.0; // 1 second of invincibility
-        private double elapsedTime; // Tracks time spent in damage state
+        private const double ItemDuration = 1.0; // 1 second of item use
+        private double elapsedTime; // Tracks time spent in item state
         private Direction _previousDirection;
 
-        public LinkDamageState(Direction previousDirection)
+        public LinkUseItemState(Direction previousDirection)
         {
             _previousDirection = previousDirection;
         }
 
         public void Enter(Link link)
         {
-            link.SetAnimation("Damage"); // Play damage animation
-            link.SetInvincible(true);    // Make Link invincible
+            link.SetAnimation("Item"); // Play item animation
+            
             elapsedTime = 0;             // Reset timer
         }
 
@@ -49,15 +50,15 @@ namespace Project1.Entities
         }
         public void Item(Link link, int itemNumber)
         {
-            
+            Debug.WriteLine("use item " + itemNumber );
         }
         public void Update(Link link, GameTime gameTime)
         {
             elapsedTime += gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (elapsedTime >= DamageDuration)
+            
+            if (elapsedTime >= ItemDuration)
             {
-                link.SetInvincible(false);   // Allow Link to take damage again
+                
                 link.ChangeState(new LinkIdleState(_previousDirection)); // Return to previous idle direction
             }
         }
