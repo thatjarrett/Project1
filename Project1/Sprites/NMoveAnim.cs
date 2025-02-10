@@ -19,13 +19,15 @@ namespace Project1.Sprites
         private int fps;
         private int frameCounter = 0;
         Color color = Color.White;
+        private Vector2 _offset = Vector2.Zero;
 
-        public NMoveAnim(Texture2D texture, Rectangle[] framesList, int frameRate, float scale = 3.0f)
+        public NMoveAnim(Texture2D texture, Rectangle[] framesList, int frameRate, float scale = 3.0f, Vector2 offset = default)
         {
             _texture = texture;
             frames = framesList;
             fps = frameRate;
             _scale = scale; // Initialize scale
+            _offset = offset;
         }
 
         public void Update(GameTime gameTime)
@@ -44,7 +46,7 @@ namespace Project1.Sprites
         {
             spriteBatch.Draw(
                 _texture,
-                position,
+                (position - _scale*_offset),
                 _sourceRectangle,
                 color,
                 0f,

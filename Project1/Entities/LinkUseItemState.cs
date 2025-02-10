@@ -51,6 +51,7 @@ namespace Project1.Entities
         public void Item(Link link, int itemNumber)
         {
             Debug.WriteLine("use item " + itemNumber );
+   
         }
         public void Update(Link link, GameTime gameTime)
         {
