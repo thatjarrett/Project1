@@ -30,7 +30,7 @@ namespace Project1.GameObjects.Items
             else if (frameState == 1)
             {
 
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2 * 8);
+                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2  * 8);
             }
           
             spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
