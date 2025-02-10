@@ -85,7 +85,7 @@ namespace Project1.Entities
                 attackInterval -= gameTime.ElapsedGameTime.TotalSeconds;
                 if ((attackInterval < 0))
                 {
-                    this.ChangeState(new AquamentusWalkState(currentState.GetDirection(), currentState.GetOscillationDuration()));
+                    this.ChangeState(new AquamentusWalkState(currentState.GetDirection(), currentState.GetMovementDuration()));
                     attackInterval = 1.0;
                 }
                 
@@ -120,7 +120,7 @@ namespace Project1.Entities
             fireballs[0] = new StraightProjectile(position, new Vector2(-2, -1), aquamentusFireball, aquamentusFireball, 2);
             fireballs[1] = new StraightProjectile(position, new Vector2(-2, 0), aquamentusFireball, aquamentusFireball, 2);
             fireballs[2] = new StraightProjectile(position, new Vector2(-2, 1), aquamentusFireball, aquamentusFireball, 2);
-            this.ChangeState(new AquamentusAttackState(currentState.GetDirection(), currentState.GetOscillationDuration()));
+            this.ChangeState(new AquamentusAttackState(currentState.GetDirection(), currentState.GetMovementDuration()));
             
         }
 

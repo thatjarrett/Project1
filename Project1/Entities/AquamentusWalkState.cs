@@ -63,7 +63,7 @@ namespace Project1.Entities
             return movingDirection;
         }
 
-        public double GetOscillationDuration()
+        public double GetMovementDuration()
         {
             return oscillationDuration;
         }
