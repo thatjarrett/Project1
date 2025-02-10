@@ -5,20 +5,20 @@ using Project1.Interfaces;
 
 namespace Project1.Entities
 {
-    public class AquamentusWalkState : IEnemyState
+    public class AquamentusAttackState : IEnemyState
     {
         private Direction movingDirection;
         private double oscillationDuration;
         Random random = new Random();
 
-        public AquamentusWalkState(Direction movingDirection, double oscillationDuration)
+        public AquamentusAttackState(Direction movingDirection, double oscillationDuration)
         {
             this.movingDirection = movingDirection;
             this.oscillationDuration = oscillationDuration;
         }
         public void Enter(IEnemy aquamentus)
         {
-            aquamentus.SetAnimation("Walk");
+            aquamentus.SetAnimation("Attack");
         }
 
         public void MoveLeft(IEnemy aquamentus)
@@ -39,7 +39,7 @@ namespace Project1.Entities
         }
         public void Attack(IEnemy aquamentus)
         {
-            //aquamentus.ChangeState(new AquamentusAttackState());
+            //aquamentus.ChangeState(new aquamentusAttackState());
         }
         public void Damage(IEnemy aquamentus)
         {
@@ -58,6 +58,7 @@ namespace Project1.Entities
             aquamentus.Move(movingDirection == Direction.Left ? -2 : 2, 0);
 
         }
+
         public Direction GetDirection()
         {
             return movingDirection;

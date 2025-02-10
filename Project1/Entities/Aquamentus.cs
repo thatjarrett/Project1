@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Project1.Interfaces;
 using Project1.Sprites;
 using System.Reflection.Metadata;
+using Project1.Projectiles;
 namespace Project1.Entities
 {
     public class Aquamentus : IEnemy
@@ -14,11 +15,15 @@ namespace Project1.Entities
         private Vector2 position;
         private bool isInvincible = false;
         private double invincibleTime = 0;
-        private const double InvincibilityDuration = 1.0; // 1 second
+        private double attackInterval = 1.0;
+        private const double InvincibilityDuration = 1.0;
 
         private ISprite aquamentusSprite;
         private ISprite aquamentusWalkSprite;
         private ISprite aquamentusAttackSprite;
+        private ISprite aquamentusFireball;
+
+        private Projectile[] fireballs = new StraightProjectile[3];
 
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
 
@@ -28,7 +33,7 @@ namespace Project1.Entities
         public Aquamentus(Vector2 startPos)
         {
             position = startPos;
-            currentState = new AquamentusWalkState();
+            currentState = new AquamentusWalkState(Direction.Left, 1.0);
         }
 
         public void ChangeState(IEnemyState newState)
@@ -49,19 +54,19 @@ namespace Project1.Entities
 
         public void MoveLeft()
         {
-            currentState.MoveLeft(this);
+            //N/A
         }
         public void MoveRight()
         {
-            currentState.MoveRight(this);
+            //N/A
         }
         public void MoveUp()
         {
-            currentState.MoveUp(this);
+            //N/A
         }
         public void MoveDown()
         {
-            currentState.MoveDown(this);
+            //N/A
         }
         public void Update(GameTime gameTime)
         {
@@ -75,6 +80,33 @@ namespace Project1.Entities
             }
             aquamentusSprite.Update(gameTime);
 
+            if (currentState is AquamentusAttackState)
+            {
+                attackInterval -= gameTime.ElapsedGameTime.TotalSeconds;
+                if ((attackInterval < 0))
+                {
+                    this.ChangeState(new AquamentusWalkState(currentState.GetDirection(), currentState.GetOscillationDuration()));
+                    attackInterval = 1.0;
+                }
+                
+            }
+            else if (currentState is AquamentusWalkState)
+            {
+                attackInterval -= gameTime.ElapsedGameTime.TotalSeconds;
+                if ((attackInterval < 0)) {
+                    this.PerformAttack();
+                    attackInterval = 1.0;
+                }
+            }
+            if (fireballs[0] != null)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    fireballs[i].Update(gameTime);
+                }
+            }
+            
+
         }
 
         public void Move(int dx, int dy)
@@ -85,7 +117,11 @@ namespace Project1.Entities
 
         public void PerformAttack()
         {
-            // Logic to trigger attack
+            fireballs[0] = new StraightProjectile(position, new Vector2(-2, -1), aquamentusFireball, aquamentusFireball, 2);
+            fireballs[1] = new StraightProjectile(position, new Vector2(-2, 0), aquamentusFireball, aquamentusFireball, 2);
+            fireballs[2] = new StraightProjectile(position, new Vector2(-2, 1), aquamentusFireball, aquamentusFireball, 2);
+            this.ChangeState(new AquamentusAttackState(currentState.GetDirection(), currentState.GetOscillationDuration()));
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -110,22 +146,31 @@ namespace Project1.Entities
             {
                 aquamentusSprite.Draw(spriteBatch, position, currentSpriteEffect);
             }
-            
+            if (fireballs[0] != null)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    fireballs[i].Draw(spriteBatch);
+                }
+            }
+
         }
         public void createEnemySprites(Texture2D aquamentusTexture)
         {
-            Rectangle[] aquamentusWalk = new Rectangle[] { new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) };
+            createFireballSprites(aquamentusTexture);
 
+            Rectangle[] aquamentusWalk = new Rectangle[] { new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) };
             Rectangle[] aquamentusAttack = new Rectangle[] { new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32) };
 
-
             aquamentusWalkSprite = new NMoveAnim(aquamentusTexture, aquamentusWalk, 5);
-
             aquamentusAttackSprite = new NMoveAnim(aquamentusTexture, aquamentusAttack, 5);
 
             aquamentusSprite = aquamentusWalkSprite;
+        }
 
-            
+        public void createFireballSprites(Texture2D aquamentusTexture)
+        {
+            aquamentusFireball = new NMoveAnim(aquamentusTexture, new Rectangle[] { new Rectangle(119, 11, 8, 16), new Rectangle(128, 11, 8, 16) }, 30);
         }
 
         public void SetAnimation(string action)

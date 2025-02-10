@@ -15,5 +15,7 @@ namespace Project1.Interfaces
         void Attack(IEnemy enemy);
         void Damage(IEnemy enemy);
         void Update(IEnemy enemy, GameTime gameTime);
+        Direction GetDirection();
+        double GetOscillationDuration();
     }
 }
