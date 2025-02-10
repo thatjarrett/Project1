@@ -71,6 +71,7 @@ public class Game1 : Game
     ISprite blueSandSprite;
 
     ISprite boomerang;
+    ISprite HeartContainer;
 
     Dictionary<int, ISprite> spritesIDs;
 
@@ -178,6 +179,7 @@ public class Game1 : Game
         bTiles.Add(blueSand);
 
         itemsList.Add(boomerang);
+        itemsList.Add(HeartContainer);
 
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
@@ -376,6 +378,7 @@ public class Game1 : Game
     {
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
         boomerang = new Boomerang(itemTexture);
+        HeartContainer = new HeartContainer(itemTexture);
     }
 
     protected void createEnemySprites()
