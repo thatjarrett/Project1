@@ -83,6 +83,17 @@ public class Game1 : Game
 
     ISprite boomerang;
     ISprite HeartContainer;
+    ISprite compass;
+    ISprite Map;
+    ISprite Key;
+    ISprite TriForcePiece;
+    ISprite Bow;
+    ISprite Heart;
+    ISprite Rupee;
+    ISprite Arrow;
+    ISprite Bomb;
+    ISprite Fairy;
+    ISprite Clock;
 
     private int currentBlockIndex = 0;
     private int currentItemIndex = 0;
@@ -200,6 +211,17 @@ public class Game1 : Game
 
         itemsList.Add(boomerang);
         itemsList.Add(HeartContainer);
+        itemsList.Add(compass);
+        itemsList.Add(Map);
+        itemsList.Add(Key);
+        itemsList.Add(TriForcePiece);
+        itemsList.Add(Bow);
+        itemsList.Add(Heart);
+        itemsList.Add(Rupee);
+        itemsList.Add(Arrow);
+        itemsList.Add(Bomb);
+        itemsList.Add(Fairy);
+        itemsList.Add(Clock);
 
         enemies.Add(aquamentus);
         enemies.Add(trap);
@@ -338,10 +360,11 @@ public class Game1 : Game
         {
             tile.Draw(_spriteBatch);
         }
-
+        int x = 200;
         foreach (var item in itemsList)
         {
-            item.Draw(_spriteBatch,new Vector2(300,200), SpriteEffects.None);
+            item.Draw(_spriteBatch,new Vector2(x,300), SpriteEffects.None);
+            x+= 40;
         }
 
         foreach (var enemy in enemies)
@@ -427,6 +450,17 @@ public class Game1 : Game
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
         boomerang = new Boomerang(itemTexture);
         HeartContainer = new HeartContainer(itemTexture);
+        compass = new Compass(itemTexture);
+        Map = new Map(itemTexture);
+        Key = new Key(itemTexture);
+        TriForcePiece = new TriForcePiece(itemTexture);
+        Bow = new Bow(itemTexture);
+        Heart = new Heart(itemTexture);
+        Rupee = new Rupee(itemTexture);
+        Arrow = new Arrow(itemTexture);
+        Bomb = new Bomb(itemTexture);
+        Fairy = new Fairy(itemTexture);
+        Clock = new Clock(itemTexture); 
     }
     public void CycleBlock(bool forward)
     {

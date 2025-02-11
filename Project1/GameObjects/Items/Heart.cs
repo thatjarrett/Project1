@@ -9,14 +9,14 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Project1.GameObjects.Items
 {
-	public class Boomerang: ISprite
+	public class Heart: ISprite
 	{
         Texture2D texture;
         Rectangle destinationRectangle;
         int frameState = 0;
         
 
-        public Boomerang(Texture2D texture)
+        public Heart(Texture2D texture)
         {
             this.texture = texture;
 
@@ -25,17 +25,11 @@ namespace Project1.GameObjects.Items
         {
 
             Rectangle[] sourceArray = new Rectangle[2];
-            sourceArray[0] = new Rectangle(129, 3, 5, 8);
-            sourceArray[1] = new Rectangle(129, 19, 5, 8);
-            if (frameState == 0)
-            {
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2*5, 2*8);
-            }
-            else if (frameState == 1)
-            {
-
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2  * 8);
-            }
+            sourceArray[0] = new Rectangle(0, 0, 8, 8);
+            sourceArray[1] = new Rectangle(0, 8, 8,8);
+            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2*8, 2*8);
+            
+          
           
             spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState],Color.White);
         }
