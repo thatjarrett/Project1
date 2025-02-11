@@ -32,6 +32,7 @@ namespace Project1.Entities
 
         private ISprite currentAttackSprite;
         private ISprite attackSideSprite;
+        private ISprite attackSideSprite2;
         private ISprite attackUpSprite;
         private ISprite attackDownSprite;
 
@@ -188,7 +189,7 @@ namespace Project1.Entities
             Rectangle[] walkUp = new Rectangle[] { new Rectangle(69, 11, 16, 16), new Rectangle(86, 11, 16, 16) };
             Rectangle[] walkDown = new Rectangle[] { new Rectangle(1, 11, 16, 16), new Rectangle(18, 11, 16, 16) };
 
-            Rectangle[] attackSide = new Rectangle[] { new Rectangle(1, 77, 16, 16), new Rectangle(18, 77, 27, 17), new Rectangle(46, 77, 23, 17), new Rectangle(70, 77, 19, 17) };
+            Rectangle[] attackSide = new Rectangle[] { new Rectangle(270, 217, 27, 16), new Rectangle(270, 234, 27, 16), new Rectangle(270, 252, 27, 16), new Rectangle(270, 271, 27, 16) };
             Rectangle[] attackUp = new Rectangle[] { new Rectangle(1, 97, 16, 28), new Rectangle(18, 97, 16, 28), new Rectangle(35, 97, 16, 28), new Rectangle(52, 97, 16, 28) };
             Rectangle[] attackDown = new Rectangle[] { new Rectangle(1, 47, 16, 16), new Rectangle(18, 47, 16, 27), new Rectangle(35, 47, 16, 23), new Rectangle(53, 47, 16, 19) };
 
@@ -201,6 +202,7 @@ namespace Project1.Entities
             idleDownSprite = new NMoveNAnim(linkTexture, new Rectangle(1, 11, 16, 16));
 
             attackSideSprite = new NMoveAnim(linkTexture, attackSide, 5);
+            attackSideSprite2 = new NMoveAnim(linkTexture, attackSide, 5,3, new Vector2(12,0));
             attackUpSprite = new NMoveAnim(linkTexture, attackUp, 5, 3, new Vector2(0, 12));
             attackDownSprite = new NMoveAnim(linkTexture, attackDown, 5);
 
@@ -246,7 +248,7 @@ namespace Project1.Entities
                 linkSprite = walkSideSprite;
 
                 currentIdleSprite = idleSideSprite;
-                currentAttackSprite = attackSideSprite;
+                currentAttackSprite = attackSideSprite2;
                 currentInteractSprite = interactSideSprite;
                 faceDirection = new Vector2(-1, 0);
                 currentSpriteEffect = SpriteEffects.FlipHorizontally;
