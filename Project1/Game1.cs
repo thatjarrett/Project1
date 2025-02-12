@@ -253,12 +253,7 @@ public class Game1 : Game
 { Keys.D1, new UseItemCommand(link, 1) },
 { Keys.D2, new UseItemCommand(link, 2) },
 { Keys.D3, new UseItemCommand(link, 3) },
-{ Keys.D4, new UseItemCommand(link, 4) },
-{ Keys.D5, new UseItemCommand(link, 5) },
-{ Keys.D6, new UseItemCommand(link, 6) },
-{ Keys.D7, new UseItemCommand(link, 7) },
-{ Keys.D8, new UseItemCommand(link, 8) },
-{ Keys.D9, new UseItemCommand(link, 9) },
+{ Keys.G, new DeathCommand(link) },
 { Keys.Q, new QuitCommand(this) },   
 { Keys.R, new ResetCommand(this) },
 { Keys.T, new CycleBlockCommand(this, false) }, // Previous block
@@ -320,11 +315,7 @@ public class Game1 : Game
     {
         var keyboardState = Keyboard.GetState();
 
-        if (keyboardState.IsKeyDown(Keys.D0))
-        {
-            Exit();
-        }
-
+        
         keyboardController.Update(gameTime);
         link.Update(gameTime);
         foreach (var tile in tiles)
@@ -494,14 +485,14 @@ public class Game1 : Game
     }
     public void RestartGame()
     {
-        _graphics.Dispose(); // Clean up graphics resources
-        Content.Unload(); // Unload all content
+        // Clear all game objects
+        tiles.Clear();
+        bTiles.Clear();
+        itemsList.Clear();
+        enemies.Clear();
 
-        //  new instance
-        Game1 newGame = new Game1();
-        newGame.Run();
-
-        Exit();
+        // Reinitialize the game
+        Initialize();
     }
 
 

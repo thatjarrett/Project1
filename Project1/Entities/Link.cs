@@ -18,6 +18,7 @@ namespace Project1.Entities
         private bool isInvincible = false;
         private double invincibleTime = 0;
         private const double InvincibilityDuration = 1.0; // 1 second
+        private bool isControlsDisabled = false; // Flag to disable controls
 
         private ISprite linkSprite;
 
@@ -87,23 +88,58 @@ namespace Project1.Entities
 
         public void MoveLeft()
         {
+            if (isControlsDisabled) return;
             currentState.MoveLeft(this);
         }
+
         public void MoveRight()
         {
+            if (isControlsDisabled) return;
             currentState.MoveRight(this);
         }
+
         public void MoveUp()
         {
+            if (isControlsDisabled) return;
             currentState.MoveUp(this);
         }
+
         public void MoveDown()
         {
+            if (isControlsDisabled) return;
             currentState.MoveDown(this);
         }
+
+        public void PerformAttack()
+        {
+            if (isControlsDisabled) return;
+            currentState.Attack(this);
+        }
+
+        public void DisableControls()
+        {
+            isControlsDisabled = true;
+            Debug.WriteLine("Controls disabled.");
+        }
+
+        public void EnableControls()
+        {
+            isControlsDisabled = false;
+            Debug.WriteLine("Controls enabled.");
+        }
+        public void TriggerGameOver()
+        {
+            Debug.WriteLine("Game Over triggered.");
+            DisableControls();
+            
+            GameManager.Instance.SetGameOver();
+
+        }
+
+
         public void Item(int itemNumber)
         {
-
+            if (isControlsDisabled) return;
             currentState.Item(this, itemNumber);
             Projectile projectile = null;
             switch (itemNumber)
@@ -148,10 +184,7 @@ namespace Project1.Entities
             position.Y += dy;
         }
 
-        public void PerformAttack()
-        {
-            // Logic to trigger attack
-        }
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -8,7 +8,7 @@ namespace Project1.Entities
 {
     public class LinkAttackState : ILinkState
     {
-        private const double AttackDuration = 0.5; // Attack lasts 0.5 seconds
+        private const double AttackDuration = 0.2; // Attack lasts 0.2 seconds
         private double elapsedTime;
         private Direction _previousDirection;
 
