@@ -112,7 +112,7 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        link = new Link(new Vector2(350, 170));
+        link = new Link(new Vector2(500, 170));
         aquamentus = new Aquamentus(new Vector2(500, 170));
         trap = new SpikeTrap(new Vector2(500, 170));
         _spriteBatch = new SpriteBatch(GraphicsDevice);

@@ -1,0 +1,91 @@
+﻿using Microsoft.Xna.Framework;
+using Project1.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Project1.Entities
+{
+    public class BatFlyState : IEnemyState
+    {
+        private Direction movingDirection;
+        private double movementDuration;
+        Random random = new Random();
+
+        public BatFlyState(Direction d, double duration) {
+            movementDuration = duration;
+            movingDirection = d;
+        }
+        public void Attack(IEnemy enemy)
+        {
+            //
+        }
+
+        public void Damage(IEnemy enemy)
+        {
+            //
+        }
+
+        public void Enter(IEnemy bat)
+        {
+            bat.SetAnimation("walk");   //?????
+        }
+
+        public Direction GetDirection()
+        {
+            return movingDirection;
+        }
+
+        public double GetMovementDuration()
+        {
+            return movementDuration;
+        }
+
+        public void MoveDown(IEnemy enemy)
+        {
+            //
+        }
+
+        public void MoveLeft(IEnemy enemy)
+        {
+            //
+        }
+
+        public void MoveRight(IEnemy enemy)
+        {
+            //
+        }
+
+        public void MoveUp(IEnemy enemy)
+        {
+            //
+        }
+
+        public void Update(IEnemy enemy, GameTime gameTime)
+        {
+            movementDuration -= gameTime.ElapsedGameTime.TotalSeconds;
+            if (movementDuration <= 0) {
+                int x = random.Next(3);
+                if (x == 0)
+                {
+                    movingDirection = Direction.Left;
+                }
+                else if (x == 1)
+                {
+                    movingDirection = Direction.Right;
+                }
+                else if (x == 2)
+                {
+                    movingDirection = Direction.Up;
+                }
+                else {
+                    movingDirection = Direction.Down;
+                }
+                movementDuration = random.NextDouble();
+                enemy.Move(movingDirection == Direction.Left ? -2 : 2, movingDirection == Direction.Up ? -2 : 2);
+            }
+        }
+    }
+}

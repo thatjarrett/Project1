@@ -10,7 +10,7 @@ using Project1.Sprites;
 
 namespace Project1.Entities
 {
-    public class Bat : IEnemy
+    public class Bat : IEnemy       //TODO: movement a bit slow i gotta fix that
 
     {
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
@@ -32,7 +32,7 @@ namespace Project1.Entities
         public Bat(Vector2 startPos)
         {
             position = startPos;
-            currentState = new AquamentusWalkState(Direction.Left, 1.0);
+            currentState = new BatFlyState(Direction.Left, 1.0);
         }
 
         public void ChangeState(IEnemyState newState)
@@ -73,10 +73,10 @@ namespace Project1.Entities
             //TODO: why the fuck is the code like that????????????????
         }
 
-        public void Move(int dx, int dwhy)
+        public void Move(int dx, int dy)
         {
             position.X += dx;
-            position.Y += dwhy;
+            position.Y += dy;
         }
 
         public void MoveDown()
@@ -123,6 +123,10 @@ namespace Project1.Entities
 
         public void Update(GameTime gameTime)
         {
+            currentState.Update(this, gameTime);
+
+
+
             if (isInvincible)
             {
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
