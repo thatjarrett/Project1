@@ -125,41 +125,41 @@ public class Game1 : Game
         createSprites();
 
         environmentTile statueTile = new statueTileLeft(new Vector2(100, 100));
-        environmentTile statueTile2 = new statueTileRight(new Vector2(148, 100));
-        environmentTile squareBlock = new blockTile(new Vector2(196, 100));
-        environmentTile blueGap = new gapTile(new Vector2(244, 100));
-        environmentTile stairs = new stairsTile(new Vector2(292, 100));
-        environmentTile fire = new fireTile(new Vector2(340, 100));
-        environmentTile oldMan = new oldManTile(new Vector2(388, 100));
-        environmentTile pushBlock = new pushableBlock(new Vector2(436, 100));
+        environmentTile statueTile2 = new statueTileRight(new Vector2(100, 100));
+        environmentTile squareBlock = new blockTile(new Vector2(100, 100));
+        environmentTile blueGap = new gapTile(new Vector2(100, 100));
+        environmentTile stairs = new stairsTile(new Vector2(100, 100));
+        environmentTile fire = new fireTile(new Vector2(100, 100));
+        environmentTile oldMan = new oldManTile(new Vector2(100, 100));
+        environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
 
-        environmentTile topWall = new wallTile(new Vector2(0, 0), 7);
-        environmentTile topPlainWall = new doorTile(new Vector2(336, 0), 8);
-        environmentTile topOpenDoor = new doorTile(new Vector2(336, 0), 9);
-        environmentTile topKeyLockedDoor = new doorTile(new Vector2(336, 0), 11);
-        environmentTile topDiamondLockedDoor = new doorTile(new Vector2(336, 0), 12);
-        environmentTile topBombedOpening = new doorTile(new Vector2(336, 0), 10);
+        environmentTile topWall = new wallTile(new Vector2(100, 100), 7);
+        environmentTile topPlainWall = new doorTile(new Vector2(100, 100), 8);
+        environmentTile topOpenDoor = new doorTile(new Vector2(100, 100), 9);
+        environmentTile topKeyLockedDoor = new doorTile(new Vector2(100, 100), 11);
+        environmentTile topDiamondLockedDoor = new doorTile(new Vector2(100, 100), 12);
+        environmentTile topBombedOpening = new doorTile(new Vector2(100, 100), 10);
 
-        environmentTile bottomWall = new wallTile(new Vector2(0, 384), 13);
-        environmentTile bottomPlainWall = new doorTile(new Vector2(336, 384), 14);
-        environmentTile bottomOpenDoor = new doorTile(new Vector2(336, 384), 15);
-        environmentTile bottomKeyLockedDoor = new doorTile(new Vector2(336, 384), 17);
-        environmentTile bottomDiamondLockedDoor = new doorTile(new Vector2(336, 384), 18);
-        environmentTile bottomBombedOpening = new doorTile(new Vector2(336, 384), 16);
+        environmentTile bottomWall = new wallTile(new Vector2(100, 100), 13);
+        environmentTile bottomPlainWall = new doorTile(new Vector2(100, 100), 14);
+        environmentTile bottomOpenDoor = new doorTile(new Vector2(100, 100), 15);
+        environmentTile bottomKeyLockedDoor = new doorTile(new Vector2(100, 100), 17);
+        environmentTile bottomDiamondLockedDoor = new doorTile(new Vector2(100, 100), 18);
+        environmentTile bottomBombedOpening = new doorTile(new Vector2(100, 100), 16);
 
-        environmentTile leftWall = new wallTile(new Vector2(0, 96), 19);
-        environmentTile leftPlainWall = new doorTile(new Vector2(0, 216), 20);
-        environmentTile leftOpenDoor = new doorTile(new Vector2(0, 216), 21);
-        environmentTile leftKeyLockedDoor = new doorTile(new Vector2(0, 216), 23);
-        environmentTile leftDiamondLockedDoor = new doorTile(new Vector2(0, 216), 24);
-        environmentTile leftBombedOpening = new doorTile(new Vector2(0, 216), 22);
+        environmentTile leftWall = new wallTile(new Vector2(100, 100), 19);
+        environmentTile leftPlainWall = new doorTile(new Vector2(100, 100), 20);
+        environmentTile leftOpenDoor = new doorTile(new Vector2(100, 100), 21);
+        environmentTile leftKeyLockedDoor = new doorTile(new Vector2(100, 100), 23);
+        environmentTile leftDiamondLockedDoor = new doorTile(new Vector2(100, 100), 24);
+        environmentTile leftBombedOpening = new doorTile(new Vector2(100, 100), 22);
 
-        environmentTile rightWall = new wallTile(new Vector2(672, 96), 25);
-        environmentTile rightPlainWall = new doorTile(new Vector2(672, 216), 26);
-        environmentTile rightOpenDoor = new doorTile(new Vector2(672, 216), 27);
-        environmentTile rightKeyLockedDoor = new doorTile(new Vector2(672, 216), 29);
-        environmentTile rightDiamondLockedDoor = new doorTile(new Vector2(672, 216), 30);
-        environmentTile rightBombedOpening = new doorTile(new Vector2(672, 216), 28);
+        environmentTile rightWall = new wallTile(new Vector2(100, 100), 25);
+        environmentTile rightPlainWall = new doorTile(new Vector2(100, 100), 26);
+        environmentTile rightOpenDoor = new doorTile(new Vector2(100, 100), 27);
+        environmentTile rightKeyLockedDoor = new doorTile(new Vector2(100, 100), 29);
+        environmentTile rightDiamondLockedDoor = new doorTile(new Vector2(100, 100), 30);
+        environmentTile rightBombedOpening = new doorTile(new Vector2(100, 100), 28);
 
         tiles.Add(statueTile);
         tiles.Add(statueTile2);
@@ -346,10 +346,19 @@ public class Game1 : Game
         foreach (var b in bTiles) {
             b.draw(_spriteBatch);
         }
-
+        int tileNum = 0;
         foreach (var tile in tiles)
         {
-            tile.Draw(_spriteBatch);
+           
+            if(currentBlockIndex == tileNum)
+            {
+                tile.Draw(_spriteBatch);
+            }
+            tileNum++;
+            if(tileNum >= tiles.Count)
+            {
+                tileNum = 0;
+            }
         }
         int x = 200;
         foreach (var item in itemsList)

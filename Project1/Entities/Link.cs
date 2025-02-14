@@ -36,6 +36,10 @@ namespace Project1.Entities
         private ISprite attackSideSprite2;
         private ISprite attackUpSprite;
         private ISprite attackDownSprite;
+        private ISprite deathSprite;
+        private bool dying = false;
+        private int deathFrameCounter = 0;
+
 
         private ISprite currentInteractSprite;
         private ISprite interactSideSprite;
@@ -214,6 +218,18 @@ namespace Project1.Entities
                 projectile.Draw(spriteBatch);
             }
             boomerangThrowable.Draw(spriteBatch);
+            if (dying)
+            {
+                deathFrameCounter++;
+                if(deathFrameCounter%5 == 3)
+                {
+                    currentSpriteEffect = SpriteEffects.FlipHorizontally;
+                }
+                else
+                {
+                    currentSpriteEffect = SpriteEffects.None;
+                }
+            }
 
         }
         public void createLinkSprites(Texture2D linkTexture)
@@ -226,6 +242,7 @@ namespace Project1.Entities
             Rectangle[] attackUp = new Rectangle[] { new Rectangle(1, 97, 16, 28), new Rectangle(18, 97, 16, 28), new Rectangle(35, 97, 16, 28), new Rectangle(52, 97, 16, 28) };
             Rectangle[] attackDown = new Rectangle[] { new Rectangle(1, 47, 16, 16), new Rectangle(18, 47, 16, 27), new Rectangle(35, 47, 16, 23), new Rectangle(53, 47, 16, 19) };
 
+            Rectangle[] death = new Rectangle[] { new Rectangle(1, 11, 16, 16), new Rectangle(2, 29, 15, 16) , new Rectangle(69, 11, 16, 16), new Rectangle(2, 29, 15, 16) };
             walkSideSprite = new NMoveAnim(linkTexture, walkSide, 5);
             walkUpSprite = new NMoveAnim(linkTexture, walkUp, 5);
             walkDownSprite = new NMoveAnim(linkTexture, walkDown, 5);
@@ -247,6 +264,8 @@ namespace Project1.Entities
             currentAttackSprite = idleDownSprite;
             currentInteractSprite = interactDownSprite;
             linkSprite = currentIdleSprite;
+
+            deathSprite = new NMoveAnim(linkTexture, death, 5);
             faceDirection = new Vector2(0, 1);
 
             createProjectileSprites(linkTexture);
@@ -306,6 +325,12 @@ namespace Project1.Entities
             else if (action.Contains("Item"))
             {
                 linkSprite = currentInteractSprite;
+
+            }
+            else if (action.Contains("Death"))
+            {
+                linkSprite = deathSprite;
+                dying = true;
 
             }
             if (!action.Contains("Damage")){
