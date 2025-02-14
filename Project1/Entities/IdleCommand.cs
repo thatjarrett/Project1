@@ -1,5 +1,5 @@
-﻿using Project1.Interfaces;
-using Project1.Entities;
+﻿using Project1.Entities;
+using Project1.Interfaces;
 
 namespace Project1.Commands
 {

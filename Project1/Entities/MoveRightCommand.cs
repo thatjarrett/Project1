@@ -1,7 +1,5 @@
-﻿using Project1.Interfaces;
-using Project1.Entities;
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Project1.Interfaces;
 
 namespace Project1.Entities
 {
@@ -17,7 +15,7 @@ namespace Project1.Entities
         public void Execute()
         {
             Debug.WriteLine("move right");
-            
+
             _link.MoveRight();
         }
     }

@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 using Color = Microsoft.Xna.Framework.Color;

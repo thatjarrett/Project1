@@ -1,8 +1,6 @@
-﻿using Project1.GameObjects.Environment;
-using Project1.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
+using Project1.Interfaces;
 
 namespace Project1.Commands
 {
@@ -10,8 +8,8 @@ namespace Project1.Commands
     {
         private Game1 _game;
         private bool _forward;
-        private static double lastExecutionTime = 0; 
-        private const double CooldownDuration = 0.2; 
+        private static double lastExecutionTime = 0;
+        private const double CooldownDuration = 0.2;
 
         public CycleBlockCommand(Game1 game, bool forward)
         {

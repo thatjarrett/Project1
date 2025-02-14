@@ -1,12 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
 using Project1.Interfaces;
-using Project1.Sprites;
-using System.Reflection.Metadata;
 using Project1.Projectiles;
+using Project1.Sprites;
 namespace Project1.Entities
 {
     public class Aquamentus : IEnemy
@@ -88,12 +84,13 @@ namespace Project1.Entities
                     this.ChangeState(new AquamentusWalkState(currentState.GetDirection(), currentState.GetMovementDuration()));
                     attackInterval = 1.0;
                 }
-                
+
             }
             else if (currentState is AquamentusWalkState)
             {
                 attackInterval -= gameTime.ElapsedGameTime.TotalSeconds;
-                if ((attackInterval < 0)) {
+                if ((attackInterval < 0))
+                {
                     this.PerformAttack();
                     attackInterval = 1.0;
                 }
@@ -105,7 +102,7 @@ namespace Project1.Entities
                     fireballs[i].Update(gameTime);
                 }
             }
-            
+
 
         }
 
@@ -121,7 +118,7 @@ namespace Project1.Entities
             fireballs[1] = new StraightProjectile(position, new Vector2(-2, 0), aquamentusFireball, aquamentusFireball, 2);
             fireballs[2] = new StraightProjectile(position, new Vector2(-2, 1), aquamentusFireball, aquamentusFireball, 2);
             this.ChangeState(new AquamentusAttackState(currentState.GetDirection(), currentState.GetMovementDuration()));
-            
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -142,7 +139,7 @@ namespace Project1.Entities
             {
                 aquamentusSprite.SetColor(Color.White);
             }
-            if ((damageFrameCounter/5)%2==0)
+            if ((damageFrameCounter / 5) % 2 == 0)
             {
                 aquamentusSprite.Draw(spriteBatch, position, currentSpriteEffect);
             }
@@ -188,10 +185,11 @@ namespace Project1.Entities
             {
                 hurting = true;
             }
-            if (!action.Contains("Damage")){
+            if (!action.Contains("Damage"))
+            {
                 hurting = false;
             }
         }
     }
 }
-   
+

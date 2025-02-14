@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 
 using Project1.Interfaces;
@@ -27,7 +26,7 @@ namespace Project1.Entities
 
         public void MoveLeft(Link link)
         {
-            
+
         }
         public void MoveRight(Link link)
         {
@@ -35,15 +34,15 @@ namespace Project1.Entities
         }
         public void MoveUp(Link link)
         {
-            
+
         }
         public void MoveDown(Link link)
         {
-           
+
         }
         public void Attack(Link link)
         {
-           
+
         }
         public void Damage(Link link)
         {
@@ -51,11 +50,11 @@ namespace Project1.Entities
         }
         public void Item(Link link, int itemNumber)
         {
-            
+
         }
         public void Update(Link link, GameTime gameTime)
         {
-            
+
             elapsedTime += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (elapsedTime >= AttackDuration)

@@ -1,8 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Project1.Entities;
 
 namespace Project1.Interfaces
 {
@@ -33,4 +30,4 @@ namespace Project1.Interfaces
         public void SetAnimation(string action);
     }
 }
-   
+

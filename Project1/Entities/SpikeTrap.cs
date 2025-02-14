@@ -1,11 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
 using Project1.Interfaces;
 using Project1.Sprites;
-using System.Reflection.Metadata;
 namespace Project1.Entities
 {
     public class SpikeTrap : IEnemy
@@ -71,7 +67,7 @@ namespace Project1.Entities
 
         public void PerformAttack()
         {
-            
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -90,8 +86,8 @@ namespace Project1.Entities
 
         public void SetAnimation(string action)
         {
-            
+
         }
     }
 }
-   
+

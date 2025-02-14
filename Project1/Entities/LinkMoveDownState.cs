@@ -1,6 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Project1.Interfaces;
 namespace Project1.Entities
 {
@@ -27,7 +26,7 @@ namespace Project1.Entities
         }
         public void MoveDown(Link link)
         {
-           
+
         }
         public void Attack(Link link)
         {

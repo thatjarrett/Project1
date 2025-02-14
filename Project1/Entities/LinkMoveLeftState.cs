@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Project1.Interfaces;
 
 namespace Project1.Entities
@@ -14,7 +13,7 @@ namespace Project1.Entities
 
         public void MoveLeft(Link link)
         {
-           
+
         }
         public void MoveRight(Link link)
         {

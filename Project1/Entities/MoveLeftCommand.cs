@@ -1,5 +1,4 @@
 ﻿using Project1.Interfaces;
-using Project1.Entities;
 
 namespace Project1.Entities
 {
@@ -14,7 +13,7 @@ namespace Project1.Entities
 
         public void Execute()
         {
-           
+
             _link.MoveLeft();
         }
     }

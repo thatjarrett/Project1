@@ -1,20 +1,18 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
-using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 
 namespace Project1.GameObjects.Items
 {
-	public class TriForcePiece: ISprite
-	{
+    public class TriForcePiece : ISprite
+    {
         Texture2D texture;
         Rectangle destinationRectangle;
         int frameState = 0;
-        
+
 
         public TriForcePiece(Texture2D texture)
         {
@@ -29,15 +27,15 @@ namespace Project1.GameObjects.Items
             sourceArray[1] = new Rectangle(273, 19, 12, 12);
             if (frameState == 0)
             {
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2*12, 2*12);
+                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 12, 2 * 12);
             }
             else if (frameState == 1)
             {
 
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 12, 2  * 12);
+                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 12, 2 * 12);
             }
-          
-            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState],Color.White);
+
+            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
         }
 
         public void Update(GameTime gameTime)

@@ -1,8 +1,6 @@
-﻿using Project1.GameObjects.Environment;
-using Project1.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
+using Project1.Interfaces;
 namespace Project1.Commands
 {
     public class CycleNPCCommand : ICommand

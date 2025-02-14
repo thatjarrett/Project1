@@ -1,13 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
 using Project1.Interfaces;
-using Project1.Sprites;
-using System.Reflection.Metadata;
 using Project1.Projectiles;
-using System.Collections.Generic;
+using Project1.Sprites;
 namespace Project1.Entities
 {
     public class Link
@@ -135,7 +132,7 @@ namespace Project1.Entities
         {
             Debug.WriteLine("Game Over triggered.");
             DisableControls();
-            
+
             GameManager.Instance.SetGameOver();
 
         }
@@ -149,13 +146,13 @@ namespace Project1.Entities
             switch (itemNumber)
             {
                 case 1:
-                     projectile = new StraightProjectile(position, faceDirection, swordBeamHorizontal, swordBeamVertical, 5);
+                    projectile = new StraightProjectile(position, faceDirection, swordBeamHorizontal, swordBeamVertical, 5);
                     break;
                 case 2:
                     projectile = new StraightProjectile(position, faceDirection, arrowHorizontal, arrowVertical, 5);
                     break;
                 case 3:
-                    boomerangThrowable.Throw(position,faceDirection);
+                    boomerangThrowable.Throw(position, faceDirection);
                     break;
             }
             if (projectile != null)
@@ -188,7 +185,7 @@ namespace Project1.Entities
             position.Y += dy;
         }
 
-        
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -208,7 +205,7 @@ namespace Project1.Entities
             {
                 linkSprite.SetColor(Color.White);
             }
-            if ((damageFrameCounter/5)%2==0)
+            if ((damageFrameCounter / 5) % 2 == 0)
             {
                 linkSprite.Draw(spriteBatch, position, currentSpriteEffect);
             }
@@ -221,7 +218,7 @@ namespace Project1.Entities
             if (dying)
             {
                 deathFrameCounter++;
-                if(deathFrameCounter%5 == 3)
+                if (deathFrameCounter % 5 == 3)
                 {
                     currentSpriteEffect = SpriteEffects.FlipHorizontally;
                 }
@@ -242,17 +239,17 @@ namespace Project1.Entities
             Rectangle[] attackUp = new Rectangle[] { new Rectangle(1, 97, 16, 28), new Rectangle(18, 97, 16, 28), new Rectangle(35, 97, 16, 28), new Rectangle(52, 97, 16, 28) };
             Rectangle[] attackDown = new Rectangle[] { new Rectangle(1, 47, 16, 16), new Rectangle(18, 47, 16, 27), new Rectangle(35, 47, 16, 23), new Rectangle(53, 47, 16, 19) };
 
-            Rectangle[] death = new Rectangle[] { new Rectangle(1, 11, 16, 16), new Rectangle(2, 29, 15, 16) , new Rectangle(69, 11, 16, 16), new Rectangle(2, 29, 15, 16) };
+            Rectangle[] death = new Rectangle[] { new Rectangle(1, 11, 16, 16), new Rectangle(2, 29, 15, 16), new Rectangle(69, 11, 16, 16), new Rectangle(2, 29, 15, 16) };
             walkSideSprite = new NMoveAnim(linkTexture, walkSide, 5);
             walkUpSprite = new NMoveAnim(linkTexture, walkUp, 5);
             walkDownSprite = new NMoveAnim(linkTexture, walkDown, 5);
 
-            idleSideSprite = new NMoveNAnim(linkTexture,new Rectangle(2, 29, 15, 16)); 
+            idleSideSprite = new NMoveNAnim(linkTexture, new Rectangle(2, 29, 15, 16));
             idleUpSprite = new NMoveNAnim(linkTexture, new Rectangle(69, 11, 16, 16));
             idleDownSprite = new NMoveNAnim(linkTexture, new Rectangle(1, 11, 16, 16));
 
             attackSideSprite = new NMoveAnim(linkTexture, attackSide, 5);
-            attackSideSprite2 = new NMoveAnim(linkTexture, attackSide, 5,3, new Vector2(12,0));
+            attackSideSprite2 = new NMoveAnim(linkTexture, attackSide, 5, 3, new Vector2(12, 0));
             attackUpSprite = new NMoveAnim(linkTexture, attackUp, 5, 3, new Vector2(0, 12));
             attackDownSprite = new NMoveAnim(linkTexture, attackDown, 5);
 
@@ -333,7 +330,8 @@ namespace Project1.Entities
                 dying = true;
 
             }
-            if (!action.Contains("Damage")){
+            if (!action.Contains("Damage"))
+            {
                 hurting = false;
             }
         }
@@ -342,7 +340,7 @@ namespace Project1.Entities
             arrowHorizontal = new NMoveNAnim(texture, new Rectangle(10, 185, 16, 16));
             arrowVertical = new NMoveNAnim(texture, new Rectangle(1, 185, 8, 16));
 
-            swordBeamHorizontal = new NMoveAnim(texture, new Rectangle[] { new Rectangle(45, 154, 16, 16), new Rectangle(115, 154, 16, 16) },5);
+            swordBeamHorizontal = new NMoveAnim(texture, new Rectangle[] { new Rectangle(45, 154, 16, 16), new Rectangle(115, 154, 16, 16) }, 5);
             swordBeamVertical = new NMoveAnim(texture, new Rectangle[] { new Rectangle(36, 154, 8, 16), new Rectangle(106, 154, 8, 16) }, 5);
 
             boomerang = new NMoveAnim(texture, new Rectangle[] { new Rectangle(64, 185, 8, 16), new Rectangle(73, 185, 8, 16), new Rectangle(82, 185, 8, 16), new Rectangle(73, 185, 8, 16) }, 5);
@@ -350,4 +348,4 @@ namespace Project1.Entities
         }
     }
 }
-   
+

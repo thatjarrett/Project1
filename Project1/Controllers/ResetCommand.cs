@@ -1,5 +1,4 @@
 ﻿using Project1.Interfaces;
-using Microsoft.Xna.Framework;
 
 namespace Project1.Commands
 {
