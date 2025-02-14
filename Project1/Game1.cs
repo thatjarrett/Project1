@@ -21,6 +21,7 @@ public class Game1 : Game
     private SpikeTrap trap;
 
     private Bat bat;
+    private Slime slime;
 
     private List<environmentTile> tiles = new List<environmentTile>();
     private List<IEnemy> enemies = new List<IEnemy>();
@@ -34,8 +35,6 @@ public class Game1 : Game
     Texture2D itemTexture;
     Texture2D aquamentusTexture;
     Texture2D enemyTexture;
-
-    Texture2D batTexture;
 
     ISprite statueLeftSprite;
     ISprite statueRightSprite;
@@ -111,12 +110,13 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        link = new Link(new Vector2(500, 170));
+        link = new Link(new Vector2(350, 170));
         aquamentus = new Aquamentus(new Vector2(500, 170));
         trap = new SpikeTrap(new Vector2(500, 170));
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        bat = new Bat(new Vector2(400, 17));
+        bat = new Bat(new Vector2(500, 170));
+        slime = new Slime(new Vector2(500, 170));
 
         createSprites();
 
@@ -228,6 +228,7 @@ public class Game1 : Game
         enemies.Add(trap);
 
         enemies.Add(bat);
+        enemies.Add(slime);
 
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
@@ -369,9 +370,10 @@ public class Game1 : Game
 
         //Keep link below the tiles so he's drawn above them
         aquamentus.Draw(_spriteBatch);
-        link.Draw(_spriteBatch);
-
         bat.Draw(_spriteBatch);
+        slime.Draw(_spriteBatch);
+
+        link.Draw(_spriteBatch);
 
         _spriteBatch.End();
 
@@ -483,6 +485,7 @@ public class Game1 : Game
 
 
         bat.createEnemySprites(enemyTexture);
+        slime.createEnemySprites(enemyTexture);
 
     }
     public void RestartGame()
