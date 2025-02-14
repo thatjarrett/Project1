@@ -28,7 +28,6 @@ public class Game1 : Game
 
     //private List<Enemy> enemies = new List<Enemy>();
 
-    private List<backgroundTile> bTiles = new List<backgroundTile>();
 
     Texture2D linkTexture;
     Texture2D environmentTexture;
@@ -102,8 +101,6 @@ public class Game1 : Game
 
     Dictionary<int, ISprite> spritesIDs;
 
-    Dictionary<int, ISprite> bSpritesIDs;
-
     private List<ISprite> itemsList = new List<ISprite>();
 
     public Game1()
@@ -161,6 +158,13 @@ public class Game1 : Game
         environmentTile rightDiamondLockedDoor = new doorTile(new Vector2(100, 100), 30);
         environmentTile rightBombedOpening = new doorTile(new Vector2(100, 100), 28);
 
+
+        environmentTile blueFloor = new BlueFloor(new Vector2(100, 100), 31);
+        environmentTile blueSand = new BlueSand(new Vector2(100, 100), 32);
+        environmentTile ladder = new Ladder(new Vector2(100, 100), 33);
+        environmentTile whiteBrick = new WhiteBrick(new Vector2(100, 100), 34);
+
+
         tiles.Add(statueTile);
         tiles.Add(statueTile2);
         tiles.Add(squareBlock);
@@ -169,6 +173,11 @@ public class Game1 : Game
         tiles.Add(fire);
         tiles.Add(oldMan);
         tiles.Add(pushBlock);
+
+        tiles.Add(blueFloor);
+        tiles.Add(blueSand);
+        tiles.Add(whiteBrick);
+        tiles.Add(ladder);
 
         /*tiles.Add(topWall);
         tiles.Add(topPlainWall);
@@ -198,17 +207,10 @@ public class Game1 : Game
         tiles.Add(rightDiamondLockedDoor);
         tiles.Add(rightBombedOpening);*/
 
-        backgroundTile ladder = new Ladder(12, 14);
-        backgroundTile whiteBrick = new WhiteBrick(60, 14);
-        backgroundTile blueFloor = new BlueFloor(108, 14);
-        backgroundTile blueSand = new BlueSand(156, 14);
+        
 
 
-        bTiles.Add(ladder);
-        bTiles.Add(whiteBrick);
-        bTiles.Add(blueFloor);
-        bTiles.Add(blueSand);
-
+       
         itemsList.Add(boomerang);
         itemsList.Add(HeartContainer);
         itemsList.Add(compass);
@@ -297,14 +299,10 @@ public class Game1 : Game
             {28,rightBombedOpeningSprite},
             {29,rightKeyLockedDoorSprite},
             {30,rightDiamondLockedDoorSprite},
-        };
-
-        bSpritesIDs = new Dictionary<int, ISprite>
-        {
-            {0,ladderSprite},
-            {1, whiteBrickSprite},
-            {2, blueFloorSprite},
-            {3, blueSandSprite}
+            {31, blueFloorSprite},
+            {32, blueSandSprite },
+            {33, ladderSprite},
+            {34, whiteBrickSprite}
         };
 
         setTileSprites();
@@ -343,9 +341,7 @@ public class Game1 : Game
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
 
 
-        foreach (var b in bTiles) {
-            b.draw(_spriteBatch);
-        }
+        
         int tileNum = 0;
         foreach (var tile in tiles)
         {
@@ -476,8 +472,6 @@ public class Game1 : Game
 
     public void CycleNPC(bool forward)
     {
-        if (bTiles.Count == 0) return;
-        currentNPCIndex = (currentNPCIndex + (forward ? 1 : bTiles.Count - 1)) % bTiles.Count;
     }
 
     protected void createEnemySprites()
@@ -496,7 +490,6 @@ public class Game1 : Game
     {
         // Clear all game objects
         tiles.Clear();
-        bTiles.Clear();
         itemsList.Clear();
         enemies.Clear();
 
@@ -510,10 +503,6 @@ public class Game1 : Game
         foreach (var tile in tiles)
         {
             tile.setSprite(spritesIDs[tile.getTileID()]);
-        }
-
-        foreach (var btile in bTiles) {
-            btile.setSprite(bSpritesIDs[btile.getID()]);
         }
 
     }

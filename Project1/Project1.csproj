@@ -24,7 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Entities\UseItemCommand.cs" />
-    <None Include="GameObjects\Background\WhiteBrick.cs" />
+    <None Include="GameObjects\Environment\WhiteBrick.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105" />
