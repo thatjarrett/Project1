@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 using Project1.Sprites;
@@ -42,7 +37,7 @@ namespace Project1.Entities
 
         public void createEnemySprites(Texture2D enemyTexture)
         {
-            Rectangle[] batRect = new Rectangle[] {new Rectangle(183, 11, 15, 15), new Rectangle(200, 11, 15, 15) };
+            Rectangle[] batRect = new Rectangle[] { new Rectangle(183, 11, 15, 15), new Rectangle(200, 11, 15, 15) };
 
             batSprite = new NMoveAnim(enemyTexture, batRect, 5);
         }
@@ -53,7 +48,8 @@ namespace Project1.Entities
             {
                 damageFrameCounter++;
             }
-            else {
+            else
+            {
                 damageFrameCounter = 0;
             }
 

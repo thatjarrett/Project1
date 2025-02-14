@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using Project1.Interfaces;
-using System.Diagnostics;
 
 namespace Project1.Sprites
 {
-    internal class NMoveAnim:ISprite
+    internal class NMoveAnim : ISprite
     {
         private Texture2D _texture;
         private Rectangle _sourceRectangle;
         private float _scale; // Scale factor for sprite size
-        private Rectangle [] frames;
+        private Rectangle[] frames;
         private int fps;
         private int frameCounter = 0;
         Color color = Color.White;
@@ -34,19 +28,20 @@ namespace Project1.Sprites
         {
             frameCounter++;
             int frame = frameCounter / fps;
-            if (frame > frames.Length-1) {
+            if (frame > frames.Length - 1)
+            {
                 frameCounter = 0;
                 frame = 0;
             }
             _sourceRectangle = frames[frame];
-            
+
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects)
         {
             spriteBatch.Draw(
                 _texture,
-                (position - _scale*_offset),
+                (position - _scale * _offset),
                 _sourceRectangle,
                 color,
                 0f,

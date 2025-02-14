@@ -1,6 +1,5 @@
-﻿using Project1.Interfaces;
-using Project1.Entities;
-using System;
+﻿using System;
+using Project1.Interfaces;
 
 namespace Project1.Entities
 {

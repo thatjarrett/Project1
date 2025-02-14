@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using Project1.Interfaces;
 
 namespace Project1.Projectiles
@@ -25,7 +20,7 @@ namespace Project1.Projectiles
         {
             _sprite = sprite;
         }
-        public void Update(GameTime gameTime,Vector2 linkPos)
+        public void Update(GameTime gameTime, Vector2 linkPos)
         {
             _sprite.Update(gameTime);
             _position = _magnitude * _direction + _position;
@@ -70,7 +65,8 @@ namespace Project1.Projectiles
                 _sprite.Draw(spriteBatch, _position, effect);
             }
         }
-        public void Throw(Vector2 position,Vector2 direction){
+        public void Throw(Vector2 position, Vector2 direction)
+        {
             if (active)
             {
                 return;
@@ -83,7 +79,7 @@ namespace Project1.Projectiles
         }
         private void ReturnToLink(Vector2 linkPos)
         {
-            _direction = (_position-linkPos);
+            _direction = (_position - linkPos);
             _direction.Normalize();
             if ((_position - linkPos).Length() < 10)
             {

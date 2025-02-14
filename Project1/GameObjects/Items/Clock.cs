@@ -1,16 +1,14 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
-using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 
 namespace Project1.GameObjects.Items
 {
-	public class Clock: ISprite
-	{
+    public class Clock : ISprite
+    {
         Texture2D texture;
         Rectangle destinationRectangle;
         int frameState = 0;
@@ -24,11 +22,11 @@ namespace Project1.GameObjects.Items
         {
 
             Rectangle source = new Rectangle(56, 0, 16, 16);
-     
-            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 16, 2  * 16);
-            
-          
-            spriteBatch.Draw(texture, destinationRectangle, source,Color.White);
+
+            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 16, 2 * 16);
+
+
+            spriteBatch.Draw(texture, destinationRectangle, source, Color.White);
         }
 
         public void Update(GameTime gameTime)

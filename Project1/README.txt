@@ -66,3 +66,11 @@ Interactable items like Keys, Compass, and Map
 Game Over screen after death
 Item cooldown system
 Tile-based movement & interactions
+
+CODE METRICS
+Maintainability - 89
+Cyclomatic Complexity - 497
+Depth of Inheritance - 3
+Class Coupling - 114
+Lines of Code - 3395
+Lines of Executable Code - 806

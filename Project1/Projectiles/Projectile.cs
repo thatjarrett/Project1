@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using Project1.Interfaces;
-using System.Runtime.CompilerServices;
-using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
 
 namespace Project1.Projectiles
 {
@@ -32,16 +24,16 @@ namespace Project1.Projectiles
         {
             _sprite1.Update(gameTime);
             _sprite2.Update(gameTime);
-            _position = _magnitude*_direction + _position;
+            _position = _magnitude * _direction + _position;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             SpriteEffects effect = SpriteEffects.None;
             ISprite activeSprite = _sprite1;
-            
+
             if (_direction.X < 0)
             {
-                effect = SpriteEffects.FlipHorizontally;   
+                effect = SpriteEffects.FlipHorizontally;
             }
             if (_direction.Y > 0)
             {
@@ -53,13 +45,13 @@ namespace Project1.Projectiles
             }
 
             activeSprite.Draw(spriteBatch, _position, effect);
-            
-            
+
+
         }
 
         public void Destroy()
         {
-           //Use this to get rid of projectiles
+            //Use this to get rid of projectiles
         }
     }
 }

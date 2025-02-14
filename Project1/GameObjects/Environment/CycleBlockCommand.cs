@@ -1,6 +1,6 @@
-﻿using Project1.GameObjects.Environment;
+﻿using System;
+using System.Diagnostics;
 using Project1.Interfaces;
-using System.Collections.Generic;
 
 namespace Project1.Commands
 {
@@ -8,6 +8,8 @@ namespace Project1.Commands
     {
         private Game1 _game;
         private bool _forward;
+        private static double lastExecutionTime = 0;
+        private const double CooldownDuration = 0.2;
 
         public CycleBlockCommand(Game1 game, bool forward)
         {
@@ -17,7 +19,16 @@ namespace Project1.Commands
 
         public void Execute()
         {
+            double currentTime = (double)DateTime.UtcNow.Ticks / TimeSpan.TicksPerSecond;
+
+            if (currentTime - lastExecutionTime < CooldownDuration)
+            {
+                Debug.WriteLine("CycleBlockCommand is on cooldown!");
+                return;
+            }
+
             _game.CycleBlock(_forward);
+            lastExecutionTime = currentTime;
         }
     }
 }

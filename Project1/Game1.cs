@@ -1,16 +1,15 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Project1.Controllers;
-using Project1.Sprites;
-using System.Collections.Generic;
-using Project1.GameObjects.Environment;
-using Project1.Interfaces;
-using Project1.Entities;
-using System;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Project1.Commands;
+using Project1.Controllers;
+using Project1.Entities;
 using Project1.GameObjects.Background;
+using Project1.GameObjects.Environment;
 using Project1.GameObjects.Items;
+using Project1.Interfaces;
+using Project1.Sprites;
 
 public class Game1 : Game
 {
@@ -207,10 +206,10 @@ public class Game1 : Game
         tiles.Add(rightDiamondLockedDoor);
         tiles.Add(rightBombedOpening);*/
 
-        
 
 
-       
+
+
         itemsList.Add(boomerang);
         itemsList.Add(HeartContainer);
         itemsList.Add(compass);
@@ -233,7 +232,7 @@ public class Game1 : Game
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
         //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
-        
+
     }
     protected override void Initialize()
     {
@@ -256,7 +255,7 @@ public class Game1 : Game
 { Keys.D2, new UseItemCommand(link, 2) },
 { Keys.D3, new UseItemCommand(link, 3) },
 { Keys.G, new DeathCommand(link) },
-{ Keys.Q, new QuitCommand(this) },   
+{ Keys.Q, new QuitCommand(this) },
 { Keys.R, new ResetCommand(this) },
 { Keys.T, new CycleBlockCommand(this, false) }, // Previous block
 { Keys.Y, new CycleBlockCommand(this, true) },  // Next block
@@ -313,7 +312,7 @@ public class Game1 : Game
     {
         var keyboardState = Keyboard.GetState();
 
-        
+
         keyboardController.Update(gameTime);
         link.Update(gameTime);
         foreach (var tile in tiles)
@@ -322,7 +321,7 @@ public class Game1 : Game
         }
         base.Update(gameTime);
 
-        foreach(var item in itemsList)
+        foreach (var item in itemsList)
         {
             item.Update(gameTime);
         }
@@ -341,17 +340,17 @@ public class Game1 : Game
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
 
 
-        
+
         int tileNum = 0;
         foreach (var tile in tiles)
         {
-           
-            if(currentBlockIndex == tileNum)
+
+            if (currentBlockIndex == tileNum)
             {
                 tile.Draw(_spriteBatch);
             }
             tileNum++;
-            if(tileNum >= tiles.Count)
+            if (tileNum >= tiles.Count)
             {
                 tileNum = 0;
             }
@@ -359,8 +358,8 @@ public class Game1 : Game
         int x = 200;
         foreach (var item in itemsList)
         {
-            item.Draw(_spriteBatch,new Vector2(x,300), SpriteEffects.None);
-            x+= 40;
+            item.Draw(_spriteBatch, new Vector2(x, 300), SpriteEffects.None);
+            x += 40;
         }
 
         foreach (var enemy in enemies)
@@ -401,7 +400,7 @@ public class Game1 : Game
         squareBlockSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 1, 16, 16));
         blueGapSprite = new NMoveNAnim(environmentTexture, new Rectangle(498, 18, 16, 16));
         stairsSprite = new NMoveNAnim(environmentTexture, new Rectangle(515, 18, 16, 16));
-        oldManSprite = new NMoveNAnim(npcTexture,new Rectangle(1,1, 16, 16));
+        oldManSprite = new NMoveNAnim(npcTexture, new Rectangle(1, 1, 16, 16));
 
         topWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 1, 256, 32));
         topPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 1, 32, 32));
@@ -456,7 +455,7 @@ public class Game1 : Game
         Arrow = new Arrow(itemTexture);
         Bomb = new Bomb(itemTexture);
         Fairy = new Fairy(itemTexture);
-        Clock = new Clock(itemTexture); 
+        Clock = new Clock(itemTexture);
     }
     public void CycleBlock(bool forward)
     {
