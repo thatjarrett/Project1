@@ -24,7 +24,7 @@ namespace Project1.Commands
 
             if (currentTime - lastExecutionTime < CooldownDuration)
             {
-                Debug.WriteLine("CycleItemCommand is on cooldown!");
+                Debug.WriteLine("CycleNPCCommand is on cooldown!");
                 return;
             }
 
