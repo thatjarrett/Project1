@@ -83,7 +83,7 @@ namespace Project1.Entities
                 else {
                     movingDirection = Direction.Down;
                 }
-                movementDuration = random.NextDouble();
+                movementDuration = random.NextDouble()/10;
                 enemy.Move(movingDirection == Direction.Left ? -2 : 2, movingDirection == Direction.Up ? -2 : 2);
             }
         }
