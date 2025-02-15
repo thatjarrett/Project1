@@ -5,15 +5,21 @@ namespace Project1.Entities
     internal class DeathCommand : ICommand
     {
         private readonly Link _link;
+        private bool _hasTriggered;
 
         public DeathCommand(Link link)
         {
             _link = link;
+            _hasTriggered = false;
         }
 
         public void Execute()
         {
-            _link.ChangeState(new LinkDeathState());
+            if (!_hasTriggered)
+            {
+                _link.ChangeState(new LinkDeathState());
+                _hasTriggered = true;
+            }
         }
     }
 }

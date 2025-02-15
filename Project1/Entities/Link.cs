@@ -16,7 +16,7 @@ namespace Project1.Entities
         private double invincibleTime = 0;
         private const double InvincibilityDuration = 1.0; // 1 second
         private bool isControlsDisabled = false; // Flag to disable controls
-
+        private bool isVisible = true;
         private ISprite linkSprite;
 
         private ISprite walkSideSprite;
@@ -136,7 +136,10 @@ namespace Project1.Entities
             GameManager.Instance.SetGameOver();
 
         }
-
+        public void Hide()
+        {
+            isVisible = false;
+        }
 
         public void Item(int itemNumber)
         {
@@ -189,6 +192,10 @@ namespace Project1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            // If Link is hidden, skip drawing.
+            if (!isVisible)
+                return;
+
             if (hurting)
             {
                 damageFrameCounter++;
@@ -227,8 +234,8 @@ namespace Project1.Entities
                     currentSpriteEffect = SpriteEffects.None;
                 }
             }
-
         }
+
         public void createLinkSprites(Texture2D linkTexture)
         {
             Rectangle[] walkSide = new Rectangle[] { new Rectangle(2, 29, 15, 16), new Rectangle(18, 30, 16, 16) };
