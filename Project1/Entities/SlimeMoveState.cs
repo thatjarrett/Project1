@@ -47,22 +47,6 @@ namespace Project1.Entities
 
             if (movementDuration <= 0)
             {
-                //switch (movingDirection)
-                //{
-                //    case Direction.Up:
-                //        movingDirection = Direction.Right;
-                //        break;
-                //    case Direction.Right:
-                //        movingDirection = Direction.Down;
-                //        break;
-                //    case Direction.Down:
-                //        movingDirection = Direction.Left;
-                //        break;
-                //    case Direction.Left:
-                //        movingDirection = Direction.Up;
-                //        break;
-                //}
-
                 int x = random.Next(3);
                 switch (x)
                 {

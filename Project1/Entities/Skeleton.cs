@@ -2,10 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 using Project1.Sprites;
+using System;
+using System.Diagnostics;
 
 namespace Project1.Entities
 {
-    public class Bat : IEnemy
+    public class Skeleton : IEnemy
 
     {
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
@@ -17,17 +19,18 @@ namespace Project1.Entities
         private const double InvincibilityDuration = 1.0;
         private bool isInvincible = false;
         private double invincibleTime = 0;
+        private double flipTime = 0.1;
 
 
-        private ISprite batSprite;
+        private ISprite skeletonSprite;
 
         int damageFrameCounter = 0;
         bool hurting = false;
 
-        public Bat(Vector2 startPos)
+        public Skeleton(Vector2 startPos)
         {
             position = startPos;
-            currentState = new BatFlyState(Direction.Left, 1.0);
+            currentState = new SkeletonMoveState(Direction.Left, 1.0);
         }
 
         public void ChangeState(IEnemyState newState)
@@ -37,9 +40,9 @@ namespace Project1.Entities
 
         public void createEnemySprites(Texture2D enemyTexture)
         {
-            Rectangle[] batRect = new Rectangle[] { new Rectangle(183, 11, 15, 15), new Rectangle(200, 11, 15, 15) };
+            Rectangle[] skelRect = new Rectangle[] {new Rectangle(1, 59, 16, 16) };
 
-            batSprite = new NMoveAnim(enemyTexture, batRect, 5);
+            skeletonSprite = new NMoveAnim(enemyTexture, skelRect, 5);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -55,15 +58,15 @@ namespace Project1.Entities
 
             if (damageFrameCounter > 0)
             {
-                batSprite.SetColor(Color.Magenta);
+                skeletonSprite.SetColor(Color.Magenta);
             }
             else
             {
-                batSprite.SetColor(Color.White);
+                skeletonSprite.SetColor(Color.White);
             }
             if ((damageFrameCounter / 5) % 2 == 0)
             {
-                batSprite.Draw(spriteBatch, position, currentSpriteEffect);
+                skeletonSprite.Draw(spriteBatch, position, currentSpriteEffect);
             }
 
             //TODO: why the fuck is the code like that????????????????
@@ -97,7 +100,7 @@ namespace Project1.Entities
 
         public void PerformAttack()
         {
-            //the bat just flies around i think
+            //
         }
 
         public void SetAnimation(string action)
@@ -119,6 +122,18 @@ namespace Project1.Entities
 
         public void Update(GameTime gameTime)
         {
+            double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
+            flipTime -= timeStep;
+            if (flipTime <= 0)
+            {
+                currentSpriteEffect = SpriteEffects.None;
+                flipTime = 0.1;
+            }
+            else {
+                currentSpriteEffect = SpriteEffects.FlipHorizontally;
+            }
+            //Trace.WriteLine(timeStep);
+
             currentState.Update(this, gameTime);
 
 
@@ -129,7 +144,7 @@ namespace Project1.Entities
                 if (invincibleTime <= 0)
                     isInvincible = false;
             }
-            batSprite.Update(gameTime);
+            skeletonSprite.Update(gameTime);
         }
     }
 }

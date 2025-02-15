@@ -22,6 +22,7 @@ public class Game1 : Game
 
     private Bat bat;
     private Slime slime;
+    private Skeleton skeleton;
 
     private List<environmentTile> tiles = new List<environmentTile>();
     private List<IEnemy> enemies = new List<IEnemy>();
@@ -117,6 +118,7 @@ public class Game1 : Game
 
         bat = new Bat(new Vector2(500, 170));
         slime = new Slime(new Vector2(500, 170));
+        skeleton = new Skeleton(new Vector2(500, 170));
 
         createSprites();
 
@@ -229,6 +231,7 @@ public class Game1 : Game
 
         enemies.Add(bat);
         enemies.Add(slime);
+        enemies.Add(skeleton);
 
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
@@ -372,6 +375,7 @@ public class Game1 : Game
         aquamentus.Draw(_spriteBatch);
         bat.Draw(_spriteBatch);
         slime.Draw(_spriteBatch);
+        skeleton.Draw(_spriteBatch);
 
         link.Draw(_spriteBatch);
 
@@ -486,6 +490,7 @@ public class Game1 : Game
 
         bat.createEnemySprites(enemyTexture);
         slime.createEnemySprites(enemyTexture);
+        skeleton.createEnemySprites(enemyTexture);
 
     }
     public void RestartGame()
