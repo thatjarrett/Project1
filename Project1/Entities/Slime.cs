@@ -5,7 +5,7 @@ using Project1.Sprites;
 
 namespace Project1.Entities
 {
-    public class Slime : IEnemy       //TODO: movement a bit slow i gotta fix that
+    public class Slime : IEnemy
 
     {
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;

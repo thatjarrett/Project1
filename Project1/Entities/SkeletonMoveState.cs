@@ -53,7 +53,7 @@ namespace Project1.Entities
                 movementDuration -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (movementDuration <= 0)
                 {
-                    int x = random.Next(3);
+                    int x = random.Next(4);
                     if (x == 0)
                     {
                         movingDirection = Direction.Left;
