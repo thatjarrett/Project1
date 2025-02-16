@@ -68,8 +68,6 @@ namespace Project1.Entities
             {
                 skeletonSprite.Draw(spriteBatch, position, currentSpriteEffect);
             }
-
-            //TODO: why the fuck is the code like that????????????????
         }
 
         public void Move(int dx, int dy)

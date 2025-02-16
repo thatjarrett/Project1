@@ -66,8 +66,6 @@ namespace Project1.Entities
             {
                 slimeSprite.Draw(spriteBatch, position, currentSpriteEffect);
             }
-
-            //TODO: why the fuck is the code like that????????????????
         }
 
         public void Move(int dx, int dy)
@@ -98,7 +96,7 @@ namespace Project1.Entities
 
         public void PerformAttack()
         {
-            //the bat just flies around i think
+            //
         }
 
         public void SetAnimation(string action)

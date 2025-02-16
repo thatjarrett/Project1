@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Project1.Interfaces;
 using System;
+using System.Diagnostics;
+
 
 namespace Project1.Entities
 {
@@ -47,7 +49,10 @@ namespace Project1.Entities
 
             if (movementDuration <= 0)
             {
-                int x = random.Next(3);
+                int x = random.Next(5);
+
+                //Trace.WriteLine(x);
+
                 switch (x)
                 {
                     case 0:
@@ -61,6 +66,10 @@ namespace Project1.Entities
                         break;
                     case 3:
                         movingDirection = Direction.Up;
+                        break;
+                    case 4:
+                        movingDirection = Direction.None;
+                        movementDuration /= 2;
                         break;
                 }
 
@@ -80,6 +89,9 @@ namespace Project1.Entities
                     break;
                 case Direction.Left:
                     slime.Move(-1, 0);
+                    break;
+                case Direction.None:
+                    slime.Move(0, 0);
                     break;
             }
         }
