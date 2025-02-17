@@ -12,27 +12,36 @@ namespace Project1.GameObjects.Items
         Texture2D texture;
         Rectangle destinationRectangle;
         int frameState = 0;
+        Vector2 Pos;
+
 
         public Boomerang(Texture2D texture)
         {
             this.texture = texture;
+            this.Pos = new Vector2 (200,300);
 
         }
-        public void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects)
+        public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
         {
 
             Rectangle[] sourceArray = new Rectangle[2];
             sourceArray[0] = new Rectangle(129, 3, 5, 8);
             sourceArray[1] = new Rectangle(129, 19, 5, 8);
-            if (frameState == 0)
-            {
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2 * 8);
-            }
-            else if (frameState == 1)
-            {
+            destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 5, 2 * 8);
+            
+            
 
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2 * 8);
-            }
+            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
+        }
+        public void Draw(SpriteBatch spriteBatch,Vector2 location, SpriteEffects spriteEffects)
+        {
+
+            Rectangle[] sourceArray = new Rectangle[2];
+            sourceArray[0] = new Rectangle(129, 3, 5, 8);
+            sourceArray[1] = new Rectangle(129, 19, 5, 8);           
+            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2 * 8);
+            
+           
 
             spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
         }
@@ -45,5 +54,10 @@ namespace Project1.GameObjects.Items
         public void SetColor(Color _color)
         {
         }
+        public void SetPosition(Vector2 Pos)
+        {
+            this.Pos = Pos;
+        }
+        public Vector2 getPosition() { return this.Pos; }
     }
 }

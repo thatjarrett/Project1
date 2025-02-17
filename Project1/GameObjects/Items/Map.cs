@@ -11,14 +11,25 @@ namespace Project1.GameObjects.Items
     {
         Texture2D texture;
         Rectangle destinationRectangle;
+        Vector2 Pos;
 
 
         public Map(Texture2D texture)
         {
             this.texture = texture;
+            this.Pos = new Vector2(200, 300);
 
         }
-        public void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects)
+        public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
+        {
+
+            Rectangle source = new Rectangle(230, 0, 10, 16);
+            destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 10, 2 * 16);
+
+
+            spriteBatch.Draw(texture, destinationRectangle, source, Color.White);
+        }
+        public void Draw(SpriteBatch spriteBatch,Vector2 location, SpriteEffects spriteEffects)
         {
 
             Rectangle source = new Rectangle(230, 0, 10, 16);
@@ -36,5 +47,10 @@ namespace Project1.GameObjects.Items
         public void SetColor(Color _color)
         {
         }
+        public void SetPosition(Vector2 pos)
+        {
+            this.Pos = pos;
+        }
+        public Vector2 getPosition() { return this.Pos; }
     }
 }

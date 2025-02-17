@@ -12,22 +12,32 @@ namespace Project1.GameObjects.Items
         Texture2D texture;
         Rectangle destinationRectangle;
         int frameState = 0;
+        Vector2 Pos;
 
 
         public Heart(Texture2D texture)
         {
             this.texture = texture;
+            this.Pos = new Vector2(200, 300);
 
         }
-        public void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects)
+        public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
         {
 
             Rectangle[] sourceArray = new Rectangle[2];
             sourceArray[0] = new Rectangle(0, 0, 8, 8);
             sourceArray[1] = new Rectangle(0, 8, 8, 8);
-            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 8, 2 * 8);
+            destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 8, 2 * 8);
 
+            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
+        }
+        public void Draw(SpriteBatch spriteBatch,Vector2 Location, SpriteEffects spriteEffects)
+        {
 
+            Rectangle[] sourceArray = new Rectangle[2];
+            sourceArray[0] = new Rectangle(0, 0, 8, 8);
+            sourceArray[1] = new Rectangle(0, 8, 8, 8);
+            destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, 2 * 8, 2 * 8);
 
             spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
         }
@@ -40,5 +50,10 @@ namespace Project1.GameObjects.Items
         public void SetColor(Color _color)
         {
         }
+        public void SetPosition(Vector2 pos)
+        {
+            this.Pos = pos;
+        }
+        public Vector2 getPosition() { return this.Pos; }
     }
 }

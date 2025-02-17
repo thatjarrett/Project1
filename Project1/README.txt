@@ -74,3 +74,6 @@ Depth of Inheritance - 3
 Class Coupling - 114
 Lines of Code - 3395
 Lines of Executable Code - 806
+
+BURNDOWN CHART
+BurndownChart.png

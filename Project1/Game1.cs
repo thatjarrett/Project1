@@ -266,6 +266,7 @@ public class Game1 : Game
 { Keys.D1, new UseItemCommand(link, 1) },
 { Keys.D2, new UseItemCommand(link, 2) },
 { Keys.D3, new UseItemCommand(link, 3) },
+{ Keys.D4, new UseItemCommand(link, 4) },
 { Keys.G, new DeathCommand(link) },
 { Keys.Q, new QuitCommand(this) },
 { Keys.R, new ResetCommand(this) },
@@ -365,6 +366,7 @@ public class Game1 : Game
 
         int tileNum = 0;
         int enemyNum = 0;
+        int itemNum =0;
         foreach (var tile in tiles)
         {
 
@@ -378,11 +380,18 @@ public class Game1 : Game
                 tileNum = 0;
             }
         }
-        int x = 200;
+     
         foreach (var item in itemsList)
         {
-            item.Draw(_spriteBatch, new Vector2(x, 300), SpriteEffects.None);
-            x += 40;
+            if (currentItemIndex == itemNum)
+            {
+                item.Draw(_spriteBatch, new Vector2(200, 300), SpriteEffects.None);
+            }
+            itemNum++;
+            if (itemNum >= itemsList.Count)
+            {
+                itemNum = 0;
+            }
         }
 
         foreach (var enemy in enemies)
