@@ -21,18 +21,6 @@ namespace Project1.GameObjects.Items
             this.Pos = new Vector2(200, 300);
 
         }
-        public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
-        {
-
-            Rectangle[] sourceArray = new Rectangle[2];
-            sourceArray[0] = new Rectangle(72, 0, 8, 16);
-            sourceArray[1] = new Rectangle(72, 16, 8, 16);
-            destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 8, 2 * 16);
-
-
-
-            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
-        }
         public void Draw(SpriteBatch spriteBatch,Vector2 location, SpriteEffects spriteEffects)
         {
 
