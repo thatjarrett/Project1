@@ -38,6 +38,8 @@ public class Game1 : Game
     Texture2D itemTexture;
     Texture2D aquamentusTexture;
     Texture2D enemyTexture;
+    Texture2D enemyDeathTexture;
+    Texture2D enemySpawnTexture;
 
     ISprite statueLeftSprite;
     ISprite statueRightSprite;
@@ -94,6 +96,9 @@ public class Game1 : Game
     ISprite Bomb;
     ISprite Fairy;
     ISprite Clock;
+
+    ISprite enemyDeathCloud;
+    ISprite enemySpawnCloud;
 
     private int currentBlockIndex = 0;
     private int currentItemIndex = 0;
@@ -231,6 +236,9 @@ public class Game1 : Game
         itemsList.Add(Bomb);
         itemsList.Add(Fairy);
         itemsList.Add(Clock);
+
+        itemsList.Add(enemyDeathCloud);
+        itemsList.Add(enemySpawnCloud);
 
         enemies.Add(aquamentus);
         enemies.Add(trap);
@@ -496,6 +504,11 @@ public class Game1 : Game
         Bomb = new Bomb(itemTexture);
         Fairy = new Fairy(itemTexture);
         Clock = new Clock(itemTexture);
+
+        enemyDeathTexture = Content.Load<Texture2D>("Images/EnemyDeathCloud");
+        enemySpawnTexture = Content.Load<Texture2D>("Images/EnemyCloud");
+        enemyDeathCloud = new EnemyDeathCloud(enemyDeathTexture);
+        enemySpawnCloud = new EnemySpawnCloud(enemySpawnTexture);
     }
     public void CycleBlock(bool forward)
     {
