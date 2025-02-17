@@ -1,0 +1,11 @@
+Review by Angstrom
+Reviewing LinkDeathState.cs
+Original file by Jarett
+2/17/2025
+Sprint 2
+
+Review: Overall, the file is very straightforward and relativeley easily to comprehend. While some parts rely on outside methods, the functions
+of thse can generally be inferred via context clues, or found by looking at the corresponding methods. The only thing I wasn't really clear on was
+the function of the "gameOverTriggered" variable, but otherwise everything else made sense easily.
+
+This review took 6 minutes to write.
