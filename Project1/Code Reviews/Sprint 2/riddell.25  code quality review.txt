@@ -1,0 +1,9 @@
+Review by Bren
+Reviewing IEnemy.cs
+Original file by Nick
+2/17/2025
+Sprint 2
+
+Review: Functionally, this interface appears to have all of the functions that would possibly be needed for any given enemy, and the enemies created thus far which do depend
+on this interface work perfectly fine. There seems to be very few, and primitive fields for each method, hopefully ensuring we have no issues with dependencies later on. I
+overall think this interface is neat and orderly, and doesn't appear to have any redundancies.
