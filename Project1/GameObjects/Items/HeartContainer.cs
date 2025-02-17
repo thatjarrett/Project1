@@ -15,10 +15,10 @@ namespace Project1.GameObjects.Items
         int frameState = 0;
         Vector2 Pos;
 
-        public HeartContainer(Texture2D texture, Vector2 Pos)
+        public HeartContainer(Texture2D texture)
         {
             this.texture = texture;
-            this.Pos = Pos;
+            this.Pos = new Vector2(200, 300);
         }
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
         {
@@ -27,6 +27,17 @@ namespace Project1.GameObjects.Items
             sourceArray[0] = new Rectangle(25, 1, 15, 15);
 
             destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 16, 2 * 16);
+
+
+            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
+        }
+        public void Draw(SpriteBatch spriteBatch,Vector2 Location, SpriteEffects spriteEffects)
+        {
+
+            Rectangle[] sourceArray = new Rectangle[2];
+            sourceArray[0] = new Rectangle(25, 1, 15, 15);
+
+            destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, 2 * 16, 2 * 16);
 
 
             spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
@@ -41,8 +52,8 @@ namespace Project1.GameObjects.Items
         }
         public void SetPosition(Vector2 pos)
         {
-            this.pos = pos;
+            this.Pos = pos;
         }
-        public Vector2 getPosition() { return this.pos; }
+        public Vector2 getPosition() { return this.Pos; }
     }
 }

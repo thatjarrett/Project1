@@ -26,6 +26,8 @@ namespace Project1.Sprites
 
         public void Update(GameTime gameTime)
         {
+
+            // _sourceRectangle = frames[(gameTime.TotalGameTime.Seconds)/fps)%frame]; I think this does everything below but based on game time and better
             frameCounter++;
             int frame = frameCounter / fps;
             if (frame > frames.Length - 1)

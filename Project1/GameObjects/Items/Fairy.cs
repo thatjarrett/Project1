@@ -15,10 +15,10 @@ namespace Project1.GameObjects.Items
         Vector2 Pos;
 
 
-        public Fairy(Texture2D texture, Vector2 Pos)
+        public Fairy(Texture2D texture)
         {
             this.texture = texture;
-            this.Pos = Pos; 
+            this.Pos = new Vector2(200, 300); 
         }
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
         {
@@ -28,7 +28,15 @@ namespace Project1.GameObjects.Items
             sourceArray[1] = new Rectangle(47, 0, 9, 16);
             destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 9, 2 * 16);
 
+            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
+        }
+        public void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects)
+        {
 
+            Rectangle[] sourceArray = new Rectangle[2];
+            sourceArray[0] = new Rectangle(39, 0, 9, 16);
+            sourceArray[1] = new Rectangle(47, 0, 9, 16);
+            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 9, 2 * 16);
 
             spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
         }
@@ -43,8 +51,8 @@ namespace Project1.GameObjects.Items
         }
         public void SetPosition(Vector2 pos)
         {
-            this.pos = pos;
+            this.Pos = pos;
         }
-        public Vector2 getPosition() { return this.pos; }
+        public Vector2 getPosition() { return this.Pos; }
     }
 }

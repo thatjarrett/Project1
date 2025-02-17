@@ -365,6 +365,7 @@ public class Game1 : Game
 
         int tileNum = 0;
         int enemyNum = 0;
+        int itemNum =0;
         foreach (var tile in tiles)
         {
 
@@ -378,11 +379,18 @@ public class Game1 : Game
                 tileNum = 0;
             }
         }
-        int x = 200;
+     
         foreach (var item in itemsList)
         {
-            item.Draw(_spriteBatch, new Vector2(x, 300), SpriteEffects.None);
-            x += 40;
+            if (currentItemIndex == itemNum)
+            {
+                item.Draw(_spriteBatch, new Vector2(200, 300), SpriteEffects.None);
+            }
+            itemNum++;
+            if (itemNum >= itemsList.Count)
+            {
+                itemNum = 0;
+            }
         }
 
         foreach (var enemy in enemies)
