@@ -159,15 +159,15 @@ namespace Project1.Entities
             Rectangle[] aquamentusWalk = new Rectangle[] { new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) };
             Rectangle[] aquamentusAttack = new Rectangle[] { new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32) };
 
-            aquamentusWalkSprite = new NMoveAnim(aquamentusTexture, aquamentusWalk, 5);
-            aquamentusAttackSprite = new NMoveAnim(aquamentusTexture, aquamentusAttack, 5);
+            aquamentusWalkSprite = new NMoveAnim(aquamentusTexture, aquamentusWalk, 4);
+            aquamentusAttackSprite = new NMoveAnim(aquamentusTexture, aquamentusAttack, 4);
 
             aquamentusSprite = aquamentusWalkSprite;
         }
 
         public void createFireballSprites(Texture2D aquamentusTexture)
         {
-            aquamentusFireball = new NMoveAnim(aquamentusTexture, new Rectangle[] { new Rectangle(119, 11, 8, 16), new Rectangle(128, 11, 8, 16) }, 30);
+            aquamentusFireball = new NMoveAnim(aquamentusTexture, new Rectangle[] { new Rectangle(119, 11, 8, 16), new Rectangle(128, 11, 8, 16) }, 60);
         }
 
         public void SetAnimation(string action)
