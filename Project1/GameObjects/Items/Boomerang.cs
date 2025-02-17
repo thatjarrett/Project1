@@ -12,13 +12,16 @@ namespace Project1.GameObjects.Items
         Texture2D texture;
         Rectangle destinationRectangle;
         int frameState = 0;
+        Vector2 Pos;
 
-        public Boomerang(Texture2D texture)
+
+        public Boomerang(Texture2D texture, Vector2 Pos)
         {
             this.texture = texture;
+            this.Pos = Pos;
 
         }
-        public void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects)
+        public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
         {
 
             Rectangle[] sourceArray = new Rectangle[2];
@@ -26,12 +29,12 @@ namespace Project1.GameObjects.Items
             sourceArray[1] = new Rectangle(129, 19, 5, 8);
             if (frameState == 0)
             {
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2 * 8);
+                destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 5, 2 * 8);
             }
             else if (frameState == 1)
             {
 
-                destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 5, 2 * 8);
+                destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 5, 2 * 8);
             }
 
             spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
@@ -45,5 +48,10 @@ namespace Project1.GameObjects.Items
         public void SetColor(Color _color)
         {
         }
+        public void SetPosition(Vector2 pos)
+        {
+            this.pos = pos;
+        }
+        public Vector2 getPosition() { return this.pos; }
     }
 }
