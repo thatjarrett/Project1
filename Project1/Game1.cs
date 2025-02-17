@@ -98,6 +98,8 @@ public class Game1 : Game
     private int currentItemIndex = 0;
     private int currentNPCIndex = 0;
 
+    private int currentEnemyIndex = 0;
+
 
     Dictionary<int, ISprite> spritesIDs;
 
@@ -333,9 +335,19 @@ public class Game1 : Game
             item.Update(gameTime);
         }
 
+        int enemyNum = 0;
         foreach (var enemy in enemies)
         {
-            enemy.Update(gameTime);
+            //enemy.Update(gameTime);
+            if (currentEnemyIndex == enemyNum)
+            {
+                enemy.Update(gameTime);
+            }
+            enemyNum++;
+            if (enemyNum >= enemies.Count)
+            {
+                enemyNum = 0;
+            }
         }
 
     }
@@ -349,6 +361,7 @@ public class Game1 : Game
 
 
         int tileNum = 0;
+        int enemyNum = 0;
         foreach (var tile in tiles)
         {
 
@@ -371,15 +384,20 @@ public class Game1 : Game
 
         foreach (var enemy in enemies)
         {
-            enemy.Draw(_spriteBatch);
+            //enemy.Draw(_spriteBatch);
+            if (currentEnemyIndex == enemyNum)
+            {
+                enemy.Draw(_spriteBatch);
+            }
+            enemyNum++;
+            if (enemyNum >= enemies.Count)
+            {
+                enemyNum = 0;
+            }
         }
 
         //Keep link below the tiles so he's drawn above them
-        aquamentus.Draw(_spriteBatch);
-        bat.Draw(_spriteBatch);
-        slime.Draw(_spriteBatch);
-        skeleton.Draw(_spriteBatch);
-        goriya.Draw(_spriteBatch);
+       
 
         link.Draw(_spriteBatch);
 
@@ -481,6 +499,8 @@ public class Game1 : Game
 
     public void CycleNPC(bool forward)
     {
+        if (enemies.Count == 0) return;
+        currentEnemyIndex = (currentEnemyIndex + (forward ? 1 : itemsList.Count - 1)) % enemies.Count;
     }
 
     protected void createEnemySprites()
