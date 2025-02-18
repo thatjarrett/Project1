@@ -1,0 +1,7 @@
+Review by Bren
+Reviewing Rupee.cs
+Original file by Bennett
+2/17/2025
+Sprint 2
+
+Review: The code works as expected and is nice and compartmentalized with respect to all the different methods. I think it can be improved slightly by making use of Bren's sprite classes to streamline the animation process.
