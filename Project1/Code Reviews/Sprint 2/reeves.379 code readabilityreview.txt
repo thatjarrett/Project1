@@ -1,0 +1,9 @@
+﻿Review by Jarrett Reeves
+Reviewing Bomb.cs
+Original file by Bennett
+2/17/2025
+Sprint 2
+
+This file is easy to read, with the exclusion of a Draw function that appears to be unused. It may be there for the purpose of satisfying ISprite, but without a check the inclusion seems confusing.
+Aside from that, given the relatively straightforward implementation of the sprite drawing, the code is easy to follow and understand.
+This review took 5 minutes to write.

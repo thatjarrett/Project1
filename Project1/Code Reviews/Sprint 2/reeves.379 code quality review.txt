@@ -1,0 +1,10 @@
+﻿Review by Jarrett Reeves
+Reviewing Skeleton.cs
+Original file by Angstrom
+2/17/2025
+Sprint 2
+
+Review: The code is a decent implemetnation of the skeleton class. The code is clean and easy to read.
+I don't know if the damage function works due to enemies not being able to be damaged yet, but it looks like it should work.
+Animation could be improved to look a bit less wonky, but it is functional. The implementation should allow for this to be done easily.
+This review took 7 minutes to write.

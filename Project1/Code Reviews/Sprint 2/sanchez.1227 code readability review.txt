@@ -1,0 +1,7 @@
+Review by Nick
+Reviewing Rupee.cs
+Original file by Bennett
+2/17/2025
+Sprint 2
+
+Review: The code is simple and split up nicely so it is easy to read and work off of. I think getting rid of the redundant draw function would help clean it up just a bit more.
