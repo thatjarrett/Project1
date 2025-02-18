@@ -488,7 +488,7 @@ public class Game1 : Game
 
     }
 
-    protected void createItemSprites()
+    protected void ws()
     {
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
         boomerang = new Boomerang(itemTexture);

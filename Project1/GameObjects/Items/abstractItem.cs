@@ -40,7 +40,7 @@ namespace Project1.GameObjects.Items
             this.pos = pos;
         }
         public Vector2 getPosition() { return this.pos; }
-        public void SetSprite() { sprite = this.sprite; }
+        public void SetSprite(ISprite sprite) { this.sprite = sprite; }
 	}
 }
 

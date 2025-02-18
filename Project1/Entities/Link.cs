@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project1.GameObjects.Items;
 using Project1.Interfaces;
 using Project1.Projectiles;
 using Project1.Sprites;
@@ -48,8 +49,11 @@ namespace Project1.Entities
         private ISprite arrowHorizontal;
         private ISprite arrowVertical;
         private ISprite boomerang;
+        private ISprite bombSprite;
+        private ISprite explodingBombSprite;
 
         private BoomerangProjectile boomerangThrowable;
+        private BombProjectile bombProjectile;
 
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
 
@@ -158,7 +162,7 @@ namespace Project1.Entities
                     boomerangThrowable.Throw(position, faceDirection);
                     break;
                 case 4:
-                    boomerangThrowable.Throw(position, faceDirection);
+                    bombProjectile.placeBomb(position);
                     break;
             }
             if (projectile != null)
@@ -182,6 +186,7 @@ namespace Project1.Entities
                 projectile.Update(gameTime);
             }
             boomerangThrowable.Update(gameTime, position);
+            bombProjectile.Update(gameTime);
         }
 
 
@@ -225,6 +230,7 @@ namespace Project1.Entities
                 projectile.Draw(spriteBatch);
             }
             boomerangThrowable.Draw(spriteBatch);
+            bombProjectile.Draw(spriteBatch);
             if (dying)
             {
                 deathFrameCounter++;
@@ -355,6 +361,10 @@ namespace Project1.Entities
 
             boomerang = new NMoveAnim(texture, new Rectangle[] { new Rectangle(64, 185, 8, 16), new Rectangle(73, 185, 8, 16), new Rectangle(82, 185, 8, 16), new Rectangle(73, 185, 8, 16) }, 5);
             boomerangThrowable = new BoomerangProjectile(boomerang);
+
+            bombSprite = new NMoveNAnim(texture, new Rectangle(129,184,8,16));
+            explodingBombSprite = new NMoveAnim(texture, new Rectangle[] { new Rectangle(137, 184, 16, 16), new Rectangle(154, 184, 16, 16) }, 10);
+            bombProjectile = new BombProjectile(position,bombSprite, explodingBombSprite);
         }
     }
 }
