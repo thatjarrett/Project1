@@ -266,6 +266,7 @@ public class Game1 : Game
 { Keys.D1, new UseItemCommand(link, 1) },
 { Keys.D2, new UseItemCommand(link, 2) },
 { Keys.D3, new UseItemCommand(link, 3) },
+{ Keys.D4, new UseItemCommand(link, 4) },
 { Keys.G, new DeathCommand(link) },
 { Keys.Q, new QuitCommand(this) },
 { Keys.R, new ResetCommand(this) },

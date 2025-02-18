@@ -157,6 +157,9 @@ namespace Project1.Entities
                 case 3:
                     boomerangThrowable.Throw(position, faceDirection);
                     break;
+                case 4:
+                    boomerangThrowable.Throw(position, faceDirection);
+                    break;
             }
             if (projectile != null)
             {
