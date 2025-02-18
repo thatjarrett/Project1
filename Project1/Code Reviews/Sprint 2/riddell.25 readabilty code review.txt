@@ -1,0 +1,10 @@
+Review by Bren
+Reviewing Aquamentus.cs
+Original file by Nick
+2/17/2025
+Sprint 2
+
+This file is well written in the regard that it's clear each method within the class serves one function, meaning a good level of conciseness is at play. My only notable concern
+is there's a small amount of logic within Draw, which may possibly be better fit in its own method.
+
+As a whole though, the functions of this class are simple, and easy to read, and their function is clear and to the point.

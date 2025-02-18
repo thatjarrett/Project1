@@ -1,0 +1,12 @@
+Review by Angstrom
+Reviewing environmentTile.cs
+Original file by Bren
+2/17/2025
+Sprint 2
+
+Though not neccesarily noticable when viewing the file outright, looking at the implementation of the various objects that inherit the environmentTile
+class, it becomes clear that the way the code is written is able to significantly lessen the work needed to create objects of type environmentTile.
+
+The code will not need to be changed much in order to be maintained, though this is in part due to the fact that tiles have very few functionalities.
+However, I can imagine that implementing special "function specific" features for certain tiles might be problematic. Those specific tiles could
+be moved to a separate class, perhaps.
