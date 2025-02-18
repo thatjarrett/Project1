@@ -1,0 +1,10 @@
+Review by Bennett
+Reviewing link.cs
+Original file by Jarrett
+2/17/2025
+Sprint 2
+
+File is functional and does a great job of piecing together all the parts of link. There are some things we can probably 
+extract out in a later sprint, like the declaration of the projectile sprites that link has, but overall it is a great start
+to being able to understand the file all in one place. The file does do a good job of spreading out the work of many classes
+and sprites, and is only held back by being the class that declares all of those sprites. 
