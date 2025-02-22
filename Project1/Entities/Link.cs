@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Project1.Collision;
 using Project1.GameObjects.Items;
 using Project1.Interfaces;
 using Project1.Projectiles;
@@ -62,10 +64,13 @@ namespace Project1.Entities
 
         private List<Projectile> projectilesList = new List<Projectile>();
 
+        private CollisionBox collider;
+
         public Link(Vector2 startPos)
         {
             position = startPos;
             currentState = new LinkIdleState(Direction.Down); // Start in Idle state
+            collider = new CollisionBox((int)startPos.X, (int)startPos.Y);
         }
         public Direction PreviousDirection { get; private set; } = Direction.Down;
 
@@ -194,6 +199,7 @@ namespace Project1.Entities
         {
             position.X += dx;
             position.Y += dy;
+            collider.Move(dx, dy);
         }
 
 
@@ -365,6 +371,35 @@ namespace Project1.Entities
             bombSprite = new NMoveNAnim(texture, new Rectangle(129,184,8,16));
             explodingBombSprite = new NMoveAnim(texture, new Rectangle[] { new Rectangle(137, 184, 16, 16), new Rectangle(154, 184, 16, 16) }, 10);
             bombProjectile = new BombProjectile(position,bombSprite, explodingBombSprite);
+        }
+
+        public void CollisionUpdate(CollisionBox other)
+        {
+            int intersectionDistance = collider.GetSidePush(other);
+            CollisionSide side = collider.side;   
+            switch (side)
+            {
+                case CollisionSide.Top:
+                    Move(0, -intersectionDistance);
+                    break;
+                case CollisionSide.Left:
+                    Move(-intersectionDistance, 0);
+                    break;
+                case CollisionSide.Right:
+                    Move(intersectionDistance, 0);
+                    break;
+                case CollisionSide.Bottom:
+                    Move(0, intersectionDistance);
+                    break;
+                case CollisionSide.None:
+                    break;
+            }
+            Debug.WriteLine($"Collision: {intersectionDistance}");
+
+        }
+        public CollisionBox GetCollider()
+        {
+            return collider;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project1.Collision;
 using Project1.Commands;
 using Project1.Controllers;
 using Project1.Entities;
@@ -111,6 +112,10 @@ public class Game1 : Game
 
     private List<ISprite> itemsList = new List<ISprite>();
 
+
+    //Debug Variables
+    Texture2D pixelTexture;
+    bool debugDraw = true;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -120,6 +125,9 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
+        pixelTexture.SetData(new[] { Color.White });
+
         link = new Link(new Vector2(350, 170));
         aquamentus = new Aquamentus(new Vector2(500, 170));
         trap = new SpikeTrap(new Vector2(500, 170));
@@ -339,6 +347,7 @@ public class Game1 : Game
         foreach (var tile in tiles)
         {
             tile.Update(gameTime);
+            
         }
         base.Update(gameTime);
 
@@ -361,7 +370,7 @@ public class Game1 : Game
                 enemyNum = 0;
             }
         }
-
+        UpdateCollisions();
     }
 
     protected override void Draw(GameTime gameTime)
@@ -377,10 +386,15 @@ public class Game1 : Game
         int itemNum =0;
         foreach (var tile in tiles)
         {
-
+            tile.SetCollider();
             if (currentBlockIndex == tileNum)
             {
                 tile.Draw(_spriteBatch);
+                CollisionBox collider = tile.GetCollider();
+                if (collider != null && debugDraw)
+                {
+                    tile.GetCollider().DebugDraw(_spriteBatch, pixelTexture,collider.hitbox,Color.Red);
+                }
             }
             tileNum++;
             if (tileNum >= tiles.Count)
@@ -420,7 +434,10 @@ public class Game1 : Game
        
 
         link.Draw(_spriteBatch);
-
+        if (debugDraw)
+        {
+            link.GetCollider().DebugDraw(_spriteBatch, pixelTexture, link.GetCollider().hitbox, Color.Blue);
+        }
         _spriteBatch.End();
 
 
@@ -562,5 +579,19 @@ public class Game1 : Game
             tile.setSprite(spritesIDs[tile.getTileID()]);
         }
 
+    }
+
+    private void UpdateCollisions()
+    {
+        
+        foreach (var tile in tiles)
+        {
+            CollisionBox collider = tile.GetCollider();
+            if(collider != null)
+            {
+                link.CollisionUpdate(collider);
+            }
+            
+        }
     }
 }

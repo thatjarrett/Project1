@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project1.Collision;
 using Project1.Interfaces;
 
 namespace Project1.GameObjects.Environment
@@ -10,6 +11,7 @@ namespace Project1.GameObjects.Environment
         private bool _collides;
         private ISprite _sprite;
         private int _tileId;
+        private CollisionBox collider;
 
         public environmentTile(Vector2 pos, bool collision, int tileId)
         {
@@ -37,5 +39,16 @@ namespace Project1.GameObjects.Environment
         public int getTileID()
         { return _tileId; }
 
+        public CollisionBox GetCollider()
+        { return collider; }
+
+        public void SetCollider()
+        {
+            if (_collides)
+            {
+                collider = new CollisionBox((int)_position.X, (int)_position.Y);
+            }
+            
+        }
     }
 }
