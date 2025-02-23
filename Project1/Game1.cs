@@ -17,6 +17,7 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private KeyboardController keyboardController;
+    private GamepadController gamepadController;
     private Link link;
     private Aquamentus aquamentus;
     private SpikeTrap trap;
@@ -294,6 +295,29 @@ public class Game1 : Game
 { Keys.P, new CycleNPCCommand(this, true) }   // Next NPC
 
     };
+        var gamepadCommands = new Dictionary<Buttons, ICommand>
+{
+    { Buttons.DPadUp, new MoveUpCommand(link) },
+    { Buttons.LeftThumbstickUp, new MoveUpCommand(link) },
+    { Buttons.DPadDown, new MoveDownCommand(link) },
+    { Buttons.LeftThumbstickDown, new MoveDownCommand(link) },
+    { Buttons.DPadLeft, new MoveLeftCommand(link) },
+    { Buttons.LeftThumbstickLeft, new MoveLeftCommand(link) },
+    { Buttons.DPadRight, new MoveRightCommand(link) },
+    { Buttons.LeftThumbstickRight, new MoveRightCommand(link) },
+    { Buttons.A, new AttackCommand(link) },
+    { Buttons.X, new UseItemCommand(link, 1) },
+    { Buttons.Y, new UseItemCommand(link, 2) },
+    { Buttons.B, new DamageCommand(link) },
+    { Buttons.Back, new QuitCommand(this) },
+    { Buttons.Start, new ResetCommand(this) }
+};
+
+        gamepadController = new GamepadController(gamepadCommands, new IdleCommand(link));
+
+
+       
+
         spritesIDs = new Dictionary<int, ISprite>
         {
             {0,statueLeftSprite},
@@ -339,16 +363,15 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        var keyboardState = Keyboard.GetState();
-
-
         keyboardController.Update(gameTime);
+        gamepadController.Update(gameTime);  // Gamepad input added
+
         link.Update(gameTime);
         foreach (var tile in tiles)
         {
             tile.Update(gameTime);
-            
         }
+
         base.Update(gameTime);
 
         foreach (var item in itemsList)
@@ -359,7 +382,6 @@ public class Game1 : Game
         int enemyNum = 0;
         foreach (var enemy in enemies)
         {
-            //enemy.Update(gameTime);
             if (currentEnemyIndex == enemyNum)
             {
                 enemy.Update(gameTime);
@@ -372,6 +394,7 @@ public class Game1 : Game
         }
         UpdateCollisions();
     }
+
 
     protected override void Draw(GameTime gameTime)
     {
