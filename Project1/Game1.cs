@@ -308,10 +308,13 @@ public class Game1 : Game
     { Buttons.A, new AttackCommand(link) },
     { Buttons.X, new UseItemCommand(link, 1) },
     { Buttons.Y, new UseItemCommand(link, 2) },
+    { Buttons.LeftShoulder, new UseItemCommand(link, 3) }, // LB = Item 3
+    { Buttons.RightShoulder, new UseItemCommand(link, 4) }, // RB = Item 4
     { Buttons.B, new DamageCommand(link) },
     { Buttons.Back, new QuitCommand(this) },
     { Buttons.Start, new ResetCommand(this) }
 };
+
 
         gamepadController = new GamepadController(gamepadCommands, new IdleCommand(link));
 
