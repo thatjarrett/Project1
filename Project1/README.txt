@@ -67,13 +67,13 @@ Game Over screen after death
 Item cooldown system
 Tile-based movement & interactions
 
-CODE METRICS
-Maintainability - 89
-Cyclomatic Complexity - 497
+CODE METRICS - 2/24/25
+Maintainability - 87
+Cyclomatic Complexity - 820
 Depth of Inheritance - 3
-Class Coupling - 114
-Lines of Code - 3395
-Lines of Executable Code - 806
+Class Coupling - 138
+Lines of Code - 5274
+Lines of Executable Code - 1305
 
 BURNDOWN CHART
 BurndownChart.png

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Interfaces;
 using Project1.Projectiles;
@@ -7,10 +9,8 @@ using Project1.Sprites;
 namespace Project1.Entities
 {
     public class Goriya : IEnemy
-
     {
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
-
 
         private IEnemyState attacking;
         private IEnemyState moving;
@@ -31,12 +31,9 @@ namespace Project1.Entities
         int damageFrameCounter = 0;
         bool hurting = false;
 
-        private double flipTime = 0.1;
-
         private ISprite boomerang;
         private BoomerangProjectile boomerangThrowable;
         private Vector2 throwDirection;
-
 
         public Goriya(Vector2 startPos)
         {
@@ -64,9 +61,16 @@ namespace Project1.Entities
             goriyaSpriteDown = new NMoveAnim(enemyTexture, gRectDown, 5);
             goriyaSpriteSide = new NMoveAnim(enemyTexture, gRectSide, 5);
 
+           
             goriyaSprite = goriyaSpriteSide;
 
-            boomerang = new NMoveAnim(enemyTexture, new Rectangle[] { new Rectangle(290, 11, 8, 16), new Rectangle(299, 11, 8, 16), new Rectangle(308, 11, 8, 16)}, 5);
+            boomerang = new NMoveAnim(enemyTexture,
+                new Rectangle[]
+                {
+                    new Rectangle(290, 11, 8, 16),
+                    new Rectangle(299, 11, 8, 16),
+                    new Rectangle(308, 11, 8, 16)
+                }, 5);
             boomerangThrowable = new BoomerangProjectile(boomerang);
             throwDirection = new Vector2(0, 1);
         }
@@ -88,9 +92,9 @@ namespace Project1.Entities
             }
             else
             {
-
                 goriyaSprite.SetColor(Color.White);
             }
+
             if ((damageFrameCounter / 5) % 2 == 0)
             {
                 goriyaSprite.Draw(spriteBatch, position, currentSpriteEffect);
@@ -98,18 +102,24 @@ namespace Project1.Entities
             boomerangThrowable.Draw(spriteBatch);
         }
 
+       
         public void Move(int dx, int dy)
         {
             position.X += dx;
             position.Y += dy;
         }
 
+        // Movement methods update state, direction, sprite, throw direction, and apply movement.
         public void MoveDown()
         {
             ChangeState(moving);
             direction = Direction.Down;
             goriyaSprite = goriyaSpriteDown;
             throwDirection = new Vector2(0, 1);
+            Move(0, 2);
+
+           
+            currentSpriteEffect = SpriteEffects.None;
         }
 
         public void MoveLeft()
@@ -118,6 +128,7 @@ namespace Project1.Entities
             direction = Direction.Left;
             goriyaSprite = goriyaSpriteSide;
             throwDirection = new Vector2(-1, 0);
+            Move(-2, 0); 
         }
 
         public void MoveRight()
@@ -126,6 +137,7 @@ namespace Project1.Entities
             direction = Direction.Right;
             goriyaSprite = goriyaSpriteSide;
             throwDirection = new Vector2(1, 0);
+            Move(2, 0); 
         }
 
         public void MoveUp()
@@ -134,26 +146,28 @@ namespace Project1.Entities
             direction = Direction.Up;
             goriyaSprite = goriyaSpriteUp;
             throwDirection = new Vector2(0, -1);
+            Move(0, -2);
+
+
+            currentSpriteEffect = SpriteEffects.FlipVertically;
         }
 
         public void PerformAttack()
         {
             boomerangThrowable.Throw(position, throwDirection);
             ChangeState(attacking);
+           
+            Task.Delay(1000).ContinueWith(_ => ChangeState(moving));
         }
-
-        //public void ResumeMovement()
-        //{
-            
-        //}
 
         public void SetAnimation(string action)
         {
             if (action.Contains("Damage"))
             {
                 hurting = true;
+                Task.Delay(500).ContinueWith(_ => hurting = false);
             }
-            if (!action.Contains("Damage"))
+            else
             {
                 hurting = false;
             }
@@ -167,51 +181,41 @@ namespace Project1.Entities
         public void Update(GameTime gameTime)
         {
             currentState.Update(this, gameTime);
-
             double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
-            flipTime -= timeStep;
-
 
             if (isInvincible)
             {
-                invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                invincibleTime -= timeStep;
                 if (invincibleTime <= 0)
                     isInvincible = false;
             }
+
             goriyaSprite.Update(gameTime);
 
-            switch (direction)
+          
+            if (direction == Direction.Up || direction == Direction.Down)
             {
-                case Direction.Up:
-                    if (flipTime <= 0)
-                    {
-                        currentSpriteEffect = SpriteEffects.None;
-                        flipTime = 0.1;
-                    }
-                    else
-                    {
-                        currentSpriteEffect = SpriteEffects.FlipHorizontally;
-                    }
-                    break;
-                case Direction.Right:
+                
+                if ((int)(gameTime.TotalGameTime.TotalMilliseconds / 150) % 2 == 0)
+                {
                     currentSpriteEffect = SpriteEffects.None;
-                    break;
-                case Direction.Down:
-                    if (flipTime <= 0)
-                    {
-                        currentSpriteEffect = SpriteEffects.None;
-                        flipTime = 0.1;
-                    }
-                    else
-                    {
-                        currentSpriteEffect = SpriteEffects.FlipHorizontally;
-                    }
-                    break;
-                case Direction.Left:
+                }
+                else
+                {
                     currentSpriteEffect = SpriteEffects.FlipHorizontally;
-                    break;
+                }
             }
+            else if (direction == Direction.Left)
+            {
+                currentSpriteEffect = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
+                currentSpriteEffect = SpriteEffects.None;
+            }
+
             boomerangThrowable.Update(gameTime, position);
         }
+
     }
 }
