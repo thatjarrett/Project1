@@ -19,7 +19,7 @@ namespace Project1.Entities
         private const double InvincibilityDuration = 1.0;
         private bool isInvincible = false;
         private double invincibleTime = 0;
-        private double flipTime = 0.1;
+        private double flipTime = 0.2;
 
 
         private ISprite skeletonSprite;
@@ -121,16 +121,16 @@ namespace Project1.Entities
         public void Update(GameTime gameTime)
         {
             double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
-            flipTime -= timeStep;
-            if (flipTime <= 0)
+            
+            if ((int)(gameTime.TotalGameTime.TotalMilliseconds / 150) % 2 == 0)
             {
                 currentSpriteEffect = SpriteEffects.None;
-                flipTime = 0.1;
             }
-            else {
+            else
+            {
                 currentSpriteEffect = SpriteEffects.FlipHorizontally;
             }
-            //Trace.WriteLine(timeStep);
+
 
             currentState.Update(this, gameTime);
 
