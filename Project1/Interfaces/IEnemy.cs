@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project1.Collision;
 
 namespace Project1.Interfaces
 {
@@ -28,6 +29,10 @@ namespace Project1.Interfaces
         public void createEnemySprites(Texture2D linkTexture);
 
         public void SetAnimation(string action);
+
+        public void CollisionUpdate(CollisionBox other);
+        
+        public CollisionBox GetCollider();
     }
 }
 

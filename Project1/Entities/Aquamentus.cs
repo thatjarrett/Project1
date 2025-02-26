@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Project1.Collision;
 using Project1.Interfaces;
 using Project1.Projectiles;
 using Project1.Sprites;
@@ -13,6 +16,7 @@ namespace Project1.Entities
         private double invincibleTime = 0;
         private double attackInterval = 1.0;
         private const double InvincibilityDuration = 1.0;
+        private CollisionBox collider;
 
         private ISprite aquamentusSprite;
         private ISprite aquamentusWalkSprite;
@@ -30,6 +34,7 @@ namespace Project1.Entities
         {
             position = startPos;
             currentState = new AquamentusWalkState(Direction.Left, 1.0);
+            collider = new CollisionBox((int)startPos.X, (int)startPos.Y, 72, 96);
         }
 
         public void ChangeState(IEnemyState newState)
@@ -110,6 +115,7 @@ namespace Project1.Entities
         {
             position.X += dx;
             position.Y += dy;
+            collider.Move(dx, dy);
         }
 
         public void PerformAttack()
@@ -189,6 +195,35 @@ namespace Project1.Entities
             {
                 hurting = false;
             }
+        }
+
+        public void CollisionUpdate(CollisionBox other)
+        {
+            int intersectionDistance = collider.GetSidePush(other);
+            CollisionSide side = collider.side;
+            switch (side)
+            {
+                case CollisionSide.Top:
+                    Move(0, -intersectionDistance);
+                    break;
+                case CollisionSide.Left:
+                    Move(-intersectionDistance, 0);
+                    break;
+                case CollisionSide.Right:
+                    Move(intersectionDistance, 0);
+                    break;
+                case CollisionSide.Bottom:
+                    Move(0, intersectionDistance);
+                    break;
+                case CollisionSide.None:
+                    break;
+            }
+            Debug.WriteLine($"Collision: {intersectionDistance}");
+
+        }
+        public CollisionBox GetCollider()
+        {
+            return collider;
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Project1.Collision;
 using Project1.Interfaces;
 using Project1.Projectiles;
 using Project1.Sprites;
@@ -25,6 +28,7 @@ namespace Project1.Entities
         private ISprite goriyaSpriteUp;
         private ISprite goriyaSpriteDown;
         private ISprite goriyaSpriteSide;
+        private CollisionBox collider;
 
         private Direction direction;
 
@@ -44,6 +48,7 @@ namespace Project1.Entities
             attacking = new GoriyaAttackState();
 
             currentState = moving;
+            collider = new CollisionBox((int)startPos.X, (int)startPos.Y);
         }
 
         public void ChangeState(IEnemyState newState)
@@ -107,6 +112,7 @@ namespace Project1.Entities
         {
             position.X += dx;
             position.Y += dy;
+            collider.Move(dx, dy);
         }
 
         // Movement methods update state, direction, sprite, throw direction, and apply movement.
@@ -217,5 +223,33 @@ namespace Project1.Entities
             boomerangThrowable.Update(gameTime, position);
         }
 
+        public void CollisionUpdate(CollisionBox other)
+        {
+            int intersectionDistance = collider.GetSidePush(other);
+            CollisionSide side = collider.side;
+            switch (side)
+            {
+                case CollisionSide.Top:
+                    Move(0, -intersectionDistance);
+                    break;
+                case CollisionSide.Left:
+                    Move(-intersectionDistance, 0);
+                    break;
+                case CollisionSide.Right:
+                    Move(intersectionDistance, 0);
+                    break;
+                case CollisionSide.Bottom:
+                    Move(0, intersectionDistance);
+                    break;
+                case CollisionSide.None:
+                    break;
+            }
+            Debug.WriteLine($"Collision: {intersectionDistance}");
+
+        }
+        public CollisionBox GetCollider()
+        {
+            return collider;
+        }
     }
 }

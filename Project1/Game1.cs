@@ -448,6 +448,7 @@ public class Game1 : Game
             if (currentEnemyIndex == enemyNum)
             {
                 enemy.Draw(_spriteBatch);
+                enemy.GetCollider().DebugDraw(_spriteBatch, pixelTexture, enemy.GetCollider().hitbox, Color.Green);
             }
             enemyNum++;
             if (enemyNum >= enemies.Count)
@@ -617,7 +618,13 @@ public class Game1 : Game
             {
                 link.CollisionUpdate(collider);
             }
-            
+            //adding an update loop for enemies here turns game into a slideshow
         }
+        //if aquamentus calls update with link, link can push him around but he can't push link
+        aquamentus.CollisionUpdate(link.GetCollider());
+
+        //vice versa if link calls update with aquamentus
+        //link.CollisionUpdate(aquamentus.GetCollider());
+        
     }
 }
