@@ -394,7 +394,7 @@ namespace Project1.Entities
                 case CollisionSide.None:
                     break;
             }
-            Debug.WriteLine($"Collision: {intersectionDistance}");
+            //Debug.WriteLine($"Collision: {intersectionDistance}");
 
         }
         public CollisionBox GetCollider()

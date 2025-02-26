@@ -618,13 +618,26 @@ public class Game1 : Game
             {
                 link.CollisionUpdate(collider);
             }
-            //adding an update loop for enemies here turns game into a slideshow
+            foreach (var enemy in enemies)
+            {
+                if (collider != null)
+                {
+                    enemy.CollisionUpdate(collider);
+                }
+            }
         }
-        //if aquamentus calls update with link, link can push him around but he can't push link
-        aquamentus.CollisionUpdate(link.GetCollider());
+        CollisionBox linkCollider = link.GetCollider();
+        foreach (var enemy in enemies)
+        {
+            if (linkCollider != null)
+            {
+                //if enemy calls update with link, link can push it around but it can't push link
+                enemy.CollisionUpdate(linkCollider);
+                //vice versa if link calls update with enemy
+            }
+        }
 
-        //vice versa if link calls update with aquamentus
-        //link.CollisionUpdate(aquamentus.GetCollider());
+        
         
     }
 }
