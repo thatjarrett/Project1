@@ -61,6 +61,11 @@ namespace Project1.Collision
 
             return minimumCollision; 
         }
+        public Vector2 GetCenter()
+        {
+            return new Vector2(hitbox.X + hitbox.Width / 2, hitbox.Y + hitbox.Height / 2);
+        }
+
         public void DebugDraw(SpriteBatch spriteBatch, Texture2D pixel, Rectangle rect, Color color)
         {
             spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y, rect.Width, 1), color);

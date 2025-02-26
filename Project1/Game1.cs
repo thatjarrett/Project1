@@ -9,6 +9,7 @@ using Project1.Entities;
 using Project1.GameObjects.Background;
 using Project1.GameObjects.Environment;
 using Project1.GameObjects.Items;
+using Project1.Handlers;
 using Project1.Interfaces;
 using Project1.Sprites;
 
@@ -380,6 +381,10 @@ public class Game1 : Game
         foreach (var item in itemsList)
         {
             item.Update(gameTime);
+        }
+        foreach (var enemy in enemies)
+        {
+            LinkEnemyCollisionHandler.HandleCollision(link, enemy);
         }
 
         int enemyNum = 0;

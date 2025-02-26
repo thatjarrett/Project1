@@ -46,6 +46,12 @@ namespace Project1.Entities
         private ISprite interactUpSprite;
         private ISprite interactDownSprite;
 
+        private bool isKnockback = false;
+        private Vector2 knockbackDirection;
+        private double knockbackTime = 0.2;
+        private double knockbackTimer = 0;
+
+
         private ISprite swordBeamHorizontal;
         private ISprite swordBeamVertical;
         private ISprite arrowHorizontal;
@@ -89,12 +95,23 @@ namespace Project1.Entities
             currentState.Enter(this);
         }
 
-        public void SetInvincible(bool value)
+        public void SetInvincible(bool value, Vector2? knockbackDir = null)
         {
             isInvincible = value;
             if (value)
+            {
                 invincibleTime = InvincibilityDuration;
+
+                
+                if (knockbackDir.HasValue)
+                {
+                    knockbackDirection = knockbackDir.Value;
+                    isKnockback = true;
+                    knockbackTimer = knockbackTime;
+                }
+            }
         }
+
 
         public void MoveLeft()
         {
@@ -179,12 +196,27 @@ namespace Project1.Entities
         {
             currentState.Update(this, gameTime);
 
+            // Handle knockback movement
+            if (isKnockback)
+            {
+                knockbackTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (knockbackTimer > 0)
+                {
+                    Move((int)(knockbackDirection.X * 2), (int)(knockbackDirection.Y * 2)); // Adjust force here
+                }
+                else
+                {
+                    isKnockback = false; // Stop knockback when timer ends
+                }
+            }
+
             if (isInvincible)
             {
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (invincibleTime <= 0)
                     isInvincible = false;
             }
+
             linkSprite.Update(gameTime);
             foreach (var projectile in projectilesList)
             {
@@ -193,6 +225,7 @@ namespace Project1.Entities
             boomerangThrowable.Update(gameTime, position);
             bombProjectile.Update(gameTime);
         }
+
 
 
         public void Move(int dx, int dy)
@@ -397,6 +430,13 @@ namespace Project1.Entities
             //Debug.WriteLine($"Collision: {intersectionDistance}");
 
         }
+        public bool IsInvincible()
+        {
+            return isInvincible;
+        }
+
+        
+
         public CollisionBox GetCollider()
         {
             return collider;
