@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Security;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -114,6 +115,8 @@ public class Game1 : Game
 
     private List<ISprite> itemsList = new List<ISprite>();
 
+    
+
 
     //Debug Variables
     Texture2D pixelTexture;
@@ -127,6 +130,8 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        Level leveltest = new Level("Content/Level Data/BlockLevel.txt");
+
         pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
         pixelTexture.SetData(new[] { Color.White });
 

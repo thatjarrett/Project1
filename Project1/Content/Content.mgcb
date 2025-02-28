@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/bosses.png
 
+#begin Images/DungeonRooms.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/DungeonRooms.png
+
 #begin Images/dungeonTiles.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -127,6 +139,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/oldMan.png
+
+#begin Level Data/BlockLevel.txt
+/copy:Level Data/BlockLevel.txt
 
 #begin NES - The Legend of Zelda - Items & Weapons.png
 /importer:TextureImporter
