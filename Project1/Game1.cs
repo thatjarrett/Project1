@@ -115,7 +115,7 @@ public class Game1 : Game
 
     private List<ISprite> itemsList = new List<ISprite>();
 
-    
+    Level leveltest;
 
 
     //Debug Variables
@@ -130,7 +130,7 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        Level leveltest = new Level("Content/Level Data/BlockLevel.txt");
+        
 
         pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
         pixelTexture.SetData(new[] { Color.White });
@@ -139,6 +139,9 @@ public class Game1 : Game
         aquamentus = new Aquamentus(new Vector2(500, 170));
         trap = new SpikeTrap(new Vector2(500, 170));
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        leveltest = new Level("Content/Level Data/BlockLevel.txt", Content.Load<Texture2D>("Images/DungeonRooms"));
+        
 
         bat = new Bat(new Vector2(500, 170));
         slime = new Slime(new Vector2(500, 170));
@@ -415,7 +418,7 @@ public class Game1 : Game
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
 
-
+        leveltest.drawBG(_spriteBatch);
 
         int tileNum = 0;
         int enemyNum = 0;

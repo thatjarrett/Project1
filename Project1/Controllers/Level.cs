@@ -5,7 +5,11 @@ using Microsoft.Xna.Framework.Input;
 using Project1.Interfaces;
 using System.IO;
 using System;
-
+using Microsoft.Xna.Framework.Graphics;
+using Project1.Interfaces;
+using System.Threading;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 
 namespace Project1.Controllers
@@ -13,7 +17,9 @@ namespace Project1.Controllers
     public class Level
     {
         int[,] level = new int[7,12];
-        public Level(string filename)
+        Texture2D background;
+
+        public Level(string filename, Texture2D background)
         {
             string[] lines = File.ReadAllLines(filename);
             int i = 0;
@@ -29,8 +35,12 @@ namespace Project1.Controllers
                 }
                 i++;
             }
-            system.out.print(level);
+            this.background = background;
 
+        }
+        public void drawBG(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(background, new Rectangle (16*3,16*3,16*12*3, 16 * 7 * 3), new Rectangle (1, 24 * 8, 16*12, 16 * 7), Color.White);
         }
     }
 }
