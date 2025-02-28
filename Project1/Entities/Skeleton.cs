@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
 using Project1.Interfaces;
+using Project1.Projectiles;
 using Project1.Sprites;
 using System;
 using System.Diagnostics;
@@ -29,6 +30,8 @@ namespace Project1.Entities
 
         int damageFrameCounter = 0;
         bool hurting = false;
+
+        private Projectile[] projectiles = null;
 
         public Skeleton(Vector2 startPos)
         {
@@ -177,6 +180,11 @@ namespace Project1.Entities
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public Projectile[] GetProjectiles()
+        {
+            return projectiles;
         }
     }
 }

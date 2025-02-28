@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
 using Project1.Interfaces;
+using Project1.Projectiles;
 using Project1.Sprites;
 
 namespace Project1.Entities
@@ -22,6 +23,7 @@ namespace Project1.Entities
         private bool isInvincible = false;
         private double invincibleTime = 0;
         private CollisionBox collider;
+        private Projectile[] projectiles = null;
 
 
         private ISprite handSprite;
@@ -165,6 +167,11 @@ namespace Project1.Entities
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public Projectile[] GetProjectiles()
+        {
+            return projectiles;
         }
     }
 }
