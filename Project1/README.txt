@@ -31,12 +31,29 @@ E	Take Damage
 1	Use Item 1 (Sword Beam)
 2	Use Item 2 (Arrow)
 3	Use Item 3 (Boomerang)
+4	Use Item 4 (Bomb)
 G	Trigger Death
 Q	Quit Game
 R	Reset Game
 T / Y	Cycle Through Blocks
 U / I	Cycle Through Items
 O / P	Cycle Through NPCs
+
+🕹 Gamepad Controls
+Key	Action
+Up	Move Up
+Down	Move Down
+Left	Move Left
+RightMove Right
+A	Attack
+B	Take Damage
+X	Use Item 1 (Sword Beam)
+Y	Use Item 2 (Arrow)
+L	Use Item 3 (Boomerang)
+R	Use Item 4 (Bomb)
+Start	Quit Game
+Select	Reset Game
+
 
 🔹 Features
 ✅ Player Character (Link)
