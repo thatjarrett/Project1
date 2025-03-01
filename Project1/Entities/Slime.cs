@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
 using Project1.Interfaces;
+using Project1.Projectiles;
 using Project1.Sprites;
 
 namespace Project1.Entities
@@ -28,6 +29,7 @@ namespace Project1.Entities
         int damageFrameCounter = 0;
         bool hurting = false;
 
+        private Projectile[] projectiles = null;
         public Slime(Vector2 startPos)
         {
             position = startPos;
@@ -164,6 +166,11 @@ namespace Project1.Entities
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public Projectile[] GetProjectiles()
+        {
+            return projectiles;
         }
     }
 }

@@ -39,6 +39,8 @@ namespace Project1.Entities
         private BoomerangProjectile boomerangThrowable;
         private Vector2 throwDirection;
 
+        private Projectile[] projectiles = null; //TODO: make boomerang a projectile
+
         public Goriya(Vector2 startPos)
         {
             position = startPos;
@@ -250,6 +252,11 @@ namespace Project1.Entities
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public Projectile[] GetProjectiles()
+        {
+            return projectiles;
         }
     }
 }

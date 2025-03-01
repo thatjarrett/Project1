@@ -225,6 +225,11 @@ namespace Project1.Entities
         {
             return collider;
         }
+
+        public Projectile[] GetProjectiles()
+        {
+            return fireballs;
+        }
     }
 }
 

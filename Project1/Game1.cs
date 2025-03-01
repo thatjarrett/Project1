@@ -12,6 +12,7 @@ using Project1.GameObjects.Environment;
 using Project1.GameObjects.Items;
 using Project1.Handlers;
 using Project1.Interfaces;
+using Project1.Projectiles;
 using Project1.Sprites;
 
 public class Game1 : Game
@@ -393,6 +394,15 @@ public class Game1 : Game
         foreach (var enemy in enemies)
         {
             LinkEnemyCollisionHandler.HandleCollision(link, enemy);
+            Projectile[] p = enemy.GetProjectiles();
+            if (p != null) {
+                for (int x = 0; x < p.Length; x++) {
+                if (p[x] != null)
+                {
+                    LinkEnemyCollisionHandler.HandleCollision(link, p[x]);
+                }
+                }
+            }
         }
 
         int enemyNum = 0;

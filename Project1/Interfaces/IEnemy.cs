@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Collision;
+using Project1.Projectiles;
 
 namespace Project1.Interfaces
 {
@@ -33,6 +34,8 @@ namespace Project1.Interfaces
         public void CollisionUpdate(CollisionBox other);
         
         public CollisionBox GetCollider();
+
+        public Projectile[] GetProjectiles();
     }
 }
 
