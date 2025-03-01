@@ -19,14 +19,23 @@ namespace Project1.Projectiles
 
         private CollisionBox collider;
 
+        public Vector2 ownerPos;
+
 
         public EnemyBoomerangProjectile(Vector2 pos, ISprite sprite)
         {
             _sprite = sprite;
             collider = new CollisionBox((int)pos.X, (int)pos.Y);
         }
+
+        public void ownerPosition(Vector2 op) {
+            ownerPos = op;
+        }
         public void Update(GameTime gameTime)//, Vector2 linkPos)
         {
+            collider.Move((int)(_magnitude * _direction.X), (int)(_magnitude * _direction.Y));
+
+
             _sprite.Update(gameTime);
             _position = _magnitude * _direction + _position;
             if (active)
@@ -43,7 +52,7 @@ namespace Project1.Projectiles
                 {
                     _magnitude -= speedDecay;
                 }
-                //ReturnToLink(linkPos);
+                ReturnToOwner(ownerPos);
             }
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -77,12 +86,13 @@ namespace Project1.Projectiles
                 return;
             }
             _position = position;
+            collider.setPos((int)position.X, (int)position.Y);
             active = true;
             peakReached = false;
             _direction = direction;
             _magnitude = 5;
         }
-        private void ReturnToLink(Vector2 linkPos)
+        private void ReturnToOwner(Vector2 linkPos)
         {
             _direction = (_position - linkPos);
             _direction.Normalize();

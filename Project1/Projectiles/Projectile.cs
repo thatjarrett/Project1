@@ -64,5 +64,15 @@ namespace Project1.Projectiles
         {
             return collider;
         }
+
+        public void Throw(Vector2 position, Vector2 direction)
+        {
+            //
+        }
+
+        public void ownerPosition(Vector2 owner)
+        {
+            //
+        }
     }
 }

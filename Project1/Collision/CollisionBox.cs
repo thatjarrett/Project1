@@ -23,6 +23,10 @@ namespace Project1.Collision
             hitbox = new Rectangle(hitbox.X+dx,hitbox.Y+dy,hitbox.Width,hitbox.Height);
         }
 
+        public void setPos(int dx, int dwhy) {
+            hitbox = new Rectangle(dx,dwhy, hitbox.Width, hitbox.Height);
+        }
+
         public bool Intersects(CollisionBox collider)
         {
             return hitbox.Intersects(collider.hitbox);

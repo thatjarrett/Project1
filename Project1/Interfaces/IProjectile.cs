@@ -12,6 +12,9 @@ namespace Project1.Interfaces
         public CollisionBox GetCollider();
         public void Update(GameTime gameTime);
 
+        public void Throw(Vector2 position, Vector2 direction);
+        public void ownerPosition(Vector2 owner);
+
     }
 }
 

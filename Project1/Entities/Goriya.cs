@@ -39,7 +39,7 @@ namespace Project1.Entities
         private BoomerangProjectile boomerangThrowable;
         private Vector2 throwDirection;
 
-        private IProjectile[] projectiles = null; //TODO: make boomerang a projectile
+        private IProjectile[] boomerangs = new EnemyBoomerangProjectile[1]; //TODO: make boomerang a projectile
 
         public Goriya(Vector2 startPos)
         {
@@ -78,7 +78,11 @@ namespace Project1.Entities
                     new Rectangle(299, 11, 8, 16),
                     new Rectangle(308, 11, 8, 16)
                 }, 5);
-            boomerangThrowable = new BoomerangProjectile(boomerang);
+            //boomerangThrowable = new BoomerangProjectile(boomerang);
+            for(int x = 0; x < boomerangs.Length; x ++) {
+                boomerangs[x] = new EnemyBoomerangProjectile(position, boomerang);
+            }
+            boomerangs[0] = new EnemyBoomerangProjectile(position, boomerang);
             throwDirection = new Vector2(0, 1);
         }
 
@@ -106,7 +110,10 @@ namespace Project1.Entities
             {
                 goriyaSprite.Draw(spriteBatch, position, currentSpriteEffect);
             }
-            boomerangThrowable.Draw(spriteBatch);
+            //boomerangThrowable.Draw(spriteBatch);
+            foreach (var b in boomerangs) {
+                b.Draw(spriteBatch);
+            }
         }
 
        
@@ -162,7 +169,10 @@ namespace Project1.Entities
 
         public void PerformAttack()
         {
-            boomerangThrowable.Throw(position, throwDirection);
+            //boomerangThrowable.Throw(position, throwDirection);
+            foreach (var b in boomerangs) {
+                b.Throw(position, throwDirection);
+            }
             ChangeState(attacking);
            
             Task.Delay(1000).ContinueWith(_ => ChangeState(moving));
@@ -222,7 +232,11 @@ namespace Project1.Entities
                 currentSpriteEffect = SpriteEffects.None;
             }
 
-            boomerangThrowable.Update(gameTime, position);
+            //boomerangThrowable.Update(gameTime, position);
+            foreach (var b in boomerangs) {
+                b.ownerPosition(position);
+                b.Update(gameTime);
+            }
         }
 
         public void CollisionUpdate(CollisionBox other)
@@ -256,7 +270,7 @@ namespace Project1.Entities
 
         public IProjectile[] GetProjectiles()
         {
-            return projectiles;
+            return boomerangs;
         }
     }
 }
