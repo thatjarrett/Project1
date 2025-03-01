@@ -16,6 +16,7 @@ namespace Project1.Controllers
 {
     public class Level
     {
+
         int[,] level = new int[7,12];
         Texture2D background;
 
@@ -41,6 +42,26 @@ namespace Project1.Controllers
         public void drawBG(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(background, new Rectangle (16*3,16*3,16*12*3, 16 * 7 * 3), new Rectangle (1, 24 * 8, 16*12, 16 * 7), Color.White);
+        }
+        public void drawTiles(SpriteBatch spritebatch)
+        {
+            int x = 16 * 3;
+            int y = 16 * 3;
+            for (int i = 0; i < 7; i++)
+            {
+                for(int j = 0; j < 12; j++)
+                {
+                    switch (level[i, j]) { 
+                    case 0: { break; }
+                    case 2:
+                        {
+                            int destinationx = x * j;
+                            int destinationy = y * i;
+                                break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

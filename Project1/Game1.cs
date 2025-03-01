@@ -419,6 +419,7 @@ public class Game1 : Game
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
 
         leveltest.drawBG(_spriteBatch);
+        leveltest.drawTiles(_spriteBatch);
 
         int tileNum = 0;
         int enemyNum = 0;
