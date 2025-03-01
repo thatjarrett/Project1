@@ -6,7 +6,7 @@ using Project1.Collision;
 
 namespace Project1.Projectiles
 {
-    public abstract class Projectile
+    public abstract class Projectile : IProjectile
     {
         private Vector2 _position;
         private Vector2 _direction;

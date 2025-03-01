@@ -29,13 +29,13 @@ namespace Project1.Handlers
             }
         }
 
-        public static void HandleCollision(Link link, Projectile projectile)
+        public static void HandleCollision(Link link, IProjectile projectile)
         {
             if (projectile.GetCollider() != null && link.GetCollider().Intersects(projectile.GetCollider()) &&projectile != null)
             {
                 if (!link.IsInvincible())
                 {
-                    Debug.WriteLine("⚠️ Link collided with an enemy! Taking damage and knockback.");
+                    Debug.WriteLine("⚠️ Link collided with a projectile! Taking damage and knockback.");
 
                     // Get knockback direction (opposite of enemy)
                     Vector2 knockbackDir = link.GetCollider().GetCenter() - projectile.GetCollider().GetCenter();

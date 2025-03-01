@@ -23,7 +23,7 @@ namespace Project1.Entities
         private bool isInvincible = false;
         private double invincibleTime = 0;
         private CollisionBox collider;
-        private Projectile[] projectiles = null;
+        private IProjectile[] projectiles = null;
 
 
         private ISprite handSprite;
@@ -169,7 +169,7 @@ namespace Project1.Entities
             return collider;
         }
 
-        public Projectile[] GetProjectiles()
+        public IProjectile[] GetProjectiles()
         {
             return projectiles;
         }

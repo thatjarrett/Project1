@@ -29,7 +29,7 @@ namespace Project1.Entities
         int damageFrameCounter = 0;
         bool hurting = false;
 
-        private Projectile[] projectiles = null;
+        private IProjectile[] projectiles = null;
         public Slime(Vector2 startPos)
         {
             position = startPos;
@@ -168,7 +168,7 @@ namespace Project1.Entities
             return collider;
         }
 
-        public Projectile[] GetProjectiles()
+        public IProjectile[] GetProjectiles()
         {
             return projectiles;
         }

@@ -35,7 +35,7 @@ namespace Project1.Interfaces
         
         public CollisionBox GetCollider();
 
-        public Projectile[] GetProjectiles();
+        public IProjectile[] GetProjectiles();
     }
 }
 

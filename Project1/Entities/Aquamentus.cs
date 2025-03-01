@@ -23,7 +23,7 @@ namespace Project1.Entities
         private ISprite aquamentusAttackSprite;
         private ISprite aquamentusFireball;
 
-        private Projectile[] fireballs = new StraightProjectile[3];
+        private IProjectile[] fireballs = new StraightProjectile[3];
 
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
 
@@ -226,7 +226,7 @@ namespace Project1.Entities
             return collider;
         }
 
-        public Projectile[] GetProjectiles()
+        public IProjectile[] GetProjectiles()
         {
             return fireballs;
         }

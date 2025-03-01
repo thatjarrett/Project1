@@ -394,7 +394,7 @@ public class Game1 : Game
         foreach (var enemy in enemies)
         {
             LinkEnemyCollisionHandler.HandleCollision(link, enemy);
-            Projectile[] p = enemy.GetProjectiles();
+            IProjectile[] p = enemy.GetProjectiles();
             if (p != null) {
                 for (int x = 0; x < p.Length; x++) {
                 if (p[x] != null)
