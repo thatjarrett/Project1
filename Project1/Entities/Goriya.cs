@@ -36,10 +36,10 @@ namespace Project1.Entities
         bool hurting = false;
 
         private ISprite boomerang;
-        private BoomerangProjectile boomerangThrowable;
+        //private BoomerangProjectile boomerangThrowable;
         private Vector2 throwDirection;
 
-        private IProjectile[] boomerangs = new EnemyBoomerangProjectile[1]; //TODO: make boomerang a projectile
+        private IProjectile[] boomerangs = new BoomerangProjectile[1]; //TODO: make boomerang a projectile
 
         public Goriya(Vector2 startPos)
         {
@@ -80,9 +80,9 @@ namespace Project1.Entities
                 }, 5);
             //boomerangThrowable = new BoomerangProjectile(boomerang);
             for(int x = 0; x < boomerangs.Length; x ++) {
-                boomerangs[x] = new EnemyBoomerangProjectile(position, boomerang);
+                boomerangs[x] = new BoomerangProjectile(position, boomerang);
             }
-            boomerangs[0] = new EnemyBoomerangProjectile(position, boomerang);
+            //boomerangs[0] = new BoomerangProjectile(position, boomerang);
             throwDirection = new Vector2(0, 1);
         }
 

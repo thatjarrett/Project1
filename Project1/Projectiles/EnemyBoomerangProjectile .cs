@@ -5,7 +5,7 @@ using Project1.Interfaces;
 
 namespace Project1.Projectiles
 {
-    public class EnemyBoomerangProjectile : IProjectile
+    public class BoomerangProjectile : IProjectile
     {
         private Vector2 _position;
         private Vector2 _direction;
@@ -22,7 +22,7 @@ namespace Project1.Projectiles
         public Vector2 ownerPos;
 
 
-        public EnemyBoomerangProjectile(Vector2 pos, ISprite sprite)
+        public BoomerangProjectile(Vector2 pos, ISprite sprite)
         {
             _sprite = sprite;
             collider = new CollisionBox((int)pos.X, (int)pos.Y);
