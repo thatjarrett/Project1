@@ -49,5 +49,23 @@ namespace Project1.Handlers
                 }
             }
         }
+
+        public static void HandleCollision(IProjectile projectile, IEnemy enemy)
+        {
+            if (enemy.GetCollider() != null && projectile.GetCollider().Intersects(enemy.GetCollider()))
+            {
+                //if (!enemy.IsInvincible())
+                //{
+                    Debug.WriteLine("⚠️ Link shot an enemy! Dealing damage.");
+
+
+                    // Change enemy's state to damage
+                    enemy.SetAnimation("damage");
+
+                    // Set enemy to invincible and apply knockback
+                    enemy.SetInvincible(true);
+                //}
+            }
+        }
     }
 }

@@ -68,7 +68,7 @@ namespace Project1.Entities
         int damageFrameCounter = 0;
         bool hurting = false;
 
-        private List<Projectile> projectilesList = new List<Projectile>();
+        private List<IProjectile> projectilesList = new List<IProjectile>();
 
         private CollisionBox collider;
 
@@ -192,6 +192,11 @@ namespace Project1.Entities
                 projectilesList.Add(projectile);
             }
         }
+
+        public List<IProjectile> GetProjectiles () {
+            return projectilesList;
+        }
+
         public void Update(GameTime gameTime)
         {
             currentState.Update(this, gameTime);

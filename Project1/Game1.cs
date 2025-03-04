@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Security;
+using System.Net.Sockets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -403,7 +404,14 @@ public class Game1 : Game
                 }
                 }
             }
+            List <IProjectile> lp = link.GetProjectiles();
+            foreach (var pp in lp) {
+                //if (pp != null) {
+                    LinkEnemyCollisionHandler.HandleCollision(pp, enemy);
+                //}
+            }
         }
+
 
         int enemyNum = 0;
         foreach (var enemy in enemies)
