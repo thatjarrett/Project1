@@ -60,7 +60,7 @@ namespace Project1.Entities
         private ISprite bombSprite;
         private ISprite explodingBombSprite;
 
-        private BoomerangProjectile boomerangThrowable;
+        private EnemyBoomerangProjectile boomerangThrowable;
         private BombProjectile bombProjectile;
 
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
@@ -227,7 +227,9 @@ namespace Project1.Entities
             {
                 projectile.Update(gameTime);
             }
-            boomerangThrowable.Update(gameTime, position);
+            boomerangThrowable.ownerPosition(position);
+            boomerangThrowable.Update(gameTime);
+
             bombProjectile.Update(gameTime);
         }
 
@@ -404,7 +406,9 @@ namespace Project1.Entities
             swordBeamVertical = new NMoveAnim(texture, new Rectangle[] { new Rectangle(36, 154, 8, 16), new Rectangle(106, 154, 8, 16) }, 5);
 
             boomerang = new NMoveAnim(texture, new Rectangle[] { new Rectangle(64, 185, 8, 16), new Rectangle(73, 185, 8, 16), new Rectangle(82, 185, 8, 16), new Rectangle(73, 185, 8, 16) }, 5);
-            boomerangThrowable = new BoomerangProjectile(boomerang);
+            boomerangThrowable = new EnemyBoomerangProjectile(position, boomerang);
+
+            projectilesList.Add(boomerangThrowable);
 
             bombSprite = new NMoveNAnim(texture, new Rectangle(129,184,8,16));
             explodingBombSprite = new NMoveAnim(texture, new Rectangle[] { new Rectangle(137, 184, 16, 16), new Rectangle(154, 184, 16, 16) }, 10);
