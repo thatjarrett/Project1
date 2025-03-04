@@ -60,7 +60,7 @@ namespace Project1.Handlers
 
 
                     // Change enemy's state to damage
-                    enemy.SetAnimation("damage");
+                    enemy.SetAnimation("Damage");
 
                     // Set enemy to invincible and apply knockback
                     enemy.SetInvincible(true);
