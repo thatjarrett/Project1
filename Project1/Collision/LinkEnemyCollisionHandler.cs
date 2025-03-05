@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Project1.Entities;
 using Project1.Interfaces;
@@ -65,6 +66,15 @@ namespace Project1.Handlers
                     // Set enemy to invincible and apply knockback
                     enemy.SetInvincible(true);
                 //}
+            }
+        }
+
+        public static void HandleCollision(IItem item, Link Link)
+        {
+            if (item.GetCollider() != null && Link.GetCollider().Intersects(item.GetCollider()))
+            {
+                Debug.WriteLine("⚠️ Link picked up an item!");
+                //link picks up the item
             }
         }
     }

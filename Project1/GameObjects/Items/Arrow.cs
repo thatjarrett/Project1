@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project1.Collision;
 using Project1.Interfaces;
 using System.Threading;
 using Color = Microsoft.Xna.Framework.Color;
@@ -8,18 +9,22 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Project1.GameObjects.Items
 {
-    public class Arrow : ISprite
+    public class Arrow : IItem
     {
         Texture2D texture;
         Rectangle destinationRectangle;
         int frameState = 0;
         Vector2 pos;
         
+        private CollisionBox collider;
+
+
 
         public Arrow(Texture2D texture )
         {
             this.texture = texture;
             this.pos = new Vector2 ( 200, 300);
+            collider = new CollisionBox((int)pos.X, (int)pos.Y);
 
         }
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
@@ -60,5 +65,10 @@ namespace Project1.GameObjects.Items
             this.pos = pos;
         }
         public Vector2 getPosition() {  return this.pos; }
+
+        public CollisionBox GetCollider()
+        {
+            return collider;
+        }
     }
 }

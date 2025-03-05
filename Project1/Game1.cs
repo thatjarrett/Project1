@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Security;
 using System.Net.Sockets;
 using Microsoft.Xna.Framework;
@@ -89,19 +90,19 @@ public class Game1 : Game
     ISprite blueFloorSprite;
     ISprite blueSandSprite;
 
-    ISprite boomerang;
-    ISprite HeartContainer;
-    ISprite compass;
-    ISprite Map;
-    ISprite Key;
-    ISprite TriForcePiece;
-    ISprite Bow;
-    ISprite Heart;
-    ISprite Rupee;
-    ISprite Arrow;
-    ISprite Bomb;
-    ISprite Fairy;
-    ISprite Clock;
+    IItem boomerang;
+    IItem HeartContainer;
+    IItem compass;
+    IItem Map;
+    IItem Key;
+    IItem TriForcePiece;
+    IItem Bow;
+    IItem Heart;
+    IItem Rupee;
+    IItem Arrow;
+    IItem Bomb;
+    IItem Fairy;
+    IItem Clock;
 
     ISprite enemyDeathCloud;
     ISprite enemySpawnCloud;
@@ -115,7 +116,7 @@ public class Game1 : Game
 
     Dictionary<int, ISprite> spritesIDs;
 
-    private List<ISprite> itemsList = new List<ISprite>();
+    private List<IItem> itemsList = new List<IItem>();
 
     Level leveltest;
 
@@ -257,8 +258,8 @@ public class Game1 : Game
         itemsList.Add(Fairy);
         itemsList.Add(Clock);
 
-        itemsList.Add(enemyDeathCloud);
-        itemsList.Add(enemySpawnCloud);
+        //itemsList.Add(enemyDeathCloud);
+        //itemsList.Add(enemySpawnCloud);
 
         enemies.Add(aquamentus);
         enemies.Add(trap);
@@ -388,9 +389,21 @@ public class Game1 : Game
 
         base.Update(gameTime);
 
+        int itemNum = 0;
         foreach (var item in itemsList)
         {
             item.Update(gameTime);
+            if (currentItemIndex == itemNum)
+            {
+                item.Update(gameTime);
+                LinkEnemyCollisionHandler.HandleCollision(item, link);
+
+                itemNum++;
+                if (itemNum >= enemies.Count)
+                {
+                    itemNum = 0;
+                }
+            }
         }
         foreach (var enemy in enemies)
         {
