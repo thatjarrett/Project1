@@ -1,0 +1,9 @@
+Review by Bren
+Reviewing Bat.cs
+Original file by Angstrom
+3/5/2025
+Sprint 3
+
+This class has a high level of readability, with each method having a single, clear function, written in only a few lines each. Each method appears to only do one task, and that
+task it performs is well described by the name of the method. Each method also has a few number of arguments, so it is clear what is passed into each function, and what role each
+passed in value plays.
