@@ -113,6 +113,8 @@ namespace Project1.Entities
             //boomerangThrowable.Draw(spriteBatch);
             foreach (var b in boomerangs) {
                 b.Draw(spriteBatch);
+                //b.GetCollider().DebugDraw(spriteBatch, new[] { Color.White}, b.GetCollider().hitbox, Color.Green);
+                //TODO: HITBOX OUTLINE FOR PROJECTILES
             }
         }
 
