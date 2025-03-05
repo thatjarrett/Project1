@@ -14,7 +14,7 @@ namespace Project1.Handlers
             {
                 if (!link.IsInvincible())
                 {
-                    Debug.WriteLine("⚠️ Link collided with an enemy! Taking damage and knockback.");
+                    Debug.WriteLine("Link collided with an enemy! Taking damage and knockback.");
 
                     // Get knockback direction (opposite of enemy)
                     Vector2 knockbackDir = link.GetCollider().GetCenter() - enemy.GetCollider().GetCenter();
@@ -35,7 +35,7 @@ namespace Project1.Handlers
             {
                 if (!link.IsInvincible())
                 {
-                    Debug.WriteLine("⚠️ Link collided with a projectile! Taking damage and knockback.");
+                    Debug.WriteLine("Link collided with a projectile! Taking damage and knockback.");
 
                     // Get knockback direction (opposite of enemy)
                     Vector2 knockbackDir = link.GetCollider().GetCenter() - projectile.GetCollider().GetCenter();
@@ -56,7 +56,7 @@ namespace Project1.Handlers
             {
                 //if (!enemy.IsInvincible())
                 //{
-                    Debug.WriteLine("⚠️ Link shot an enemy! Dealing damage.");
+                    Debug.WriteLine("Link shot an enemy! Dealing damage.");
 
 
                     // Change enemy's state to damage

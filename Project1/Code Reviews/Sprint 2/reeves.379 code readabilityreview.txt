@@ -1,9 +1,10 @@
 ﻿Review by Jarrett Reeves
-Reviewing Bomb.cs
-Original file by Bennett
-2/17/2025
-Sprint 2
+Reviewing LinkEnemyColliusionHandler.cs
+Original file by Bren
+3/5/2025
+Sprint 3
 
-This file is easy to read, with the exclusion of a Draw function that appears to be unused. It may be there for the purpose of satisfying ISprite, but without a check the inclusion seems confusing.
-Aside from that, given the relatively straightforward implementation of the sprite drawing, the code is easy to follow and understand.
+This file is easy to read, as the comments are very helpful for readability and explain some of the things that aren't entirely obvious if the code was plain.
+Some of the comments are a bit unenecessary, but they don't detract from the readability of the code. The code is well written and easy to follow, and the logic is sound.
+I would remove some of the commented out lines to make the code a bit cleaner, but it is a minor issue. The code is very well done and I have no issues with it.
 This review took 5 minutes to write.
