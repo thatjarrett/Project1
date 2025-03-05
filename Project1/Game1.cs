@@ -405,26 +405,6 @@ public class Game1 : Game
                 }
             }
         }
-        foreach (var enemy in enemies)
-        {
-            LinkEnemyCollisionHandler.HandleCollision(link, enemy);
-            IProjectile[] p = enemy.GetProjectiles();
-            if (p != null) {
-                for (int x = 0; x < p.Length; x++) {
-                if (p[x] != null)
-                {
-                    LinkEnemyCollisionHandler.HandleCollision(link, p[x]);
-                }
-                }
-            }
-            List <IProjectile> lp = link.GetProjectiles();
-            foreach (var pp in lp) {
-                //if (pp != null) {
-                    LinkEnemyCollisionHandler.HandleCollision(pp, enemy);
-                //}
-            }
-        }
-
 
         int enemyNum = 0;
         foreach (var enemy in enemies)
@@ -432,6 +412,23 @@ public class Game1 : Game
             if (currentEnemyIndex == enemyNum)
             {
                 enemy.Update(gameTime);
+                LinkEnemyCollisionHandler.HandleCollision(link, enemy);
+                IProjectile[] p = enemy.GetProjectiles();
+                if (p != null)
+                {
+                    for (int x = 0; x < p.Length; x++)
+                    {
+                        if (p[x] != null)
+                        {
+                            LinkEnemyCollisionHandler.HandleCollision(link, p[x]);
+                        }
+                    }
+                }
+                List<IProjectile> lp = link.GetProjectiles();
+                foreach (var pp in lp)
+                {
+                    LinkEnemyCollisionHandler.HandleCollision(pp, enemy);
+                }
             }
             enemyNum++;
             if (enemyNum >= enemies.Count)
