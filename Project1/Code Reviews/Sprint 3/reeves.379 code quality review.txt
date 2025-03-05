@@ -1,0 +1,9 @@
+﻿Review by Jarrett Reeves
+Reviewing CollisionBox.cs
+Original file by Bren
+3/5/2025
+Sprint 3
+
+Review: The code is a great implementation of the collision box mechanics. With collision for different sides, solid math, and drawing rectangles for debug purposes the code
+is very well done. Though the complexity is a little bit high, for the purposes of our project the code seems to work perfectly well without significant performance issues. 
+The one time performance issues were a problem, it turned out to be the debug print statements that caused it, so with the removal of them, our project runs much smoother.

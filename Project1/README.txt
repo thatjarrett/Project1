@@ -92,5 +92,13 @@ Class Coupling - 138
 Lines of Code - 5274
 Lines of Executable Code - 1305
 
+CODE METRICS - 3/5/25
+Maintainability - 86
+Cyclomatic Complexity - 942
+Depth of Inheritance - 3
+Class Coupling - 146
+Lines of Code - 5875
+Lines of Executable Code - 1463
+
 BURNDOWN CHART
 BurndownChart.png
