@@ -53,7 +53,7 @@ namespace Project1.Handlers
 
         public static void HandleCollision(IProjectile projectile, IEnemy enemy)
         {
-            if (enemy.GetCollider() != null && projectile.GetCollider().Intersects(enemy.GetCollider()))
+            if (enemy.GetCollider() != null && projectile.GetCollider() != null && projectile.GetCollider().Intersects(enemy.GetCollider()))
             {
                 //if (!enemy.IsInvincible())
                 //{

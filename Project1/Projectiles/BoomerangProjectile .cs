@@ -25,7 +25,7 @@ namespace Project1.Projectiles
         public BoomerangProjectile(Vector2 pos, ISprite sprite)
         {
             _sprite = sprite;
-            collider = new CollisionBox((int)pos.X, (int)pos.Y);
+            collider = null;//ew CollisionBox((int)pos.X, (int)pos.Y);
         }
 
         public void ownerPosition(Vector2 op) {
@@ -33,7 +33,10 @@ namespace Project1.Projectiles
         }
         public void Update(GameTime gameTime)//, Vector2 linkPos)
         {
-            collider.Move((int)(_magnitude * _direction.X), (int)(_magnitude * _direction.Y));
+            if (collider != null)
+            {
+                collider.Move((int)(_magnitude * _direction.X), (int)(_magnitude * _direction.Y));
+            }
 
 
             _sprite.Update(gameTime);
@@ -45,6 +48,9 @@ namespace Project1.Projectiles
                 {
                     peakReached = true;
                 }
+            }
+            else {
+                collider = null;//ew CollisionBox((int)pos.X, (int)pos.Y);
             }
             if (peakReached)
             {
@@ -86,7 +92,9 @@ namespace Project1.Projectiles
                 return;
             }
             _position = position;
-            collider.setPos((int)position.X, (int)position.Y);
+            //collider.setPos((int)position.X, (int)position.Y);
+            collider = new CollisionBox((int)position.X, (int)position.Y);
+
             active = true;
             peakReached = false;
             _direction = direction;
