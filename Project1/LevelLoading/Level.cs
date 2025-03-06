@@ -20,13 +20,13 @@ namespace Project1.LevelLoading
     public class Level
     {
 
-        int[,] level = new int[7, 12];
-        Texture2D background;
+        int[,] levelTiles = new int[7, 12];
+        int[,] levelEntities = new int[7, 12];
         TileBuilder tileBuilder;
 
-        public Level(string filename, Texture2D background)
+        public Level(string tileFile, string entityFile)
         {
-            string[] lines = File.ReadAllLines(filename);
+            string[] lines = File.ReadAllLines(tileFile);
             int i = 0;
             foreach (string line in lines)
             {
@@ -35,12 +35,11 @@ namespace Project1.LevelLoading
                 foreach (string number in splitLine)
                 {
                     int x = Int32.Parse(number);
-                    level[i, j] = x;
+                    levelTiles[i, j] = x;
                     j++;
                 }
                 i++;
             }
-            this.background = background;
 
         }
         public void loadTileSprites(Texture2D environmentTexture, Texture2D npcTexture)
@@ -57,7 +56,7 @@ namespace Project1.LevelLoading
             {
                 for(int j = 0; j < 12; j++)
                 {
-                    int tileNum = level[i, j];    
+                    int tileNum = levelTiles[i, j];    
                     int destinationx =(3*16) + (x * j);
                     int destinationy = (3*16) + (y * i);
                     tileList.Add(tileBuilder.buildTile(tileNum,new Vector2(destinationx, destinationy)));

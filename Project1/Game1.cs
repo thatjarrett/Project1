@@ -114,7 +114,7 @@ public class Game1 : Game
 
         environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
 
-        leveltest = new Level("Content/Level Data/BlockLevel.txt", Content.Load<Texture2D>("Images/DungeonRooms"));
+        leveltest = new Level("Content/Level Data/BlockLevel.txt", "Content/Level Data/EntityLevel.txt");
         environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
         npcTexture = Content.Load<Texture2D>("Images/oldMan");
         leveltest.loadTileSprites(environmentTexture, npcTexture);
@@ -499,9 +499,6 @@ public class Game1 : Game
                 enemy.CollisionUpdate(linkCollider);
                 //vice versa if link calls update with enemy
             }
-        }
-
-        
-        
+        }  
     }
 }
