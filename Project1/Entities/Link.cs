@@ -62,7 +62,7 @@ namespace Project1.Entities
         private ISprite explodingBombSprite;
 
         private BoomerangProjectile boomerangThrowable;
-        private BombProjectile bombProjectile;
+        //private BombProjectile bombProjectile;
 
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
 
@@ -74,7 +74,7 @@ namespace Project1.Entities
         private CollisionBox collider;
 
         private CollisionBox swordCollision;
-        //private List<I...> bombs;
+        private List<IProjectile> bombs = new List<IProjectile>();
 
         public Link(Vector2 startPos)
         {
@@ -204,6 +204,7 @@ namespace Project1.Entities
             if (isControlsDisabled) return;
             currentState.Item(this, itemNumber);
             Projectile projectile = null;
+            IProjectile bomb = null;
             switch (itemNumber)
             {
                 case 1:
@@ -216,12 +217,20 @@ namespace Project1.Entities
                     boomerangThrowable.Throw(position, faceDirection);
                     break;
                 case 4:
-                    bombProjectile.placeBomb(position);
+                    //bombProjectile.placeBomb(position);
+                    bomb = new BombProjectile(position, bombSprite, explodingBombSprite, this);
+                    //bombs.Add(new BombProjectile(position, bombSprite, explodingBombSprite, this));//b);
                     break;
             }
             if (projectile != null)
             {
                 projectilesList.Add(projectile);
+            }
+
+            if (bomb != null)
+            {
+                bombs.Add(bomb);
+                //projectilesList.Add(bomb);
             }
         }
 
@@ -262,7 +271,17 @@ namespace Project1.Entities
             boomerangThrowable.ownerPosition(position);
             boomerangThrowable.Update(gameTime);
 
-            bombProjectile.Update(gameTime);
+            //bombProjectile.Update(gameTime);
+            //foreach (var bomb in bombs)
+            //{
+            //    bomb.Update(gameTime);
+            //}
+            int x = 0;
+            while (x < bombs.Count)
+            {
+                bombs[x].Update(gameTime);
+                x++;
+            }
         }
 
 
@@ -308,7 +327,13 @@ namespace Project1.Entities
                 projectile.Draw(spriteBatch);
             }
             boomerangThrowable.Draw(spriteBatch);
-            bombProjectile.Draw(spriteBatch);
+            //bombProjectile.Draw(spriteBatch);
+            int x = 0;
+            while(x < bombs.Count) {
+                bombs[x].Draw(spriteBatch);
+                x++;
+            }
+
             if (dying)
             {
                 deathFrameCounter++;
@@ -444,7 +469,7 @@ namespace Project1.Entities
 
             bombSprite = new NMoveNAnim(texture, new Rectangle(129,184,8,16));
             explodingBombSprite = new NMoveAnim(texture, new Rectangle[] { new Rectangle(137, 184, 16, 16), new Rectangle(154, 184, 16, 16) }, 10);
-            bombProjectile = new BombProjectile(position,bombSprite, explodingBombSprite);
+            //bombProjectile = new BombProjectile(position,bombSprite, explodingBombSprite);
         }
 
         public void CollisionUpdate(CollisionBox other)
@@ -476,11 +501,17 @@ namespace Project1.Entities
             return isInvincible;
         }
 
-        
-
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public List<IProjectile> getBombs() {
+            return bombs;
+        }
+
+        public void deleteBomb() {
+            bombs.RemoveAt(0);
         }
     }
 }
