@@ -1,0 +1,10 @@
+Review by Bren
+Reviewing GamepadController.cs
+Original file by Jarrett
+3/5/2025
+Sprint 3
+
+Review: In Update, there is a double nested if statement inside of a foreach loop. This may be a level of nesting that's challenging project standards. Beyond that though,
+this class has an acceptable level of conciseness, with a method for each type of control needed to be tracked, and each of those methods only being a single digit number in
+number of lines. The functions each have one argument at most, implying a low level of coupling. Overall, with this low coupling and high conciseness, I'd rate this class as
+very high quality.

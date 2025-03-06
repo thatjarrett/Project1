@@ -1,10 +1,12 @@
-Review by Bren
-Reviewing GamepadController.cs
-Original file by Jarrett
-3/5/2025
+Sprint Reflection
 Sprint 3
+3/5/2025
 
-Review: In Update, there is a double nested if statement inside of a foreach loop. This may be a level of nesting that's challenging project standards. Beyond that though,
-this class has an acceptable level of conciseness, with a method for each type of control needed to be tracked, and each of those methods only being a single digit number in
-number of lines. The functions each have one argument at most, implying a low level of coupling. Overall, with this low coupling and high conciseness, I'd rate this class as
-very high quality.
+This sprint went relatively smoothly for our group, with tasks being distributed and agreed upon as soon as the Sprint began, and individuals began work on their part of the Sprint
+almost as soon as they could. We had great results in the realm of communication and cooperation, which greatly helped the speed of our work. The only notable technical problem
+were strange interactions with Link taking damage from invisible enemies. However, once level loading is fully, properly implemented, this shouldn't be a problem. We did identify
+a very slight downside in terms of our Jira board, in the terms of clarity. While people can properly identify when they start and end a task, for broad tasks like level loading,
+there is a very low level of clarity on how much progress exactly has been made.
+
+Overall though, we worked efficiently and effectively this sprint, and overall we are happy with our work, and don't have any comments in regards to how we'd change work in future 
+sprints.
