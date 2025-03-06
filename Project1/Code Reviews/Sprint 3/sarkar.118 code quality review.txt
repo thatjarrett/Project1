@@ -1,0 +1,9 @@
+﻿Review by Angstrom Sarkar
+Reviewing Level.cs
+Original file by Bennett
+3/6/2025
+Sprint 3
+
+Review: There are some commented out lines that should be deleted, and a few redundant lines of code at the start, but other than that the
+program does what is expected of it, without being overly complex. Moreover, as the code is dependent on other files, the file will only ever need to
+be updated if the functionality of level creation requires changing. Thus, I believe Level.cs to be well made.
