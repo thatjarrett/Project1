@@ -143,6 +143,9 @@
 #begin Level Data/BlockLevel.txt
 /copy:Level Data/BlockLevel.txt
 
+#begin Level Data/EntityLevel.txt
+/copy:Level Data/EntityLevel.txt
+
 #begin NES - The Legend of Zelda - Items & Weapons.png
 /importer:TextureImporter
 /processor:TextureProcessor
