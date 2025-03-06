@@ -25,6 +25,8 @@ public class Game1 : Game
     private KeyboardController keyboardController;
     private GamepadController gamepadController;
     private Link link;
+
+
     private Aquamentus aquamentus;
     private SpikeTrap trap;
 
@@ -95,24 +97,11 @@ public class Game1 : Game
         pixelTexture.SetData(new[] { Color.White });
 
         link = new Link(new Vector2(350, 170));
-        aquamentus = new Aquamentus(new Vector2(500, 170));
-        trap = new SpikeTrap(new Vector2(500, 170));
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        
-
-
-        bat = new Bat(new Vector2(500, 170));
-        slime = new Slime(new Vector2(500, 170));
-        skeleton = new Skeleton(new Vector2(500, 170));
-        goriya = new Goriya(new Vector2(500, 170));
-        hand = new Hand(new Vector2(500, 170));
 
         createSprites();
-
-
-
         environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
+
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         leveltest = new Level("Content/Level Data/BlockLevel.txt", "Content/Level Data/EntityLevel.txt");
         environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
@@ -120,66 +109,24 @@ public class Game1 : Game
         leveltest.loadTileSprites(environmentTexture, npcTexture);
         tiles.AddRange(leveltest.buildTiles());
 
-        
-        //tiles.Add(pushBlock);
 
-        /*tiles.Add(topWall);
-        tiles.Add(topPlainWall);
-        tiles.Add(topOpenDoor);
-        tiles.Add(topKeyLockedDoor);
-        tiles.Add(topDiamondLockedDoor);
-        tiles.Add(topBombedOpening);
+        aquamentusTexture = Content.Load<Texture2D>("Images/bosses");
+        enemyTexture = Content.Load<Texture2D>("Images/enemies");
+        itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
+        leveltest.loadEntitySprites(aquamentusTexture, enemyTexture, itemTexture);
 
-        tiles.Add(bottomWall);
-        tiles.Add(bottomPlainWall);
-        tiles.Add(bottomOpenDoor);
-        tiles.Add(bottomKeyLockedDoor);
-        tiles.Add(bottomDiamondLockedDoor);
-        tiles.Add(bottomBombedOpening);
+        List<IItem> tempitemlist = new List<IItem>();
+        List<IEnemy> tempenemylist = new List<IEnemy>();
+        (tempitemlist,tempenemylist) = leveltest.buildEntities(); // potentially referenceing issues here? but if it works I wont think too hard about it
+        // can return empty lists, im pretty sure draw and update break if there are no enemies or no items on the map
+        itemsList.AddRange(tempitemlist);
+        enemies.AddRange(tempenemylist);
 
-        tiles.Add(leftWall);
-        tiles.Add(leftPlainWall);
-        tiles.Add(leftOpenDoor);
-        tiles.Add(leftKeyLockedDoor);
-        tiles.Add(leftDiamondLockedDoor);
-        tiles.Add(leftBombedOpening);
-
-        tiles.Add(rightWall);
-        tiles.Add(rightPlainWall);
-        tiles.Add(rightOpenDoor);
-        tiles.Add(rightKeyLockedDoor);
-        tiles.Add(rightDiamondLockedDoor);
-        tiles.Add(rightBombedOpening);*/
-
-
-
-
-
-        itemsList.Add(boomerang);
-        itemsList.Add(HeartContainer);
-        itemsList.Add(compass);
-        itemsList.Add(Map);
-        itemsList.Add(Key);
-        itemsList.Add(TriForcePiece);
-        itemsList.Add(Bow);
-        itemsList.Add(Heart);
-        itemsList.Add(Rupee);
-        itemsList.Add(Arrow);
-        itemsList.Add(Bomb);
-        itemsList.Add(Fairy);
-        itemsList.Add(Clock);
+ 
 
         //itemsList.Add(enemyDeathCloud);
         //itemsList.Add(enemySpawnCloud);
 
-        enemies.Add(aquamentus);
-        enemies.Add(trap);
-
-        enemies.Add(bat);
-        enemies.Add(slime);
-        enemies.Add(skeleton);
-        enemies.Add(goriya);
-        enemies.Add(hand);
 
         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
         //Add bomb to list of items and delete this comment when items are implemented! -Bren
@@ -356,30 +303,13 @@ public class Game1 : Game
      
         foreach (var item in itemsList)
         {
-            if (currentItemIndex == itemNum)
-            {
-                item.Draw(_spriteBatch, new Vector2(200, 300), SpriteEffects.None);
-            }
-            itemNum++;
-            if (itemNum >= itemsList.Count)
-            {
-                itemNum = 0;
-            }
+           item.Draw(_spriteBatch, SpriteEffects.None);
         }
 
         foreach (var enemy in enemies)
-        {
-            //enemy.Draw(_spriteBatch);
-            if (currentEnemyIndex == enemyNum)
-            {
+        { 
                 enemy.Draw(_spriteBatch);
                 enemy.GetCollider().DebugDraw(_spriteBatch, pixelTexture, enemy.GetCollider().hitbox, Color.Green);
-            }
-            enemyNum++;
-            if (enemyNum >= enemies.Count)
-            {
-                enemyNum = 0;
-            }
         }
 
         //Keep link below the tiles so he's drawn above them
@@ -402,26 +332,11 @@ public class Game1 : Game
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         createItemSprites();
         link.createLinkSprites(linkTexture);
-        createEnemySprites();
     }
 
     protected void createItemSprites()
     {
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
-        boomerang = new Boomerang(itemTexture);
-        HeartContainer = new HeartContainer(itemTexture);
-        compass = new Compass(itemTexture);
-        Map = new Map(itemTexture);
-        Key = new Key(itemTexture);
-        TriForcePiece = new TriForcePiece(itemTexture);
-        Bow = new Bow(itemTexture);
-        Heart = new Heart(itemTexture);
-        Rupee = new Rupee(itemTexture);
-        Arrow = new Arrow(itemTexture);
-        Bomb = new Bomb(itemTexture);
-        Fairy = new Fairy(itemTexture);
-        Clock = new Clock(itemTexture);
-
         enemyDeathTexture = Content.Load<Texture2D>("Images/EnemyDeathCloud");
         enemySpawnTexture = Content.Load<Texture2D>("Images/EnemyCloud");
         enemyDeathCloud = new EnemyDeathCloud(enemyDeathTexture);
@@ -445,22 +360,7 @@ public class Game1 : Game
         currentEnemyIndex = (currentEnemyIndex + (forward ? 1 : itemsList.Count - 1)) % enemies.Count;
     }
 
-    protected void createEnemySprites()
-    {
-        //Create sprites for enemies here
-        aquamentusTexture = Content.Load<Texture2D>("Images/bosses");
-        enemyTexture = Content.Load<Texture2D>("Images/enemies");
-        aquamentus.createEnemySprites(aquamentusTexture);
-        trap.createEnemySprites(enemyTexture);
-
-
-        bat.createEnemySprites(enemyTexture);
-        slime.createEnemySprites(enemyTexture);
-        skeleton.createEnemySprites(enemyTexture);
-        goriya.createEnemySprites(enemyTexture);
-        hand.createEnemySprites(enemyTexture);
-
-    }
+  
     public void RestartGame()
     {
         // Clear all game objects

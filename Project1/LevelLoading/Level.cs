@@ -13,6 +13,8 @@ using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Project1.LevelLoading;
 using Project1.GameObjects.Environment;
+using Project1.Entities;
+using Project1.LevelLoading;
 
 
 namespace Project1.LevelLoading
@@ -23,6 +25,7 @@ namespace Project1.LevelLoading
         int[,] levelTiles = new int[7, 12];
         int[,] levelEntities = new int[7, 12];
         TileBuilder tileBuilder;
+        EntityBuilder EntityBuilder;
 
         public Level(string tileFile, string entityFile)
         {
@@ -40,11 +43,29 @@ namespace Project1.LevelLoading
                 }
                 i++;
             }
+            lines = File.ReadAllLines(entityFile);
+            i = 0;
+            foreach (string line in lines)
+            {
+                int j = 0;
+                string[] splitLine = line.Split(',');
+                foreach (string number in splitLine)
+                {
+                    int x = Int32.Parse(number);
+                    levelEntities[i, j] = x;
+                    j++;
+                }
+                i++;
+            }
 
         }
         public void loadTileSprites(Texture2D environmentTexture, Texture2D npcTexture)
         {
             tileBuilder = new TileBuilder(environmentTexture, npcTexture);
+        }
+        public void loadEntitySprites(Texture2D aquamentusTexture, Texture2D enemytexture, Texture2D itemSprites)
+        {
+            EntityBuilder = new EntityBuilder(aquamentusTexture, enemytexture, itemSprites);
         }
 
         public List<environmentTile> buildTiles()
@@ -64,6 +85,32 @@ namespace Project1.LevelLoading
                 }
             }
             return tileList;
+        }
+        public (List<IItem>, List<IEnemy>) buildEntities()
+        {
+            List<IItem> itemList = new List<IItem>();
+            List<IEnemy> enemyList = new List<IEnemy>();
+            int x = 16 * 3;
+            int y = 16 * 3;
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    int entityNum = levelEntities[i, j];
+                    int destinationx = (3 * 16) + (x * j);
+                    int destinationy = (3 * 16) + (y * i);
+                    if (entityNum >=1 && entityNum <= 7)
+                    {
+                        enemyList.Add(EntityBuilder.buildEnemy(entityNum, new Vector2(destinationx, destinationy)));
+                    }else if (entityNum >=8 && entityNum <= 20)
+                    {
+                        itemList.Add(EntityBuilder.buildItem(entityNum, new Vector2(destinationx, destinationy)));
+                    }
+
+
+                }
+            }
+            return (itemList,enemyList);
         }
     }
 }
