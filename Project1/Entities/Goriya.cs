@@ -208,6 +208,8 @@ namespace Project1.Entities
                 invincibleTime -= timeStep;
                 if (invincibleTime <= 0)
                     isInvincible = false;
+                    SetAnimation("");
+
             }
 
             goriyaSprite.Update(gameTime);
