@@ -297,6 +297,8 @@ public class Game1 : Game
                 {
                     LinkEnemyCollisionHandler.HandleCollision(pp, enemy);
                 }
+                CollisionBox sword = link.getSword();
+                LinkEnemyCollisionHandler.HandleCollision(sword, enemy);
             }
             enemyNum++;
             if (enemyNum >= enemies.Count)

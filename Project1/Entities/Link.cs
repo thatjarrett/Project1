@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -72,11 +73,16 @@ namespace Project1.Entities
 
         private CollisionBox collider;
 
+        private CollisionBox swordCollision;
+        //private List<I...> bombs;
+
         public Link(Vector2 startPos)
         {
             position = startPos;
             currentState = new LinkIdleState(Direction.Down); // Start in Idle state
             collider = new CollisionBox((int)startPos.X, (int)startPos.Y);
+
+            swordCollision = null;
         }
         public Direction PreviousDirection { get; private set; } = Direction.Down;
 
@@ -110,6 +116,32 @@ namespace Project1.Entities
                     knockbackTimer = knockbackTime;
                 }
             }
+        }
+
+        public void clearSword() {
+            swordCollision = null;
+        }
+
+        public CollisionBox getSword() {
+            return swordCollision;
+        }
+
+        public void setSword(Direction d) {
+            switch (d) {
+                case Direction.Down:
+                    swordCollision = new CollisionBox((int)position.X, (int)position.Y + 24);
+                    break;
+                case Direction.Up:
+                    swordCollision = new CollisionBox((int)position.X,(int)position.Y - 24);
+                    break;
+                case Direction.Left:
+                    swordCollision = new CollisionBox((int)position.X - 24, (int)position.Y);
+                    break;
+                case Direction.Right:
+                    swordCollision = new CollisionBox((int)position.X + 24, (int) position.Y);
+                    break;
+            }
+
         }
 
 
