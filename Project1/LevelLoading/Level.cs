@@ -12,7 +12,7 @@ using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 
-namespace Project1.Controllers
+namespace Project1.LevelLoading
 {
     public class Level
     {
@@ -55,8 +55,8 @@ namespace Project1.Controllers
                     case 0: { break; }
                     case 2:
                         {
-                            int destinationx = x * j;
-                            int destinationy = y * i;
+                            int destinationx =(3*16) + (x * j);
+                            int destinationy = (3*16) + (y * i);
                                 break;
                         }
                     }

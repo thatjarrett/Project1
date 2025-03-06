@@ -16,6 +16,7 @@ using Project1.Handlers;
 using Project1.Interfaces;
 using Project1.Projectiles;
 using Project1.Sprites;
+using Project1.LevelLoading;
 
 public class Game1 : Game
 {
@@ -144,7 +145,10 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         leveltest = new Level("Content/Level Data/BlockLevel.txt", Content.Load<Texture2D>("Images/DungeonRooms"));
-        
+        environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
+        npcTexture = Content.Load<Texture2D>("Images/oldMan");
+        TileBuilder tileBuilder = new TileBuilder(environmentTexture, npcTexture);
+
 
         bat = new Bat(new Vector2(500, 170));
         slime = new Slime(new Vector2(500, 170));
@@ -153,6 +157,7 @@ public class Game1 : Game
         hand = new Hand(new Vector2(500, 170));
 
         createSprites();
+
 
         environmentTile statueTile = new statueTileLeft(new Vector2(100, 100));
         environmentTile statueTile2 = new statueTileRight(new Vector2(100, 100));
