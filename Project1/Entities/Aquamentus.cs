@@ -78,6 +78,8 @@ namespace Project1.Entities
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (invincibleTime <= 0)
                     isInvincible = false;
+                    SetAnimation("");
+
             }
             aquamentusSprite.Update(gameTime);
 

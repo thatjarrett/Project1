@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -61,7 +62,7 @@ namespace Project1.Entities
         private ISprite explodingBombSprite;
 
         private BoomerangProjectile boomerangThrowable;
-        private BombProjectile bombProjectile;
+        //private BombProjectile bombProjectile;
 
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
 
@@ -72,11 +73,16 @@ namespace Project1.Entities
 
         private CollisionBox collider;
 
+        private CollisionBox swordCollision;
+        private List<IProjectile> bombs = new List<IProjectile>();
+
         public Link(Vector2 startPos)
         {
             position = startPos;
             currentState = new LinkIdleState(Direction.Down); // Start in Idle state
             collider = new CollisionBox((int)startPos.X, (int)startPos.Y);
+
+            swordCollision = null;
         }
         public Direction PreviousDirection { get; private set; } = Direction.Down;
 
@@ -110,6 +116,32 @@ namespace Project1.Entities
                     knockbackTimer = knockbackTime;
                 }
             }
+        }
+
+        public void clearSword() {
+            swordCollision = null;
+        }
+
+        public CollisionBox getSword() {
+            return swordCollision;
+        }
+
+        public void setSword(Direction d) {
+            switch (d) {
+                case Direction.Down:
+                    swordCollision = new CollisionBox((int)position.X, (int)position.Y + 24);
+                    break;
+                case Direction.Up:
+                    swordCollision = new CollisionBox((int)position.X,(int)position.Y - 24);
+                    break;
+                case Direction.Left:
+                    swordCollision = new CollisionBox((int)position.X - 24, (int)position.Y);
+                    break;
+                case Direction.Right:
+                    swordCollision = new CollisionBox((int)position.X + 24, (int) position.Y);
+                    break;
+            }
+
         }
 
 
@@ -172,6 +204,7 @@ namespace Project1.Entities
             if (isControlsDisabled) return;
             currentState.Item(this, itemNumber);
             Projectile projectile = null;
+            IProjectile bomb = null;
             switch (itemNumber)
             {
                 case 1:
@@ -184,12 +217,20 @@ namespace Project1.Entities
                     boomerangThrowable.Throw(position, faceDirection);
                     break;
                 case 4:
-                    bombProjectile.placeBomb(position);
+                    //bombProjectile.placeBomb(position);
+                    bomb = new BombProjectile(position, bombSprite, explodingBombSprite, this);
+                    //bombs.Add(new BombProjectile(position, bombSprite, explodingBombSprite, this));//b);
                     break;
             }
             if (projectile != null)
             {
                 projectilesList.Add(projectile);
+            }
+
+            if (bomb != null)
+            {
+                bombs.Add(bomb);
+                //projectilesList.Add(bomb);
             }
         }
 
@@ -230,7 +271,17 @@ namespace Project1.Entities
             boomerangThrowable.ownerPosition(position);
             boomerangThrowable.Update(gameTime);
 
-            bombProjectile.Update(gameTime);
+            //bombProjectile.Update(gameTime);
+            //foreach (var bomb in bombs)
+            //{
+            //    bomb.Update(gameTime);
+            //}
+            int x = 0;
+            while (x < bombs.Count)
+            {
+                bombs[x].Update(gameTime);
+                x++;
+            }
         }
 
 
@@ -276,7 +327,13 @@ namespace Project1.Entities
                 projectile.Draw(spriteBatch);
             }
             boomerangThrowable.Draw(spriteBatch);
-            bombProjectile.Draw(spriteBatch);
+            //bombProjectile.Draw(spriteBatch);
+            int x = 0;
+            while(x < bombs.Count) {
+                bombs[x].Draw(spriteBatch);
+                x++;
+            }
+
             if (dying)
             {
                 deathFrameCounter++;
@@ -412,7 +469,7 @@ namespace Project1.Entities
 
             bombSprite = new NMoveNAnim(texture, new Rectangle(129,184,8,16));
             explodingBombSprite = new NMoveAnim(texture, new Rectangle[] { new Rectangle(137, 184, 16, 16), new Rectangle(154, 184, 16, 16) }, 10);
-            bombProjectile = new BombProjectile(position,bombSprite, explodingBombSprite);
+            //bombProjectile = new BombProjectile(position,bombSprite, explodingBombSprite);
         }
 
         public void CollisionUpdate(CollisionBox other)
@@ -444,11 +501,17 @@ namespace Project1.Entities
             return isInvincible;
         }
 
-        
-
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public List<IProjectile> getBombs() {
+            return bombs;
+        }
+
+        public void deleteBomb() {
+            bombs.RemoveAt(0);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using Project1.Collision;
 using Project1.Entities;
 using Project1.Interfaces;
 using Project1.Projectiles;
@@ -53,7 +54,7 @@ namespace Project1.Handlers
 
         public static void HandleCollision(IProjectile projectile, IEnemy enemy)
         {
-            if (enemy.GetCollider() != null && projectile.GetCollider().Intersects(enemy.GetCollider()))
+            if (enemy.GetCollider() != null && projectile.GetCollider() != null && projectile.GetCollider().Intersects(enemy.GetCollider()))
             {
                 //if (!enemy.IsInvincible())
                 //{
@@ -75,6 +76,21 @@ namespace Project1.Handlers
             {
                 Debug.WriteLine("⚠️ Link picked up an item!");
                 //link picks up the item
+            }
+        }
+
+        public static void HandleCollision(CollisionBox sword, IEnemy enemy)
+        {
+            if (enemy.GetCollider() != null && sword != null && sword.Intersects(enemy.GetCollider()))
+            {
+                Debug.WriteLine("Link stabbed an enemy! Dealing damage.");
+
+
+                // Change enemy's state to damage
+                enemy.SetAnimation("Damage");
+
+                // Set enemy to invincible and apply knockback
+                enemy.SetInvincible(true);
             }
         }
     }

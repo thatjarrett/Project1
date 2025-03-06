@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Collision;
+using Project1.Entities;
 using Project1.Interfaces;
 
-public class BombProjectile
+public class BombProjectile : IProjectile
 {
 
     private Vector2 _position;
@@ -11,14 +12,16 @@ public class BombProjectile
     private ISprite explodingSprite;
     private int bombTimer;
     private CollisionBox collider;
+    private Link owner;
 
-    public BombProjectile(Vector2 Position, ISprite bombSprite, ISprite explodingSprite)
+    public BombProjectile(Vector2 Position, ISprite bombSprite, ISprite explodingSprite, Link link)
 	{
         _position = Position;
         this.bombSprite = bombSprite;
         this.explodingSprite = explodingSprite;
-        bombTimer = 300;
-        collider = new CollisionBox((int)_position.X, (int)_position.Y);
+        bombTimer = 0;//300;
+        collider = null;//ew CollisionBox((int)_position.X, (int)_position.Y);
+        owner = link;
 
     }
     public void Update(GameTime gameTime)
@@ -40,7 +43,15 @@ public class BombProjectile
         else if (bombTimer < 200)
         {
             explodingSprite.Draw(spriteBatch, _position, SpriteEffects.None);
+            //if (collider == null) {
+                collider = new CollisionBox((int)_position.X, (int)_position.Y);
+            //}
             //explodingSprite.Draw(spriteBatch, _position, SpriteEffects.FlipVertically);
+            explodingSprite.Draw(spriteBatch, _position, SpriteEffects.None);
+
+        }
+        else if (bombTimer < 290) {
+            owner.deleteBomb();
         }
     }
     public void placeBomb(Vector2 Position)
@@ -53,5 +64,20 @@ public class BombProjectile
     public CollisionBox GetCollider()
     {
         return collider;
+    }
+
+    public void Destroy()
+    {
+        //
+    }
+
+    public void Throw(Vector2 position, Vector2 direction)
+    {
+        //does nothing
+    }
+
+    public void ownerPosition(Vector2 owner)
+    {
+        //does nothing
     }
 }

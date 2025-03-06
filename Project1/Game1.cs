@@ -274,6 +274,11 @@ public class Game1 : Game
             }
         }
 
+        List<IProjectile> linkBombs = link.getBombs();
+        foreach (var b in linkBombs) {
+            LinkEnemyCollisionHandler.HandleCollision(link, b);
+        }
+
         int enemyNum = 0;
         foreach (var enemy in enemies)
         {
@@ -297,6 +302,14 @@ public class Game1 : Game
                 {
                     LinkEnemyCollisionHandler.HandleCollision(pp, enemy);
                 }
+
+                foreach (var b in linkBombs)
+                {
+                    LinkEnemyCollisionHandler.HandleCollision(b, enemy);
+                }
+
+                CollisionBox sword = link.getSword();
+                LinkEnemyCollisionHandler.HandleCollision(sword, enemy);
             }
             enemyNum++;
             if (enemyNum >= enemies.Count)
