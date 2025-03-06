@@ -5,7 +5,7 @@ namespace Project1.GameObjects.Environment
     public class blockTile : environmentTile
     {
         public blockTile(Vector2 pos) :
-            base(pos, true, 2)
+            base(pos, true)
         {
 
         }

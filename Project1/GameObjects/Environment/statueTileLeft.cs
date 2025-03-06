@@ -5,7 +5,7 @@ namespace Project1.GameObjects.Environment
     public class statueTileLeft : environmentTile
     {
         public statueTileLeft(Vector2 pos) :
-            base(pos, true, 0)
+            base(pos, true)
         {
 
         }

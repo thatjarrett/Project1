@@ -10,14 +10,12 @@ namespace Project1.GameObjects.Environment
         private Vector2 _position;
         private bool _collides;
         private ISprite _sprite;
-        private int _tileId;
         private CollisionBox collider;
 
-        public environmentTile(Vector2 pos, bool collision, int tileId)
+        public environmentTile(Vector2 pos, bool collision)
         {
             _position = pos;
             _collides = collision;
-            _tileId = tileId;
         }
         public void Update(GameTime gameTime)
         {
@@ -35,9 +33,6 @@ namespace Project1.GameObjects.Environment
         {
             _sprite = sprite;
         }
-
-        public int getTileID()
-        { return _tileId; }
 
         public CollisionBox GetCollider()
         { return collider; }

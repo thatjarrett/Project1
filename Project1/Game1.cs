@@ -9,7 +9,7 @@ using Project1.Collision;
 using Project1.Commands;
 using Project1.Controllers;
 using Project1.Entities;
-using Project1.GameObjects.Background;
+//using Project1.GameObjects.Background;
 using Project1.GameObjects.Environment;
 using Project1.GameObjects.Items;
 using Project1.Handlers;
@@ -49,48 +49,6 @@ public class Game1 : Game
     Texture2D enemyDeathTexture;
     Texture2D enemySpawnTexture;
 
-    ISprite statueLeftSprite;
-    ISprite statueRightSprite;
-    ISprite squareBlockSprite;
-    ISprite blueGapSprite;
-    ISprite stairsSprite;
-    ISprite oldManSprite;
-
-    ISprite topWallSprite;
-    ISprite topPlainWallSprite;
-    ISprite topOpenDoorSprite;
-    ISprite topBombedOpeningSprite;
-    ISprite topKeyLockedDoorSprite;
-    ISprite topDiamondLockedDoorSprite;
-
-    ISprite bottomWallSprite;
-    ISprite bottomPlainWallSprite;
-    ISprite bottomOpenDoorSprite;
-    ISprite bottomBombedOpeningSprite;
-    ISprite bottomKeyLockedDoorSprite;
-    ISprite bottomDiamondLockedDoorSprite;
-
-    ISprite leftWallSprite;
-    ISprite leftPlainWallSprite;
-    ISprite leftOpenDoorSprite;
-    ISprite leftBombedOpeningSprite;
-    ISprite leftKeyLockedDoorSprite;
-    ISprite leftDiamondLockedDoorSprite;
-
-    ISprite rightWallSprite;
-    ISprite rightPlainWallSprite;
-    ISprite rightOpenDoorSprite;
-    ISprite rightBombedOpeningSprite;
-    ISprite rightKeyLockedDoorSprite;
-    ISprite rightDiamondLockedDoorSprite;
-
-    ISprite fireSprite;
-
-    ISprite ladderSprite;
-    ISprite whiteBrickSprite;
-    ISprite blueFloorSprite;
-    ISprite blueSandSprite;
-
     IItem boomerang;
     IItem HeartContainer;
     IItem compass;
@@ -113,9 +71,6 @@ public class Game1 : Game
     private int currentNPCIndex = 0;
 
     private int currentEnemyIndex = 0;
-
-
-    Dictionary<int, ISprite> spritesIDs;
 
     private List<IItem> itemsList = new List<IItem>();
 
@@ -144,10 +99,7 @@ public class Game1 : Game
         trap = new SpikeTrap(new Vector2(500, 170));
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        leveltest = new Level("Content/Level Data/BlockLevel.txt", Content.Load<Texture2D>("Images/DungeonRooms"));
-        environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
-        npcTexture = Content.Load<Texture2D>("Images/oldMan");
-        TileBuilder tileBuilder = new TileBuilder(environmentTexture, npcTexture);
+        
 
 
         bat = new Bat(new Vector2(500, 170));
@@ -159,63 +111,17 @@ public class Game1 : Game
         createSprites();
 
 
-        environmentTile statueTile = new statueTileLeft(new Vector2(100, 100));
-        environmentTile statueTile2 = new statueTileRight(new Vector2(100, 100));
-        environmentTile squareBlock = new blockTile(new Vector2(100, 100));
-        environmentTile blueGap = new gapTile(new Vector2(100, 100));
-        environmentTile stairs = new stairsTile(new Vector2(100, 100));
-        environmentTile fire = new fireTile(new Vector2(100, 100));
-        environmentTile oldMan = new oldManTile(new Vector2(100, 100));
+
         environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
 
-        environmentTile topWall = new wallTile(new Vector2(100, 100), 7);
-        environmentTile topPlainWall = new doorTile(new Vector2(100, 100), 8);
-        environmentTile topOpenDoor = new doorTile(new Vector2(100, 100), 9);
-        environmentTile topKeyLockedDoor = new doorTile(new Vector2(100, 100), 11);
-        environmentTile topDiamondLockedDoor = new doorTile(new Vector2(100, 100), 12);
-        environmentTile topBombedOpening = new doorTile(new Vector2(100, 100), 10);
+        leveltest = new Level("Content/Level Data/BlockLevel.txt", Content.Load<Texture2D>("Images/DungeonRooms"));
+        environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
+        npcTexture = Content.Load<Texture2D>("Images/oldMan");
+        leveltest.loadTileSprites(environmentTexture, npcTexture);
+        tiles.AddRange(leveltest.buildTiles());
 
-        environmentTile bottomWall = new wallTile(new Vector2(100, 100), 13);
-        environmentTile bottomPlainWall = new doorTile(new Vector2(100, 100), 14);
-        environmentTile bottomOpenDoor = new doorTile(new Vector2(100, 100), 15);
-        environmentTile bottomKeyLockedDoor = new doorTile(new Vector2(100, 100), 17);
-        environmentTile bottomDiamondLockedDoor = new doorTile(new Vector2(100, 100), 18);
-        environmentTile bottomBombedOpening = new doorTile(new Vector2(100, 100), 16);
-
-        environmentTile leftWall = new wallTile(new Vector2(100, 100), 19);
-        environmentTile leftPlainWall = new doorTile(new Vector2(100, 100), 20);
-        environmentTile leftOpenDoor = new doorTile(new Vector2(100, 100), 21);
-        environmentTile leftKeyLockedDoor = new doorTile(new Vector2(100, 100), 23);
-        environmentTile leftDiamondLockedDoor = new doorTile(new Vector2(100, 100), 24);
-        environmentTile leftBombedOpening = new doorTile(new Vector2(100, 100), 22);
-
-        environmentTile rightWall = new wallTile(new Vector2(100, 100), 25);
-        environmentTile rightPlainWall = new doorTile(new Vector2(100, 100), 26);
-        environmentTile rightOpenDoor = new doorTile(new Vector2(100, 100), 27);
-        environmentTile rightKeyLockedDoor = new doorTile(new Vector2(100, 100), 29);
-        environmentTile rightDiamondLockedDoor = new doorTile(new Vector2(100, 100), 30);
-        environmentTile rightBombedOpening = new doorTile(new Vector2(100, 100), 28);
-
-
-        environmentTile blueFloor = new BlueFloor(new Vector2(100, 100), 31);
-        environmentTile blueSand = new BlueSand(new Vector2(100, 100), 32);
-        environmentTile ladder = new Ladder(new Vector2(100, 100), 33);
-        environmentTile whiteBrick = new WhiteBrick(new Vector2(100, 100), 34);
-
-
-        tiles.Add(statueTile);
-        tiles.Add(statueTile2);
-        tiles.Add(squareBlock);
-        tiles.Add(blueGap);
-        tiles.Add(stairs);
-        tiles.Add(fire);
-        tiles.Add(oldMan);
-        tiles.Add(pushBlock);
-
-        tiles.Add(blueFloor);
-        tiles.Add(blueSand);
-        tiles.Add(whiteBrick);
-        tiles.Add(ladder);
+        
+        //tiles.Add(pushBlock);
 
         /*tiles.Add(topWall);
         tiles.Add(topPlainWall);
@@ -335,49 +241,6 @@ public class Game1 : Game
 
         gamepadController = new GamepadController(gamepadCommands, new IdleCommand(link));
 
-
-       
-
-        spritesIDs = new Dictionary<int, ISprite>
-        {
-            {0,statueLeftSprite},
-            {1,statueRightSprite},
-            {2,squareBlockSprite},
-            {3,blueGapSprite},
-            {4,stairsSprite},
-            {5,fireSprite},
-            {6,oldManSprite},
-            {7,topWallSprite},
-            {8,topPlainWallSprite},
-            {9,topOpenDoorSprite},
-            {10,topBombedOpeningSprite},
-            {11,topKeyLockedDoorSprite},
-            {12,topDiamondLockedDoorSprite},
-            {13,bottomWallSprite},
-            {14,bottomPlainWallSprite},
-            {15,bottomOpenDoorSprite},
-            {16,bottomBombedOpeningSprite},
-            {17,bottomKeyLockedDoorSprite},
-            {18,bottomDiamondLockedDoorSprite},
-            {19,leftWallSprite},
-            {20,leftPlainWallSprite},
-            {21,leftOpenDoorSprite},
-            {22,leftBombedOpeningSprite},
-            {23,leftKeyLockedDoorSprite},
-            {24,leftDiamondLockedDoorSprite},
-            {25,rightWallSprite},
-            {26,rightPlainWallSprite},
-            {27,rightOpenDoorSprite},
-            {28,rightBombedOpeningSprite},
-            {29,rightKeyLockedDoorSprite},
-            {30,rightDiamondLockedDoorSprite},
-            {31, blueFloorSprite},
-            {32, blueSandSprite },
-            {33, ladderSprite},
-            {34, whiteBrickSprite}
-        };
-
-        setTileSprites();
         keyboardController = new KeyboardController(commands, new IdleCommand(link));
     }
 
@@ -451,8 +314,6 @@ public class Game1 : Game
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
 
-        leveltest.drawBG(_spriteBatch);
-        leveltest.drawTiles(_spriteBatch);
 
         int tileNum = 0;
         int enemyNum = 0;
@@ -474,6 +335,10 @@ public class Game1 : Game
             {
                 tileNum = 0;
             }
+        }
+        foreach(var tile in tiles)
+        {
+            tile.Draw(_spriteBatch );
         }
      
         foreach (var item in itemsList)
@@ -525,57 +390,6 @@ public class Game1 : Game
         createItemSprites();
         link.createLinkSprites(linkTexture);
         createEnemySprites();
-        createEnvironmentSprites();
-    }
-
-    protected void createEnvironmentSprites()
-    {
-        environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
-        npcTexture = Content.Load<Texture2D>("Images/oldMan");
-
-        statueLeftSprite = new NMoveNAnim(environmentTexture, new Rectangle(515, 1, 16, 16));
-        statueRightSprite = new NMoveNAnim(environmentTexture, new Rectangle(498, 1, 16, 16));
-        squareBlockSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 1, 16, 16));
-        blueGapSprite = new NMoveNAnim(environmentTexture, new Rectangle(498, 18, 16, 16));
-        stairsSprite = new NMoveNAnim(environmentTexture, new Rectangle(515, 18, 16, 16));
-        oldManSprite = new NMoveNAnim(npcTexture, new Rectangle(1, 1, 16, 16));
-
-        topWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 1, 256, 32));
-        topPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 1, 32, 32));
-        topOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 1, 32, 32));
-        topKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 1, 32, 32));
-        topDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 1, 32, 32));
-        topBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 1, 32, 32));
-
-        bottomWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 145, 256, 32));
-        bottomPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 100, 32, 32));
-        bottomOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 100, 32, 32));
-        bottomKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 100, 32, 32));
-        bottomDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 100, 32, 32));
-        bottomBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 100, 32, 32));
-
-        leftWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 33, 32, 96));
-        leftPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 34, 32, 32));
-        leftOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 34, 32, 32));
-        leftKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 34, 32, 32));
-        leftDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 34, 32, 32));
-        leftBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 34, 32, 32));
-
-        rightWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(225, 33, 32, 96));
-        rightPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 67, 32, 32));
-        rightOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 67, 32, 32));
-        rightKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 67, 32, 32));
-        rightDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 67, 32, 32));
-        rightBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 67, 32, 32));
-
-        Rectangle[] fireFrames = new Rectangle[] { new Rectangle(52, 1, 16, 16), new Rectangle(69, 1, 16, 16) };
-        fireSprite = new NMoveAnim(npcTexture, fireFrames, 5);
-
-        ladderSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 35, 16, 16));
-        whiteBrickSprite = new NMoveNAnim(environmentTexture, new Rectangle(464, 35, 16, 16));
-        blueFloorSprite = new NMoveNAnim(environmentTexture, new Rectangle(464, 1, 16, 16));
-        blueSandSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 18, 16, 16));
-
     }
 
     protected void createItemSprites()
@@ -643,16 +457,6 @@ public class Game1 : Game
 
         // Reinitialize the game
         Initialize();
-    }
-
-
-    protected void setTileSprites()
-    {
-        foreach (var tile in tiles)
-        {
-            tile.setSprite(spritesIDs[tile.getTileID()]);
-        }
-
     }
 
     private void UpdateCollisions()

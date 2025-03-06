@@ -4,19 +4,10 @@ using System.Net.Security;
 using System.Net.Sockets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Project1.Collision;
-using Project1.Commands;
-using Project1.Controllers;
-using Project1.Entities;
-using Project1.GameObjects.Background;
 using Project1.GameObjects.Environment;
-using Project1.GameObjects.Items;
 using Project1.Handlers;
-using Project1.Interfaces;
-using Project1.Projectiles;
 using Project1.Sprites;
-using Project1.LevelLoading;
+using Project1.Interfaces;
 
 public class TileBuilder
 {
@@ -66,57 +57,7 @@ public class TileBuilder
 
 
     public TileBuilder(Texture2D environmentTexture, Texture2D npcTexture)
-	{
-        createEnvironmentSprites(environmentTexture, npcTexture);
-        spritesIDs = new Dictionary<int, ISprite>
-        {
-            {0,this.statueLeftSprite},
-            { 1,this.statueRightSprite},
-            { 2,this.squareBlockSprite},
-            { 3,this.blueGapSprite},
-            { 4,this.stairsSprite},
-            { 5,this.fireSprite},
-            { 6,this.oldManSprite},
-            { 7,this.topWallSprite},
-            { 8,this.topPlainWallSprite},
-            { 9,this.topOpenDoorSprite},
-            { 10,this.topBombedOpeningSprite},
-            { 11,this.topKeyLockedDoorSprite},
-            { 12,this.topDiamondLockedDoorSprite},
-            { 13,this.bottomWallSprite},
-            { 14,this.bottomPlainWallSprite},
-            { 15,this.bottomOpenDoorSprite},
-            { 16,this.bottomBombedOpeningSprite},
-            { 17,this.bottomKeyLockedDoorSprite},
-            { 18,this.bottomDiamondLockedDoorSprite},
-            { 19,this.leftWallSprite},
-            { 20,this.leftPlainWallSprite},
-            { 21,this.leftOpenDoorSprite},
-            { 22,this.leftBombedOpeningSprite},
-            { 23,this.leftKeyLockedDoorSprite},
-            { 24,this.leftDiamondLockedDoorSprite},
-            { 25,this.rightWallSprite},
-            { 26,this.rightPlainWallSprite},
-            { 27,this.rightOpenDoorSprite},
-            { 28,this.rightBombedOpeningSprite},
-            { 29,this.rightKeyLockedDoorSprite},
-            { 30,this.rightDiamondLockedDoorSprite},
-            { 31,this.blueFloorSprite},
-            { 32,this.blueSandSprite },
-            { 33, this.ladderSprite},
-            { 34, this.whiteBrickSprite}
-        };
-
-    }
-
-    public environmentTile buildTile(int tileID,Vector2 location)
     {
-
-    }
-
-    protected void createEnvironmentSprites(Texture2D environmentTexture, Texture2D npcTexture)
-    {
-
         this.statueLeftSprite = new NMoveNAnim(environmentTexture, new Rectangle(515, 1, 16, 16));
         this.statueRightSprite = new NMoveNAnim(environmentTexture, new Rectangle(498, 1, 16, 16));
         this.squareBlockSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 1, 16, 16));
@@ -161,47 +102,273 @@ public class TileBuilder
         this.blueSandSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 18, 16, 16));
 
     }
+
+    public environmentTile buildTile(int tileID, Vector2 location)
+    {
+        environmentTile tile;
+        switch (tileID)
+        {
+            case 0:
+                {
+                    tile = new statueTileLeft(location);
+                    tile.setSprite(this.statueLeftSprite);
+                    break;
+                }
+            case 1:
+                {
+                    tile = new statueTileRight(location);
+                    tile.setSprite(this.statueRightSprite);
+                    break;
+                }
+            case 2:
+                {
+                    tile = new blockTile(location);
+                    tile.setSprite(this.squareBlockSprite);
+                    break;
+                }
+            case 3:
+                {
+                    tile = new gapTile(location);
+                    tile.setSprite(this.blueGapSprite);
+                    break;
+                }
+            case 4:
+                {
+                    tile = new stairsTile(location);
+                    tile.setSprite(this.stairsSprite);
+                    break;
+                }
+            case 5:
+                {
+                    tile = new fireTile(location);
+                    tile.setSprite(this.fireSprite);
+                    break;
+                }
+            case 6:
+                {
+                    tile = new oldManTile(location);
+                    tile.setSprite(this.oldManSprite);
+                    break;
+                }
+            case 7:
+                {
+                    tile = new wallTile(location);       // need to remove ID requirement from wallTile
+                    tile.setSprite(this.topWallSprite);
+                    break;
+                }
+            case 8:
+                {
+                    tile = new doorTile(location);        // need to remove ID requirement from doorTile
+                    tile.setSprite(this.topPlainWallSprite);
+                    break;
+                }
+            case 9:
+                {
+                    tile = new doorTile(location);        // need to remove ID requirement from doorTile
+                    tile.setSprite(this.topOpenDoorSprite);
+                    break;
+                }
+            case 10:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.topBombedOpeningSprite);
+                    break;
+                }
+            case 11:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.topKeyLockedDoorSprite);
+                    break;
+                }
+            case 12:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.topDiamondLockedDoorSprite);
+                    break;
+                }
+            case 13:
+                {
+                    tile = new wallTile(location);       // need to remove ID requirement from wallTile
+                    tile.setSprite(this.bottomWallSprite);
+                    break;
+                }
+            case 14:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.bottomPlainWallSprite);
+                    break;
+                }
+            case 15:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.bottomOpenDoorSprite);
+                    break;
+                }
+            case 16:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.bottomBombedOpeningSprite);
+                    break;
+                }
+            case 17:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.bottomKeyLockedDoorSprite);
+                    break;
+                }
+            case 18:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.bottomDiamondLockedDoorSprite);
+                    break;
+                }
+            case 19:
+                {
+                    tile = new wallTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.leftWallSprite);
+                    break;
+                }
+            case 20:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from wallTile
+                    tile.setSprite(this.leftPlainWallSprite);
+                    break;
+                }
+            case 21:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.leftOpenDoorSprite);
+                    break;
+                }
+            case 22:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.leftBombedOpeningSprite);
+                    break;
+                }
+            case 23:
+                {
+                    tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                    tile.setSprite(this.leftKeyLockedDoorSprite);
+                    break;
+                }
+            case 24:
+                {
+                    tile = new doorTile(location);
+                    tile.setSprite(this.leftDiamondLockedDoorSprite);
+                    break;
+                }
+            case 25:
+                {
+                    tile = new wallTile(location);
+                    tile.setSprite(this.rightWallSprite);
+                    break;
+                }
+            case 26:
+                {
+                    tile = new doorTile(location);
+                    tile.setSprite(this.rightPlainWallSprite);
+                    break;
+                }
+            case 27:
+                {
+                    tile = new doorTile(location);
+                    tile.setSprite(this.rightOpenDoorSprite);
+                    break;
+                }
+            case 28:
+                {
+                    tile = new doorTile(location);
+                    tile.setSprite(this.rightBombedOpeningSprite);
+                    break;
+                }
+            case 29:
+                {
+                    tile = new doorTile(location);
+                    tile.setSprite(this.rightKeyLockedDoorSprite);
+                    break;
+                }
+            case 30:
+                {
+                    tile = new doorTile(location);
+                    tile.setSprite(this.rightDiamondLockedDoorSprite);
+                    break;
+                }
+            case 31:
+                {
+                    tile = new BlueFloor(location);
+                    tile.setSprite(this.blueFloorSprite);
+                    break;
+                }
+            case 32:
+                {
+                    tile = new BlueSand(location);
+                    tile.setSprite(this.blueSandSprite);
+                    break;
+                }
+            case 33:
+                {
+                    tile = new Ladder(location);
+                    tile.setSprite(this.ladderSprite);
+                    break;
+                }
+            case 34:
+                {
+                    tile = new WhiteBrick(location);
+                    tile.setSprite(this.whiteBrickSprite);
+                    break;
+                }
+            default: 
+                { tile = new BlueFloor(location);
+                    tile.setSprite(this.blueFloorSprite);
+                    break;
+                }
+        }
+        return tile;
+    }
 }
+
 /*
- *         environmentTile statueTile = new statueTileLeft(new Vector2(100, 100));
-        environmentTile statueTile2 = new statueTileRight(new Vector2(100, 100));
-        environmentTile squareBlock = new blockTile(new Vector2(100, 100));
-        environmentTile blueGap = new gapTile(new Vector2(100, 100));
-        environmentTile stairs = new stairsTile(new Vector2(100, 100));
-        environmentTile fire = new fireTile(new Vector2(100, 100));
-        environmentTile oldMan = new oldManTile(new Vector2(100, 100));
-        environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
+ *        
+    
+        environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));    not in dictionary as stands
 
-        environmentTile topWall = new wallTile(new Vector2(100, 100), 7);
-        environmentTile topPlainWall = new doorTile(new Vector2(100, 100), 8);
-        environmentTile topOpenDoor = new doorTile(new Vector2(100, 100), 9);
-        environmentTile topKeyLockedDoor = new doorTile(new Vector2(100, 100), 11);
-        environmentTile topDiamondLockedDoor = new doorTile(new Vector2(100, 100), 12);
-        environmentTile topBombedOpening = new doorTile(new Vector2(100, 100), 10);
-
-        environmentTile bottomWall = new wallTile(new Vector2(100, 100), 13);
-        environmentTile bottomPlainWall = new doorTile(new Vector2(100, 100), 14);
-        environmentTile bottomOpenDoor = new doorTile(new Vector2(100, 100), 15);
-        environmentTile bottomKeyLockedDoor = new doorTile(new Vector2(100, 100), 17);
-        environmentTile bottomDiamondLockedDoor = new doorTile(new Vector2(100, 100), 18);
-        environmentTile bottomBombedOpening = new doorTile(new Vector2(100, 100), 16);
-
-        environmentTile leftWall = new wallTile(new Vector2(100, 100), 19);
-        environmentTile leftPlainWall = new doorTile(new Vector2(100, 100), 20);
-        environmentTile leftOpenDoor = new doorTile(new Vector2(100, 100), 21);
-        environmentTile leftKeyLockedDoor = new doorTile(new Vector2(100, 100), 23);
-        environmentTile leftDiamondLockedDoor = new doorTile(new Vector2(100, 100), 24);
-        environmentTile leftBombedOpening = new doorTile(new Vector2(100, 100), 22);
-
-        environmentTile rightWall = new wallTile(new Vector2(100, 100), 25);
-        environmentTile rightPlainWall = new doorTile(new Vector2(100, 100), 26);
-        environmentTile rightOpenDoor = new doorTile(new Vector2(100, 100), 27);
-        environmentTile rightKeyLockedDoor = new doorTile(new Vector2(100, 100), 29);
-        environmentTile rightDiamondLockedDoor = new doorTile(new Vector2(100, 100), 30);
-        environmentTile rightBombedOpening = new doorTile(new Vector2(100, 100), 28);
-
-
-        environmentTile blueFloor = new BlueFloor(new Vector2(100, 100), 31);
-        environmentTile blueSand = new BlueSand(new Vector2(100, 100), 32);
-        environmentTile ladder = new Ladder(new Vector2(100, 100), 33);
-        environmentTile whiteBrick = new WhiteBrick(new Vector2(100, 100), 34);*/
+  spritesIDs = new Dictionary<int, ISprite>
+        {
+            {0,this.statueLeftSprite},
+            { 1,this.statueRightSprite},
+            { 2,this.squareBlockSprite},
+            { 3,this.blueGapSprite},
+            { 4,this.stairsSprite},
+            { 5,this.fireSprite},
+            { 6,this.oldManSprite},
+            { 7,this.topWallSprite},
+            { 8,this.topPlainWallSprite},
+            { 9,this.topOpenDoorSprite},
+            { 10,this.topBombedOpeningSprite},
+            { 11,this.topKeyLockedDoorSprite},
+            { 12,this.topDiamondLockedDoorSprite},
+            { 13,this.bottomWallSprite},
+            { 14,this.bottomPlainWallSprite},
+            { 15,this.bottomOpenDoorSprite},
+            { 16,this.bottomBombedOpeningSprite},
+            { 17,this.bottomKeyLockedDoorSprite},
+            { 18,this.bottomDiamondLockedDoorSprite},
+            { 19,this.leftWallSprite},
+            { 20,this.leftPlainWallSprite},
+            { 21,this.leftOpenDoorSprite},
+            { 22,this.leftBombedOpeningSprite},
+            { 23,this.leftKeyLockedDoorSprite},
+            { 24,this.leftDiamondLockedDoorSprite},
+            { 25,this.rightWallSprite},
+            { 26,this.rightPlainWallSprite},
+            { 27,this.rightOpenDoorSprite},
+            { 28,this.rightBombedOpeningSprite},
+            { 29,this.rightKeyLockedDoorSprite},
+            { 30,this.rightDiamondLockedDoorSprite},
+            { 31,this.blueFloorSprite},
+            { 32,this.blueSandSprite },
+            { 33, this.ladderSprite},
+            { 34, this.whiteBrickSprite}
+        };
+ */

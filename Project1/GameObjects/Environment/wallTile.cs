@@ -4,8 +4,8 @@ namespace Project1.GameObjects.Environment
 {
     public class wallTile : environmentTile
     {
-        public wallTile(Vector2 pos, int id) :
-            base(pos, true, id)
+        public wallTile(Vector2 pos) :
+            base(pos, true)
         {
 
         }

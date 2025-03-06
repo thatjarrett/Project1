@@ -5,7 +5,7 @@ namespace Project1.GameObjects.Environment
     public class fireTile : environmentTile
     {
         public fireTile(Vector2 pos) :
-            base(pos, true, 5)
+            base(pos, true)
         {
 
         }
