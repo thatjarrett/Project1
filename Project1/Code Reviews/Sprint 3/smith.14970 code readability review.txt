@@ -1,0 +1,8 @@
+Review by Bennett Smith
+Reviewing IItem
+Original file by Angstrom
+3/6/2025
+Sprint 3
+
+Review: Excellent use of method overloading to make drawing items with and without a location funcitonal. The class does exactly what it needs to do and works very well
+with other classes that need to call items in various ways. clean methods makes understanding the code very easy.

@@ -1,0 +1,7 @@
+Reflection
+3/6/2025
+Sprint 3
+
+Everyone did a great job getting work done quickly. Level loading revealed a few bugs with other sections of the code, but it will be easy to resolve those issues after 
+meeting in class tomorrow. We have a solid team that is good at finishing jobs when the deadline is approaching. There was some mess in Game1 prior to level loading that 
+took some time to clean up, but I think the final result is rather elegant and Game1 is a much cleaner class now.

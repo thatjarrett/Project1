@@ -26,21 +26,8 @@ public class Game1 : Game
     private GamepadController gamepadController;
     private Link link;
 
-
-    private Aquamentus aquamentus;
-    private SpikeTrap trap;
-
-    private Bat bat;
-    private Slime slime;
-    private Skeleton skeleton;
-    private Goriya goriya;
-    private Hand hand;
-
     private List<environmentTile> tiles = new List<environmentTile>();
     private List<IEnemy> enemies = new List<IEnemy>();
-
-    //private List<Enemy> enemies = new List<Enemy>();
-
 
     Texture2D linkTexture;
     Texture2D environmentTexture;
@@ -51,33 +38,19 @@ public class Game1 : Game
     Texture2D enemyDeathTexture;
     Texture2D enemySpawnTexture;
 
-    IItem boomerang;
-    IItem HeartContainer;
-    IItem compass;
-    IItem Map;
-    IItem Key;
-    IItem TriForcePiece;
-    IItem Bow;
-    IItem Heart;
-    IItem Rupee;
-    IItem Arrow;
-    IItem Bomb;
-    IItem Fairy;
-    IItem Clock;
-
     ISprite enemyDeathCloud;
     ISprite enemySpawnCloud;
-
+    
     private int currentBlockIndex = 0;
     private int currentItemIndex = 0;
     private int currentNPCIndex = 0;
-
+    
     private int currentEnemyIndex = 0;
 
     private List<IItem> itemsList = new List<IItem>();
 
     Level leveltest;
-
+    
 
     //Debug Variables
     Texture2D pixelTexture;
@@ -91,8 +64,6 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        
-
         pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
         pixelTexture.SetData(new[] { Color.White });
 
@@ -108,7 +79,7 @@ public class Game1 : Game
         npcTexture = Content.Load<Texture2D>("Images/oldMan");
         leveltest.loadTileSprites(environmentTexture, npcTexture);
         tiles.AddRange(leveltest.buildTiles());
-
+        
 
         aquamentusTexture = Content.Load<Texture2D>("Images/bosses");
         enemyTexture = Content.Load<Texture2D>("Images/enemies");
@@ -266,7 +237,7 @@ public class Game1 : Game
         }
         UpdateCollisions();
     }
-
+    
 
     protected override void Draw(GameTime gameTime)
     {
@@ -304,6 +275,7 @@ public class Game1 : Game
         foreach (var item in itemsList)
         {
            item.Draw(_spriteBatch, SpriteEffects.None);
+           item.GetCollider().DebugDraw(_spriteBatch, pixelTexture, item.GetCollider().hitbox, Color.Green);
         }
 
         foreach (var enemy in enemies)

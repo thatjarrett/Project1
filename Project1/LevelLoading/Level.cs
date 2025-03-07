@@ -22,10 +22,11 @@ namespace Project1.LevelLoading
     public class Level
     {
 
-        int[,] levelTiles = new int[7, 12];
+        int[,] levelTiles = new int[8, 12];
         int[,] levelEntities = new int[7, 12];
         TileBuilder tileBuilder;
         EntityBuilder EntityBuilder;
+        Texture2D TileTex;
 
         public Level(string tileFile, string entityFile)
         {
@@ -62,11 +63,14 @@ namespace Project1.LevelLoading
         public void loadTileSprites(Texture2D environmentTexture, Texture2D npcTexture)
         {
             tileBuilder = new TileBuilder(environmentTexture, npcTexture);
+            this.TileTex = environmentTexture;
+
         }
         public void loadEntitySprites(Texture2D aquamentusTexture, Texture2D enemytexture, Texture2D itemSprites)
         {
             EntityBuilder = new EntityBuilder(aquamentusTexture, enemytexture, itemSprites);
         }
+        
 
         public List<environmentTile> buildTiles()
         {
@@ -78,12 +82,22 @@ namespace Project1.LevelLoading
                 for(int j = 0; j < 12; j++)
                 {
                     int tileNum = levelTiles[i, j];    
-                    int destinationx =(3*16) + (x * j);
-                    int destinationy = (3*16) + (y * i);
+                    int destinationx =(3*32) + (x * j);
+                    int destinationy = (3*32) + (y * i);
                     tileList.Add(tileBuilder.buildTile(tileNum,new Vector2(destinationx, destinationy)));
                       
                 }
             }
+            //Big walls
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 0], new Vector2(0, 0)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 1], new Vector2(0, (32+(16*7))*3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 2], new Vector2(0, 32*3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 3], new Vector2((32+(16*12))*3,32*3)));
+            //Door slots
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 4], new Vector2(112*3, 0)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 5], new Vector2(112*3, (32 + (16 * 7)) * 3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 6], new Vector2(0, (72)*3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 7], new Vector2((32 + (16 * 12)) * 3, (72) * 3)));
             return tileList;
         }
         public (List<IItem>, List<IEnemy>) buildEntities()
@@ -97,8 +111,8 @@ namespace Project1.LevelLoading
                 for (int j = 0; j < 12; j++)
                 {
                     int entityNum = levelEntities[i, j];
-                    int destinationx = (3 * 16) + (x * j);
-                    int destinationy = (3 * 16) + (y * i);
+                    int destinationx = (3 * 32) + (x * j);
+                    int destinationy = (3 * 32) + (y * i);
                     if (entityNum >=1 && entityNum <= 7)
                     {
                         enemyList.Add(EntityBuilder.buildEnemy(entityNum, new Vector2(destinationx, destinationy)));
@@ -121,4 +135,10 @@ namespace Project1.LevelLoading
         {
             spriteBatch.Draw(background, new Rectangle(16 * 3, 16 * 3, 16 * 12 * 3, 16 * 7 * 3), new Rectangle(1, 24 * 8, 16 * 12, 16 * 7), Color.White);
         }
+public void drawBG(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(this.TileTex, new Rectangle(0, 0, 16 * 16 * 3, 16 * 10 * 3), new Rectangle(1, 1, 256, 160), Color.White);
+            
+        }
+
 */

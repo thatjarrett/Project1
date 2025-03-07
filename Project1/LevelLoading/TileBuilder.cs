@@ -55,9 +55,7 @@ namespace Project1.LevelLoading
         ISprite whiteBrickSprite;
         ISprite blueFloorSprite;
         ISprite blueSandSprite;
-
-        Dictionary<int, ISprite> spritesIDs;
-
+        
 
         public TileBuilder(Texture2D environmentTexture, Texture2D npcTexture)
         {
