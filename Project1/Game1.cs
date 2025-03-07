@@ -91,7 +91,7 @@ public class Game1 : Game
         (tempitemlist,tempenemylist) = leveltest.buildEntities(); // potentially referenceing issues here? but if it works I wont think too hard about it
         // can return empty lists, im pretty sure draw and update break if there are no enemies or no items on the map
         itemsList.AddRange(tempitemlist);
-        //enemies.AddRange(tempenemylist);
+        enemies.AddRange(tempenemylist);
 
  
 
@@ -225,7 +225,7 @@ public class Game1 : Game
         foreach (var enemy in enemies)
         { 
                 enemy.Draw(_spriteBatch);
-                enemy.GetCollider().DebugDraw(_spriteBatch, pixelTexture, enemy.GetCollider().hitbox, Color.Green);
+                enemy.GetCollider().DebugDraw(_spriteBatch, pixelTexture, enemy.GetCollider().hitbox, Color.Red);
         }
 
         //Keep link below the tiles so he's drawn above them
@@ -343,35 +343,32 @@ public class Game1 : Game
         int enemyNum = 0;
         foreach (var enemy in enemies)
         {
-            if (currentEnemyIndex == enemyNum)
+            enemy.Update(gameTime);
+            LinkEnemyCollisionHandler.HandleCollision(link, enemy);
+            IProjectile[] p = enemy.GetProjectiles();
+            if (p != null)
             {
-                enemy.Update(gameTime);
-                LinkEnemyCollisionHandler.HandleCollision(link, enemy);
-                IProjectile[] p = enemy.GetProjectiles();
-                if (p != null)
+                for (int x = 0; x < p.Length; x++)
                 {
-                    for (int x = 0; x < p.Length; x++)
+                    if (p[x] != null)
                     {
-                        if (p[x] != null)
-                        {
-                            LinkEnemyCollisionHandler.HandleCollision(link, p[x]);
-                        }
+                        LinkEnemyCollisionHandler.HandleCollision(link, p[x]);
                     }
                 }
-                List<IProjectile> lp = link.GetProjectiles();
-                foreach (var pp in lp)
-                {
-                    LinkEnemyCollisionHandler.HandleCollision(pp, enemy);
-                }
-
-                foreach (var b in linkBombs)
-                {
-                    LinkEnemyCollisionHandler.HandleCollision(b, enemy);
-                }
-
-                CollisionBox sword = link.getSword();
-                LinkEnemyCollisionHandler.HandleCollision(sword, enemy);
             }
+            List<IProjectile> lp = link.GetProjectiles();
+            foreach (var pp in lp)
+            {
+                LinkEnemyCollisionHandler.HandleCollision(pp, enemy);
+            }
+
+            foreach (var b in linkBombs)
+            {
+                LinkEnemyCollisionHandler.HandleCollision(b, enemy);
+            }
+
+            CollisionBox sword = link.getSword();
+            LinkEnemyCollisionHandler.HandleCollision(sword, enemy);
             enemyNum++;
             if (enemyNum >= enemies.Count)
             {
