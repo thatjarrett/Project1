@@ -90,7 +90,7 @@ public class Game1 : Game
         List<IEnemy> tempenemylist = new List<IEnemy>();
         (tempitemlist,tempenemylist) = leveltest.buildEntities(); // potentially referenceing issues here? but if it works I wont think too hard about it
         // can return empty lists, im pretty sure draw and update break if there are no enemies or no items on the map
-        //itemsList.AddRange(tempitemlist);
+        itemsList.AddRange(tempitemlist);
         //enemies.AddRange(tempenemylist);
 
  
@@ -178,6 +178,145 @@ public class Game1 : Game
 
         base.Update(gameTime);
 
+        
+        UpdateCollisions(gameTime);
+    }
+    
+
+    protected override void Draw(GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.CornflowerBlue);
+
+        _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
+
+
+        int tileNum = 0;
+        int enemyNum = 0;
+        int itemNum =0;
+        foreach (var tile in tiles)
+        {
+            tile.SetCollider();
+            if (currentBlockIndex == tileNum)
+            {
+                tile.Draw(_spriteBatch);
+                CollisionBox collider = tile.GetCollider();
+                if (collider != null && debugDraw)
+                {
+                    tile.GetCollider().DebugDraw(_spriteBatch, pixelTexture,collider.hitbox,Color.Red);
+                }
+            }
+            tileNum++;
+            if (tileNum >= tiles.Count)
+            {
+                tileNum = 0;
+            }
+        }
+        foreach(var tile in tiles)
+        {
+            tile.Draw(_spriteBatch );
+        }
+     
+        foreach (var item in itemsList)
+        {
+           item.Draw(_spriteBatch, SpriteEffects.None);
+           //item.GetCollider().DebugDraw(_spriteBatch, pixelTexture, item.GetCollider().hitbox, Color.Green);
+        }
+
+        foreach (var enemy in enemies)
+        { 
+                enemy.Draw(_spriteBatch);
+                enemy.GetCollider().DebugDraw(_spriteBatch, pixelTexture, enemy.GetCollider().hitbox, Color.Green);
+        }
+
+        //Keep link below the tiles so he's drawn above them
+       
+
+        link.Draw(_spriteBatch);
+        if (debugDraw)
+        {
+            link.GetCollider().DebugDraw(_spriteBatch, pixelTexture, link.GetCollider().hitbox, Color.Blue);
+        }
+        _spriteBatch.End();
+
+
+
+        base.Draw(gameTime);
+    }
+
+    protected void createSprites()
+    {
+        linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
+        createItemSprites();
+        link.createLinkSprites(linkTexture);
+    }
+
+    protected void createItemSprites()
+    {
+        itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
+        enemyDeathTexture = Content.Load<Texture2D>("Images/EnemyDeathCloud");
+        enemySpawnTexture = Content.Load<Texture2D>("Images/EnemyCloud");
+        enemyDeathCloud = new EnemyDeathCloud(enemyDeathTexture, new Vector2(0,0));
+        enemySpawnCloud = new EnemySpawnCloud(enemySpawnTexture, new Vector2(0, 0));
+    }
+    public void CycleBlock(bool forward)
+    {
+        if (tiles.Count == 0) return;
+        currentBlockIndex = (currentBlockIndex + (forward ? 1 : tiles.Count - 1)) % tiles.Count;
+    }
+
+    public void CycleItem(bool forward)
+    {
+        if (itemsList.Count == 0) return;
+        currentItemIndex = (currentItemIndex + (forward ? 1 : itemsList.Count - 1)) % itemsList.Count;
+    }
+
+    public void CycleNPC(bool forward)
+    {
+        if (enemies.Count == 0) return;
+        currentEnemyIndex = (currentEnemyIndex + (forward ? 1 : itemsList.Count - 1)) % enemies.Count;
+    }
+
+  
+    public void RestartGame()
+    {
+        // Clear all game objects
+        tiles.Clear();
+        itemsList.Clear();
+        enemies.Clear();
+
+        // Reinitialize the game
+        Initialize();
+    }
+
+    private void UpdateCollisions(GameTime gameTime)
+    {
+        
+        foreach (var tile in tiles)
+        {
+            CollisionBox collider = tile.GetCollider();
+            if(collider != null)
+            {
+                link.CollisionUpdate(collider);
+            }
+            foreach (var enemy in enemies)
+            {
+                if (collider != null)
+                {
+                    enemy.CollisionUpdate(collider);
+                }
+            }
+        }
+        CollisionBox linkCollider = link.GetCollider();
+        foreach (var enemy in enemies)
+        {
+            if (linkCollider != null)
+            {
+                //if enemy calls update with link, link can push it around but it can't push link
+                enemy.CollisionUpdate(linkCollider);
+                //vice versa if link calls update with enemy
+            }
+        }
+
         int itemNum = 0;
         foreach (var item in itemsList)
         {
@@ -196,7 +335,8 @@ public class Game1 : Game
         }
 
         List<IProjectile> linkBombs = link.getBombs();
-        foreach (var b in linkBombs) {
+        foreach (var b in linkBombs)
+        {
             LinkEnemyCollisionHandler.HandleCollision(link, b);
         }
 
@@ -238,142 +378,5 @@ public class Game1 : Game
                 enemyNum = 0;
             }
         }
-        UpdateCollisions();
-    }
-    
-
-    protected override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
-
-
-        int tileNum = 0;
-        int enemyNum = 0;
-        int itemNum =0;
-        foreach (var tile in tiles)
-        {
-            tile.SetCollider();
-            if (currentBlockIndex == tileNum)
-            {
-                tile.Draw(_spriteBatch);
-                CollisionBox collider = tile.GetCollider();
-                if (collider != null && debugDraw)
-                {
-                    tile.GetCollider().DebugDraw(_spriteBatch, pixelTexture,collider.hitbox,Color.Red);
-                }
-            }
-            tileNum++;
-            if (tileNum >= tiles.Count)
-            {
-                tileNum = 0;
-            }
-        }
-        foreach(var tile in tiles)
-        {
-            tile.Draw(_spriteBatch );
-        }
-     
-        foreach (var item in itemsList)
-        {
-           item.Draw(_spriteBatch, SpriteEffects.None);
-           item.GetCollider().DebugDraw(_spriteBatch, pixelTexture, item.GetCollider().hitbox, Color.Green);
-        }
-
-        foreach (var enemy in enemies)
-        { 
-                enemy.Draw(_spriteBatch);
-                enemy.GetCollider().DebugDraw(_spriteBatch, pixelTexture, enemy.GetCollider().hitbox, Color.Green);
-        }
-
-        //Keep link below the tiles so he's drawn above them
-       
-
-        link.Draw(_spriteBatch);
-        if (debugDraw)
-        {
-            link.GetCollider().DebugDraw(_spriteBatch, pixelTexture, link.GetCollider().hitbox, Color.Blue);
-        }
-        _spriteBatch.End();
-
-
-
-        base.Draw(gameTime);
-    }
-
-    protected void createSprites()
-    {
-        linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
-        createItemSprites();
-        link.createLinkSprites(linkTexture);
-    }
-
-    protected void createItemSprites()
-    {
-        itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
-        enemyDeathTexture = Content.Load<Texture2D>("Images/EnemyDeathCloud");
-        enemySpawnTexture = Content.Load<Texture2D>("Images/EnemyCloud");
-        enemyDeathCloud = new EnemyDeathCloud(enemyDeathTexture);
-        enemySpawnCloud = new EnemySpawnCloud(enemySpawnTexture);
-    }
-    public void CycleBlock(bool forward)
-    {
-        if (tiles.Count == 0) return;
-        currentBlockIndex = (currentBlockIndex + (forward ? 1 : tiles.Count - 1)) % tiles.Count;
-    }
-
-    public void CycleItem(bool forward)
-    {
-        if (itemsList.Count == 0) return;
-        currentItemIndex = (currentItemIndex + (forward ? 1 : itemsList.Count - 1)) % itemsList.Count;
-    }
-
-    public void CycleNPC(bool forward)
-    {
-        if (enemies.Count == 0) return;
-        currentEnemyIndex = (currentEnemyIndex + (forward ? 1 : itemsList.Count - 1)) % enemies.Count;
-    }
-
-  
-    public void RestartGame()
-    {
-        // Clear all game objects
-        tiles.Clear();
-        itemsList.Clear();
-        enemies.Clear();
-
-        // Reinitialize the game
-        Initialize();
-    }
-
-    private void UpdateCollisions()
-    {
-        
-        foreach (var tile in tiles)
-        {
-            CollisionBox collider = tile.GetCollider();
-            if(collider != null)
-            {
-                link.CollisionUpdate(collider);
-            }
-            foreach (var enemy in enemies)
-            {
-                if (collider != null)
-                {
-                    enemy.CollisionUpdate(collider);
-                }
-            }
-        }
-        CollisionBox linkCollider = link.GetCollider();
-        foreach (var enemy in enemies)
-        {
-            if (linkCollider != null)
-            {
-                //if enemy calls update with link, link can push it around but it can't push link
-                enemy.CollisionUpdate(linkCollider);
-                //vice versa if link calls update with enemy
-            }
-        }  
     }
 }

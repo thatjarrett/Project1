@@ -16,10 +16,10 @@ namespace Project1.GameObjects.Items
 
         private CollisionBox collider;
 
-        public Bomb(Texture2D texture)
+        public Bomb(Texture2D texture, Vector2 pos)
         {
             this.texture = texture;
-            this.Pos = new Vector2(200,300);
+            this.Pos = pos;
             collider = new CollisionBox((int)Pos.X, (int)Pos.Y);
 
         }

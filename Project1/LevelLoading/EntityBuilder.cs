@@ -92,85 +92,85 @@ namespace Project1.LevelLoading
             {
                 case 8:
                     {
-                        item = new Boomerang(itemTexture);
+                        item = new Boomerang(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 9:
                     {
-                        item = new HeartContainer(itemTexture);
+                        item = new HeartContainer(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 10:
                     {
-                        item = new Compass(itemTexture);
+                        item = new Compass(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 11:
                     {
-                        item = new Map(itemTexture);
+                        item = new Map(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 12:
                     {
-                        item = new Key(itemTexture);
+                        item = new Key(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 13:
                     {
-                        item = new TriForcePiece(itemTexture);
+                        item = new TriForcePiece(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 15:
                     {
-                        item = new Bow(itemTexture);
+                        item = new Bow(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 16:
                     {
-                        item = new Heart(itemTexture);
+                        item = new Heart(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 17:
                     {
-                        item = new Rupee(itemTexture);
+                        item = new Rupee(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 18:
                     {
-                        item = new Arrow(itemTexture);
+                        item = new Arrow(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 19:
                     {
-                        item = new Bomb(itemTexture);
+                        item = new Bomb(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 20:
                     {
-                        item = new Fairy(itemTexture);
+                        item = new Fairy(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 case 21:
                     {
-                        item = new Clock(itemTexture);
+                        item = new Clock(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
                 default:
                     {
-                        item = new Rupee(itemTexture);
+                        item = new Rupee(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }

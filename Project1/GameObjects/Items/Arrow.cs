@@ -20,10 +20,10 @@ namespace Project1.GameObjects.Items
 
 
 
-        public Arrow(Texture2D texture )
+        public Arrow(Texture2D texture, Vector2 pos)
         {
             this.texture = texture;
-            this.pos = new Vector2 ( 200, 300);
+            this.pos = pos;
             collider = new CollisionBox((int)pos.X, (int)pos.Y);
 
         }

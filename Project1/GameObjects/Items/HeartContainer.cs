@@ -17,10 +17,10 @@ namespace Project1.GameObjects.Items
         Vector2 Pos;
         private CollisionBox collider;
 
-        public HeartContainer(Texture2D texture)
+        public HeartContainer(Texture2D texture, Vector2 pos)
         {
             this.texture = texture;
-            this.Pos = new Vector2(200, 300);
+            this.Pos = pos;
             collider = new CollisionBox((int)Pos.X, (int)Pos.Y);
         }
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)

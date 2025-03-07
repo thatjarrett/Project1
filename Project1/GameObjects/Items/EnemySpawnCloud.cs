@@ -15,10 +15,10 @@ namespace Project1.GameObjects.Items
         Vector2 Pos;
 
 
-        public EnemySpawnCloud(Texture2D texture)
+        public EnemySpawnCloud(Texture2D texture, Vector2 pos)
         {
             this.texture = texture;
-            this.Pos = new Vector2(200, 300);
+            this.Pos = pos;
 
         }
         public void Draw(SpriteBatch spriteBatch,Vector2 location, SpriteEffects spriteEffects)
