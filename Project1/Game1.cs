@@ -321,16 +321,14 @@ public class Game1 : Game
         foreach (var item in itemsList)
         {
             item.Update(gameTime);
-            if (currentItemIndex == itemNum)
-            {
-                item.Update(gameTime);
-                LinkEnemyCollisionHandler.HandleCollision(item, link);
 
-                itemNum++;
-                if (itemNum >= enemies.Count)
-                {
-                    itemNum = 0;
-                }
+            item.Update(gameTime);
+            LinkEnemyCollisionHandler.HandleCollision(item, link);
+
+            itemNum++;
+            if (itemNum >= enemies.Count)
+            {
+                itemNum = 0;
             }
         }
 
