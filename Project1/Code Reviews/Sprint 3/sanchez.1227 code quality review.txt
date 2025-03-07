@@ -1,0 +1,10 @@
+﻿Review by Nick Sanchez
+Reviewing TileBuilder.cs
+Original file by Bennett
+3/7/2025
+Sprint 3
+
+Review: I think the code is quite readable due to the use of case-switch blocks and grouping the initialization code by category of block. I had to work with 
+this file in order to debug some issues with the walls of the dungeon and it was really easy to see how the class worked as a whole and what was going wrong.
+There are some comments that I suspect are no longer needed and were mosat likely used by Bennett while he was writing the class. Othen than that though, I think
+the code is readable and well done.

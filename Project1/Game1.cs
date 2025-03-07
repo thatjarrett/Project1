@@ -343,7 +343,14 @@ public class Game1 : Game
         int enemyNum = 0;
         foreach (var enemy in enemies)
         {
-            enemy.Update(gameTime);
+            if (enemy is IDependentEnemy spikeTrap)
+            {
+                spikeTrap.Update(gameTime, link);
+            } else
+            {
+                enemy.Update(gameTime);
+            }
+
             LinkEnemyCollisionHandler.HandleCollision(link, enemy);
             IProjectile[] p = enemy.GetProjectiles();
             if (p != null)

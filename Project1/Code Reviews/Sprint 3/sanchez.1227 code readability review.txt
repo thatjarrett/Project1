@@ -1,0 +1,10 @@
+﻿Review by Nick Sanchez
+Reviewing EntityBuilder.cs
+Original file by Bennett
+3/7/2025
+Sprint 3
+
+Review: I think the code was really well done for this file since it essential acts as a header file for all the entities in the game. 
+It doesn't seem to have any pieces that are redundant or unneeded and also helps by clearing code out of Game1.cs. I dont think the file
+will need much updating as long as we don't add more items/entities. I did make an addition to the code by using the tileID to center items
+based on their size grouping.

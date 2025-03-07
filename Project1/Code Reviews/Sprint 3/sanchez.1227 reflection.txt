@@ -1,0 +1,9 @@
+﻿By Nick Sanchez
+Sprint Reflection
+Sprint 3
+3/7/2025
+
+I think this sprint went quite well as the team was able to learn from how we all work together based on our habits during the last sprint. There did seem
+to be quite a few bugs with the collisions as they got added to enemies, items, and tiles since they all had to interact with each other. However, I think the
+team did a good job communicating what exactly was going wrong and when they needed help. I think we made good enough progress on this sprint so that we can finish
+strong for the last two.
