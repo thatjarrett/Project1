@@ -80,14 +80,14 @@ namespace Project1.LevelLoading
             this.bottomDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 100, 32, 32));
             this.bottomBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 100, 32, 32));
 
-            this.leftWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 33, 32, 96));
+            this.leftWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 33, 32, 112));
             this.leftPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 34, 32, 32));
             this.leftOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 34, 32, 32));
             this.leftKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 34, 32, 32));
             this.leftDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 34, 32, 32));
             this.leftBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 34, 32, 32));
 
-            this.rightWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(225, 33, 32, 96));
+            this.rightWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(225, 33, 32, 112));
             this.rightPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 67, 32, 32));
             this.rightOpenDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(328, 67, 32, 32));
             this.rightKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 67, 32, 32));
@@ -153,7 +153,7 @@ namespace Project1.LevelLoading
                     }
                 case 7:
                     {
-                        tile = new wallTile(location);       // need to remove ID requirement from wallTile
+                        tile = new wallTile(location, 768, 96);       // need to remove ID requirement from wallTile
                         tile.setSprite(this.topWallSprite);
                         break;
                     }
@@ -189,7 +189,7 @@ namespace Project1.LevelLoading
                     }
                 case 13:
                     {
-                        tile = new wallTile(location);       // need to remove ID requirement from wallTile
+                        tile = new wallTile(location, 768, 96);       // need to remove ID requirement from wallTile
                         tile.setSprite(this.bottomWallSprite);
                         break;
                     }
@@ -225,7 +225,7 @@ namespace Project1.LevelLoading
                     }
                 case 19:
                     {
-                        tile = new wallTile(location);       // need to remove ID requirement from doorTile
+                        tile = new wallTile(location, 96, 336);       // need to remove ID requirement from doorTile
                         tile.setSprite(this.leftWallSprite);
                         break;
                     }
@@ -261,7 +261,7 @@ namespace Project1.LevelLoading
                     }
                 case 25:
                     {
-                        tile = new wallTile(location);
+                        tile = new wallTile(location, 96, 336);
                         tile.setSprite(this.rightWallSprite);
                         break;
                     }

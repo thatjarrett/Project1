@@ -90,8 +90,8 @@ public class Game1 : Game
         List<IEnemy> tempenemylist = new List<IEnemy>();
         (tempitemlist,tempenemylist) = leveltest.buildEntities(); // potentially referenceing issues here? but if it works I wont think too hard about it
         // can return empty lists, im pretty sure draw and update break if there are no enemies or no items on the map
-        itemsList.AddRange(tempitemlist);
-        enemies.AddRange(tempenemylist);
+        //itemsList.AddRange(tempitemlist);
+        //enemies.AddRange(tempenemylist);
 
  
 
@@ -128,13 +128,13 @@ public class Game1 : Game
 { Keys.G, new DeathCommand(link) },
 { Keys.Q, new QuitCommand(this) },
 { Keys.R, new ResetCommand(this) },
-{ Keys.T, new CycleBlockCommand(this, false) }, // Previous block
+/*{ Keys.T, new CycleBlockCommand(this, false) }, // Previous block
 { Keys.Y, new CycleBlockCommand(this, true) },  // Next block
 { Keys.U, new CycleItemCommand(this, false) }, // Previous item
 { Keys.I, new CycleItemCommand(this, true) },  // Next item
 { Keys.O, new CycleNPCCommand(this, false) }, // Previous NPC
 { Keys.P, new CycleNPCCommand(this, true) }   // Next NPC
-
+*/
     };
         var gamepadCommands = new Dictionary<Buttons, ICommand>
 {
@@ -160,6 +160,9 @@ public class Game1 : Game
         gamepadController = new GamepadController(gamepadCommands, new IdleCommand(link));
 
         keyboardController = new KeyboardController(commands, new IdleCommand(link));
+        _graphics.PreferredBackBufferWidth = 768;
+        _graphics.PreferredBackBufferHeight = 528;
+        _graphics.ApplyChanges();
     }
 
     protected override void Update(GameTime gameTime)

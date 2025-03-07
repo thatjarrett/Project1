@@ -7,10 +7,10 @@ namespace Project1.GameObjects.Environment
 {
     public abstract class environmentTile
     {
-        private Vector2 _position;
-        private bool _collides;
+        protected Vector2 _position;
+        protected bool _collides;
         private ISprite _sprite;
-        private CollisionBox collider;
+        protected CollisionBox collider;
 
         public environmentTile(Vector2 pos, bool collision)
         {
@@ -37,7 +37,7 @@ namespace Project1.GameObjects.Environment
         public CollisionBox GetCollider()
         { return collider; }
 
-        public void SetCollider()
+        public virtual void SetCollider()
         {
             if (_collides)
             {
