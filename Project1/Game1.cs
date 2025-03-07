@@ -185,7 +185,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Black);
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
 
@@ -219,7 +219,7 @@ public class Game1 : Game
         foreach (var item in itemsList)
         {
            item.Draw(_spriteBatch, SpriteEffects.None);
-           //item.GetCollider().DebugDraw(_spriteBatch, pixelTexture, item.GetCollider().hitbox, Color.Green);
+           item.GetCollider().DebugDraw(_spriteBatch, pixelTexture, item.GetCollider().hitbox, Color.White);
         }
 
         foreach (var enemy in enemies)

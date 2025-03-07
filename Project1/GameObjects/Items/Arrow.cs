@@ -24,15 +24,15 @@ namespace Project1.GameObjects.Items
         {
             this.texture = texture;
             this.pos = pos;
-            collider = new CollisionBox((int)pos.X, (int)pos.Y);
+            collider = new CollisionBox((int)pos.X, (int)pos.Y, 15, 32);
 
         }
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
         {
 
             Rectangle[] sourceArray = new Rectangle[2];
-            sourceArray[0] = new Rectangle(152, 0, 8, 16);
-            sourceArray[1] = new Rectangle(152, 16, 8, 16);
+            sourceArray[0] = new Rectangle(153, 0, 7, 16);
+            sourceArray[1] = new Rectangle(153, 16, 7, 16);
             destinationRectangle = new Rectangle((int)pos.X, (int)pos.Y, 2 * 8, 2 * 16);
 
 

@@ -20,7 +20,7 @@ namespace Project1.GameObjects.Items
         {
             this.texture = texture;
             this.Pos = pos;
-            collider = new CollisionBox((int)Pos.X, (int)Pos.Y);
+            collider = new CollisionBox((int)Pos.X, (int)Pos.Y, 18, 32);
 
         }
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)

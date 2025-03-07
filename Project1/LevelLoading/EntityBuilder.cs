@@ -126,43 +126,43 @@ namespace Project1.LevelLoading
                         item.SetPosition(Location);
                         break;
                     }
-                case 15:
+                case 14:
                     {
                         item = new Bow(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
-                case 16:
+                case 15:
                     {
                         item = new Heart(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
-                case 17:
+                case 16:
                     {
                         item = new Rupee(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
-                case 18:
+                case 17:
                     {
                         item = new Arrow(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
-                case 19:
+                case 18:
                     {
                         item = new Bomb(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
-                case 20:
+                case 19:
                     {
                         item = new Fairy(itemTexture, Location);
                         item.SetPosition(Location);
                         break;
                     }
-                case 21:
+                case 20:
                     {
                         item = new Clock(itemTexture, Location);
                         item.SetPosition(Location);

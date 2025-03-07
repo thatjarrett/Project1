@@ -21,13 +21,13 @@ namespace Project1.GameObjects.Items
         {
             this.texture = texture;
             this.Pos = pos;
-            collider = new CollisionBox((int)Pos.X, (int)Pos.Y);
+            collider = new CollisionBox((int)Pos.X, (int)Pos.Y, 24, 24);
 
         }
         public void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects)
         {
 
-            Rectangle source = new Rectangle(256, 1, 16, 16);
+            Rectangle source = new Rectangle(257, 1, 16, 16);
             destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 16, 2 * 16);
 
 
