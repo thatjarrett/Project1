@@ -88,6 +88,31 @@ namespace Project1.LevelLoading
         public IItem buildItem(int IdNum, Vector2 Location)
         {
             IItem item;
+            Vector2 offset = new Vector2(0, 0);
+
+            if (IdNum == 11 || IdNum == 12 || IdNum == 14 || IdNum == 16 || IdNum == 17 || IdNum == 18 || IdNum == 19)
+            {
+                offset.X = 15;
+                offset.Y = 7;
+            }
+            else if (IdNum == 8 || IdNum == 15)
+            {
+                offset.X = 16;
+                offset.Y = 13;
+            }
+            else if (IdNum == 10 || IdNum == 13)
+            {
+                offset.X = 11;
+                offset.Y = 10;
+            } 
+            else
+            {
+                offset.X = 10;
+                offset.Y = 7;
+            }
+
+            Location += offset;
+
             switch (IdNum)
             {
                 case 8:
