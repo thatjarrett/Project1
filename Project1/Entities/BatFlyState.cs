@@ -81,10 +81,10 @@ namespace Project1.Entities
                     movingDirection = Direction.Up;
                 }
                 else {
-                    movingDirection = Direction.Down;
+                    movingDirection = Direction.Up;
                 }
                 movementDuration = random.NextDouble()/10;
-                enemy.Move(movingDirection == Direction.Left ? -2 : 2, movingDirection == Direction.Up ? -2 : 2);
+                enemy.Move(movingDirection == Direction.Left ? -4 : 4, movingDirection == Direction.Up ? -4 : 4);
             }
         }
     }

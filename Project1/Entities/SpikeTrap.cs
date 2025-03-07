@@ -1,18 +1,20 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
+using Project1.GameObjects.Environment;
 using Project1.Interfaces;
 using Project1.Projectiles;
 using Project1.Sprites;
 namespace Project1.Entities
 {
-    public class SpikeTrap : IEnemy
+    public class SpikeTrap : IDependentEnemy
     {
         private IEnemyState currentState;
         private Vector2 position;
-
+        private Vector2 originalPos;
         private ISprite spikeTrapSprite;
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
         private CollisionBox collider;
@@ -25,7 +27,8 @@ namespace Project1.Entities
         public SpikeTrap(Vector2 startPos)
         {
             position = startPos;
-            currentState = new SpikeTrapMoveState();
+            originalPos = startPos;
+            currentState = new SpikeTrapIdleState();
             collider = new CollisionBox((int)startPos.X, (int)startPos.Y);
         }
 
@@ -61,9 +64,36 @@ namespace Project1.Entities
         }
         public void Update(GameTime gameTime)
         {
+
+        }
+        public void Update(GameTime gameTime, Link link)
+        {
+            
+
+            Vector2 linkPos = link.GetPosition();
+
+            if (linkPos.X == this.position.X && linkPos.Y < this.position.Y && currentState is SpikeTrapIdleState)
+            {
+                //attack up
+                currentState = new SpikeTrapAttackState(Direction.Up);
+            }
+            else if (linkPos.X == this.position.X && linkPos.Y > this.position.Y && currentState is SpikeTrapIdleState)
+            {
+                //attack down
+                currentState = new SpikeTrapAttackState(Direction.Down);
+            }
+            else if (linkPos.Y == this.position.Y && linkPos.X < this.position.X && currentState is SpikeTrapIdleState)
+            {
+                //attack left
+                currentState = new SpikeTrapAttackState(Direction.Left);
+            }
+            else if (linkPos.Y == this.position.Y && linkPos.X > this.position.X && currentState is SpikeTrapIdleState)
+            {
+                //attack right
+                currentState = new SpikeTrapAttackState(Direction.Right);
+            }
+
             currentState.Update(this, gameTime);
-
-
             spikeTrapSprite.Update(gameTime);
         }
 
@@ -106,19 +136,52 @@ namespace Project1.Entities
             {
                 case CollisionSide.Top:
                     Move(0, -intersectionDistance);
+                    if (currentState is SpikeTrapAttackState)
+                    {
+                        currentState = new SpikeTrapReturnState(Direction.Up);
+                    }
+                    else if (currentState is SpikeTrapReturnState)
+                    {
+                        currentState = new SpikeTrapIdleState();
+                    }
                     break;
                 case CollisionSide.Left:
                     Move(-intersectionDistance, 0);
+                    if (currentState is SpikeTrapAttackState)
+                    {
+                        currentState = new SpikeTrapReturnState(Direction.Left);
+                    }
+                    else if (currentState is SpikeTrapReturnState)
+                    {
+                        currentState = new SpikeTrapIdleState();
+                    }
                     break;
                 case CollisionSide.Right:
                     Move(intersectionDistance, 0);
+                    if (currentState is SpikeTrapAttackState)
+                    {
+                        currentState = new SpikeTrapReturnState(Direction.Right);
+                    }
+                    else if (currentState is SpikeTrapReturnState)
+                    {
+                        currentState = new SpikeTrapIdleState();
+                    }
                     break;
                 case CollisionSide.Bottom:
                     Move(0, intersectionDistance);
+                    if (currentState is SpikeTrapAttackState)
+                    {
+                        currentState = new SpikeTrapReturnState(Direction.Down);
+                    }
+                    else if (currentState is SpikeTrapReturnState)
+                    {
+                        currentState = new SpikeTrapIdleState();
+                    }
                     break;
                 case CollisionSide.None:
                     break;
             }
+            
             //Debug.WriteLine($"Collision: {intersectionDistance}");
 
         }

@@ -513,6 +513,11 @@ namespace Project1.Entities
         public void deleteBomb() {
             bombs.RemoveAt(0);
         }
+
+        public Vector2 GetPosition() 
+        { 
+            return position; 
+        }
     }
 }
 
