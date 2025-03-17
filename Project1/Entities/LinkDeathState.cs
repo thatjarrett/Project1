@@ -5,17 +5,20 @@ namespace Project1.Entities
 {
     public class LinkDeathState : ILinkState
     {
-        private const double DeathDuration = 2.0; 
-        private double elapsedTime;          
-        private bool gameOverTriggered;         
+        private const double DeathDuration = 2.0;
+        private double elapsedTime;
+        private bool gameOverTriggered;
 
         public void Enter(Link link)
         {
-            link.SetAnimation("Death");    
-            link.SetInvincible(true);     
-            link.DisableControls();       
-            elapsedTime = 0;               
-            gameOverTriggered = false;   
+            link.SetAnimation("Death");
+            link.SetInvincible(true);
+            link.DisableControls();
+            elapsedTime = 0;
+            gameOverTriggered = false;
+
+            // Play death sound immediately upon entering the state
+            GameManager.Instance.SetGameOver();
         }
 
         public void MoveLeft(Link link) { }
@@ -32,8 +35,7 @@ namespace Project1.Entities
 
             if (elapsedTime >= DeathDuration && !gameOverTriggered)
             {
-                link.Hide();               
-                link.TriggerGameOver();   
+                link.Hide();
                 gameOverTriggered = true;
             }
         }

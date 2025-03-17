@@ -17,6 +17,8 @@ using Project1.Interfaces;
 using Project1.Projectiles;
 using Project1.Sprites;
 using Project1.LevelLoading;
+using Microsoft.Xna.Framework.Media;
+using Project1.Audio;
 
 public class Game1 : Game
 {
@@ -28,6 +30,9 @@ public class Game1 : Game
 
     private List<environmentTile> tiles = new List<environmentTile>();
     private List<IEnemy> enemies = new List<IEnemy>();
+
+    private DungeonMusicPlayer dungeonMusicPlayer;
+
 
     Texture2D linkTexture;
     Texture2D environmentTexture;
@@ -66,7 +71,10 @@ public class Game1 : Game
     {
         pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
         pixelTexture.SetData(new[] { Color.White });
-
+        DungeonMusicPlayer.Instance.LoadContent(Content);
+        DungeonMusicPlayer.Instance.PlayDungeonMusic();
+        GameManager.Instance.LoadContent(Content);
+        AttackCommand.LoadContent(Content);
         link = new Link(new Vector2(350, 170));
 
         createSprites();
@@ -169,7 +177,9 @@ public class Game1 : Game
     {
         keyboardController.Update(gameTime);
         gamepadController.Update(gameTime);  // Gamepad input added
-
+        DungeonMusicPlayer.Instance.PlayDungeonMusic();
+        GameManager.Instance.Update(gameTime);
+        GameTimer.Update(gameTime);
         link.Update(gameTime);
         foreach (var tile in tiles)
         {
@@ -188,6 +198,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
+        
 
 
         int tileNum = 0;
@@ -229,8 +240,8 @@ public class Game1 : Game
         }
 
         //Keep link below the tiles so he's drawn above them
-       
 
+        GameManager.Instance.Draw(_spriteBatch, GraphicsDevice);
         link.Draw(_spriteBatch);
         if (debugDraw)
         {

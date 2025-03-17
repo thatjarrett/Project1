@@ -13,6 +13,30 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/Death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Death.wav
+
+#begin Audio/GameOver.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/GameOver.wav
+
+#begin Audio/Sword.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sword.wav
+
+#begin Dungeon.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Dungeon.mp3
+
 #begin Images/bosses.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -92,6 +116,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Images/File.spritefont
 
+#begin Images/Game_Over.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Game_Over.png
+
 #begin Images/Link Spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -139,6 +175,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/oldMan.png
+
+#begin Legend of Zelda, The (NES) Music - Dungeon Theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Legend of Zelda, The (NES) Music - Dungeon Theme.mp3
 
 #begin Level Data/BlockLevel.txt
 /copy:Level Data/BlockLevel.txt
