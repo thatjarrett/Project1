@@ -58,17 +58,19 @@ namespace Project1.Handlers
         {
             if (enemy.GetCollider() != null && projectile.GetCollider() != null && projectile.GetCollider().Intersects(enemy.GetCollider()))
             {
-                //if (!enemy.IsInvincible())
-                //{
-                    Debug.WriteLine("Link shot an enemy! Dealing damage.");
+                
+                Debug.WriteLine("Link shot an enemy! Dealing damage.");
 
 
                     // Change enemy's state to damage
-                    enemy.SetAnimation("Damage");
+                enemy.SetAnimation("Damage");
+                enemy.takeDamage();
+                if (enemy.getHealth() == 0) {
+                    enemy.die();
+                }
 
                     // Set enemy to invincible and apply knockback
-                    enemy.SetInvincible(true);
-                //}
+                enemy.SetInvincible(true);
             }
         }
 
@@ -91,6 +93,11 @@ namespace Project1.Handlers
 
                 // Change enemy's state to damage
                 enemy.SetAnimation("Damage");
+                enemy.takeDamage();
+                if (enemy.getHealth() == 0)
+                {
+                    enemy.die();
+                }
 
                 // Set enemy to invincible and apply knockback
                 enemy.SetInvincible(true);

@@ -31,6 +31,7 @@ namespace Project1.Entities
         int damageFrameCounter = 0;
         bool hurting = false;
 
+        int health = 2;
         public Hand(Vector2 startPos)
         {
             position = startPos;
@@ -174,6 +175,24 @@ namespace Project1.Entities
         public IProjectile[] GetProjectiles()
         {
             return projectiles;
+        }
+
+        public void takeDamage()
+        {
+            if (health > 0)
+            {
+                health--;
+            }
+        }
+
+        public void die()
+        {
+            //
+        }
+
+        public int getHealth()
+        {
+            return health;
         }
     }
 }

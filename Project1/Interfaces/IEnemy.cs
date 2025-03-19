@@ -36,6 +36,12 @@ namespace Project1.Interfaces
         public CollisionBox GetCollider();
 
         public IProjectile[] GetProjectiles();
+
+        public void takeDamage(); //TODO: set to variable ammount?
+
+        public void die();
+
+        public int getHealth();
     }
 }
 
