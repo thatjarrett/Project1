@@ -24,6 +24,7 @@ namespace Project1.Handlers
 
                     // Change Link's state to damage
                     link.ChangeState(new LinkDamageState(link.PreviousDirection));
+                    link.takeDamage();
 
                     // Set Link to invincible and apply knockback
                     link.SetInvincible(true, knockbackDir);
@@ -45,6 +46,7 @@ namespace Project1.Handlers
 
                     // Change Link's state to damage
                     link.ChangeState(new LinkDamageState(link.PreviousDirection));
+                    link.takeDamage();
 
                     // Set Link to invincible and apply knockback
                     link.SetInvincible(true, knockbackDir);
@@ -75,7 +77,8 @@ namespace Project1.Handlers
             if (item.GetCollider() != null && Link.GetCollider().Intersects(item.GetCollider()))
             {
                 Debug.WriteLine("⚠️ Link picked up an item!");
-                //link picks up the item
+                Link.pickup(item);
+                //delete item
             }
         }
 

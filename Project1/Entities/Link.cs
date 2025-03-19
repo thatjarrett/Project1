@@ -61,6 +61,10 @@ namespace Project1.Entities
         private ISprite bombSprite;
         private ISprite explodingBombSprite;
 
+        private int bombCount = 0;
+        private int health = 4;
+        private int ruppeeCount = 0;
+
         private BoomerangProjectile boomerangThrowable;
         //private BombProjectile bombProjectile;
 
@@ -218,7 +222,11 @@ namespace Project1.Entities
                     break;
                 case 4:
                     //bombProjectile.placeBomb(position);
-                    bomb = new BombProjectile(position, bombSprite, explodingBombSprite, this);
+                    if (bombCount > 0)
+                    {
+                        bomb = new BombProjectile(position, bombSprite, explodingBombSprite, this);
+                        bombCount--;
+                    }
                     //bombs.Add(new BombProjectile(position, bombSprite, explodingBombSprite, this));//b);
                     break;
             }
@@ -241,46 +249,54 @@ namespace Project1.Entities
         public void Update(GameTime gameTime)
         {
             currentState.Update(this, gameTime);
-
-            // Handle knockback movement
-            if (isKnockback)
+            if (currentState is LinkDeathState) { }
+            else
             {
-                knockbackTimer -= gameTime.ElapsedGameTime.TotalSeconds;
-                if (knockbackTimer > 0)
+                if (health == 0)
                 {
-                    Move((int)(knockbackDirection.X * 2), (int)(knockbackDirection.Y * 2)); // Adjust force here
+                    //SetAnimation("Death");
+                    ChangeState(new LinkDeathState());
                 }
-                else
+                // Handle knockback movement
+                if (isKnockback)
                 {
-                    isKnockback = false; // Stop knockback when timer ends
+                    knockbackTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                    if (knockbackTimer > 0)
+                    {
+                        Move((int)(knockbackDirection.X * 2), (int)(knockbackDirection.Y * 2)); // Adjust force here
+                    }
+                    else
+                    {
+                        isKnockback = false; // Stop knockback when timer ends
+                    }
                 }
-            }
 
-            if (isInvincible)
-            {
-                invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
-                if (invincibleTime <= 0)
-                    isInvincible = false;
-            }
+                if (isInvincible)
+                {
+                    invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                    if (invincibleTime <= 0)
+                        isInvincible = false;
+                }
 
-            linkSprite.Update(gameTime);
-            foreach (var projectile in projectilesList)
-            {
-                projectile.Update(gameTime);
-            }
-            boomerangThrowable.ownerPosition(position);
-            boomerangThrowable.Update(gameTime);
+                linkSprite.Update(gameTime);
+                foreach (var projectile in projectilesList)
+                {
+                    projectile.Update(gameTime);
+                }
+                boomerangThrowable.ownerPosition(position);
+                boomerangThrowable.Update(gameTime);
 
-            //bombProjectile.Update(gameTime);
-            //foreach (var bomb in bombs)
-            //{
-            //    bomb.Update(gameTime);
-            //}
-            int x = 0;
-            while (x < bombs.Count)
-            {
-                bombs[x].Update(gameTime);
-                x++;
+                //bombProjectile.Update(gameTime);
+                //foreach (var bomb in bombs)
+                //{
+                //    bomb.Update(gameTime);
+                //}
+                int x = 0;
+                while (x < bombs.Count)
+                {
+                    bombs[x].Update(gameTime);
+                    x++;
+                }
             }
         }
 
@@ -517,6 +533,27 @@ namespace Project1.Entities
         public Vector2 GetPosition() 
         { 
             return position; 
+        }
+
+        public void pickup(IItem item) {
+            if (item is Bomb)
+            {
+                bombCount++;
+            }
+            else if (item is Rupee)
+            {
+                ruppeeCount++;
+            }
+            else if (item is Heart)/* AND HEALTH < MAX*/ {
+                health++;
+            }
+            //other item cases go here
+        }
+
+        public void takeDamage() { //TODO: change so enemies deal VARIABLE damage?
+            if (health > 0) {
+                health--;
+            }
         }
     }
 }
