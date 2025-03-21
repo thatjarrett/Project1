@@ -18,6 +18,8 @@ namespace Project1.GameObjects.Items
 
         private CollisionBox collider;
 
+        public bool active = true;
+
         public Bow(Texture2D texture, Vector2 pos)
         {
             this.texture = texture;
@@ -60,6 +62,16 @@ namespace Project1.GameObjects.Items
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public void pickup()
+        {
+            active = false;
+        }
+
+        public bool isActive()
+        {
+            return active;
         }
     }
 }

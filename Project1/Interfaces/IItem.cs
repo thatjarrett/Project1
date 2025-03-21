@@ -23,7 +23,8 @@ namespace Project1.Interfaces
         public CollisionBox GetCollider();
         //public void createItemSprites();
         //ADD ITEM ID SYSTEM!!!!!!!!!!!!!
-        //add delete method
+        public void pickup();
+        public bool isActive();
         //set sprite effects
     }
 }

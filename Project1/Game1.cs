@@ -191,17 +191,28 @@ public class Game1 : Game
         
         UpdateCollisions(gameTime);
 
-        removeDead();
+        removeInactive();
     }
 
-    public void removeDead() {
+    public void removeInactive() {
         int x = enemies.Count - 1;
 
         while (x >= 0) {
             if (!enemies[x].Alive()) {
                 enemies.RemoveAt(x);
+                //TODO: play death animation also
             }
             x--;
+        }
+
+        int why = itemsList.Count - 1;
+        while (why >= 0)
+        {
+            if (!itemsList[why].isActive())
+            {
+                itemsList.RemoveAt(why);
+            }
+            why--;
         }
     }
     

@@ -17,6 +17,8 @@ namespace Project1.GameObjects.Items
         Vector2 Pos;
         private CollisionBox collider;
 
+        private bool active = true;
+
         public HeartContainer(Texture2D texture, Vector2 pos)
         {
             this.texture = texture;
@@ -62,6 +64,16 @@ namespace Project1.GameObjects.Items
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public void pickup()
+        {
+            active = false;
+        }
+
+        public bool isActive()
+        {
+            return active;
         }
     }
 }

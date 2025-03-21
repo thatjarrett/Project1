@@ -80,6 +80,7 @@ namespace Project1.Handlers
             {
                 Debug.WriteLine("⚠️ Link picked up an item!");
                 Link.pickup(item);
+                item.pickup();
                 //delete item
             }
         }

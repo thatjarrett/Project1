@@ -17,6 +17,7 @@ namespace Project1.GameObjects.Items
 
         private CollisionBox collider;
 
+        private bool active = true;
 
         public Boomerang(Texture2D texture, Vector2 pos)
         {
@@ -67,6 +68,16 @@ namespace Project1.GameObjects.Items
         public CollisionBox GetCollider()
         {
             return collider;
+        }
+
+        public void pickup()
+        {
+            active = false;
+        }
+
+        public bool isActive()
+        {
+            return active;
         }
     }
 }
