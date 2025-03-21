@@ -190,6 +190,19 @@ public class Game1 : Game
 
         
         UpdateCollisions(gameTime);
+
+        removeDead();
+    }
+
+    public void removeDead() {
+        int x = enemies.Count - 1;
+
+        while (x >= 0) {
+            if (!enemies[x].Alive()) {
+                enemies.RemoveAt(x);
+            }
+            x--;
+        }
     }
     
 

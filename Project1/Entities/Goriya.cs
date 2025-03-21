@@ -41,8 +41,9 @@ namespace Project1.Entities
 
         private IProjectile[] boomerangs = new BoomerangProjectile[1]; //TODO: make boomerang a projectile
 
-        int health = 4;
+        private int health = 4;
 
+        private bool alive = true;
         public Goriya(Vector2 startPos)
         {
             position = startPos;
@@ -289,7 +290,11 @@ namespace Project1.Entities
 
         public void die()
         {
-            //Debug.WriteLine("Link killed an enemy! Dealing damage.");
+            alive = false;
+        }
+
+        public bool Alive() {
+            return alive;
         }
 
         public int getHealth()

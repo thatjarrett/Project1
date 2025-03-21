@@ -42,6 +42,8 @@ namespace Project1.Interfaces
         public void die();
 
         public int getHealth();
+
+        public bool Alive();
     }
 }
 

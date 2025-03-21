@@ -30,8 +30,9 @@ namespace Project1.Entities
         int damageFrameCounter = 0;
         bool hurting = false;
 
-        int health = 10;
+        private int health = 10;
 
+        private bool alive = true;
         public Aquamentus(Vector2 startPos)
         {
             position = startPos;
@@ -244,12 +245,17 @@ namespace Project1.Entities
 
         public void die()
         {
-            //
+            alive = false;
         }
 
         public int getHealth()
         {
             return health;
+        }
+
+        public bool Alive()
+        {
+            return alive;
         }
     }
 }

@@ -199,10 +199,7 @@ namespace Project1.Entities
 
         public void takeDamage()
         {
-            //if (health > 0)
-            //{
-            //    health--;
-            //}
+            //
         }
 
         public void die()
@@ -213,6 +210,11 @@ namespace Project1.Entities
         public int getHealth()
         {
             return health;
+        }
+
+        public bool Alive()
+        {
+            return true;
         }
     }
 }

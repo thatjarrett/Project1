@@ -33,8 +33,9 @@ namespace Project1.Entities
 
         private IProjectile[] projectiles = null;
 
-        int health = 3;
+        private int health = 3;
 
+        private bool alive = true;
         public Skeleton(Vector2 startPos)
         {
             position = startPos;
@@ -200,7 +201,12 @@ namespace Project1.Entities
 
         public void die()
         {
-            //
+            alive = false;
+        }
+
+        public bool Alive()
+        {
+            return alive;
         }
 
         public int getHealth()

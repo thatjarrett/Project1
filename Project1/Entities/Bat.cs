@@ -31,8 +31,9 @@ namespace Project1.Entities
 
         private IProjectile[] projectiles = null;
 
-        int health = 2;
+        private int health = 2;
 
+        private bool alive = true;
         public Bat(Vector2 startPos)
         {
             position = startPos;
@@ -191,7 +192,11 @@ namespace Project1.Entities
 
         public void die()
         {
-            //Debug.WriteLine("Link killed an enemy! Dealing damage.");
+            alive = false;
+        }
+
+        public bool Alive() {
+            return alive;
         }
 
         public int getHealth()

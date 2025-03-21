@@ -31,7 +31,9 @@ namespace Project1.Entities
         int damageFrameCounter = 0;
         bool hurting = false;
 
-        int health = 2;
+        private int health = 2;
+
+        private bool alive = true;
         public Hand(Vector2 startPos)
         {
             position = startPos;
@@ -187,7 +189,12 @@ namespace Project1.Entities
 
         public void die()
         {
-            //
+            alive = false;
+        }
+
+        public bool Alive()
+        {
+            return alive;
         }
 
         public int getHealth()
