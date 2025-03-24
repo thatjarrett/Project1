@@ -195,7 +195,7 @@ namespace Project1.Entities
             Debug.WriteLine("Game Over triggered.");
             DisableControls();
 
-            GameManager.Instance.SetGameOver();
+           
 
         }
         public void Hide()
