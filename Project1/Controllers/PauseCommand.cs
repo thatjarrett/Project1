@@ -6,7 +6,7 @@ namespace Project1.Commands
     public class PauseCommand : ICommand
     {
         private static double lastPauseTime = 0; 
-        private const double pauseCooldown = 0.2; 
+        private const double pauseCooldown = 1.0; 
 
         private Game1 _game;
 
