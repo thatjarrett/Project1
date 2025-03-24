@@ -19,6 +19,7 @@ using Project1.Sprites;
 using Project1.LevelLoading;
 using Microsoft.Xna.Framework.Media;
 using Project1.Audio;
+using Project1.HUD;
 
 public class Game1 : Game
 {
@@ -35,6 +36,7 @@ public class Game1 : Game
 
 
     Texture2D linkTexture;
+    Texture2D hudTexture;
     Texture2D environmentTexture;
     Texture2D npcTexture;
     Texture2D itemTexture;
@@ -55,11 +57,14 @@ public class Game1 : Game
     private List<IItem> itemsList = new List<IItem>();
 
     Level leveltest;
+    IHUD hud;
+
+    private bool paused = false;
     
 
     //Debug Variables
     Texture2D pixelTexture;
-    bool debugDraw = true;
+    bool debugDraw = false;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -76,6 +81,7 @@ public class Game1 : Game
         GameManager.Instance.LoadContent(Content);
         AttackCommand.LoadContent(Content);
         link = new Link(new Vector2(350, 170));
+        hud = new IHUD(link, hudTexture);
 
         createSprites();
         environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
@@ -136,6 +142,7 @@ public class Game1 : Game
 { Keys.G, new DeathCommand(link) },
 { Keys.Q, new QuitCommand(this) },
 { Keys.R, new ResetCommand(this) },
+{ Keys.Escape, new PauseCommand(this) },
 /*{ Keys.T, new CycleBlockCommand(this, false) }, // Previous block
 { Keys.Y, new CycleBlockCommand(this, true) },  // Next block
 { Keys.U, new CycleItemCommand(this, false) }, // Previous item
@@ -161,7 +168,8 @@ public class Game1 : Game
     { Buttons.RightShoulder, new UseItemCommand(link, 4) }, // RB = Item 4
     { Buttons.B, new DamageCommand(link) },
     { Buttons.Back, new QuitCommand(this) },
-    { Buttons.Start, new ResetCommand(this) }
+    { Buttons.Start, new ResetCommand(this) },
+    { Buttons.BigButton, new ResetCommand(this) }
 };
 
 
@@ -176,10 +184,14 @@ public class Game1 : Game
     protected override void Update(GameTime gameTime)
     {
         keyboardController.Update(gameTime);
-        gamepadController.Update(gameTime);  // Gamepad input added
-        DungeonMusicPlayer.Instance.PlayDungeonMusic();
-        GameManager.Instance.Update(gameTime);
-        GameTimer.Update(gameTime);
+        gamepadController.Update(gameTime);
+        GameTimer.Update(gameTime);// Gamepad input added
+        if (!paused)
+        { 
+            hud.slideOut();
+            DungeonMusicPlayer.Instance.PlayDungeonMusic();
+            GameManager.Instance.Update(gameTime);
+            
         link.Update(gameTime);
         foreach (var tile in tiles)
         {
@@ -192,6 +204,12 @@ public class Game1 : Game
         UpdateCollisions(gameTime);
 
         removeInactive();
+        }
+        else
+        {
+            hud.slideIn();
+        }
+
     }
 
     public void removeInactive() {
@@ -254,19 +272,29 @@ public class Game1 : Game
         foreach (var item in itemsList)
         {
            item.Draw(_spriteBatch, SpriteEffects.None);
-           item.GetCollider().DebugDraw(_spriteBatch, pixelTexture, item.GetCollider().hitbox, Color.White);
+            if (debugDraw)
+            {
+                item.GetCollider().DebugDraw(_spriteBatch, pixelTexture, item.GetCollider().hitbox, Color.White);
+            }
         }
 
         foreach (var enemy in enemies)
         { 
                 enemy.Draw(_spriteBatch);
+            if (debugDraw)
+            {
                 enemy.GetCollider().DebugDraw(_spriteBatch, pixelTexture, enemy.GetCollider().hitbox, Color.Red);
+            }
         }
 
         //Keep link below the tiles so he's drawn above them
 
         GameManager.Instance.Draw(_spriteBatch, GraphicsDevice);
-        link.Draw(_spriteBatch);
+        if (!paused)
+        {
+            link.Draw(_spriteBatch);
+        }
+        
         if (debugDraw)
         {
             link.GetCollider().DebugDraw(_spriteBatch, pixelTexture, link.GetCollider().hitbox, Color.Blue);
@@ -281,6 +309,7 @@ public class Game1 : Game
     protected void createSprites()
     {
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
+        hudTexture = Content.Load<Texture2D>("Images/blankUI");
         createItemSprites();
         link.createLinkSprites(linkTexture);
     }
@@ -292,6 +321,7 @@ public class Game1 : Game
         enemySpawnTexture = Content.Load<Texture2D>("Images/EnemyCloud");
         enemyDeathCloud = new EnemyDeathCloud(enemyDeathTexture, new Vector2(0,0));
         enemySpawnCloud = new EnemySpawnCloud(enemySpawnTexture, new Vector2(0, 0));
+        
     }
     public void CycleBlock(bool forward)
     {
@@ -415,5 +445,9 @@ public class Game1 : Game
                 enemyNum = 0;
             }
         }
+    }
+    public void PauseGame()
+    {
+        paused = !paused;
     }
 }
