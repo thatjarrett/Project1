@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
 
 namespace Project1.Audio
@@ -9,42 +8,41 @@ namespace Project1.Audio
         private static DungeonMusicPlayer instance;
         public static DungeonMusicPlayer Instance => instance ??= new DungeonMusicPlayer();
 
-        private Song dungeonMusic;
-
         private DungeonMusicPlayer() { }
 
         public void LoadContent(ContentManager content)
         {
-            dungeonMusic = content.Load<Song>("Dungeon"); // Ensure "Dungeon.xnb" exists
+            
+            Debug.WriteLine("DungeonMusicPlayer: Delegating content loading to MusicManager.");
         }
+
+        private bool warnedGameOver = false;
+
         public void PlayDungeonMusic()
         {
-            if (GameManager.Instance.IsGameOver())  // 🔥 Prevents Dungeon music from starting at Game Over
+            if (GameManager.Instance.IsGameOver())
             {
-                Debug.WriteLine("🚫 Dungeon music prevented from playing due to Game Over.");
+                if (!warnedGameOver)
+                {
+                    Debug.WriteLine("DungeonMusicPlayer: Blocked dungeon music due to Game Over.");
+                    warnedGameOver = true;
+                }
                 return;
             }
 
-            if (dungeonMusic != null && MediaPlayer.State != MediaState.Playing)
-            {
-                MediaPlayer.Stop(); // Stop other music before playing
-                MediaPlayer.IsRepeating = true;
-                MediaPlayer.Play(dungeonMusic);
-                Debug.WriteLine("🎵 Dungeon music started.");
-            }
+            warnedGameOver = false;
+            MusicManager.Instance.PlayDungeonMusic();
         }
 
 
 
-
-        public void StopMusic()
+        public void StopDungeonMusic()
         {
-            if (MediaPlayer.State == MediaState.Playing)
+            if (MusicManager.Instance.CurrentSong != null)
             {
-                MediaPlayer.Pause(); // Pause instead of stopping
-                Debug.WriteLine("Dungeon music paused.");
+                MusicManager.Instance.Stop();
+                Debug.WriteLine("DungeonMusicPlayer: Music stopped.");
             }
         }
-
     }
 }

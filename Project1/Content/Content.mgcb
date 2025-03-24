@@ -15,13 +15,13 @@
 
 #begin Audio/Death.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Death.wav
 
 #begin Audio/GameOver.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/GameOver.wav
 

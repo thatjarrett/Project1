@@ -77,6 +77,8 @@ public class Game1 : Game
         pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
         pixelTexture.SetData(new[] { Color.White });
         DungeonMusicPlayer.Instance.LoadContent(Content);
+        MusicManager.Instance.LoadContent(Content);
+
         DungeonMusicPlayer.Instance.PlayDungeonMusic();
         GameManager.Instance.LoadContent(Content);
         AttackCommand.LoadContent(Content);
