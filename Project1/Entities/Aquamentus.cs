@@ -13,9 +13,9 @@ namespace Project1.Entities
         private IEnemyState currentState;
         private Vector2 position;
         private bool isInvincible = false;
-        private double invincibleTime = 1.0;
+        private double invincibleTime = .25;
         private double attackInterval = 1.0;
-        private const double InvincibilityDuration = 1.0;
+        private const double InvincibilityDuration = 1.0;  //TODO: remove?
         private CollisionBox collider;
 
         private ISprite aquamentusSprite;

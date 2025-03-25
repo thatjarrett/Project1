@@ -20,9 +20,9 @@ namespace Project1.Entities
         private IEnemyState currentState;
         private Vector2 position;
 
-        private const double InvincibilityDuration = 1.0;
+        //private const double InvincibilityDuration = 1.0;
         private bool isInvincible = false;
-        private double invincibleTime = 1.0;
+        private double invincibleTime = .25;
 
         private ISprite goriyaSprite;
         private ISprite goriyaSpriteUp;
