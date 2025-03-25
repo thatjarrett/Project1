@@ -551,7 +551,7 @@ namespace Project1.Entities
         }
 
         public void takeDamage() { //TODO: change so enemies deal VARIABLE damage?
-            if (health > 0) {
+            if (health > 0 && !isInvincible) {
                 health--;
             }
         }

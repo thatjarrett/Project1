@@ -319,7 +319,7 @@ public class Game1 : Game
     {
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         hudTexture = Content.Load<Texture2D>("Images/blankUI");
-        heartsTexture = Content.Load<Texture2D>("Images/heartHealthSprite");
+        heartsTexture = Content.Load<Texture2D>("Images/HealthSprite");
         coverTexture = Content.Load<Texture2D>("Images/coverSprite");
         createItemSprites();
         link.createLinkSprites(linkTexture);

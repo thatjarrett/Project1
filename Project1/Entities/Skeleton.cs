@@ -21,7 +21,7 @@ namespace Project1.Entities
 
         private const double InvincibilityDuration = 1.0;
         private bool isInvincible = false;
-        private double invincibleTime = 0;
+        private double invincibleTime = 1.0;
         private double flipTime = 0.2;
         private CollisionBox collider;
 
@@ -193,7 +193,7 @@ namespace Project1.Entities
 
         public void takeDamage()
         {
-            if (health > 0)
+            if (health > 0 && !isInvincible)
             {
                 health--;
             }
