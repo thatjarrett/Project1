@@ -49,6 +49,7 @@ public class Game1 : Game
 
     ISprite enemyDeathCloud;
     ISprite enemySpawnCloud;
+    SpriteFont font1;
     
     private int currentBlockIndex = 0;
     private int currentItemIndex = 0;
@@ -76,6 +77,7 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        font1 = Content.Load<SpriteFont>("Images/File");
         pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
         pixelTexture.SetData(new[] { Color.White });
         DungeonMusicPlayer.Instance.LoadContent(Content);
@@ -88,7 +90,7 @@ public class Game1 : Game
         
 
         createSprites();
-        hud = new IHUD(link, hudTexture,heartsTexture,coverTexture);
+        hud = new IHUD(link, hudTexture,heartsTexture,coverTexture,font1);
         environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -294,8 +296,7 @@ public class Game1 : Game
         }
 
         //Keep link below the tiles so he's drawn above them
-
-        GameManager.Instance.Draw(_spriteBatch, GraphicsDevice);
+        
         if (!paused)
         {
             link.Draw(_spriteBatch);
@@ -306,6 +307,7 @@ public class Game1 : Game
             link.GetCollider().DebugDraw(_spriteBatch, pixelTexture, link.GetCollider().hitbox, Color.Blue);
         }
         hud.Draw(_spriteBatch);
+        GameManager.Instance.Draw(_spriteBatch, GraphicsDevice);
         _spriteBatch.End();
 
 

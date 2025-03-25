@@ -7,14 +7,14 @@ namespace Project1.Sprites
 {
     internal class TextSprite : ISprite
     {
-        private readonly string _text;
+        public string _text;
         private readonly SpriteFont _font;
-        private readonly Vector2 _position;
+        private Vector2 _position;
         Color color = Color.White;
 
         public TextSprite(string text, SpriteFont font, Vector2 position)
         {
-            _text = "Credits\n Made by Jarrett Reeves\n Sprites from: https://www.spriters-resource.com/fullview/8366/";
+            _text = text;
             _font = font;
             _position = position;
         }
@@ -27,7 +27,7 @@ namespace Project1.Sprites
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffect)
         {
             // Draw the text
-            spriteBatch.DrawString(_font, _text, position, Color.White);
+            spriteBatch.DrawString(_font, _text, position, Color.White,0f,Vector2.Zero,2.5f,spriteEffect,1f);
         }
         public void SetColor(Color _color)
         {

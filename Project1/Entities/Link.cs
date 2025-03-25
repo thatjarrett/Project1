@@ -559,6 +559,14 @@ namespace Project1.Entities
         {
             return health;
         }
+        public int GetRupeeCount()
+        {
+            return ruppeeCount;
+        }
+        public int GetBombCount()
+        {
+            return bombCount;
+        }
     }
 }
 
