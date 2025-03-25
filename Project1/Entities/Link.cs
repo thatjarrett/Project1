@@ -62,7 +62,7 @@ namespace Project1.Entities
         private ISprite explodingBombSprite;
 
         private int bombCount = 0;
-        private int health = 4;
+        private int health = 10;
         private int ruppeeCount = 0;
 
         private BoomerangProjectile boomerangThrowable;
@@ -554,6 +554,10 @@ namespace Project1.Entities
             if (health > 0) {
                 health--;
             }
+        }
+        public int GetHealth()
+        {
+            return health;
         }
     }
 }

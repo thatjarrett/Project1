@@ -37,6 +37,8 @@ public class Game1 : Game
 
     Texture2D linkTexture;
     Texture2D hudTexture;
+    Texture2D heartsTexture;
+    Texture2D coverTexture;
     Texture2D environmentTexture;
     Texture2D npcTexture;
     Texture2D itemTexture;
@@ -83,9 +85,10 @@ public class Game1 : Game
         GameManager.Instance.LoadContent(Content);
         AttackCommand.LoadContent(Content);
         link = new Link(new Vector2(350, 170));
-        hud = new IHUD(link, hudTexture);
+        
 
         createSprites();
+        hud = new IHUD(link, hudTexture,heartsTexture,coverTexture);
         environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -191,6 +194,7 @@ public class Game1 : Game
         if (!paused)
         { 
             hud.slideOut();
+            hud.Update(gameTime);
             DungeonMusicPlayer.Instance.PlayDungeonMusic();
             GameManager.Instance.Update(gameTime);
             
@@ -301,6 +305,7 @@ public class Game1 : Game
         {
             link.GetCollider().DebugDraw(_spriteBatch, pixelTexture, link.GetCollider().hitbox, Color.Blue);
         }
+        hud.Draw(_spriteBatch);
         _spriteBatch.End();
 
 
@@ -312,6 +317,8 @@ public class Game1 : Game
     {
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         hudTexture = Content.Load<Texture2D>("Images/blankUI");
+        heartsTexture = Content.Load<Texture2D>("Images/heartHealthSprite");
+        coverTexture = Content.Load<Texture2D>("Images/coverSprite");
         createItemSprites();
         link.createLinkSprites(linkTexture);
     }
