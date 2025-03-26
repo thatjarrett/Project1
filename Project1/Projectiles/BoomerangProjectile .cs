@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Collision;
 using Project1.Interfaces;
@@ -14,6 +15,7 @@ namespace Project1.Projectiles
         private int frameCount = 0;
         private bool active = false;
         private bool peakReached = false;
+        private static SoundEffect boomerangSound;
 
         private float speedDecay = 0.1f;
 
@@ -26,6 +28,10 @@ namespace Project1.Projectiles
         {
             _sprite = sprite;
             collider = null;//ew CollisionBox((int)pos.X, (int)pos.Y);
+        }
+        public static void LoadContent(Microsoft.Xna.Framework.Content.ContentManager content)
+        {
+            boomerangSound = content.Load<SoundEffect>("Audio/Arrow"); 
         }
 
         public void ownerPosition(Vector2 op) {
@@ -87,19 +93,18 @@ namespace Project1.Projectiles
         }
         public void Throw(Vector2 position, Vector2 direction)
         {
-            if (active)
-            {
-                return;
-            }
-            _position = position;
-            //collider.setPos((int)position.X, (int)position.Y);
-            collider = new CollisionBox((int)position.X, (int)position.Y);
+            if (active) return;
 
+            _position = position;
+            collider = new CollisionBox((int)position.X, (int)position.Y);
             active = true;
             peakReached = false;
             _direction = direction;
             _magnitude = 5;
+
+            boomerangSound?.Play();
         }
+
         private void ReturnToOwner(Vector2 linkPos)
         {
             _direction = (_position - linkPos);

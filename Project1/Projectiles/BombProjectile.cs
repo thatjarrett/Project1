@@ -3,9 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Project1.Collision;
 using Project1.Entities;
 using Project1.Interfaces;
+using Microsoft.Xna.Framework.Audio;
+
+
 
 public class BombProjectile : IProjectile
 {
+    private static SoundEffect bombDropSound;
+    private static SoundEffect bombExplodeSound;
+    private bool exploded = false;
 
     private Vector2 _position;
     private ISprite bombSprite;
@@ -24,11 +30,23 @@ public class BombProjectile : IProjectile
         owner = link;
 
     }
+    public static void LoadContent(Microsoft.Xna.Framework.Content.ContentManager content)
+    {
+        bombDropSound = content.Load<SoundEffect>("Audio/Bomb Drop");
+        bombExplodeSound = content.Load<SoundEffect>("Audio/Bomb Explode");
+    }
+
     public void Update(GameTime gameTime)
     {
         if (bombTimer < 300)
         {
             bombTimer++;
+            if (bombTimer == 150 && !exploded)
+            {
+                bombExplodeSound?.Play();
+                exploded = true;
+            }
+
         }
         bombSprite.Update(gameTime);
         explodingSprite.Update(gameTime);
@@ -58,8 +76,11 @@ public class BombProjectile : IProjectile
     {
         this._position = Position;
         bombTimer = 0;
+        exploded = false;
 
+        bombDropSound?.Play();
     }
+
 
     public CollisionBox GetCollider()
     {

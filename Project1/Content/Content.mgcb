@@ -13,6 +13,24 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/Arrow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Arrow.wav
+
+#begin Audio/Bomb Drop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Bomb Drop.wav
+
+#begin Audio/Bomb Explode.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Bomb Explode.wav
+
 #begin Audio/Death.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -21,7 +39,7 @@
 
 #begin Audio/GameOver.wav
 /importer:WavImporter
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/GameOver.wav
 

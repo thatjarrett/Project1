@@ -82,10 +82,12 @@ public class Game1 : Game
         pixelTexture.SetData(new[] { Color.White });
         DungeonMusicPlayer.Instance.LoadContent(Content);
         MusicManager.Instance.LoadContent(Content);
-
+        StraightProjectile.LoadContent(Content);
+        BoomerangProjectile.LoadContent(Content);
         DungeonMusicPlayer.Instance.PlayDungeonMusic();
         GameManager.Instance.LoadContent(Content);
         AttackCommand.LoadContent(Content);
+        BombProjectile.LoadContent(Content);
         link = new Link(new Vector2(350, 170));
         
 

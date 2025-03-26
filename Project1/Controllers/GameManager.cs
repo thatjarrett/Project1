@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,7 +21,10 @@ public class GameManager
     private bool resetKeyPreviouslyDown = false;
     private const double GameOverDelay = 2.0;
     private const double ResetDelay = 1.5;
- 
+    private SoundEffect gameOverSoundEffect;
+    private SoundEffectInstance activeGameOverInstance;
+
+
     private bool allowReset = false;
 
     private Texture2D gameOverTexture;
@@ -29,6 +33,9 @@ public class GameManager
 
     public void LoadContent(ContentManager content)
     {
+        gameOverSoundEffect = content.Load<SoundEffect>("Audio/GameOver");
+       
+
         try
         {
             gameOverTexture = content.Load<Texture2D>("Images/Game_Over");
@@ -73,12 +80,22 @@ public class GameManager
 
                 if (!gameOverMusicStarted)
                 {
-                    MusicManager.Instance.PlayGameOverMusic();
-                    gameOverMusicStarted = true;
+                    if (gameOverSoundEffect != null)
+                    {
+                        activeGameOverInstance = gameOverSoundEffect.CreateInstance(); // 🎯 this is the one we track
+                        activeGameOverInstance.Volume = 1f;
+                        activeGameOverInstance.IsLooped = false;
+                        activeGameOverInstance.Play();
+
+                        Debug.WriteLine("✅ Playing Game Over SoundEffect (tracked instance).");
+                        gameOverMusicStarted = true;
+                    }
                 }
+
+
             }
 
-      
+
             KeyboardState kb = Keyboard.GetState();
             GamePadState gp = GamePad.GetState(PlayerIndex.One);
             bool resetKeyNow = kb.IsKeyDown(Keys.R) || gp.IsButtonDown(Buttons.Start);
@@ -106,6 +123,16 @@ public class GameManager
 
     public void ResetGame()
     {
+        if (activeGameOverInstance != null &&
+          activeGameOverInstance.State == SoundState.Playing)
+        {
+            Debug.WriteLine("🛑 Stopping active Game Over sound.");
+            activeGameOverInstance.Stop();
+            activeGameOverInstance.Dispose();
+            activeGameOverInstance = null;
+        }
+
+
         Debug.WriteLine("Game reset.");
         isGameOver = false;
         showGameOverScreen = false;
