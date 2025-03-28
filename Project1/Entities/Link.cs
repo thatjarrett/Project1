@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -64,6 +65,7 @@ namespace Project1.Entities
         private int bombCount = 0;
         private int health = 10;
         private int ruppeeCount = 0;
+        private int keys = 0;
 
         private BoomerangProjectile boomerangThrowable;
         //private BombProjectile bombProjectile;
@@ -79,6 +81,16 @@ namespace Project1.Entities
 
         private CollisionBox swordCollision;
         private List<IProjectile> bombs = new List<IProjectile>();
+
+        private bool hasBow = false;
+        private bool hasBoomerang = false;
+        private bool hasCompass = false;
+        private bool hasMap = false;
+        private bool hasTriforce = false;
+
+        private Collection<IItem> inventory = new Collection<IItem>();
+        private IItem current;
+
 
         public Link(Vector2 startPos)
         {
@@ -212,22 +224,25 @@ namespace Project1.Entities
             switch (itemNumber)
             {
                 case 1:
+                    //isnt this only at max health?
                     projectile = new StraightProjectile(position, faceDirection, swordBeamHorizontal, swordBeamVertical, 5);
                     break;
                 case 2:
-                    projectile = new StraightProjectile(position, faceDirection, arrowHorizontal, arrowVertical, 5);
+                    if (hasBow) { //and arrows????
+                        projectile = new StraightProjectile(position, faceDirection, arrowHorizontal, arrowVertical, 5);
+                    }
                     break;
                 case 3:
-                    boomerangThrowable.Throw(position, faceDirection);
+                    if (hasBoomerang) {
+                        boomerangThrowable.Throw(position, faceDirection);
+                    }
                     break;
                 case 4:
-                    //bombProjectile.placeBomb(position);
                     if (bombCount > 0)
                     {
                         bomb = new BombProjectile(position, bombSprite, explodingBombSprite, this);
                         bombCount--;
                     }
-                    //bombs.Add(new BombProjectile(position, bombSprite, explodingBombSprite, this));//b);
                     break;
             }
             if (projectile != null)
@@ -544,10 +559,75 @@ namespace Project1.Entities
             {
                 ruppeeCount++;
             }
-            else if (item is Heart)/* AND HEALTH < MAX*/ {
+            else if (item is Heart)/* AND HEALTH < MAX*/
+            {
                 health++;
             }
-            //other item cases go here
+            else if (item is Key)
+            {
+                keys++;
+            }
+            else if (item is Arrow)
+            {
+                //what the fuck do arrows do?
+            }
+            else if (item is Bow)
+            {
+                hasBow = true;
+                inventory.Add(item);
+            }
+            else if (item is Boomerang)
+            {
+                hasBoomerang = true;
+                inventory.Add(item);
+            }
+            else if (item is Clock)
+            {
+                //wtf does clock do
+            }
+            else if (item is Compass)
+            {
+                hasCompass = true;
+                inventory.Add(item);
+            }
+            else if (item is Fairy)
+            {
+                //dunno what fairy does... heals?
+            }
+            else if (item is HeartContainer)
+            {
+                //maxhealth increase????
+            }
+            else if (item is Key)
+            {
+                keys++;
+            }
+            else if (item is Map)
+            {
+                hasMap = true;
+                inventory.Add(item);
+            }
+            else if (item is TriForcePiece)
+            {
+                hasTriforce = true;
+                //add to inventory??
+            }
+            else {
+                Debug.WriteLine("ERROR: UNKNOWN ITEM");
+            }
+        }
+
+        public bool hasKey() {
+            //return keys > 0;
+            if (keys > 0) {
+                return true;
+            }
+            return false;
+        }
+
+        public void useKey() {
+            keys--;
+            //do we need an if statement? haskey should be used whenever this is called...
         }
 
         public void takeDamage() { //TODO: change so enemies deal VARIABLE damage?
