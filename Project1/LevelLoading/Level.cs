@@ -83,21 +83,21 @@ namespace Project1.LevelLoading
                 {
                     int tileNum = levelTiles[i, j];    
                     int destinationx =(3*32) + (x * j);
-                    int destinationy = (3*32) + (y * i);
+                    int destinationy = (3*32)+120 + (y * i);
                     tileList.Add(tileBuilder.buildTile(tileNum,new Vector2(destinationx, destinationy)));
                       
                 }
             }
             //Big walls
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 0], new Vector2(0, 0)));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 1], new Vector2(0, (32+(16*7))*3)));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 2], new Vector2(0, 32*3)));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 3], new Vector2((32+(16*12))*3,32*3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 0], new Vector2(0, 120)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 1], new Vector2(0, 120+(32+(16*7))*3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 2], new Vector2(0, 120+32*3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 3], new Vector2((32+(16*12))*3,120+32*3)));
             //Door slots
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 4], new Vector2(112*3, 0)));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 5], new Vector2(112*3, (32 + (16 * 7)) * 3)));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 6], new Vector2(0, (72)*3)));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 7], new Vector2((32 + (16 * 12)) * 3, (72) * 3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 4], new Vector2(112*3, 120)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 5], new Vector2(112*3, 120+(32 + (16 * 7)) * 3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 6], new Vector2(0, 120+(72)*3)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 7], new Vector2((32 + (16 * 12)) * 3, 120+(72) * 3)));
             return tileList;
         }
         public (List<IItem>, List<IEnemy>) buildEntities()
@@ -112,7 +112,7 @@ namespace Project1.LevelLoading
                 {
                     int entityNum = levelEntities[i, j];
                     int destinationx = (3 * 32) + (x * j);
-                    int destinationy = (3 * 32) + (y * i);
+                    int destinationy =120 + (3 * 32) + (y * i);
                     if (entityNum >=1 && entityNum <= 7)
                     {
                         enemyList.Add(EntityBuilder.buildEnemy(entityNum, new Vector2(destinationx, destinationy)));

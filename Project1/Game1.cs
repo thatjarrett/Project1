@@ -186,7 +186,7 @@ public class Game1 : Game
 
         keyboardController = new KeyboardController(commands, new IdleCommand(link));
         _graphics.PreferredBackBufferWidth = 768;
-        _graphics.PreferredBackBufferHeight = 528;
+        _graphics.PreferredBackBufferHeight = 648;
         _graphics.ApplyChanges();
     }
 
