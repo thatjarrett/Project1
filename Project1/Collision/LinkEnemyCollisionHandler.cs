@@ -17,14 +17,15 @@ namespace Project1.Handlers
                 if (!link.IsInvincible())
                 {
                     Debug.WriteLine("Link collided with an enemy! Taking damage and knockback.");
+                    Debug.WriteLine("Health: " + link.GetHealth());
 
                     // Get knockback direction (opposite of enemy)
                     Vector2 knockbackDir = link.GetCollider().GetCenter() - enemy.GetCollider().GetCenter();
                     knockbackDir.Normalize(); // Make it unit length
 
                     // Change Link's state to damage
-                    link.ChangeState(new LinkDamageState(link.PreviousDirection));
                     link.takeDamage();
+                    link.ChangeState(new LinkDamageState(link.PreviousDirection));
 
                     // Set Link to invincible and apply knockback
                     link.SetInvincible(true, knockbackDir);
@@ -39,14 +40,15 @@ namespace Project1.Handlers
                 if (!link.IsInvincible())
                 {
                     Debug.WriteLine("Link collided with a projectile! Taking damage and knockback.");
+                    Debug.WriteLine("Health: " + link.GetHealth());
 
                     // Get knockback direction (opposite of enemy)
                     Vector2 knockbackDir = link.GetCollider().GetCenter() - projectile.GetCollider().GetCenter();
                     knockbackDir.Normalize(); // Make it unit length
 
                     // Change Link's state to damage
-                    link.ChangeState(new LinkDamageState(link.PreviousDirection));
                     link.takeDamage();
+                    link.ChangeState(new LinkDamageState(link.PreviousDirection));
 
                     // Set Link to invincible and apply knockback
                     link.SetInvincible(true, knockbackDir);

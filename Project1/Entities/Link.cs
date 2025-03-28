@@ -303,11 +303,6 @@ namespace Project1.Entities
                 boomerangThrowable.ownerPosition(position);
                 boomerangThrowable.Update(gameTime);
 
-                //bombProjectile.Update(gameTime);
-                //foreach (var bomb in bombs)
-                //{
-                //    bomb.Update(gameTime);
-                //}
                 int x = 0;
                 while (x < bombs.Count)
                 {
@@ -360,7 +355,6 @@ namespace Project1.Entities
                 projectile.Draw(spriteBatch);
             }
             boomerangThrowable.Draw(spriteBatch);
-            //bombProjectile.Draw(spriteBatch);
             int x = 0;
             while(x < bombs.Count) {
                 bombs[x].Draw(spriteBatch);
@@ -502,7 +496,6 @@ namespace Project1.Entities
 
             bombSprite = new NMoveNAnim(texture, new Rectangle(129,184,8,16));
             explodingBombSprite = new NMoveAnim(texture, new Rectangle[] { new Rectangle(137, 184, 16, 16), new Rectangle(154, 184, 16, 16) }, 10);
-            //bombProjectile = new BombProjectile(position,bombSprite, explodingBombSprite);
         }
 
         public void CollisionUpdate(CollisionBox other)
@@ -526,7 +519,6 @@ namespace Project1.Entities
                 case CollisionSide.None:
                     break;
             }
-            //Debug.WriteLine($"Collision: {intersectionDistance}");
 
         }
         public bool IsInvincible()
