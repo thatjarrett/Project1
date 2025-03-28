@@ -63,7 +63,8 @@ namespace Project1.Entities
         private ISprite explodingBombSprite;
 
         private int bombCount = 0;
-        private int health = 10;
+        private int maxHealth = 10;
+        private int health;
         private int ruppeeCount = 0;
         private int keys = 0;
 
@@ -99,6 +100,7 @@ namespace Project1.Entities
             collider = new CollisionBox((int)startPos.X, (int)startPos.Y);
 
             swordCollision = null;
+            health = maxHealth;
         }
         public Direction PreviousDirection { get; private set; } = Direction.Down;
 
@@ -559,9 +561,12 @@ namespace Project1.Entities
             {
                 ruppeeCount++;
             }
-            else if (item is Heart)/* AND HEALTH < MAX*/
+            else if (item is Heart)
             {
-                health++;
+                if (health < maxHealth)
+                {
+                    health++;
+                }
             }
             else if (item is Key)
             {
@@ -596,7 +601,7 @@ namespace Project1.Entities
             }
             else if (item is HeartContainer)
             {
-                //maxhealth increase????
+                maxHealth++;
             }
             else if (item is Key)
             {
