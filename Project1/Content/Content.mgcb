@@ -254,6 +254,54 @@
 #begin Level Data/EntityLevel.txt
 /copy:Level Data/EntityLevel.txt
 
+#begin Level Data/NegOneNegOne.txt
+/copy:Level Data/NegOneNegOne.txt
+
+#begin Level Data/NegOneNegThree.txt
+/copy:Level Data/NegOneNegThree.txt
+
+#begin Level Data/NegOneTwo.txt
+/copy:Level Data/NegOneTwo.txt
+
+#begin Level Data/negOneZero.txt
+/copy:Level Data/negOneZero.txt
+
+#begin Level Data/negTwoZero.txt
+/copy:Level Data/negTwoZero.txt
+
+#begin Level Data/OneNegOne.txt
+/copy:Level Data/OneNegOne.txt
+
+#begin Level Data/OneNegThree.txt
+/copy:Level Data/OneNegThree.txt
+
+#begin Level Data/OneZero.txt
+/copy:Level Data/OneZero.txt
+
+#begin Level Data/ThreeOne.txt
+/copy:Level Data/ThreeOne.txt
+
+#begin Level Data/TwoOne.txt
+/copy:Level Data/TwoOne.txt
+
+#begin Level Data/TwoZero.txt
+/copy:Level Data/TwoZero.txt
+
+#begin Level Data/ZeroNegOne.txt
+/copy:Level Data/ZeroNegOne.txt
+
+#begin Level Data/ZeroNegThree.txt
+/copy:Level Data/ZeroNegThree.txt
+
+#begin Level Data/ZeroNegTwo.txt
+/copy:Level Data/ZeroNegTwo.txt
+
+#begin Level Data/ZeroOne.txt
+/copy:Level Data/ZeroOne.txt
+
+#begin Level Data/ZeroTwo.txt
+/copy:Level Data/ZeroTwo.txt
+
 #begin NES - The Legend of Zelda - Items & Weapons.png
 /importer:TextureImporter
 /processor:TextureProcessor

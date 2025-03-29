@@ -34,6 +34,7 @@ public class Game1 : Game
 
     private DungeonMusicPlayer dungeonMusicPlayer;
 
+    private Camera Camera;
 
     Texture2D linkTexture;
     Texture2D hudTexture;
@@ -130,6 +131,8 @@ public class Game1 : Game
     protected override void Initialize()
     {
         base.Initialize();
+
+        Camera = new Camera(new Viewport());
 
         var commands = new Dictionary<Keys, ICommand>
     {
