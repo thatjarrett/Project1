@@ -14,7 +14,7 @@ namespace Project1.HUD
     public class IHUD
     {
         const int MINHEIGHT = -549;
-        const int MAXHEIGHT = 0;
+        const int MAXHEIGHT = -25;
         const int SLIDERATE = -MINHEIGHT/60;
 
         Vector2 HEARTOFFSET = new Vector2(551, 621);
