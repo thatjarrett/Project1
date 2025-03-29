@@ -607,7 +607,7 @@ namespace Project1.Entities
             }
             else if (item is HeartContainer)
             {
-                maxHealth++;
+                health += 2;
             }
             else if (item is Key)
             {
