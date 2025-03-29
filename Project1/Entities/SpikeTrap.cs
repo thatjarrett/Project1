@@ -64,39 +64,39 @@ namespace Project1.Entities
         {
             //N/A
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, bool frozen)
         {
 
         }
-        public void Update(GameTime gameTime, Link link)
+        public void Update(GameTime gameTime, Link link, bool frozen)
         {
-            
+            if (!frozen) {
+                Vector2 linkPos = link.GetPosition();
 
-            Vector2 linkPos = link.GetPosition();
+                if (linkPos.X == this.position.X && linkPos.Y < this.position.Y && currentState is SpikeTrapIdleState)
+                {
+                    //attack up
+                    currentState = new SpikeTrapAttackState(Direction.Up);
+                }
+                else if (linkPos.X == this.position.X && linkPos.Y > this.position.Y && currentState is SpikeTrapIdleState)
+                {
+                    //attack down
+                    currentState = new SpikeTrapAttackState(Direction.Down);
+                }
+                else if (linkPos.Y == this.position.Y && linkPos.X < this.position.X && currentState is SpikeTrapIdleState)
+                {
+                    //attack left
+                    currentState = new SpikeTrapAttackState(Direction.Left);
+                }
+                else if (linkPos.Y == this.position.Y && linkPos.X > this.position.X && currentState is SpikeTrapIdleState)
+                {
+                    //attack right
+                    currentState = new SpikeTrapAttackState(Direction.Right);
+                }
 
-            if (linkPos.X == this.position.X && linkPos.Y < this.position.Y && currentState is SpikeTrapIdleState)
-            {
-                //attack up
-                currentState = new SpikeTrapAttackState(Direction.Up);
+                currentState.Update(this, gameTime);
+                spikeTrapSprite.Update(gameTime);
             }
-            else if (linkPos.X == this.position.X && linkPos.Y > this.position.Y && currentState is SpikeTrapIdleState)
-            {
-                //attack down
-                currentState = new SpikeTrapAttackState(Direction.Down);
-            }
-            else if (linkPos.Y == this.position.Y && linkPos.X < this.position.X && currentState is SpikeTrapIdleState)
-            {
-                //attack left
-                currentState = new SpikeTrapAttackState(Direction.Left);
-            }
-            else if (linkPos.Y == this.position.Y && linkPos.X > this.position.X && currentState is SpikeTrapIdleState)
-            {
-                //attack right
-                currentState = new SpikeTrapAttackState(Direction.Right);
-            }
-
-            currentState.Update(this, gameTime);
-            spikeTrapSprite.Update(gameTime);
         }
 
         public void Move(int dx, int dy)

@@ -72,18 +72,20 @@ namespace Project1.Entities
         {
             //N/A
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, bool frozen)
         {
-            currentState.Update(this, gameTime);
-
             if (isInvincible)
             {
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (invincibleTime <= 0)
                     isInvincible = false;
-                    SetAnimation("");
+                SetAnimation("");
 
             }
+
+            if (!frozen) { 
+            currentState.Update(this, gameTime);
+
             aquamentusSprite.Update(gameTime);
 
             if (currentState is AquamentusAttackState)
@@ -112,6 +114,7 @@ namespace Project1.Entities
                     fireballs[i].Update(gameTime);
                 }
             }
+        }
 
 
         }

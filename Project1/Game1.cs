@@ -424,10 +424,10 @@ public class Game1 : Game
         {
             if (enemy is IDependentEnemy spikeTrap)
             {
-                spikeTrap.Update(gameTime, link);
+                spikeTrap.Update(gameTime, link, link.isFrozen());
             } else
             {
-                enemy.Update(gameTime);
+                enemy.Update(gameTime, link.isFrozen());
             }
 
             LinkEnemyCollisionHandler.HandleCollision(link, enemy);
