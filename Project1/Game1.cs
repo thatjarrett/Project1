@@ -301,7 +301,15 @@ public class Game1 : Game
         }
 
         //Keep link below the tiles so he's drawn above them
-        
+
+        foreach (var tile in tiles)
+        {
+            if(tile is pushableBlock)
+            {
+                tile.Draw(_spriteBatch);
+            }
+        }
+
         if (!paused)
         {
             link.Draw(_spriteBatch);
@@ -375,7 +383,15 @@ public class Game1 : Game
         foreach (var tile in tiles)
         {
             CollisionBox collider = tile.GetCollider();
-            if(collider != null)
+            if (tile is pushableBlock block)
+            {
+                CollisionBox linkPush = link.GetCollider();
+                block.CollisionUpdate(linkPush);
+
+                
+
+            }
+            else if(collider != null)
             {
                 link.CollisionUpdate(collider);
             }
