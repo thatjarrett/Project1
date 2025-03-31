@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -33,6 +34,8 @@ namespace Project1.Entities
         private int health = 10;
 
         private bool alive = true;
+
+        private Random random = new Random();
         public Aquamentus(Vector2 startPos)
         {
             position = startPos;
@@ -259,6 +262,30 @@ namespace Project1.Entities
         public bool Alive()
         {
             return alive;
+        }
+
+        public int getLoot()
+        {
+            int x = random.Next(0, 10);
+            int lootID = 0;
+            if (0 <= x && x <= 6)
+            {
+                lootID = 15; //heart
+            }
+            else if (7 <= x && x <= 8)
+            {
+                lootID = 16; //coin
+            }
+            else {
+                lootID = 19; //fairy
+            }
+
+                return lootID;
+        }
+
+        public Vector2 getPos()
+        {
+            return position;
         }
     }
 }

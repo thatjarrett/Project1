@@ -44,6 +44,8 @@ namespace Project1.Entities
         private int health = 4;
 
         private bool alive = true;
+
+        Random random = new Random();
         public Goriya(Vector2 startPos)
         {
             position = startPos;
@@ -301,6 +303,34 @@ namespace Project1.Entities
         public int getHealth()
         {
             return health;
+        }
+
+        public int getLoot()
+        {
+            int x = random.Next(0, 10);
+            int lootID = 0;
+            if (x == 0)
+            {
+                lootID = 20; //clock
+            }
+            else if (x >= 1 && x <= 2) {
+                lootID = 18; //bomb
+            }
+            else if (x >= 3 && x <= 5)
+            {
+                lootID = 15; //heart
+            }
+            else
+            {
+                lootID = 16; //coin
+            }
+
+            return lootID;
+        }
+
+        public Vector2 getPos()
+        {
+            return position;
         }
     }
 }
