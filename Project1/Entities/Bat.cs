@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -34,6 +35,8 @@ namespace Project1.Entities
         private int health = 2;
 
         private bool alive = true;
+
+        Random random = new Random();
         public Bat(Vector2 startPos)
         {
             position = startPos;
@@ -198,6 +201,25 @@ namespace Project1.Entities
         public int getHealth()
         {
             return health;
+        }
+
+        public int getLoot()
+        {
+            int x = random.Next(0, 5);
+            int lootID;
+            if (x == 3)
+            {
+                lootID = 17; //arrow
+            }
+            else {
+                lootID = 16; //rupee
+            }
+                return lootID;
+        }
+
+        public Vector2 getPos()
+        {
+            return position;
         }
     }
 }

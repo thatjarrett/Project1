@@ -44,6 +44,9 @@ namespace Project1.Interfaces
         public int getHealth();
 
         public bool Alive();
+
+        public int getLoot();
+        public Vector2 getPos();
     }
 }
 

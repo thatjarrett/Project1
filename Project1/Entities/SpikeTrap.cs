@@ -216,6 +216,17 @@ namespace Project1.Entities
         {
             return true;
         }
+
+        public int getLoot()
+        {
+            int lootID = 0;
+            return lootID;  //spike trap wont die so who cares about its loot
+        }
+
+        public Vector2 getPos()
+        {
+            return position;
+        }
     }
 }
 

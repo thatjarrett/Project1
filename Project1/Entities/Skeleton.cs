@@ -36,6 +36,8 @@ namespace Project1.Entities
         private int health = 3;
 
         private bool alive = true;
+
+        Random random = new Random();
         public Skeleton(Vector2 startPos)
         {
             position = startPos;
@@ -212,6 +214,35 @@ namespace Project1.Entities
         public int getHealth()
         {
             return health;
+        }
+
+        public int getLoot()
+        {
+            int x = random.Next(0, 10);
+            int lootID = 0;
+            if (x <= 5)
+            {
+                lootID = 16; //coin. note, sometimes coin is blue??
+            }
+            else if (6 <= x && x <= 7)
+            {
+                lootID = 15; //heart
+            }
+            else if (x == 8)
+            {
+                lootID = 20; //clock
+            }
+            else
+            {
+                x = 17; //arrow. should be blue gem but whatever we dont have that implemented
+            }
+
+            return lootID;
+        }
+
+        public Vector2 getPos()
+        {
+            return position;
         }
     }
 }

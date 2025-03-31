@@ -70,6 +70,8 @@ public class Game1 : Game
     //Debug Variables
     Texture2D pixelTexture;
     bool debugDraw = false;
+
+    private EntityBuilder entityBuilder;// = new EntityBuilder(aquamentusTexture, enemytexture, );
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -120,15 +122,17 @@ public class Game1 : Game
         itemsList.AddRange(tempitemlist);
         enemies.AddRange(tempenemylist);
 
- 
+
 
         //itemsList.Add(enemyDeathCloud);
         //itemsList.Add(enemySpawnCloud);
 
 
-        //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
-        //Add bomb to list of items and delete this comment when items are implemented! -Bren
-        //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
+         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
+         //Add bomb to list of items and delete this comment when items are implemented! -Bren
+         //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
+
+         entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture);
 
     }
     protected override void Initialize()
@@ -233,6 +237,8 @@ public class Game1 : Game
 
         while (x >= 0) {
             if (!enemies[x].Alive()) {
+                IItem i = entityBuilder.buildItem(enemies[x].getLoot(), enemies[x].getPos());
+                itemsList.Add(i);
                 enemies.RemoveAt(x);
                 //TODO: play death animation also
             }
