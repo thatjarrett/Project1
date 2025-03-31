@@ -7,20 +7,20 @@ namespace Project1.Entities
     internal class UseItemCommand : ICommand
     {
         private readonly Link _link;
-        private readonly int _itemNumber;
+        private int _itemNumber;
         private static double lastUseTime = 0; // Tracks the last time an item was used
         private const double CooldownDuration = 1.0; // 1-second cooldown
 
-        public UseItemCommand(Link link, int itemNumber)
+        public UseItemCommand(Link link)
         {
             _link = link;
-            _itemNumber = itemNumber;
+            _itemNumber = 2;
         }
 
         public void Execute()
         {
             double currentTime = (double)DateTime.UtcNow.Ticks / TimeSpan.TicksPerSecond;
-
+            _itemNumber = _link.GetCurrentItem();
             if (currentTime - lastUseTime < CooldownDuration)
             {
                 Debug.WriteLine("Item is on cooldown");

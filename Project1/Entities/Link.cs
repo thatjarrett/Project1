@@ -91,7 +91,7 @@ namespace Project1.Entities
         private bool hasTriforce = false;
 
         private Collection<IItem> inventory = new Collection<IItem>();
-        private IItem current;
+        private int current = 2;
 
         private bool freezeEnemies = false;
         private double freezeTimer = 0;
@@ -231,24 +231,30 @@ namespace Project1.Entities
             {
                 case 1:
                     //isnt this only at max health?
-                    projectile = new StraightProjectile(position, faceDirection, swordBeamHorizontal, swordBeamVertical, 5);
+                    if(health >= maxHealth)
+                    {
+                        projectile = new StraightProjectile(position, faceDirection, swordBeamHorizontal, swordBeamVertical, 5);
+                    }
                     break;
                 case 2:
-                    if (hasBow && arrows > 0) { //and arrows????
-                        projectile = new StraightProjectile(position, faceDirection, arrowHorizontal, arrowVertical, 5);
-                        arrows--;
-                    }
-                    break;
-                case 3:
-                    if (hasBoomerang) {
+                    if (hasBoomerang)
+                    {
                         boomerangThrowable.Throw(position, faceDirection);
                     }
+                    
                     break;
-                case 4:
+                case 3:
                     if (bombCount > 0)
                     {
                         bomb = new BombProjectile(position, bombSprite, explodingBombSprite, this);
                         bombCount--;
+                    }
+                    break;
+                case 4:
+                    if (hasBow && arrows > 0)
+                    { //and arrows????
+                        projectile = new StraightProjectile(position, faceDirection, arrowHorizontal, arrowVertical, 5);
+                        arrows--;
                     }
                     break;
             }
@@ -279,6 +285,7 @@ namespace Project1.Entities
                     //SetAnimation("Death");
                     ChangeState(new LinkDeathState());
                 }
+
                 // Handle knockback movement
                 if (isKnockback)
                 {
@@ -560,6 +567,7 @@ namespace Project1.Entities
             if (item is Bomb)
             {
                 bombCount++;
+                inventory.Add(item);
             }
             else if (item is Rupee)
             {
@@ -621,7 +629,7 @@ namespace Project1.Entities
             else if (item is TriForcePiece)
             {
                 hasTriforce = true;
-                //add to inventory??
+                inventory.Add(item);
             }
             else {
                 Debug.WriteLine("ERROR: UNKNOWN ITEM");
@@ -662,9 +670,20 @@ namespace Project1.Entities
         {
             return keys;
         }
-
+        public Collection<IItem> GetInventory()
+        {
+            return inventory;
+        }
         public bool isFrozen() {
             return freezeEnemies;
+        }
+        public int GetCurrentItem()
+        {
+            return current;
+        }
+        public void SetCurrentItem(int item)
+        {
+            current = item;
         }
     }
 }

@@ -150,10 +150,7 @@ public class Game1 : Game
 { Keys.Z, new AttackCommand(link) },
 { Keys.N, new AttackCommand(link) },
 { Keys.E, new DamageCommand(link) },
-{ Keys.D1, new UseItemCommand(link, 1) },
-{ Keys.D2, new UseItemCommand(link, 2) },
-{ Keys.D3, new UseItemCommand(link, 3) },
-{ Keys.D4, new UseItemCommand(link, 4) },
+{ Keys.X, new UseItemCommand(link)},
 { Keys.G, new DeathCommand(link) },
 { Keys.Q, new QuitCommand(this) },
 { Keys.R, new ResetCommand(this) },
@@ -177,10 +174,7 @@ public class Game1 : Game
     { Buttons.DPadRight, new MoveRightCommand(link,hud) },
     { Buttons.LeftThumbstickRight, new MoveRightCommand(link,hud) },
     { Buttons.A, new AttackCommand(link) },
-    { Buttons.X, new UseItemCommand(link, 1) },
-    { Buttons.Y, new UseItemCommand(link, 2) },
-    { Buttons.LeftShoulder, new UseItemCommand(link, 3) }, // LB = Item 3
-    { Buttons.RightShoulder, new UseItemCommand(link, 4) }, // RB = Item 4
+    { Buttons.X, new UseItemCommand(link) },
     { Buttons.B, new DamageCommand(link) },
     { Buttons.Back, new QuitCommand(this) },
     { Buttons.Start, new ResetCommand(this) },

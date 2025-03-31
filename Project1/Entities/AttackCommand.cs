@@ -52,6 +52,7 @@ namespace Project1.Entities
                 }
 
                 _link.ChangeState(new LinkAttackState(_link.PreviousDirection));
+                _link.Item(1);
             }
             else
             {
