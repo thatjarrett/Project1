@@ -1,0 +1,10 @@
+Review by Bren
+Reviewing EntityBuilder.cs
+Original file by Bennett
+3/31/2025
+Sprint 4
+
+Review: While this class is well organized, with there being a case statement to handle each type of entity, there are a few glaring issues with its quality. Firstly, there appears
+to be plenty of Magic Numbers remaining throughout the class. While tedious, it may be worth it to make each of these numbers into a constant. Secondly, there seems to be repeated
+code within the case statement, with every case of entity making the same item.SetPosition(Location) call. It may be worth it to remove it from each case, and just add it at the
+end of the case statement. Likewise, for enemies, there is a repeated call of enemy.createEnemySprites(enemyTexture) in each case.
