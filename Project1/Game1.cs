@@ -98,12 +98,14 @@ public class Game1 : Game
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
         leveltest = new Level("Content/Level Data/BlockLevel.txt", "Content/Level Data/EntityLevel.txt");
         environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
         npcTexture = Content.Load<Texture2D>("Images/oldMan");
         leveltest.loadTileSprites(environmentTexture, npcTexture);
         tiles.AddRange(leveltest.buildTiles());
         
+
 
         aquamentusTexture = Content.Load<Texture2D>("Images/bosses");
         enemyTexture = Content.Load<Texture2D>("Images/enemies");

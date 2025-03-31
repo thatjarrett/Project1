@@ -1,8 +1,11 @@
 ﻿using System;
 
-public class Class1
+public class levelManager
 {
-	public Class1()
+
+
+
+	public levelManager ()
 	{
 	}
 }
