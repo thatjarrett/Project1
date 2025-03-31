@@ -47,6 +47,7 @@ public class Game1 : Game
     Texture2D enemyTexture;
     Texture2D enemyDeathTexture;
     Texture2D enemySpawnTexture;
+    Texture2D atlasTexture;
 
     ISprite enemyDeathCloud;
     ISprite enemySpawnCloud;
@@ -93,7 +94,7 @@ public class Game1 : Game
         
 
         createSprites();
-        hud = new IHUD(link, hudTexture,heartsTexture,coverTexture,font1);
+        hud = new IHUD(link, hudTexture,heartsTexture,coverTexture,atlasTexture,font1);
         environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -138,14 +139,14 @@ public class Game1 : Game
 
         var commands = new Dictionary<Keys, ICommand>
     {
-{ Keys.W, new MoveUpCommand(link) },
-{ Keys.Up, new MoveUpCommand(link) },
-{ Keys.S, new MoveDownCommand(link) },
-{ Keys.Down, new MoveDownCommand(link) },
-{ Keys.A, new MoveLeftCommand(link) },
-{ Keys.Left, new MoveLeftCommand(link) },
-{ Keys.D, new MoveRightCommand(link) },
-{ Keys.Right, new MoveRightCommand(link) },
+{ Keys.W, new MoveUpCommand(link,hud) },
+{ Keys.Up, new MoveUpCommand(link,hud) },
+{ Keys.S, new MoveDownCommand(link,hud) },
+{ Keys.Down, new MoveDownCommand(link,hud) },
+{ Keys.A, new MoveLeftCommand(link,hud) },
+{ Keys.Left, new MoveLeftCommand(link,hud) },
+{ Keys.D, new MoveRightCommand(link,hud) },
+{ Keys.Right, new MoveRightCommand(link,hud) },
 { Keys.Z, new AttackCommand(link) },
 { Keys.N, new AttackCommand(link) },
 { Keys.E, new DamageCommand(link) },
@@ -167,14 +168,14 @@ public class Game1 : Game
     };
         var gamepadCommands = new Dictionary<Buttons, ICommand>
 {
-    { Buttons.DPadUp, new MoveUpCommand(link) },
-    { Buttons.LeftThumbstickUp, new MoveUpCommand(link) },
-    { Buttons.DPadDown, new MoveDownCommand(link) },
-    { Buttons.LeftThumbstickDown, new MoveDownCommand(link) },
-    { Buttons.DPadLeft, new MoveLeftCommand(link) },
-    { Buttons.LeftThumbstickLeft, new MoveLeftCommand(link) },
-    { Buttons.DPadRight, new MoveRightCommand(link) },
-    { Buttons.LeftThumbstickRight, new MoveRightCommand(link) },
+    { Buttons.DPadUp, new MoveUpCommand(link,hud) },
+    { Buttons.LeftThumbstickUp, new MoveUpCommand(link,hud) },
+    { Buttons.DPadDown, new MoveDownCommand(link,hud) },
+    { Buttons.LeftThumbstickDown, new MoveDownCommand(link,hud) },
+    { Buttons.DPadLeft, new MoveLeftCommand(link,hud) },
+    { Buttons.LeftThumbstickLeft, new MoveLeftCommand(link,hud) },
+    { Buttons.DPadRight, new MoveRightCommand(link,hud) },
+    { Buttons.LeftThumbstickRight, new MoveRightCommand(link,hud) },
     { Buttons.A, new AttackCommand(link) },
     { Buttons.X, new UseItemCommand(link, 1) },
     { Buttons.Y, new UseItemCommand(link, 2) },
@@ -199,11 +200,11 @@ public class Game1 : Game
     {
         keyboardController.Update(gameTime);
         gamepadController.Update(gameTime);
+        hud.Update(gameTime);
         GameTimer.Update(gameTime);// Gamepad input added
         if (!paused)
         { 
             hud.slideOut();
-            hud.Update(gameTime);
             DungeonMusicPlayer.Instance.PlayDungeonMusic();
             GameManager.Instance.Update(gameTime);
             
@@ -303,7 +304,15 @@ public class Game1 : Game
         }
 
         //Keep link below the tiles so he's drawn above them
-        
+
+        foreach (var tile in tiles)
+        {
+            if(tile is pushableBlock)
+            {
+                tile.Draw(_spriteBatch);
+            }
+        }
+
         if (!paused)
         {
             link.Draw(_spriteBatch);
@@ -326,6 +335,7 @@ public class Game1 : Game
     {
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         hudTexture = Content.Load<Texture2D>("Images/blankUI");
+        atlasTexture = Content.Load<Texture2D>("Images/fullUi");
         heartsTexture = Content.Load<Texture2D>("Images/HealthSprite");
         coverTexture = Content.Load<Texture2D>("Images/coverSprite");
         createItemSprites();
@@ -377,7 +387,15 @@ public class Game1 : Game
         foreach (var tile in tiles)
         {
             CollisionBox collider = tile.GetCollider();
-            if(collider != null)
+            if (tile is pushableBlock block)
+            {
+                CollisionBox linkPush = link.GetCollider();
+                block.CollisionUpdate(linkPush);
+
+                
+
+            }
+            else if(collider != null)
             {
                 link.CollisionUpdate(collider);
             }
@@ -426,10 +444,10 @@ public class Game1 : Game
         {
             if (enemy is IDependentEnemy spikeTrap)
             {
-                spikeTrap.Update(gameTime, link);
+                spikeTrap.Update(gameTime, link, link.isFrozen());
             } else
             {
-                enemy.Update(gameTime);
+                enemy.Update(gameTime, link.isFrozen());
             }
 
             LinkEnemyCollisionHandler.HandleCollision(link, enemy);

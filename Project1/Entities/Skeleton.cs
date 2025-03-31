@@ -129,24 +129,8 @@ namespace Project1.Entities
             isInvincible = value;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, bool frozen)
         {
-            double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
-            
-            if ((int)(gameTime.TotalGameTime.TotalMilliseconds / 150) % 2 == 0)
-            {
-                currentSpriteEffect = SpriteEffects.None;
-            }
-            else
-            {
-                currentSpriteEffect = SpriteEffects.FlipHorizontally;
-            }
-
-
-            currentState.Update(this, gameTime);
-
-
-
             if (isInvincible)
             {
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
@@ -154,7 +138,23 @@ namespace Project1.Entities
                     isInvincible = false;
                     SetAnimation("");
             }
-            skeletonSprite.Update(gameTime);
+
+            if (!frozen) {
+                double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
+
+                if ((int)(gameTime.TotalGameTime.TotalMilliseconds / 150) % 2 == 0)
+                {
+                    currentSpriteEffect = SpriteEffects.None;
+                }
+                else
+                {
+                    currentSpriteEffect = SpriteEffects.FlipHorizontally;
+                }
+
+                currentState.Update(this, gameTime);
+
+                skeletonSprite.Update(gameTime);
+            }
         }
 
         public void CollisionUpdate(CollisionBox other)

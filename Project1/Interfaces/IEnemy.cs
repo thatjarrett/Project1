@@ -19,7 +19,7 @@ namespace Project1.Interfaces
 
         public void MoveDown();
 
-        public void Update(GameTime gameTime);
+        public void Update(GameTime gameTime, bool frozen);
 
         public void Move(int dx, int dy);
 

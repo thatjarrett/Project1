@@ -319,6 +319,12 @@ namespace Project1.LevelLoading
                         tile.setSprite(this.whiteBrickSprite);
                         break;
                     }
+                case 35:
+                    {
+                        tile = new pushableBlock(location);
+                        tile.setSprite(this.squareBlockSprite);
+                        break;
+                    }
                 default:
                     {
                         tile = new BlueFloor(location);

@@ -129,12 +129,8 @@ namespace Project1.Entities
             isInvincible = value;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, bool frozen)
         {
-            currentState.Update(this, gameTime);
-
-
-
             if (isInvincible)
             {
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
@@ -142,10 +138,10 @@ namespace Project1.Entities
                     isInvincible = false;
                     SetAnimation("");
             }
-            //else {
-            //    SetAnimation("");
-            //}
+            if (!frozen) {
+                currentState.Update(this, gameTime);
                 batSprite.Update(gameTime);
+            }
         }
 
         public void CollisionUpdate(CollisionBox other)

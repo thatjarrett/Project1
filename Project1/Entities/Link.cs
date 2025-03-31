@@ -67,6 +67,7 @@ namespace Project1.Entities
         private int health;
         private int ruppeeCount = 0;
         private int keys = 0;
+        private int arrows = 0;
 
         private BoomerangProjectile boomerangThrowable;
         //private BombProjectile bombProjectile;
@@ -91,6 +92,9 @@ namespace Project1.Entities
 
         private Collection<IItem> inventory = new Collection<IItem>();
         private IItem current;
+
+        private bool freezeEnemies = false;
+        private double freezeTimer = 0;
 
 
         public Link(Vector2 startPos)
@@ -230,8 +234,9 @@ namespace Project1.Entities
                     projectile = new StraightProjectile(position, faceDirection, swordBeamHorizontal, swordBeamVertical, 5);
                     break;
                 case 2:
-                    if (hasBow) { //and arrows????
+                    if (hasBow && arrows > 0) { //and arrows????
                         projectile = new StraightProjectile(position, faceDirection, arrowHorizontal, arrowVertical, 5);
+                        arrows--;
                     }
                     break;
                 case 3:
@@ -293,6 +298,13 @@ namespace Project1.Entities
                     invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
                     if (invincibleTime <= 0)
                         isInvincible = false;
+                }
+
+                if (freezeEnemies) {
+                    freezeTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                    if (freezeTimer <= 0) {
+                        freezeEnemies = false;
+                    }
                 }
 
                 linkSprite.Update(gameTime);
@@ -566,7 +578,7 @@ namespace Project1.Entities
             }
             else if (item is Arrow)
             {
-                //what the fuck do arrows do?
+                arrows++;
             }
             else if (item is Bow)
             {
@@ -580,7 +592,9 @@ namespace Project1.Entities
             }
             else if (item is Clock)
             {
-                //wtf does clock do
+                //freeze everyone lol
+                freezeEnemies = true;
+                freezeTimer = 5;
             }
             else if (item is Compass)
             {
@@ -589,11 +603,11 @@ namespace Project1.Entities
             }
             else if (item is Fairy)
             {
-                //dunno what fairy does... heals?
+                health = maxHealth;
             }
             else if (item is HeartContainer)
             {
-                maxHealth++;
+                health += 2;
             }
             else if (item is Key)
             {
@@ -643,6 +657,14 @@ namespace Project1.Entities
         public int GetBombCount()
         {
             return bombCount;
+        }
+        public int GetKeyCount()
+        {
+            return keys;
+        }
+
+        public bool isFrozen() {
+            return freezeEnemies;
         }
     }
 }

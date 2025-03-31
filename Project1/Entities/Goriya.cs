@@ -201,49 +201,50 @@ namespace Project1.Entities
             isInvincible = value;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, bool frozen)
         {
-            currentState.Update(this, gameTime);
-            double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
-
             if (isInvincible)
             {
-                invincibleTime -= timeStep;
+                invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds; ;
                 if (invincibleTime <= 0)
                     isInvincible = false;
                     SetAnimation("");
 
             }
 
-            goriyaSprite.Update(gameTime);
-
-          
-            if (direction == Direction.Up || direction == Direction.Down)
-            {
-                
-                if ((int)(gameTime.TotalGameTime.TotalMilliseconds / 150) % 2 == 0)
+            if (!frozen) {
+                double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
+                currentState.Update(this, gameTime);
+                goriyaSprite.Update(gameTime);
+                if (direction == Direction.Up || direction == Direction.Down)
                 {
-                    currentSpriteEffect = SpriteEffects.None;
+
+                    if ((int)(gameTime.TotalGameTime.TotalMilliseconds / 150) % 2 == 0)
+                    {
+                        currentSpriteEffect = SpriteEffects.None;
+                    }
+                    else
+                    {
+                        currentSpriteEffect = SpriteEffects.FlipHorizontally;
+                    }
                 }
-                else
+                else if (direction == Direction.Left)
                 {
                     currentSpriteEffect = SpriteEffects.FlipHorizontally;
                 }
-            }
-            else if (direction == Direction.Left)
-            {
-                currentSpriteEffect = SpriteEffects.FlipHorizontally;
-            }
-            else
-            {
-                currentSpriteEffect = SpriteEffects.None;
+                else
+                {
+                    currentSpriteEffect = SpriteEffects.None;
+                }
+
+                foreach (var b in boomerangs)
+                {
+                    b.ownerPosition(position);
+                    b.Update(gameTime);
+                }
             }
 
-            //boomerangThrowable.Update(gameTime, position);
-            foreach (var b in boomerangs) {
-                b.ownerPosition(position);
-                b.Update(gameTime);
-            }
+            
         }
 
         public void CollisionUpdate(CollisionBox other)

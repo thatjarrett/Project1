@@ -128,21 +128,21 @@ namespace Project1.Entities
             isInvincible = value;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, bool frozen)
         {
-            currentState.Update(this, gameTime);
-
-
-
             if (isInvincible)
             {
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (invincibleTime <= 0)
                     isInvincible = false;
                     SetAnimation("");
-
             }
-            handSprite.Update(gameTime);
+
+            if (!frozen) {
+                currentState.Update(this, gameTime);
+                handSprite.Update(gameTime);
+            }
+
         }
 
         public void CollisionUpdate(CollisionBox other)

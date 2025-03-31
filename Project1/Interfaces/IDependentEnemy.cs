@@ -9,7 +9,7 @@ namespace Project1.Interfaces
 {
     public interface IDependentEnemy : IEnemy
     {
-        public void Update(GameTime gameTime, Link link);
+        public void Update(GameTime gameTime, Link link, bool frozen);
     }
 }
 
