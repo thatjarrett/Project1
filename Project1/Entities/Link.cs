@@ -658,6 +658,10 @@ namespace Project1.Entities
         {
             return bombCount;
         }
+        public int GetKeyCount()
+        {
+            return keys;
+        }
 
         public bool isFrozen() {
             return freezeEnemies;
