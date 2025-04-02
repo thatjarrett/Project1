@@ -69,7 +69,7 @@ public class BombProjectile : IProjectile
 
         }
         else if (bombTimer < 290) {
-            owner.deleteBomb();
+            owner.DeleteBomb();
         }
     }
     public void placeBomb(Vector2 Position)

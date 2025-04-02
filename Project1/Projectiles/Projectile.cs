@@ -27,33 +27,28 @@ namespace Project1.Projectiles
         }
         public void Update(GameTime gameTime)
         {
-            _sprite1.Update(gameTime);
-            _sprite2.Update(gameTime);
-            _position = _magnitude * _direction + _position;
-            collider.Move((int) (_magnitude*_direction.X), (int)(_magnitude * _direction.Y));
+            _sprite1?.Update(gameTime);
+            _sprite2?.Update(gameTime);
+
+            _position += _magnitude * _direction;
+            collider.Move((int)(_magnitude * _direction.X), (int)(_magnitude * _direction.Y));
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             SpriteEffects effect = SpriteEffects.None;
             ISprite activeSprite = _sprite1;
 
             if (_direction.X < 0)
-            {
                 effect = SpriteEffects.FlipHorizontally;
-            }
             if (_direction.Y > 0)
-            {
                 effect = SpriteEffects.FlipVertically;
-            }
-            if (_direction.X == 0)
-            {
+            if (_direction.X == 0 && _sprite2 != null)
                 activeSprite = _sprite2;
-            }
 
-            activeSprite.Draw(spriteBatch, _position, effect);
-
-
+            activeSprite?.Draw(spriteBatch, _position, effect);
         }
+
 
         public void Destroy()
         {

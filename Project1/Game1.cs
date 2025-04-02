@@ -93,7 +93,8 @@ public class Game1 : Game
         AttackCommand.LoadContent(Content);
         BombProjectile.LoadContent(Content);
         link = new Link(new Vector2(350, 170));
-        
+        linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
+
 
         createSprites();
         hud = new IHUD(link, hudTexture,heartsTexture,coverTexture,atlasTexture,font1);
@@ -339,7 +340,7 @@ public class Game1 : Game
         heartsTexture = Content.Load<Texture2D>("Images/HealthSprite");
         coverTexture = Content.Load<Texture2D>("Images/coverSprite");
         createItemSprites();
-        link.createLinkSprites(linkTexture);
+        link.CreateLinkSprites(linkTexture);
     }
 
     protected void createItemSprites()
@@ -351,6 +352,7 @@ public class Game1 : Game
         enemySpawnCloud = new EnemySpawnCloud(enemySpawnTexture, new Vector2(0, 0));
         
     }
+
     public void CycleBlock(bool forward)
     {
         if (tiles.Count == 0) return;
@@ -433,7 +435,7 @@ public class Game1 : Game
             }
         }
 
-        List<IProjectile> linkBombs = link.getBombs();
+        List<IProjectile> linkBombs = link.GetBombs();
         foreach (var b in linkBombs)
         {
             LinkEnemyCollisionHandler.HandleCollision(link, b);
@@ -444,10 +446,10 @@ public class Game1 : Game
         {
             if (enemy is IDependentEnemy spikeTrap)
             {
-                spikeTrap.Update(gameTime, link, link.isFrozen());
+                spikeTrap.Update(gameTime, link, link.IsFrozen());
             } else
             {
-                enemy.Update(gameTime, link.isFrozen());
+                enemy.Update(gameTime, link.IsFrozen());
             }
 
             LinkEnemyCollisionHandler.HandleCollision(link, enemy);
@@ -473,7 +475,7 @@ public class Game1 : Game
                 LinkEnemyCollisionHandler.HandleCollision(b, enemy);
             }
 
-            CollisionBox sword = link.getSword();
+            CollisionBox sword = link.GetSword();
             LinkEnemyCollisionHandler.HandleCollision(sword, enemy);
             enemyNum++;
             if (enemyNum >= enemies.Count)
