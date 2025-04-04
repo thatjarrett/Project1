@@ -61,7 +61,7 @@ public class Game1 : Game
 
     private List<IItem> itemsList = new List<IItem>();
 
-    Level leveltest;
+    levelManager levels;
     IHUD hud;
 
     private bool paused = false;
@@ -102,22 +102,22 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-        leveltest = new Level("Content/Level Data/BlockLevel.txt", "Content/Level Data/EntityLevel.txt");
+        
         environmentTexture = Content.Load<Texture2D>("Images/dungeonTiles");
         npcTexture = Content.Load<Texture2D>("Images/oldMan");
-        leveltest.loadTileSprites(environmentTexture, npcTexture);
-        tiles.AddRange(leveltest.buildTiles());
-        
-
-
         aquamentusTexture = Content.Load<Texture2D>("Images/bosses");
         enemyTexture = Content.Load<Texture2D>("Images/enemies");
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
-        leveltest.loadEntitySprites(aquamentusTexture, enemyTexture, itemTexture);
+
+        
+        levels = new levelManager(environmentTexture, npcTexture, aquamentusTexture, enemyTexture, itemTexture);
+
+
+        tiles.AddRange(levels.buildTiles());
 
         List<IItem> tempitemlist = new List<IItem>();
         List<IEnemy> tempenemylist = new List<IEnemy>();
-        (tempitemlist,tempenemylist) = leveltest.buildEntities(); // potentially referenceing issues here? but if it works I wont think too hard about it
+        (tempitemlist,tempenemylist) = levels.buildEntities(); // potentially referenceing issues here? but if it works I wont think too hard about it
         // can return empty lists, im pretty sure draw and update break if there are no enemies or no items on the map
         itemsList.AddRange(tempitemlist);
         enemies.AddRange(tempenemylist);
@@ -189,8 +189,8 @@ public class Game1 : Game
         gamepadController = new GamepadController(gamepadCommands, new IdleCommand(link));
 
         keyboardController = new KeyboardController(commands, new IdleCommand(link));
-        _graphics.PreferredBackBufferWidth = 768;
-        _graphics.PreferredBackBufferHeight = 648;
+        _graphics.PreferredBackBufferWidth = 768+3000;
+        _graphics.PreferredBackBufferHeight = 648+3000;
         _graphics.ApplyChanges();
     }
 

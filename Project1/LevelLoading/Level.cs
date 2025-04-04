@@ -24,13 +24,10 @@ namespace Project1.LevelLoading
 
         int[,] levelTiles = new int[8, 12];
         int[,] levelEntities = new int[7, 12];
-        TileBuilder tileBuilder;
-        EntityBuilder EntityBuilder;
-        Texture2D TileTex;
         int roomOffsetX=0;
         int roomOffsetY=0;
 
-        public Level(string tileFile, string entityFile)
+        public Level(string tileFile, string entityFile,int X,int Y)
         {
             string[] lines = File.ReadAllLines(tileFile);
             int i = 0;
@@ -40,7 +37,7 @@ namespace Project1.LevelLoading
                 string[] splitLine = line.Split(',');
                 foreach (string number in splitLine)
                 {
-                    int x = Int32.Parse(number);
+                     int x = Int32.Parse(number);
                     levelTiles[i, j] = x;
                     j++;
                 }
@@ -61,20 +58,12 @@ namespace Project1.LevelLoading
                 i++;
             }
 
-        }
-        public void loadTileSprites(Texture2D environmentTexture, Texture2D npcTexture)
-        {
-            tileBuilder = new TileBuilder(environmentTexture, npcTexture);
-            this.TileTex = environmentTexture;
-
-        }
-        public void loadEntitySprites(Texture2D aquamentusTexture, Texture2D enemytexture, Texture2D itemSprites)
-        {
-            EntityBuilder = new EntityBuilder(aquamentusTexture, enemytexture, itemSprites);
-        }
+            this.roomOffsetX = X;
+            this.roomOffsetY = Y;
+        }  
         
 
-        public List<environmentTile> buildTiles()
+        public List<environmentTile> buildTiles(TileBuilder tileBuilder)
         {
             List<environmentTile> tileList = new List<environmentTile>();
             int x = 16 * 3;
@@ -102,7 +91,7 @@ namespace Project1.LevelLoading
             tileList.Add(tileBuilder.buildTile(levelTiles[7, 7], new Vector2(roomOffsetX + ((32 + (16 * 12)) * 3), roomOffsetY + (120 +(72) * 3))));        //right
             return tileList;
         }
-        public (List<IItem>, List<IEnemy>) buildEntities()
+        public (List<IItem>, List<IEnemy>) buildEntities(EntityBuilder EntityBuilder)
         {
             List<IItem> itemList = new List<IItem>();
             List<IEnemy> enemyList = new List<IEnemy>();
@@ -128,13 +117,13 @@ namespace Project1.LevelLoading
             }
             return (itemList,enemyList);
         }
-    
+
         public void setRoomOffset(int x, int y)
         {
             this.roomOffsetX = x;
             this.roomOffsetY = y;
         }
-    
+
     }
 }
 
