@@ -61,6 +61,8 @@ public class Game1 : Game
 
     private List<IItem> itemsList = new List<IItem>();
 
+    private List<IAnimation> animationsList = new List<IAnimation>();
+
     levelManager levels;
     IHUD hud;
 
@@ -112,7 +114,7 @@ public class Game1 : Game
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
 
 
-        levels = new levelManager(environmentTexture, npcTexture, aquamentusTexture, enemyTexture, itemTexture, crackedWallTexture);
+        levels = new levelManager(environmentTexture, npcTexture, aquamentusTexture, enemyTexture, itemTexture, crackedWallTexture, enemyDeathTexture);
 
 
         tiles.AddRange(levels.buildTiles());
@@ -134,7 +136,10 @@ public class Game1 : Game
          //Add bomb to list of items and delete this comment when items are implemented! -Bren
          //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
 
-         entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture);
+         entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture, enemyDeathTexture);
+
+        //IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
+        //enemies.Add(g);
 
     }
     protected override void Initialize()
@@ -234,6 +239,10 @@ public class Game1 : Game
             if (!enemies[x].Alive()) {
                 IItem i = entityBuilder.buildItem(enemies[x].getLoot(), enemies[x].getPos());
                 itemsList.Add(i);
+
+                IAnimation death = entityBuilder.buildAnimation(1, enemies[x].getPos());
+                animationsList.Add(death);
+
                 enemies.RemoveAt(x);
                 //TODO: play death animation also
             }
@@ -248,6 +257,15 @@ public class Game1 : Game
                 itemsList.RemoveAt(why);
             }
             why--;
+        }
+
+        int z = animationsList.Count - 1;
+        while (z >= 0) {
+            if (!animationsList[z].isActive())
+            {
+                animationsList.RemoveAt(z);
+            }
+            z--;
         }
     }
     
@@ -304,7 +322,11 @@ public class Game1 : Game
                 tile.Draw(_spriteBatch);
             }
         }
-     
+
+        foreach (var anim in animationsList) {
+            anim.Draw(_spriteBatch, SpriteEffects.None);
+        }
+
         foreach (var item in itemsList)
         {
            item.Draw(_spriteBatch, SpriteEffects.None);
@@ -377,8 +399,8 @@ public class Game1 : Game
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
         enemyDeathTexture = Content.Load<Texture2D>("Images/EnemyDeathCloud");
         enemySpawnTexture = Content.Load<Texture2D>("Images/EnemyCloud");
-        enemyDeathCloud = new EnemyDeathCloud(enemyDeathTexture, new Vector2(0,0));
-        enemySpawnCloud = new EnemySpawnCloud(enemySpawnTexture, new Vector2(0, 0));
+        //enemyDeathCloud = new EnemyDeathCloud(enemyDeathTexture, new Vector2(0,0));
+        //enemySpawnCloud = new EnemySpawnCloud(enemySpawnTexture, new Vector2(0, 0));
         
     }
 
@@ -407,6 +429,7 @@ public class Game1 : Game
         tiles.Clear();
         itemsList.Clear();
         enemies.Clear();
+        animationsList.Clear();
 
         // Reinitialize the game
         Initialize();
@@ -477,6 +500,9 @@ public class Game1 : Game
             {
                 itemNum = 0;
             }
+        }
+        foreach (var anim in animationsList) {
+            anim.Update(gameTime);
         }
 
         List<IProjectile> linkBombs = link.GetBombs();

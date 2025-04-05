@@ -17,6 +17,8 @@ namespace Project1.GameObjects.Animations
 
         bool active = true;
 
+        int timer = 0;
+
         public EnemyDeathCloud(Texture2D texture, Vector2 pos)
         {
             this.texture = texture;
@@ -26,6 +28,10 @@ namespace Project1.GameObjects.Animations
         public void Update(GameTime gameTime)
         {
             frameState = gameTime.TotalGameTime.Milliseconds / 100 % 7;
+            timer++;
+            if (timer == 20) {
+                active = false;
+            }
 
         }
         public void SetColor(Color _color)

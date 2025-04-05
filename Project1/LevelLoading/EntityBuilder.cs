@@ -10,6 +10,7 @@ using Project1.Sprites;
 using Project1.Interfaces;
 using Project1.Entities;
 using Project1.GameObjects.Items;
+using Project1.GameObjects.Animations;
 
 
 namespace Project1.LevelLoading
@@ -20,12 +21,36 @@ namespace Project1.LevelLoading
         Texture2D aquamentusTexture;
         Texture2D enemyTexture;
         Texture2D itemTexture;
+        Texture2D deathAnim;
 
-        public EntityBuilder(Texture2D aquamentusTexture, Texture2D enemytexture, Texture2D itemTexture)
+        public EntityBuilder(Texture2D aquamentusTexture, Texture2D enemytexture, Texture2D itemTexture, Texture2D deathAnim)
         {
             this.enemyTexture = enemytexture;
             this.aquamentusTexture = aquamentusTexture;
             this.itemTexture = itemTexture;
+            this.deathAnim = deathAnim;
+        }
+
+        public IAnimation buildAnimation(int idNum, Vector2 location)
+        {
+            IAnimation animation;
+            switch (idNum) {
+                case 1: 
+                    {
+                        animation = new EnemyDeathCloud(deathAnim, location);
+                        break;
+                    }
+
+                default:
+                    {
+                        animation = new EnemyDeathCloud(deathAnim, location);
+                        break;
+                    }
+
+            }
+
+            return animation;
+
         }
 
         public IEnemy buildEnemy(int IdNum, Vector2 Location)
@@ -74,6 +99,12 @@ namespace Project1.LevelLoading
                     enemy = new Hand(Location);
                     enemy.createEnemySprites(enemyTexture);
                     break;
+                }
+                case 8: 
+                {
+                        enemy = new KeySkeleton(Location);
+                        enemy.createEnemySprites(enemyTexture);
+                        break;    
                 }
                 default:
                 {
