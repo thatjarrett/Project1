@@ -102,6 +102,13 @@ namespace Project1.Entities
             currentState.Enter(this);
         }
 
+        public Vector2 GetCenterPos()
+        {
+            //set offset to half of resolution
+            return position + new Vector2(-384, -324);
+        }
+
+
         public void Hide()
         {
             isVisible = false;

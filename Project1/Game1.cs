@@ -69,7 +69,7 @@ public class Game1 : Game
 
     //Debug Variables
     Texture2D pixelTexture;
-    bool debugDraw = false;
+    bool debugDraw = true;
 
     private EntityBuilder entityBuilder;// = new EntityBuilder(aquamentusTexture, enemytexture, );
     public Game1()
@@ -190,8 +190,8 @@ public class Game1 : Game
         gamepadController = new GamepadController(gamepadCommands, new IdleCommand(link));
 
         keyboardController = new KeyboardController(commands, new IdleCommand(link));
-        _graphics.PreferredBackBufferWidth = 768+3000;
-        _graphics.PreferredBackBufferHeight = 648+3000;
+        _graphics.PreferredBackBufferWidth = 768;
+        _graphics.PreferredBackBufferHeight = 648;
         _graphics.ApplyChanges();
     }
 
@@ -256,14 +256,23 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.Black);
 
-        _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
-        
+        _spriteBatch.Begin(
+            SpriteSortMode.Deferred,
+            BlendState.NonPremultiplied,
+            SamplerState.PointClamp,
+            null,
+            null,
+            null,
+            Camera.GetTransformation(link.GetCenterPos())
+        );
+
+
 
 
         int tileNum = 0;
         int enemyNum = 0;
         int itemNum =0;
-        foreach (var tile in tiles)
+        /*foreach (var tile in tiles)
         {
             tile.SetCollider();
             if (currentBlockIndex == tileNum)
@@ -280,10 +289,20 @@ public class Game1 : Game
             {
                 tileNum = 0;
             }
-        }
+        }*/
         foreach(var tile in tiles)
         {
-            tile.Draw(_spriteBatch );
+            
+            if (tile is not doorTile)
+            {
+                tile.SetCollider();
+                tile.Draw(_spriteBatch);
+            } 
+            else
+            {
+                //some door logic
+                //tile.Draw(_spriteBatch);
+            }
         }
      
         foreach (var item in itemsList)
@@ -323,11 +342,21 @@ public class Game1 : Game
         {
             link.GetCollider().DebugDraw(_spriteBatch, pixelTexture, link.GetCollider().hitbox, Color.Blue);
         }
-        hud.Draw(_spriteBatch);
-        GameManager.Instance.Draw(_spriteBatch, GraphicsDevice);
+        
+        
+
         _spriteBatch.End();
 
+        _spriteBatch.Begin(
+            SpriteSortMode.Deferred,
+            BlendState.NonPremultiplied,
+            SamplerState.PointClamp
+        );
 
+        hud.Draw(_spriteBatch);
+        GameManager.Instance.Draw(_spriteBatch, GraphicsDevice);
+
+        _spriteBatch.End();
 
         base.Draw(gameTime);
     }
@@ -388,26 +417,41 @@ public class Game1 : Game
         
         foreach (var tile in tiles)
         {
-            CollisionBox collider = tile.GetCollider();
-            if (tile is pushableBlock block)
+            if (tile is wallTile wall)
             {
-                CollisionBox linkPush = link.GetCollider();
-                block.CollisionUpdate(linkPush);
-
-                
-
-            }
-            else if(collider != null)
-            {
-                link.CollisionUpdate(collider);
-            }
-            foreach (var enemy in enemies)
-            {
-                if (collider != null)
+                List<CollisionBox> colliders = wall.GetColliderList();
+                if(colliders != null)
                 {
-                    enemy.CollisionUpdate(collider);
+                    foreach(var collider in colliders)
+                    {
+                        link.CollisionUpdate(collider);
+                    }
+                }
+
+            } else
+            {
+                CollisionBox collider = tile.GetCollider();
+                if (tile is pushableBlock block)
+                {
+                    CollisionBox linkPush = link.GetCollider();
+                    block.CollisionUpdate(linkPush);
+
+
+
+                }
+                else if (collider != null)
+                {
+                    link.CollisionUpdate(collider);
+                }
+                foreach (var enemy in enemies)
+                {
+                    if (collider != null)
+                    {
+                        enemy.CollisionUpdate(collider);
+                    }
                 }
             }
+            
         }
         CollisionBox linkCollider = link.GetCollider();
         foreach (var enemy in enemies)

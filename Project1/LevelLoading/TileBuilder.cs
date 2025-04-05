@@ -225,7 +225,7 @@ namespace Project1.LevelLoading
                     }
                 case 19:
                     {
-                        tile = new wallTile(location, 96, 336);       // need to remove ID requirement from doorTile
+                        tile = new wallTile(location, 96, 336, false);       // need to remove ID requirement from doorTile
                         tile.setSprite(this.leftWallSprite);
                         break;
                     }
@@ -261,7 +261,7 @@ namespace Project1.LevelLoading
                     }
                 case 25:
                     {
-                        tile = new wallTile(location, 96, 336);
+                        tile = new wallTile(location, 96, 336, false);
                         tile.setSprite(this.rightWallSprite);
                         break;
                     }

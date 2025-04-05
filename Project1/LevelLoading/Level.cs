@@ -83,7 +83,8 @@ namespace Project1.LevelLoading
             tileList.Add(tileBuilder.buildTile(levelTiles[7, 0], new Vector2(roomOffsetX+0, roomOffsetY + 120)));
             tileList.Add(tileBuilder.buildTile(levelTiles[7, 1], new Vector2(roomOffsetX + 0, roomOffsetY + (120 +(32+(16*7))*3))));
             tileList.Add(tileBuilder.buildTile(levelTiles[7, 2], new Vector2(roomOffsetX + 0, roomOffsetY + (120 +32*3))));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 3], new Vector2(roomOffsetX + ((32+(16*12))*3), roomOffsetY + (120 +32*3))));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 3], new Vector2(roomOffsetX + (3 * 32) + (12 * 48), roomOffsetY + (3 * 32) + 120)));
+
             //Door slots
             tileList.Add(tileBuilder.buildTile(levelTiles[7, 4], new Vector2(roomOffsetX + (112 *3), roomOffsetY + 120)));     //top
             tileList.Add(tileBuilder.buildTile(levelTiles[7, 5], new Vector2(roomOffsetX + (112 *3), roomOffsetY + (120 +(32 + (16 * 7)) * 3))));       //bottom

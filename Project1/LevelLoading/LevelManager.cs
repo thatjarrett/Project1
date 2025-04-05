@@ -59,7 +59,7 @@ namespace Project1.LevelLoading
             levels.Add(new Level(levelNegOneNegThree, entityZeroZero, -1 * pageSizeX, -3 * pageSizeY));
             levels.Add(new Level(levelNegOneTwo,entityZeroZero, -1 * pageSizeX, 2 *pageSizeY));
             levels.Add(new Level(levelNegOneZero,entityZeroZero,-1*pageSizeX,0));
-            levels.Add(new Level(levelNegTwoZero, entityZeroZero, -2 * pageSizeY, 0));
+            levels.Add(new Level(levelNegTwoZero, entityZeroZero, -2 * pageSizeX, 0));
             levels.Add(new Level(levelOneNegOne, entityZeroZero, pageSizeX, -1 * pageSizeY));
             levels.Add(new Level(levelOneNegThree, entityZeroZero, pageSizeX, -3 * pageSizeY));
             levels.Add(new Level(levelOneZero, entityZeroZero,1*pageSizeX, 0));
