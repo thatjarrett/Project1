@@ -1,6 +1,10 @@
 ﻿Review by Jarrett
-Reviewing TileBuilder.cs
-Original file by Bennett
+Reviewing Skeleton.cs
+Original file by Angstrom
 4/5/2025
 Sprint 4
 
+The skeleton is even better than ever before with a new method dedicated to dropping items after the enemy dies.
+The loot table is relatively simple, but the implementation is robust and definitely works for what we need it to do.
+The logic for the skeleton is also simple, with many stub methods, which keeps our code clean and understandable, maintaining a high quality standard. 
+We also now have enemy health implemented, meaning that it can take more than one hit, tracking its health while Link fights it.
