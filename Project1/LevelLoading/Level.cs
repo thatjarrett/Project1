@@ -75,8 +75,10 @@ namespace Project1.LevelLoading
                     int tileNum = levelTiles[i, j];    
                     int destinationx = roomOffsetX+(3*32) + (x * j);
                     int destinationy = roomOffsetY +(3*32)+120 + (y * i);
-                    tileList.Add(tileBuilder.buildTile(tileNum,new Vector2(destinationx, destinationy)));
-                      
+                    int index = tileList.Count;
+                    tileList.Add(tileBuilder.buildTile(tileNum, new Vector2(destinationx, destinationy), tileList, index));
+
+
                 }
             }
             //Big walls

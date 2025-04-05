@@ -47,9 +47,10 @@ namespace Project1.LevelLoading
         int pageSizeX = 768;
         int pageSizeY = -528;
 
-        public levelManager(Texture2D environmentTexture, Texture2D npcTexture, Texture2D aquamentusTexture, Texture2D enemytexture, Texture2D itemSprites)
+        public levelManager(Texture2D environmentTexture, Texture2D npcTexture, Texture2D aquamentusTexture, Texture2D enemytexture, Texture2D itemSprites, Texture2D crackedWallTexture)
+
         {
-            tileBuilder = new TileBuilder(environmentTexture, npcTexture);
+            tileBuilder = new TileBuilder(environmentTexture, npcTexture, crackedWallTexture);
             this.TileTex = environmentTexture;
             EntityBuilder = new EntityBuilder(aquamentusTexture, enemytexture, itemSprites);
 
