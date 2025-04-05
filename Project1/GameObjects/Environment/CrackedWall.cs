@@ -8,17 +8,15 @@ namespace Project1.GameObjects.Environment
     public class CrackedWallTile : environmentTile
     {
         private ISprite _bombedOpeningSprite;
-        private List<environmentTile> _tileList;
-        private int _index;
+        //private int _index;
 
         public bool IsBroken { get; private set; }
 
-        public CrackedWallTile(Vector2 location, ISprite bombedOpeningSprite, List<environmentTile> tileList, int index)
+        public CrackedWallTile(Vector2 location, ISprite bombedOpeningSprite)
             : base(location, true)
         {
             this._bombedOpeningSprite = bombedOpeningSprite;
-            this._tileList = tileList;
-            this._index = index;
+            //this._index = index;
 
             this.IsSolid = true;
             this.IsBreakable = true;
@@ -37,7 +35,7 @@ namespace Project1.GameObjects.Environment
                 replacement.SetCollider(); 
 
                
-                _tileList[_index] = replacement;
+                //_tileList[_index] = replacement;
             }
         }
     }

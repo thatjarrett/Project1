@@ -103,10 +103,10 @@ namespace Project1.LevelLoading
             this.rightDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 67, 32, 32));
             this.rightBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 67, 32, 32));
 
-            this.topCrackedWallSprite = new NMoveNAnim(crackedWallTexture, new Rectangle(0, 0, 32, 32));
-            this.bottomCrackedWallSprite = this.topCrackedWallSprite;
-            this.leftCrackedWallSprite = this.topCrackedWallSprite;
-            this.rightCrackedWallSprite = this.topCrackedWallSprite;
+            this.topCrackedWallSprite = new NMoveNAnim(crackedWallTexture, new Rectangle(427, 1, 32, 32));
+            this.bottomCrackedWallSprite = new NMoveNAnim(crackedWallTexture, new Rectangle(427, 100, 32, 32));
+            this.leftCrackedWallSprite = new NMoveNAnim(crackedWallTexture, new Rectangle(427, 34, 32, 32));
+            this.rightCrackedWallSprite = new NMoveNAnim(crackedWallTexture, new Rectangle(427, 67, 32, 32));
 
 
 
@@ -349,48 +349,30 @@ namespace Project1.LevelLoading
                         tile.setSprite(this.squareBlockSprite);
                         break;
                     }
-
-                default:
-                    {
-                        tile = new BlueFloor(location);
-                        tile.setSprite(this.blueFloorSprite);
-                        break;
-                    }
-            }
-            return tile;
-        }
-
-        public environmentTile buildTile(int tileID, Vector2 location, List<environmentTile> tileList, int index)
-        {
-            environmentTile tile;
-
-            switch (tileID)
-            {
                 case 36:
                     {
-                        tile = new CrackedWallTile(location, this.topBombedOpeningSprite, tileList, index);
+                        tile = new CrackedWallTile(location, this.topBombedOpeningSprite);
                         tile.setSprite(this.topCrackedWallSprite);
                         break;
                     }
                 case 37:
                     {
-                        tile = new CrackedWallTile(location, this.bottomBombedOpeningSprite, tileList, index);
+                        tile = new CrackedWallTile(location, this.bottomBombedOpeningSprite);
                         tile.setSprite(this.bottomCrackedWallSprite);
                         break;
                     }
                 case 38:
                     {
-                        tile = new CrackedWallTile(location, this.leftBombedOpeningSprite, tileList, index);
+                        tile = new CrackedWallTile(location, this.leftBombedOpeningSprite);
                         tile.setSprite(this.leftCrackedWallSprite);
                         break;
                     }
                 case 39:
                     {
-                        tile = new CrackedWallTile(location, this.rightBombedOpeningSprite, tileList, index);
+                        tile = new CrackedWallTile(location, this.rightBombedOpeningSprite);
                         tile.setSprite(this.rightCrackedWallSprite);
                         break;
                     }
-                // ... keep other cases as-is
                 default:
                     {
                         tile = new BlueFloor(location);
@@ -398,7 +380,6 @@ namespace Project1.LevelLoading
                         break;
                     }
             }
-
             return tile;
         }
 

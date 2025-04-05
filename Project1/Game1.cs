@@ -301,7 +301,7 @@ public class Game1 : Game
             else
             {
                 //some door logic
-                //tile.Draw(_spriteBatch);
+                tile.Draw(_spriteBatch);
             }
         }
      
