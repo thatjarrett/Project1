@@ -9,6 +9,9 @@ namespace Project1.GameObjects.Environment
     {
         protected Vector2 _position;
         protected bool _collides;
+        protected bool _isSolid = false;
+        protected bool _isBreakable = false;
+
         private ISprite _sprite;
         protected CollisionBox collider;
 
@@ -17,16 +20,33 @@ namespace Project1.GameObjects.Environment
             _position = pos;
             _collides = collision;
         }
+
+        public bool IsSolid
+        {
+            get => _isSolid;
+            protected set => _isSolid = value;
+        }
+
+        public bool IsBreakable
+        {
+            get => _isBreakable;
+            protected set => _isBreakable = value;
+        }
+
+
+        public virtual void Break()
+        {
+            // By default, nothing happens. Override in breakable tiles.
+        }
+
         public void Update(GameTime gameTime)
         {
-            if (_sprite != null)
-            {
-                _sprite.Update(gameTime);
-            }
+            _sprite?.Update(gameTime);
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            _sprite.Draw(spriteBatch, _position, SpriteEffects.None);
+            _sprite?.Draw(spriteBatch, _position, SpriteEffects.None);
         }
 
         public void setSprite(ISprite sprite)
@@ -39,7 +59,9 @@ namespace Project1.GameObjects.Environment
         }
 
         public CollisionBox GetCollider()
-        { return collider; }
+        {
+            return collider;
+        }
 
         public virtual void SetCollider()
         {
@@ -47,7 +69,6 @@ namespace Project1.GameObjects.Environment
             {
                 collider = new CollisionBox((int)_position.X, (int)_position.Y);
             }
-            
         }
     }
 }

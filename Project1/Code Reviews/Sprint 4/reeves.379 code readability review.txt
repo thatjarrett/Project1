@@ -1,0 +1,11 @@
+﻿Review by Jarrett
+Reviewing TileBuilder.cs
+Original file by Bennett
+4/5/2025
+Sprint 4
+
+When editing this file to work with bombable walls and implement that functionality, I was thuroughly impressed with how readable and easy to process the file was.
+I thought initially that adding that functionality would be a technically intense and difficult task, but the file was easy to parse and understand.
+The file has a convenient dictionary at the bottom that makes understanding what blocks correspond to certain numbers rather easy, and I was easily able to understand where bombable walls would fit. 
+I was also impressed with how easy it was to add new cases for the bombable walls and was able to load them easily too.
+This file is a really good example of modular code, and how new code can be added onto it even after the primary functionalities are complete.

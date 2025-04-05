@@ -8,6 +8,7 @@ using Project1.GameObjects.Environment;
 using Project1.Handlers;
 using Project1.Sprites;
 using Project1.Interfaces;
+using System.Reflection;
 
 
 namespace Project1.LevelLoading
@@ -25,6 +26,7 @@ namespace Project1.LevelLoading
         ISprite topPlainWallSprite;
         ISprite topOpenDoorSprite;
         ISprite topBombedOpeningSprite;
+        ISprite topCrackedWallSprite;
         ISprite topKeyLockedDoorSprite;
         ISprite topDiamondLockedDoorSprite;
 
@@ -32,6 +34,7 @@ namespace Project1.LevelLoading
         ISprite bottomPlainWallSprite;
         ISprite bottomOpenDoorSprite;
         ISprite bottomBombedOpeningSprite;
+        ISprite bottomCrackedWallSprite;
         ISprite bottomKeyLockedDoorSprite;
         ISprite bottomDiamondLockedDoorSprite;
 
@@ -39,6 +42,7 @@ namespace Project1.LevelLoading
         ISprite leftPlainWallSprite;
         ISprite leftOpenDoorSprite;
         ISprite leftBombedOpeningSprite;
+        ISprite leftCrackedWallSprite;
         ISprite leftKeyLockedDoorSprite;
         ISprite leftDiamondLockedDoorSprite;
 
@@ -46,6 +50,7 @@ namespace Project1.LevelLoading
         ISprite rightPlainWallSprite;
         ISprite rightOpenDoorSprite;
         ISprite rightBombedOpeningSprite;
+        ISprite rightCrackedWallSprite;
         ISprite rightKeyLockedDoorSprite;
         ISprite rightDiamondLockedDoorSprite;
 
@@ -55,9 +60,10 @@ namespace Project1.LevelLoading
         ISprite whiteBrickSprite;
         ISprite blueFloorSprite;
         ISprite blueSandSprite;
-        
 
-        public TileBuilder(Texture2D environmentTexture, Texture2D npcTexture)
+
+        public TileBuilder(Texture2D environmentTexture, Texture2D npcTexture, Texture2D crackedWallTexture)
+
         {
             this.statueLeftSprite = new NMoveNAnim(environmentTexture, new Rectangle(515, 1, 16, 16));
             this.statueRightSprite = new NMoveNAnim(environmentTexture, new Rectangle(498, 1, 16, 16));
@@ -72,6 +78,7 @@ namespace Project1.LevelLoading
             this.topKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 1, 32, 32));
             this.topDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 1, 32, 32));
             this.topBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 1, 32, 32));
+            
 
             this.bottomWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 145, 256, 32));
             this.bottomPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 100, 32, 32));
@@ -79,6 +86,7 @@ namespace Project1.LevelLoading
             this.bottomKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 100, 32, 32));
             this.bottomDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 100, 32, 32));
             this.bottomBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 100, 32, 32));
+          
 
             this.leftWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(1, 33, 32, 112));
             this.leftPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 34, 32, 32));
@@ -86,6 +94,7 @@ namespace Project1.LevelLoading
             this.leftKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 34, 32, 32));
             this.leftDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 34, 32, 32));
             this.leftBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 34, 32, 32));
+            
 
             this.rightWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(225, 33, 32, 112));
             this.rightPlainWallSprite = new NMoveNAnim(environmentTexture, new Rectangle(295, 67, 32, 32));
@@ -93,6 +102,13 @@ namespace Project1.LevelLoading
             this.rightKeyLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(361, 67, 32, 32));
             this.rightDiamondLockedDoorSprite = new NMoveNAnim(environmentTexture, new Rectangle(394, 67, 32, 32));
             this.rightBombedOpeningSprite = new NMoveNAnim(environmentTexture, new Rectangle(427, 67, 32, 32));
+
+            this.topCrackedWallSprite = new NMoveNAnim(crackedWallTexture, new Rectangle(0, 0, 32, 32));
+            this.bottomCrackedWallSprite = this.topCrackedWallSprite;
+            this.leftCrackedWallSprite = this.topCrackedWallSprite;
+            this.rightCrackedWallSprite = this.topCrackedWallSprite;
+
+
 
             Rectangle[] fireFrames = new Rectangle[] { new Rectangle(52, 1, 16, 16), new Rectangle(69, 1, 16, 16) };
             this.fireSprite = new NMoveAnim(npcTexture, fireFrames, 5);
@@ -333,6 +349,7 @@ namespace Project1.LevelLoading
                         tile.setSprite(this.squareBlockSprite);
                         break;
                     }
+
                 default:
                     {
                         tile = new BlueFloor(location);
@@ -342,6 +359,49 @@ namespace Project1.LevelLoading
             }
             return tile;
         }
+
+        public environmentTile buildTile(int tileID, Vector2 location, List<environmentTile> tileList, int index)
+        {
+            environmentTile tile;
+
+            switch (tileID)
+            {
+                case 36:
+                    {
+                        tile = new CrackedWallTile(location, this.topBombedOpeningSprite, tileList, index);
+                        tile.setSprite(this.topCrackedWallSprite);
+                        break;
+                    }
+                case 37:
+                    {
+                        tile = new CrackedWallTile(location, this.bottomBombedOpeningSprite, tileList, index);
+                        tile.setSprite(this.bottomCrackedWallSprite);
+                        break;
+                    }
+                case 38:
+                    {
+                        tile = new CrackedWallTile(location, this.leftBombedOpeningSprite, tileList, index);
+                        tile.setSprite(this.leftCrackedWallSprite);
+                        break;
+                    }
+                case 39:
+                    {
+                        tile = new CrackedWallTile(location, this.rightBombedOpeningSprite, tileList, index);
+                        tile.setSprite(this.rightCrackedWallSprite);
+                        break;
+                    }
+                // ... keep other cases as-is
+                default:
+                    {
+                        tile = new BlueFloor(location);
+                        tile.setSprite(this.blueFloorSprite);
+                        break;
+                    }
+            }
+
+            return tile;
+        }
+
     }
 }
 /*

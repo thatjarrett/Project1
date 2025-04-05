@@ -103,6 +103,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/coverSprite.png
 
+#begin Images/crackedWall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/crackedWall.png
+
 #begin Images/DungeonRooms.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -169,18 +181,6 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Images/File.spritefont
-
-#begin Images/fullUi.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/fullUi.png
 
 #begin Images/fullUi.png
 /importer:TextureImporter

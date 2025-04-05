@@ -94,6 +94,7 @@ public class Game1 : Game
         BombProjectile.LoadContent(Content);
         link = new Link(new Vector2(350, 170));
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
+        Texture2D crackedWallTexture = Content.Load<Texture2D>("Images/crackedWall");
 
 
         createSprites();
@@ -109,9 +110,9 @@ public class Game1 : Game
         aquamentusTexture = Content.Load<Texture2D>("Images/bosses");
         enemyTexture = Content.Load<Texture2D>("Images/enemies");
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
-        
-        
-        levels = new levelManager(environmentTexture, npcTexture, aquamentusTexture, enemyTexture, itemTexture);
+
+
+        levels = new levelManager(environmentTexture, npcTexture, aquamentusTexture, enemyTexture, itemTexture, crackedWallTexture);
 
 
         tiles.AddRange(levels.buildTiles());
@@ -291,9 +292,17 @@ public class Game1 : Game
         }*/
         foreach(var tile in tiles)
         {
-           tile.SetCollider();
-           tile.Draw(_spriteBatch);
             
+            if (tile is not doorTile)
+            {
+                tile.SetCollider();
+                tile.Draw(_spriteBatch);
+            } 
+            else
+            {
+                //some door logic
+                //tile.Draw(_spriteBatch);
+            }
         }
      
         foreach (var item in itemsList)
