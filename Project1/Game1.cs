@@ -185,8 +185,7 @@ public class Game1 : Game
     { Buttons.Start, new ResetCommand(this) },
     { Buttons.BigButton, new ResetCommand(this) }
 };
-
-
+        
         gamepadController = new GamepadController(gamepadCommands, new IdleCommand(link));
 
         keyboardController = new KeyboardController(commands, new IdleCommand(link));

@@ -11,18 +11,61 @@ namespace Project1.Interfaces
         private Viewport view;
         private Matrix CameraMatrix;
         private float zoom = 1.0f;
+        private int CameraPosX=0;
+        private int CameraPosY=120;
+        private int CurrPlayerPosX;
+        private int CurrPlayerPosY;
+        private int cameraSpeed = 24;// must be a common factor of 528 and 768
+        private int targetPosX=0;
+        private int targetPosY=120;
 
         public Matrix GetTransformation(Vector2 playerPosition)
         {
+            this.CurrPlayerPosX = (int)playerPosition.X;
+            this.CurrPlayerPosY = (int)playerPosition.Y;
+            if ((CameraPosX - CurrPlayerPosX) < -384)
+            {
+                targetPosX = CameraPosX + 768;//row++
+            } else if (CameraPosX - CurrPlayerPosX > 384)
+            {
+                targetPosX = CameraPosX - 768;//row--
+            } else if ((CameraPosY - (CurrPlayerPosY+100))<-264)
+            {
+                targetPosY = CameraPosY + 528;//column++
+            } else if ((CameraPosY - (CurrPlayerPosY + 100)) > 264)
+            {
+                targetPosY = CameraPosY - 528;//column--
+            }
+            MoveTowardsTarget();
             return
-                Matrix.CreateScale(zoom) *
                 Matrix.CreateTranslation(new Vector3(
-                    view.Width / 2f - playerPosition.X * zoom,
-                    view.Height / 2f - playerPosition.Y * zoom,
+                    (CameraPosX) *-1,
+                    (CameraPosY - 120)*-1,
                     0f));
         }
 
+        public void MoveTowardsTarget()
+        {
 
+            if (CameraPosY < targetPosY)
+            {
+
+                CameraPosY += cameraSpeed;
+            }
+            else if(CameraPosY > targetPosY)
+            {
+                CameraPosY -= cameraSpeed;
+            }
+            if (CameraPosX < targetPosX)
+            {
+
+                CameraPosX += cameraSpeed;
+            }
+            else if (CameraPosX > targetPosX)
+            {
+                CameraPosX -= cameraSpeed;
+            }
+        }
         public Camera(Viewport view)
         {
 
