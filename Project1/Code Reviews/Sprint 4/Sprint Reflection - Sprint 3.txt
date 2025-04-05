@@ -1,3 +1,10 @@
 Sprint Reflection
 Sprint 4
 4/X/2025
+
+Jarrett- This sprint went well overall, with meaningful progress made on core features, but it definitely presented some challenges. 
+Toward the end, we found ourselves with a lot of work left to complete, which created a time crunch.
+This was largely due to some procrastination earlier in the sprint, which we’ll need to address in the final sprint to make sure we're complete.
+The technical demands of this sprint were pretty high too, involving more complex logic and more bugfixing, which naturally made the work more difficult.
+However, this also pushed us to improve our understanding of the code and use more collaboration in difficult parts.
+While the sprint had its rough patches, it was productive even though other classes were also taking up a lot of our time.
