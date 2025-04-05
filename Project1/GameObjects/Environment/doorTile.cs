@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace Project1.GameObjects.Environment
 {
@@ -9,5 +10,6 @@ namespace Project1.GameObjects.Environment
         {
 
         }
+        
     }
 }

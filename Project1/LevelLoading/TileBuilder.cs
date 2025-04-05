@@ -167,12 +167,14 @@ namespace Project1.LevelLoading
                     {
                         tile = new doorTile(location);        // need to remove ID requirement from doorTile
                         tile.setSprite(this.topOpenDoorSprite);
+                        tile.setCollision(false);
                         break;
                     }
                 case 10:
                     {
                         tile = new doorTile(location);       // need to remove ID requirement from doorTile
                         tile.setSprite(this.topBombedOpeningSprite);
+                        tile.setCollision(false);
                         break;
                     }
                 case 11:
@@ -203,12 +205,14 @@ namespace Project1.LevelLoading
                     {
                         tile = new doorTile(location);       // need to remove ID requirement from doorTile
                         tile.setSprite(this.bottomOpenDoorSprite);
+                        tile.setCollision(false);
                         break;
                     }
                 case 16:
                     {
                         tile = new doorTile(location);       // need to remove ID requirement from doorTile
                         tile.setSprite(this.bottomBombedOpeningSprite);
+                        tile.setCollision(false);
                         break;
                     }
                 case 17:
@@ -239,12 +243,14 @@ namespace Project1.LevelLoading
                     {
                         tile = new doorTile(location);       // need to remove ID requirement from doorTile
                         tile.setSprite(this.leftOpenDoorSprite);
+                        tile.setCollision(false);
                         break;
                     }
                 case 22:
                     {
                         tile = new doorTile(location);       // need to remove ID requirement from doorTile
                         tile.setSprite(this.leftBombedOpeningSprite);
+                        tile.setCollision(false);
                         break;
                     }
                 case 23:
@@ -275,12 +281,14 @@ namespace Project1.LevelLoading
                     {
                         tile = new doorTile(location);
                         tile.setSprite(this.rightOpenDoorSprite);
+                        tile.setCollision(false);
                         break;
                     }
                 case 28:
                     {
                         tile = new doorTile(location);
                         tile.setSprite(this.rightBombedOpeningSprite);
+                        tile.setCollision(false);
                         break;
                     }
                 case 29:

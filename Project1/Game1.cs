@@ -109,7 +109,7 @@ public class Game1 : Game
         aquamentusTexture = Content.Load<Texture2D>("Images/bosses");
         enemyTexture = Content.Load<Texture2D>("Images/enemies");
         itemTexture = Content.Load<Texture2D>("NES - The Legend of Zelda - Items & Weapons");
-
+        
         
         levels = new levelManager(environmentTexture, npcTexture, aquamentusTexture, enemyTexture, itemTexture);
 
@@ -267,7 +267,7 @@ public class Game1 : Game
 
 
 
-
+        
         int tileNum = 0;
         int enemyNum = 0;
         int itemNum =0;
@@ -291,17 +291,9 @@ public class Game1 : Game
         }*/
         foreach(var tile in tiles)
         {
+           tile.SetCollider();
+           tile.Draw(_spriteBatch);
             
-            if (tile is not doorTile)
-            {
-                tile.SetCollider();
-                tile.Draw(_spriteBatch);
-            } 
-            else
-            {
-                //some door logic
-                //tile.Draw(_spriteBatch);
-            }
         }
      
         foreach (var item in itemsList)

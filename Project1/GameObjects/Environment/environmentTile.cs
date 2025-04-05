@@ -33,6 +33,10 @@ namespace Project1.GameObjects.Environment
         {
             _sprite = sprite;
         }
+        public void setCollision(bool collision)
+        {
+            _collides = collision;
+        }
 
         public CollisionBox GetCollider()
         { return collider; }
