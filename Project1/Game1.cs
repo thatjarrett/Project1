@@ -49,13 +49,13 @@ public class Game1 : Game
     Texture2D enemySpawnTexture;
     Texture2D atlasTexture;
 
-    ISprite enemyDeathCloud;
-    ISprite enemySpawnCloud;
+    //ISprite enemyDeathCloud;
+    //ISprite enemySpawnCloud;
     SpriteFont font1;
     
     private int currentBlockIndex = 0;
     private int currentItemIndex = 0;
-    private int currentNPCIndex = 0;
+    //private int currentNPCIndex = 0;
     
     private int currentEnemyIndex = 0;
 
@@ -138,8 +138,8 @@ public class Game1 : Game
 
          entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture, enemyDeathTexture);
 
-        //IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
-        //enemies.Add(g);
+        IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
+        enemies.Add(g);
 
     }
     protected override void Initialize()

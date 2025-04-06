@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
 using Project1.Interfaces;
+using Project1.LevelLoading;
 using Project1.Projectiles;
 using Project1.Sprites;
 
@@ -35,7 +36,7 @@ namespace Project1.Entities
         private int health = 1;
         private bool alive = true;
 
-        Random random = new Random();
+        private LootTables lootTables = new LootTables();
         public Slime(Vector2 startPos)
         {
             position = startPos;
@@ -205,17 +206,7 @@ namespace Project1.Entities
 
         public int getLoot()
         {
-            int x = random.Next(0, 5);
-            int lootID;
-            if (x == 3)
-            {
-                lootID = 17; //arrow
-            }
-            else
-            {
-                lootID = 16; //rupee
-            }
-            return lootID;
+            return lootTables.getLootB();
         }
 
         public Vector2 getPos()

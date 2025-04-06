@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
 using Project1.Interfaces;
+using Project1.LevelLoading;
 using Project1.Projectiles;
 using Project1.Sprites;
 
@@ -36,7 +37,8 @@ namespace Project1.Entities
 
         private bool alive = true;
 
-        Random random = new Random();
+        private LootTables lootTable = new LootTables();
+
         public Hand(Vector2 startPos)
         {
             position = startPos;
@@ -207,25 +209,7 @@ namespace Project1.Entities
 
         public int getLoot()
         {
-            int x = random.Next(0, 10);
-            int lootID = 0;
-            if (x <= 5)
-            {
-                lootID = 16; //coin. note, sometimes coin is blue??
-            }
-            else if (6 <= x && x <= 7)
-            {
-                lootID = 15; //heart
-            }
-            else if (x == 8)
-            {
-                lootID = 20; //clock
-            }
-            else {
-                x = 17; //arrow. should be blue gem but whatever we dont have that implemented
-            }
-
-                return lootID;
+            return lootTable.getLootD();
         }
 
         public Vector2 getPos()

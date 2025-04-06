@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
 using Project1.Interfaces;
+using Project1.LevelLoading;
 using Project1.Projectiles;
 using Project1.Sprites;
 using System;
@@ -37,7 +38,7 @@ namespace Project1.Entities
 
         private bool alive = true;
 
-        Random random = new Random();
+        private LootTables lootTables = new LootTables();
         public KeySkeleton(Vector2 startPos)
         {
             position = startPos;
@@ -219,8 +220,7 @@ namespace Project1.Entities
 
         public int getLoot()
         {
-            int lootID = 12; //key
-            return lootID;
+            return lootTables.getKey();
         }
 
         public Vector2 getPos()

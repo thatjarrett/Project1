@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
 using Project1.Interfaces;
+using Project1.LevelLoading;
 using Project1.Projectiles;
 using Project1.Sprites;
 namespace Project1.Entities
@@ -35,7 +36,7 @@ namespace Project1.Entities
 
         private bool alive = true;
 
-        private Random random = new Random();
+        private LootTables lootTable = new LootTables();
         public Aquamentus(Vector2 startPos)
         {
             position = startPos;
@@ -266,21 +267,21 @@ namespace Project1.Entities
 
         public int getLoot()
         {
-            int x = random.Next(0, 10);
-            int lootID = 0;
-            if (0 <= x && x <= 6)
-            {
-                lootID = 15; //heart
-            }
-            else if (7 <= x && x <= 8)
-            {
-                lootID = 16; //coin
-            }
-            else {
-                lootID = 19; //fairy
-            }
+            //int x = random.Next(0, 10);
+            //int lootID = 0;
+            //if (0 <= x && x <= 6)
+            //{
+            //    lootID = 15; //heart
+            //}
+            //else if (7 <= x && x <= 8)
+            //{
+            //    lootID = 16; //coin
+            //}
+            //else {
+            //    lootID = 19; //fairy
+            //}
 
-                return lootID;
+            return lootTable.getLootA();
         }
 
         public Vector2 getPos()
