@@ -459,6 +459,12 @@ public class Game1 : Game
                 }
 
             }
+            else if (tile is stairsTile stairs) {
+                if (stairs.GetCollider().Intersects(link.GetCollider())) {
+                    //TODO: alter this later i guess...
+                    link.Move(0, 300);
+                }
+            }
             else
             {
                 CollisionBox collider = tile.GetCollider();

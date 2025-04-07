@@ -5,9 +5,9 @@ namespace Project1.GameObjects.Environment
     public class stairsTile : environmentTile
     {
         public stairsTile(Vector2 pos) :
-            base(pos, false)
+            base(pos, true)
         {
-
+            SetCollider();
         }
     }
 }
