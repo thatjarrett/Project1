@@ -27,15 +27,19 @@ namespace Project1.Interfaces
             if ((CameraPosX - CurrPlayerPosX) < -384)
             {
                 targetPosX = CameraPosX + 768;//row++
+                row++;
             } else if (CameraPosX - CurrPlayerPosX > 384)
             {
                 targetPosX = CameraPosX - 768;//row--
+                row--;
             } else if ((CameraPosY - (CurrPlayerPosY+100))<-264)
             {
                 targetPosY = CameraPosY + 528;//column++
+                column++;
             } else if ((CameraPosY - (CurrPlayerPosY + 100)) > 264)
             {
                 targetPosY = CameraPosY - 528;//column--
+                column--;
             }
             
             MoveTowardsTarget(ref isTransitioning);
@@ -79,6 +83,18 @@ namespace Project1.Interfaces
 
             this.view = view;
         }
-
+        public Vector2 getCameraPos()
+        {
+            return (new Vector2(row, column));
+        }
+        public void setCameraPos(Vector2 newLocation)
+        {
+            CameraPosX = newLocation.x*768;
+            CameraPosY = newLocation.y*528+120;
+            targetPosX = newLocation.x * 768;
+            targetPosY = newLocation.y * 528 + 120;
+            row = newLocation.x;
+            column = newLocation.y; 
+        }
     }
 }
