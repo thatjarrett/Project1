@@ -139,7 +139,9 @@ public class Game1 : Game
          entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture, enemyDeathTexture);
 
         IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
+        IEnemy s = entityBuilder.buildEnemy(2, new Vector2(200, 200));
         enemies.Add(g);
+        enemies.Add(s);
 
     }
     protected override void Initialize()
@@ -283,13 +285,7 @@ public class Game1 : Game
             null,
             Camera.GetTransformation(link.GetCenterPos())
         );
-
-
-
         
-        int tileNum = 0;
-        int enemyNum = 0;
-        int itemNum =0;
         /*foreach (var tile in tiles)
         {
             tile.SetCollider();
@@ -302,12 +298,8 @@ public class Game1 : Game
                     tile.GetCollider().DebugDraw(_spriteBatch, pixelTexture,collider.hitbox,Color.Red);
                 }
             }
-            tileNum++;
-            if (tileNum >= tiles.Count)
-            {
-                tileNum = 0;
-            }
         }*/
+
         foreach(var tile in tiles)
         {
             
@@ -346,14 +338,6 @@ public class Game1 : Game
         }
 
         //Keep link below the tiles so he's drawn above them
-
-        foreach (var tile in tiles)
-        {
-            if(tile is pushableBlock)
-            {
-                tile.Draw(_spriteBatch);
-            }
-        }
 
         if (!paused)
         {
@@ -482,20 +466,14 @@ public class Game1 : Game
 
         }
 
-        int itemNum = 0;
         foreach (var item in itemsList)
         {
             item.Update(gameTime);
 
             item.Update(gameTime);
             LinkEnemyCollisionHandler.HandleCollision(item, link);
-
-            itemNum++;
-            if (itemNum >= enemies.Count)
-            {
-                itemNum = 0;
-            }
         }
+
         foreach (var anim in animationsList) {
             anim.Update(gameTime);
         }
@@ -506,9 +484,17 @@ public class Game1 : Game
             LinkEnemyCollisionHandler.HandleCollision(link, b);
         }
 
-        int enemyNum = 0;
         foreach (var enemy in enemies)
         {
+            CollisionBox collider = enemy.GetCollider();
+            foreach (var enemy2 in enemies)
+            {
+                if (enemy != enemy2)
+                {
+                    enemy2.CollisionUpdate(collider);
+                }
+            }
+
             if (enemy is IDependentEnemy spikeTrap)
             {
                 spikeTrap.Update(gameTime, link, link.IsFrozen());
@@ -542,11 +528,6 @@ public class Game1 : Game
 
             CollisionBox sword = link.GetSword();
             LinkEnemyCollisionHandler.HandleCollision(sword, enemy);
-            enemyNum++;
-            if (enemyNum >= enemies.Count)
-            {
-                enemyNum = 0;
-            }
         }
     }
     public void PauseGame()
