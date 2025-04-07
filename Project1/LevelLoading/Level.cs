@@ -77,6 +77,10 @@ namespace Project1.LevelLoading
                     int destinationy = roomOffsetY +(3*32)+120 + (y * i);
                     int index = tileList.Count;
                     tileList.Add(tileBuilder.buildTile(tileNum, new Vector2(destinationx, destinationy)));
+                    if(tileNum == 35)
+                    {
+                        tileList.Add(tileBuilder.buildTile(31, new Vector2(destinationx, destinationy)));
+                    }
 
 
                 }

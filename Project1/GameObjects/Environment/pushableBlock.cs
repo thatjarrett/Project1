@@ -38,15 +38,13 @@ namespace Project1.GameObjects.Environment
             };
 
             Vector2 potentialTarget = _position + offset;
-
-            // Check if this future position would collide with anything
             Rectangle futureHitbox = new Rectangle((int)potentialTarget.X, (int)potentialTarget.Y, 48, 48);
 
             foreach (var box in blockingColliders)
             {
                 if (futureHitbox.Intersects(box.hitbox))
                 {
-                    return; // Blocked — don’t move
+                    return;
                 }
             }
 

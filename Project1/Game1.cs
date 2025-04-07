@@ -478,10 +478,7 @@ public class Game1 : Game
                             }
                         }
                     }
-
-                    // Attempt to push the block
                     block.CollisionUpdate(link.GetCollider(), blocking);
-
                     link.CollisionUpdate(collider);
                 }
                 else if (collider != null)
