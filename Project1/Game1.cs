@@ -103,7 +103,7 @@ public class Game1 : Game
 
 
         createSprites();
-        hud = new IHUD(link, hudTexture,heartsTexture,coverTexture,atlasTexture,font1);
+        
         environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -150,6 +150,7 @@ public class Game1 : Game
         base.Initialize();
 
         Camera = new Camera(new Viewport());
+        hud = new IHUD(link, hudTexture, heartsTexture, coverTexture, atlasTexture, font1, Camera);
 
         var commands = new Dictionary<Keys, ICommand>
     {

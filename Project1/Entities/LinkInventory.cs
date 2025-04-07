@@ -77,6 +77,8 @@ namespace Project1.Entities
         public int GetBombCount() => bombCount;
         public int GetKeyCount() => keyCount;
         public Collection<IItem> GetInventory() => inventory;
+
+        public bool GetMap() => hasMap;
         public bool IsFrozen()
         {
             if (freezeEnemies)
