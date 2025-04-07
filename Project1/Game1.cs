@@ -68,7 +68,9 @@ public class Game1 : Game
     IHUD hud;
 
     private bool paused = false;
-    
+    private bool IsTransitioning = false;
+
+
 
     //Debug Variables
     Texture2D pixelTexture;
@@ -226,6 +228,10 @@ public class Game1 : Game
         foreach (var tile in tiles)
         {
             tile.Update(gameTime);
+                if(tile is pushableBlock block)
+                {
+                    block.Update();
+                }
         }
             KeyboardState currentKeyboard = Keyboard.GetState();
             if (currentKeyboard.IsKeyDown(Keys.M) && previousKeyboard.IsKeyUp(Keys.M))
@@ -297,15 +303,9 @@ public class Game1 : Game
             null,
             null,
             null,
-            Camera.GetTransformation(link.GetCenterPos())
+            Camera.GetTransformation(link.GetCenterPos(), ref IsTransitioning)
         );
-
-
-
         
-        int tileNum = 0;
-        int enemyNum = 0;
-        int itemNum =0;
         /*foreach (var tile in tiles)
         {
             tile.SetCollider();
@@ -318,25 +318,12 @@ public class Game1 : Game
                     tile.GetCollider().DebugDraw(_spriteBatch, pixelTexture,collider.hitbox,Color.Red);
                 }
             }
-            tileNum++;
-            if (tileNum >= tiles.Count)
-            {
-                tileNum = 0;
-            }
         }*/
+
         foreach(var tile in tiles)
         {
-            
-            if (tile is not doorTile)
-            {
-                tile.SetCollider();
-                tile.Draw(_spriteBatch);
-            } 
-            else
-            {
-                //some door logic
-                tile.Draw(_spriteBatch);
-            }
+            tile.SetCollider();
+            tile.Draw(_spriteBatch);
         }
 
         foreach (var anim in animationsList) {
@@ -362,16 +349,16 @@ public class Game1 : Game
         }
 
         //Keep link below the tiles so he's drawn above them
-
         foreach (var tile in tiles)
         {
-            if(tile is pushableBlock)
+
+            if (tile is pushableBlock)
             {
                 tile.Draw(_spriteBatch);
             }
         }
 
-        if (!paused)
+        if (!paused && !IsTransitioning)
         {
             link.Draw(_spriteBatch);
         }
@@ -453,30 +440,55 @@ public class Game1 : Game
 
     private void UpdateCollisions(GameTime gameTime)
     {
-        
+
         foreach (var tile in tiles)
         {
             if (tile is wallTile wall)
             {
                 List<CollisionBox> colliders = wall.GetColliderList();
-                if(colliders != null)
+                if (colliders != null)
                 {
-                    foreach(var collider in colliders)
+                    foreach (var collider in colliders)
                     {
                         link.CollisionUpdate(collider);
+                        foreach (var enemy in enemies)
+                        {
+                            enemy.CollisionUpdate(collider);
+                        }
                     }
                 }
 
-            } else
+            }
+            else
             {
                 CollisionBox collider = tile.GetCollider();
                 if (tile is pushableBlock block)
                 {
-                    CollisionBox linkPush = link.GetCollider();
-                    block.CollisionUpdate(linkPush);
+                    List<CollisionBox> blocking = new List<CollisionBox>();
 
+                    foreach (var otherTile in tiles)
+                    {
+                        if (otherTile == tile) continue;
 
-
+                        if (otherTile is wallTile wall2)
+                        {
+                            var wallBoxes = wall2.GetColliderList();
+                            if (wallBoxes != null)
+                            {
+                                blocking.AddRange(wallBoxes);
+                            }
+                        }
+                        else
+                        {
+                            CollisionBox otherCollider = otherTile.GetCollider();
+                            if (otherCollider != null)
+                            {
+                                blocking.Add(otherCollider);
+                            }
+                        }
+                    }
+                    block.CollisionUpdate(link.GetCollider(), blocking);
+                    link.CollisionUpdate(collider);
                 }
                 else if (collider != null)
                 {
@@ -490,33 +502,17 @@ public class Game1 : Game
                     }
                 }
             }
-            
-        }
-        CollisionBox linkCollider = link.GetCollider();
-        foreach (var enemy in enemies)
-        {
-            if (linkCollider != null)
-            {
-                //if enemy calls update with link, link can push it around but it can't push link
-                enemy.CollisionUpdate(linkCollider);
-                //vice versa if link calls update with enemy
-            }
+
         }
 
-        int itemNum = 0;
         foreach (var item in itemsList)
         {
             item.Update(gameTime);
 
             item.Update(gameTime);
             LinkEnemyCollisionHandler.HandleCollision(item, link);
-
-            itemNum++;
-            if (itemNum >= enemies.Count)
-            {
-                itemNum = 0;
-            }
         }
+
         foreach (var anim in animationsList) {
             anim.Update(gameTime);
         }
@@ -527,9 +523,17 @@ public class Game1 : Game
             LinkEnemyCollisionHandler.HandleCollision(link, b);
         }
 
-        int enemyNum = 0;
         foreach (var enemy in enemies)
         {
+            CollisionBox collider = enemy.GetCollider();
+            foreach (var enemy2 in enemies)
+            {
+                if (enemy != enemy2)
+                {
+                    enemy2.CollisionUpdate(collider);
+                }
+            }
+
             if (enemy is IDependentEnemy spikeTrap)
             {
                 spikeTrap.Update(gameTime, link, link.IsFrozen());
@@ -563,11 +567,6 @@ public class Game1 : Game
 
             CollisionBox sword = link.GetSword();
             LinkEnemyCollisionHandler.HandleCollision(sword, enemy);
-            enemyNum++;
-            if (enemyNum >= enemies.Count)
-            {
-                enemyNum = 0;
-            }
         }
     }
     public void PauseGame()

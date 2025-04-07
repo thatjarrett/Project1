@@ -1,10 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Project1.Collision;
 
 namespace Project1.GameObjects.Environment
 {
     public class pushableBlock : environmentTile
     {
+        private bool isMoving = false;
+        private Vector2 targetPosition;
+        private float speed = 2f;
+
 
         public pushableBlock(Vector2 pos) :
             base(pos, true)
@@ -12,36 +17,68 @@ namespace Project1.GameObjects.Environment
             SetCollider();
         }
 
-        public void CollisionUpdate(CollisionBox other)
+        public void CollisionUpdate(CollisionBox other, List<CollisionBox> blockingColliders)
         {
-            int intersectionDistance = collider.GetSidePush(other);
-            CollisionSide side = collider.side;
-            switch (side)
-            {
-                case CollisionSide.Top:
-                    Move(0, -intersectionDistance);
-                    break;
-                case CollisionSide.Left:
-                    Move(-intersectionDistance, 0);
-                    break;
-                case CollisionSide.Right:
-                    Move(intersectionDistance, 0);
-                    break;
-                case CollisionSide.Bottom:
-                    Move(0, intersectionDistance);
-                    break;
-                case CollisionSide.None:
-                    break;
-            }
-            //Debug.WriteLine($"Collision: {intersectionDistance}");
+            if (isMoving) return;
 
+            if (!collider.Intersects(other)) return;
+
+            int distance = collider.GetSidePush(other);
+            CollisionSide side = collider.side;
+
+            if (distance == 0 || side == CollisionSide.None) return;
+
+            Vector2 offset = side switch
+            {
+                CollisionSide.Top => new Vector2(0, -48),
+                CollisionSide.Left => new Vector2(-48, 0),
+                CollisionSide.Right => new Vector2(48, 0),
+                CollisionSide.Bottom => new Vector2(0, 48),
+                _ => Vector2.Zero
+            };
+
+            Vector2 potentialTarget = _position + offset;
+            Rectangle futureHitbox = new Rectangle((int)potentialTarget.X, (int)potentialTarget.Y, 48, 48);
+
+            foreach (var box in blockingColliders)
+            {
+                if (futureHitbox.Intersects(box.hitbox))
+                {
+                    return;
+                }
+            }
+
+            StartMove((int)offset.X, (int)offset.Y);
         }
 
-        public void Move(int dx, int dy)
+
+
+        public void Update()
         {
-            _position.X += dx;
-            _position.Y += dy;
-            collider.Move(dx, dy);
+            if (isMoving)
+            {
+                Vector2 direction = targetPosition - _position;
+
+                if (direction.Length() < speed)
+                {
+                    _position = targetPosition;
+                    collider.setPos((int)_position.X, (int)_position.Y);
+                    isMoving = false;
+                }
+                else
+                {
+                    direction.Normalize();
+                    Vector2 movement = direction * speed;
+                    _position += movement;
+                    collider.Move((int)movement.X, (int)movement.Y);
+                }
+            }
+        }
+
+        private void StartMove(int dx, int dy)
+        {
+            targetPosition = _position + new Vector2(dx, dy);
+            isMoving = true;
         }
     }
 }
