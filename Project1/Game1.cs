@@ -141,8 +141,8 @@ public class Game1 : Game
 
          entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture, enemyDeathTexture);
 
-        IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
-        enemies.Add(g);
+        //IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
+        //enemies.Add(g);
 
     }
     protected override void Initialize()

@@ -89,12 +89,12 @@ namespace Project1.Interfaces
         }
         public void setCameraPos(Vector2 newLocation)
         {
-            CameraPosX = newLocation.x*768;
-            CameraPosY = newLocation.y*528+120;
-            targetPosX = newLocation.x * 768;
-            targetPosY = newLocation.y * 528 + 120;
-            row = newLocation.x;
-            column = newLocation.y; 
+            CameraPosX = (int)newLocation.X*768;
+            CameraPosY = (int)newLocation.Y*528+120;
+            targetPosX = (int)newLocation.X * 768;
+            targetPosY = (int)newLocation.Y * 528 + 120;
+            row = (int)newLocation.X;
+            column = (int)newLocation.Y; 
         }
     }
 }
