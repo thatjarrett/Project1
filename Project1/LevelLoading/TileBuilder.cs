@@ -373,6 +373,22 @@ namespace Project1.LevelLoading
                         tile.setSprite(this.rightCrackedWallSprite);
                         break;
                     }
+                case 40: 
+                    tile = new LockedDoorTile(location, this.topKeyLockedDoorSprite, this.topOpenDoorSprite);
+                    break;
+
+                case 41:
+                    tile = new LockedDoorTile(location, this.bottomKeyLockedDoorSprite, this.bottomOpenDoorSprite);
+                    break;
+
+                case 42:
+                    tile = new LockedDoorTile(location, this.leftKeyLockedDoorSprite, this.leftOpenDoorSprite);
+                    break;
+
+                case 43: 
+                    tile = new LockedDoorTile(location, this.rightKeyLockedDoorSprite, this.rightOpenDoorSprite);
+                    break;
+
                 default:
                     {
                         tile = new BlueFloor(location);

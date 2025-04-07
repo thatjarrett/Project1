@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Content;
-using System.Diagnostics;
+using Project1.Audio; // Assuming MusicManager lives here
 
 namespace Project1.Audio
 {
@@ -8,40 +8,49 @@ namespace Project1.Audio
         private static DungeonMusicPlayer instance;
         public static DungeonMusicPlayer Instance => instance ??= new DungeonMusicPlayer();
 
+        private bool warnedGameOver = false;
+        private bool isPaused = false;
+
         private DungeonMusicPlayer() { }
 
         public void LoadContent(ContentManager content)
         {
-            
-            Debug.WriteLine("DungeonMusicPlayer: Delegating content loading to MusicManager.");
+            // No-op or delegate to MusicManager if needed
         }
-
-        private bool warnedGameOver = false;
 
         public void PlayDungeonMusic()
         {
             if (GameManager.Instance.IsGameOver())
             {
                 if (!warnedGameOver)
-                {
-                    Debug.WriteLine("DungeonMusicPlayer: Blocked dungeon music due to Game Over.");
                     warnedGameOver = true;
-                }
                 return;
             }
 
             warnedGameOver = false;
-            MusicManager.Instance.PlayDungeonMusic();
+            if (!isPaused)
+                MusicManager.Instance.PlayDungeonMusic();
         }
-
-
 
         public void StopDungeonMusic()
         {
             if (MusicManager.Instance.CurrentSong != null)
             {
                 MusicManager.Instance.Stop();
-                Debug.WriteLine("DungeonMusicPlayer: Music stopped.");
+            }
+        }
+
+        public void ToggleMusic()
+        {
+            if (isPaused)
+            {
+                isPaused = false;
+                MusicManager.Instance.Resume();
+            }
+            else
+            {
+                isPaused = true;
+                MusicManager.Instance.Pause();
             }
         }
     }

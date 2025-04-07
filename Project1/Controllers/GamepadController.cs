@@ -2,100 +2,91 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Project1.Interfaces;
-using System.Linq;
 
 namespace Project1.Controllers
 {
     internal class GamepadController : IController
     {
-        private readonly Dictionary<Buttons, ICommand> _commands;
-        private readonly HashSet<Buttons> _movementButtons;
-        private ICommand _idleCommand;
+        private readonly Dictionary<Buttons, ICommand> _buttonCommands;
+        private readonly Dictionary<Direction, ICommand> _movementCommands;
+        private readonly ICommand _idleCommand;
+
         private GamePadState _previousState;
+        private const float DeadZoneThreshold = 0.2f;
 
-        private const float DeadZoneThreshold = 0.2f; // Threshold for ignoring small stick movement
-
-        public GamepadController(Dictionary<Buttons, ICommand> commands, ICommand idleCommand)
+        public GamepadController(Dictionary<Buttons, ICommand> buttonCommands,
+                                 Dictionary<Direction, ICommand> movementCommands,
+                                 ICommand idleCommand)
         {
-            _commands = commands;
+            _buttonCommands = buttonCommands;
+            _movementCommands = movementCommands;
             _idleCommand = idleCommand;
             _previousState = GamePad.GetState(PlayerIndex.One);
-
-            _movementButtons = new HashSet<Buttons>
-            {
-                Buttons.DPadUp, Buttons.DPadDown, Buttons.DPadLeft, Buttons.DPadRight,
-                Buttons.LeftThumbstickUp, Buttons.LeftThumbstickDown,
-                Buttons.LeftThumbstickLeft, Buttons.LeftThumbstickRight
-            };
         }
 
         public void Update(GameTime gameTime)
         {
-            GamePadState state = GamePad.GetState(PlayerIndex.One);
-            if (!state.IsConnected) return; // Ignore input if controller is disconnected
+            GamePadState currentState = GamePad.GetState(PlayerIndex.One);
+            if (!currentState.IsConnected)
+                return;
 
-            bool movementDetected = false;
+            bool actionExecuted = false;
 
-            // Handle button presses
-            foreach (var button in _commands.Keys)
+            // Handle button press (e.g. A for sword, B for item)
+            foreach (var entry in _buttonCommands)
             {
-                if (state.IsButtonDown(button) && _previousState.IsButtonUp(button))
+                if (currentState.IsButtonDown(entry.Key) && _previousState.IsButtonUp(entry.Key))
                 {
-                    _commands[button].Execute();
-                    if (_movementButtons.Contains(button))
-                    {
-                        movementDetected = true;
-                    }
+                    entry.Value.Execute();
+                    actionExecuted = true;
                 }
             }
 
-            // Handle D-Pad movement first (if no button was pressed)
-            if (!movementDetected)
+            // Handle D-Pad movement
+            if (currentState.IsButtonDown(Buttons.DPadUp)) { _movementCommands[Direction.Up].Execute(); actionExecuted = true; }
+            else if (currentState.IsButtonDown(Buttons.DPadDown)) { _movementCommands[Direction.Down].Execute(); actionExecuted = true; }
+            else if (currentState.IsButtonDown(Buttons.DPadLeft)) { _movementCommands[Direction.Left].Execute(); actionExecuted = true; }
+            else if (currentState.IsButtonDown(Buttons.DPadRight)) { _movementCommands[Direction.Right].Execute(); actionExecuted = true; }
+
+            // Handle Thumbstick movement if D-Pad not used
+            if (!actionExecuted)
             {
-                movementDetected = HandleDPadMovement(state);
+                Vector2 stick = currentState.ThumbSticks.Left;
+                stick.Y *= -1; // Invert Y to match screen coordinates
+
+                if (stick.LengthSquared() >= DeadZoneThreshold * DeadZoneThreshold)
+                {
+                    if (stick.Y < -0.5f) { _movementCommands[Direction.Up].Execute(); actionExecuted = true; }
+                    else if (stick.Y > 0.5f) { _movementCommands[Direction.Down].Execute(); actionExecuted = true; }
+                    else if (stick.X < -0.5f) { _movementCommands[Direction.Left].Execute(); actionExecuted = true; }
+                    else if (stick.X > 0.5f) { _movementCommands[Direction.Right].Execute(); actionExecuted = true; }
+                }
             }
 
-            // Handle joystick movement if D-Pad is not being used
-            if (!movementDetected)
-            {
-                movementDetected = HandleThumbstickMovement(state.ThumbSticks.Left);
-            }
-
-            // Execute idle command if no movement was detected
-            if (!movementDetected && WasMovingPreviously())
+            // Idle fallback
+            if (!actionExecuted && WasPreviouslyMoving(_previousState))
             {
                 _idleCommand.Execute();
             }
 
-            _previousState = state;
+            _previousState = currentState;
         }
 
-        private bool HandleDPadMovement(GamePadState state)
+        private bool WasPreviouslyMoving(GamePadState prev)
         {
-            if (state.IsButtonDown(Buttons.DPadUp)) { _commands[Buttons.DPadUp]?.Execute(); return true; }
-            if (state.IsButtonDown(Buttons.DPadDown)) { _commands[Buttons.DPadDown]?.Execute(); return true; }
-            if (state.IsButtonDown(Buttons.DPadLeft)) { _commands[Buttons.DPadLeft]?.Execute(); return true; }
-            if (state.IsButtonDown(Buttons.DPadRight)) { _commands[Buttons.DPadRight]?.Execute(); return true; }
-
-            return false;
+            return prev.IsButtonDown(Buttons.DPadUp) ||
+                   prev.IsButtonDown(Buttons.DPadDown) ||
+                   prev.IsButtonDown(Buttons.DPadLeft) ||
+                   prev.IsButtonDown(Buttons.DPadRight) ||
+                   prev.ThumbSticks.Left.LengthSquared() >= DeadZoneThreshold * DeadZoneThreshold;
         }
+    }
 
-        private bool HandleThumbstickMovement(Vector2 stick)
-        {
-            if (stick.LengthSquared() < DeadZoneThreshold * DeadZoneThreshold) return false; // Ignore small movements
-
-            if (stick.Y > 0.5f) { _commands[Buttons.LeftThumbstickUp]?.Execute(); return true; }
-            if (stick.Y < -0.5f) { _commands[Buttons.LeftThumbstickDown]?.Execute(); return true; }
-            if (stick.X > 0.5f) { _commands[Buttons.LeftThumbstickRight]?.Execute(); return true; }
-            if (stick.X < -0.5f) { _commands[Buttons.LeftThumbstickLeft]?.Execute(); return true; }
-
-            return false;
-        }
-
-        private bool WasMovingPreviously()
-        {
-            return _movementButtons.Any(button => _previousState.IsButtonDown(button)) ||
-                   _previousState.ThumbSticks.Left.LengthSquared() >= DeadZoneThreshold * DeadZoneThreshold;
-        }
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
     }
 }

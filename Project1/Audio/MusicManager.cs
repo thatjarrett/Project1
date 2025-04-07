@@ -110,6 +110,15 @@ namespace Project1.Audio
 
 
 
+        public void Pause()
+        {
+            MediaPlayer.Pause();
+        }
+
+        public void Resume()
+        {
+            MediaPlayer.Resume();
+        }
 
 
         public void Stop()

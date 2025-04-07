@@ -46,7 +46,7 @@ namespace Project1.Entities
         private int maxHealth = 10;
         private int bombCount;
         private int rupeeCount;
-        private int keyCount;
+        public int keyCount;
         private int arrowCount;
 
         private int currentItemIndex = 2;

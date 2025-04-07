@@ -28,6 +28,7 @@ public class Game1 : Game
     private KeyboardController keyboardController;
     private GamepadController gamepadController;
     private Link link;
+    private KeyboardState previousKeyboard;
 
     private List<environmentTile> tiles = new List<environmentTile>();
     private List<IEnemy> enemies = new List<IEnemy>();
@@ -174,6 +175,15 @@ public class Game1 : Game
 { Keys.P, new CycleNPCCommand(this, true) }   // Next NPC
 */
     };
+        var movementCommands = new Dictionary<Project1.Controllers.Direction, ICommand>
+{
+    { Project1.Controllers.Direction.Up, new MoveUpCommand(link, hud) },
+    { Project1.Controllers.Direction.Down, new MoveDownCommand(link, hud) },
+    { Project1.Controllers.Direction.Left, new MoveLeftCommand(link, hud) },
+    { Project1.Controllers.Direction.Right, new MoveRightCommand(link, hud) },
+};
+
+
         var gamepadCommands = new Dictionary<Buttons, ICommand>
 {
     { Buttons.DPadUp, new MoveUpCommand(link,hud) },
@@ -185,19 +195,19 @@ public class Game1 : Game
     { Buttons.DPadRight, new MoveRightCommand(link,hud) },
     { Buttons.LeftThumbstickRight, new MoveRightCommand(link,hud) },
     { Buttons.A, new AttackCommand(link) },
-    { Buttons.X, new UseItemCommand(link) },
-    { Buttons.B, new DamageCommand(link) },
+    { Buttons.B, new UseItemCommand(link) },
+
     { Buttons.Back, new QuitCommand(this) },
     { Buttons.Start, new ResetCommand(this) },
     { Buttons.BigButton, new ResetCommand(this) }
 };
-        
-        gamepadController = new GamepadController(gamepadCommands, new IdleCommand(link));
+        gamepadController = new GamepadController(gamepadCommands, movementCommands, new IdleCommand(link));
 
         keyboardController = new KeyboardController(commands, new IdleCommand(link));
         _graphics.PreferredBackBufferWidth = 768;
         _graphics.PreferredBackBufferHeight = 648;
         _graphics.ApplyChanges();
+
     }
 
     protected override void Update(GameTime gameTime)
@@ -217,8 +227,14 @@ public class Game1 : Game
         {
             tile.Update(gameTime);
         }
+            KeyboardState currentKeyboard = Keyboard.GetState();
+            if (currentKeyboard.IsKeyDown(Keys.M) && previousKeyboard.IsKeyUp(Keys.M))
+            {
+                DungeonMusicPlayer.Instance.ToggleMusic();
+            }
+            previousKeyboard = currentKeyboard;
 
-        base.Update(gameTime);
+            base.Update(gameTime);
 
         
         UpdateCollisions(gameTime);
