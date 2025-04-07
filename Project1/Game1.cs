@@ -437,21 +437,26 @@ public class Game1 : Game
 
     private void UpdateCollisions(GameTime gameTime)
     {
-        
+
         foreach (var tile in tiles)
         {
             if (tile is wallTile wall)
             {
                 List<CollisionBox> colliders = wall.GetColliderList();
-                if(colliders != null)
+                if (colliders != null)
                 {
-                    foreach(var collider in colliders)
+                    foreach (var collider in colliders)
                     {
                         link.CollisionUpdate(collider);
+                        foreach (var enemy in enemies)
+                        {
+                            enemy.CollisionUpdate(collider);
+                        }
                     }
                 }
 
-            } else
+            }
+            else
             {
                 CollisionBox collider = tile.GetCollider();
                 if (tile is pushableBlock block)
@@ -474,17 +479,7 @@ public class Game1 : Game
                     }
                 }
             }
-            
-        }
-        CollisionBox linkCollider = link.GetCollider();
-        foreach (var enemy in enemies)
-        {
-            if (linkCollider != null)
-            {
-                //if enemy calls update with link, link can push it around but it can't push link
-                enemy.CollisionUpdate(linkCollider);
-                //vice versa if link calls update with enemy
-            }
+
         }
 
         int itemNum = 0;
