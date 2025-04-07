@@ -8,7 +8,7 @@ namespace Project1.Entities
         private Direction _facingDirection = Direction.Down;
         public void Enter(Link link)
         {
-            Debug.WriteLine("move down state");
+            //Debug.WriteLine("move down state");
             link.SetAnimation("MoveDown");
         }
 

@@ -19,7 +19,7 @@ namespace Project1.Entities
         }
         public void MoveRight(Link link)
         {
-            Debug.WriteLine("move right state");
+            //Debug.WriteLine("move right state");
         }
         public void MoveUp(Link link)
         {

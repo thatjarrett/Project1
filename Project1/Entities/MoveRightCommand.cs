@@ -17,7 +17,7 @@ namespace Project1.Entities
 
         public void Execute()
         {
-            Debug.WriteLine("move right");
+            //Debug.WriteLine("move right");
 
             _link.MoveRight();
             if (_hud.active)

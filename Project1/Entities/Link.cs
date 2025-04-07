@@ -92,7 +92,7 @@ namespace Project1.Entities
 
         public void ChangeState(ILinkState newState)
         {
-            Debug.WriteLine($"Changing state to: {newState.GetType().Name}");
+            //Debug.WriteLine($"Changing state to: {newState.GetType().Name}");
             if (newState is LinkMoveUpState) PreviousDirection = Direction.Up;
             if (newState is LinkMoveDownState) PreviousDirection = Direction.Down;
             if (newState is LinkMoveLeftState) PreviousDirection = Direction.Left;
