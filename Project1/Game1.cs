@@ -139,9 +139,7 @@ public class Game1 : Game
          entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture, enemyDeathTexture);
 
         IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
-        IEnemy s = entityBuilder.buildEnemy(2, new Vector2(200, 200));
         enemies.Add(g);
-        enemies.Add(s);
 
     }
     protected override void Initialize()
@@ -218,6 +216,10 @@ public class Game1 : Game
         foreach (var tile in tiles)
         {
             tile.Update(gameTime);
+                if(tile is pushableBlock block)
+                {
+                    block.Update();
+                }
         }
 
         base.Update(gameTime);
@@ -338,6 +340,14 @@ public class Game1 : Game
         }
 
         //Keep link below the tiles so he's drawn above them
+        foreach (var tile in tiles)
+        {
+
+            if (tile is pushableBlock)
+            {
+                tile.Draw(_spriteBatch);
+            }
+        }
 
         if (!paused)
         {
@@ -445,11 +455,34 @@ public class Game1 : Game
                 CollisionBox collider = tile.GetCollider();
                 if (tile is pushableBlock block)
                 {
-                    CollisionBox linkPush = link.GetCollider();
-                    block.CollisionUpdate(linkPush);
+                    List<CollisionBox> blocking = new List<CollisionBox>();
 
+                    foreach (var otherTile in tiles)
+                    {
+                        if (otherTile == tile) continue;
 
+                        if (otherTile is wallTile wall2)
+                        {
+                            var wallBoxes = wall2.GetColliderList();
+                            if (wallBoxes != null)
+                            {
+                                blocking.AddRange(wallBoxes);
+                            }
+                        }
+                        else
+                        {
+                            CollisionBox otherCollider = otherTile.GetCollider();
+                            if (otherCollider != null)
+                            {
+                                blocking.Add(otherCollider);
+                            }
+                        }
+                    }
 
+                    // Attempt to push the block
+                    block.CollisionUpdate(link.GetCollider(), blocking);
+
+                    link.CollisionUpdate(collider);
                 }
                 else if (collider != null)
                 {
