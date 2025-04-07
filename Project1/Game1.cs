@@ -67,7 +67,9 @@ public class Game1 : Game
     IHUD hud;
 
     private bool paused = false;
-    
+    private bool IsTransitioning = false;
+
+
 
     //Debug Variables
     Texture2D pixelTexture;
@@ -285,7 +287,7 @@ public class Game1 : Game
             null,
             null,
             null,
-            Camera.GetTransformation(link.GetCenterPos())
+            Camera.GetTransformation(link.GetCenterPos(), ref IsTransitioning)
         );
         
         /*foreach (var tile in tiles)
@@ -304,17 +306,8 @@ public class Game1 : Game
 
         foreach(var tile in tiles)
         {
-            
-            if (tile is not doorTile)
-            {
-                tile.SetCollider();
-                tile.Draw(_spriteBatch);
-            } 
-            else
-            {
-                //some door logic
-                tile.Draw(_spriteBatch);
-            }
+            tile.SetCollider();
+            tile.Draw(_spriteBatch);
         }
 
         foreach (var anim in animationsList) {
@@ -349,7 +342,7 @@ public class Game1 : Game
             }
         }
 
-        if (!paused)
+        if (!paused && !IsTransitioning)
         {
             link.Draw(_spriteBatch);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using NVorbis.Contracts;
 
 namespace Project1.Interfaces
 {
@@ -19,7 +20,7 @@ namespace Project1.Interfaces
         private int targetPosX=0;
         private int targetPosY=120;
 
-        public Matrix GetTransformation(Vector2 playerPosition)
+        public Matrix GetTransformation(Vector2 playerPosition, ref bool isTransitioning)
         {
             this.CurrPlayerPosX = (int)playerPosition.X;
             this.CurrPlayerPosY = (int)playerPosition.Y;
@@ -36,7 +37,8 @@ namespace Project1.Interfaces
             {
                 targetPosY = CameraPosY - 528;//column--
             }
-            MoveTowardsTarget();
+            
+            MoveTowardsTarget(ref isTransitioning);
             return
                 Matrix.CreateTranslation(new Vector3(
                     (CameraPosX) *-1,
@@ -44,26 +46,32 @@ namespace Project1.Interfaces
                     0f));
         }
 
-        public void MoveTowardsTarget()
+        public void MoveTowardsTarget(ref bool isTransitioning)
         {
 
             if (CameraPosY < targetPosY)
             {
-
+                isTransitioning = true;
                 CameraPosY += cameraSpeed;
             }
-            else if(CameraPosY > targetPosY)
+            else if (CameraPosY > targetPosY)
             {
+                isTransitioning = true;
                 CameraPosY -= cameraSpeed;
             }
-            if (CameraPosX < targetPosX)
+            else if (CameraPosX < targetPosX)
             {
-
+                isTransitioning = true;
                 CameraPosX += cameraSpeed;
             }
             else if (CameraPosX > targetPosX)
             {
+                isTransitioning = true;
                 CameraPosX -= cameraSpeed;
+            }
+            else
+            {
+                isTransitioning = false;
             }
         }
         public Camera(Viewport view)
