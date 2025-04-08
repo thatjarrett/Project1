@@ -139,6 +139,14 @@ namespace Project1.Entities
         new Rectangle(35, 47, 16, 23), new Rectangle(53, 47, 16, 19)
     };
 
+            Rectangle[] swordBeamV = {
+        new Rectangle(0, 154, 9, 16), new Rectangle(105, 154, 9, 16)
+    };
+
+            Rectangle[] swordBeamH = {
+        new Rectangle(10, 158, 16, 9), new Rectangle(115, 158, 16, 9)
+    };
+
             walkSideSprite = new NMoveAnim(linkTexture, walkSide, 5);
             walkUpSprite = new NMoveAnim(linkTexture, walkUp, 5);
             walkDownSprite = new NMoveAnim(linkTexture, walkDown, 5);
@@ -155,6 +163,9 @@ namespace Project1.Entities
             interactSideSprite = new NMoveNAnim(linkTexture, new Rectangle(124, 11, 15, 16));
             interactUpSprite = new NMoveNAnim(linkTexture, new Rectangle(141, 11, 15, 16));
             interactDownSprite = new NMoveNAnim(linkTexture, new Rectangle(107, 11, 16, 16));
+
+            swordBeamHorizontal = new NMoveAnim(linkTexture, swordBeamH, 5);
+            swordBeamVertical = new NMoveAnim(linkTexture, swordBeamV, 5);
 
             currentIdleSprite = idleDownSprite;
             currentAttackSprite = attackDownSprite;
