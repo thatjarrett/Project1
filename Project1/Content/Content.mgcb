@@ -194,30 +194,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/fullUi.png
 
-#begin Images/fullUi.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/fullUi.png
-
-#begin Images/fullUi.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/fullUi.png
-
 #begin Images/Game_Over.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -301,6 +277,57 @@
 
 #begin Level Data/EntityLevel.txt
 /copy:Level Data/EntityLevel.txt
+
+#begin Level Data/EntityNegOneNegOne.txt
+/copy:Level Data/EntityNegOneNegOne.txt
+
+#begin Level Data/EntityNegOneNegThree.txt
+/copy:Level Data/EntityNegOneNegThree.txt
+
+#begin Level Data/EntityNegOneTwo.txt
+/copy:Level Data/EntityNegOneTwo.txt
+
+#begin Level Data/EntityNegOneZero.txt
+/copy:Level Data/EntityNegOneZero.txt
+
+#begin Level Data/EntityNegTwoZero.txt
+/copy:Level Data/EntityNegTwoZero.txt
+
+#begin Level Data/EntityOneNegOne.txt
+/copy:Level Data/EntityOneNegOne.txt
+
+#begin Level Data/EntityOneNegThree.txt
+/copy:Level Data/EntityOneNegThree.txt
+
+#begin Level Data/EntityOneZero.txt
+/copy:Level Data/EntityOneZero.txt
+
+#begin Level Data/EntityThreeOne.txt
+/copy:Level Data/EntityThreeOne.txt
+
+#begin Level Data/EntityTwoOne.txt
+/copy:Level Data/EntityTwoOne.txt
+
+#begin Level Data/EntityTwoZero.txt
+/copy:Level Data/EntityTwoZero.txt
+
+#begin Level Data/EntityZeroNegOne.txt
+/copy:Level Data/EntityZeroNegOne.txt
+
+#begin Level Data/EntityZeroNegThree.txt
+/copy:Level Data/EntityZeroNegThree.txt
+
+#begin Level Data/EntityZeroNegTwo.txt
+/copy:Level Data/EntityZeroNegTwo.txt
+
+#begin Level Data/EntityZeroOne.txt
+/copy:Level Data/EntityZeroOne.txt
+
+#begin Level Data/EntityZeroTwo.txt
+/copy:Level Data/EntityZeroTwo.txt
+
+#begin Level Data/EntityZeroZero.txt
+/copy:Level Data/EntityZeroZero.txt
 
 #begin Level Data/NegOneNegOne.txt
 /copy:Level Data/NegOneNegOne.txt

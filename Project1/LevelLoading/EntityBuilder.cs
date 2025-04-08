@@ -100,7 +100,7 @@ namespace Project1.LevelLoading
                     enemy.createEnemySprites(enemyTexture);
                     break;
                 }
-                case 8: 
+                case 21: //8-20 are for items down below if this were 8 it would also spawn boomerang
                 {
                         enemy = new KeySkeleton(Location);
                         enemy.createEnemySprites(enemyTexture);

@@ -36,7 +36,23 @@ namespace Project1.LevelLoading
         string levelZeroOne = "Content/Level Data/ZeroOne.txt";
         string levelZeroTwo = "Content/Level Data/ZeroTwo.txt";
 
-        string entityZeroZero = "Content/Level Data/EntityLevel.txt";
+        string EntityZeroZero = "Content/Level Data/EntityZeroZero.txt";
+        string EntityNegOneNegOne = "Content/Level Data/EntityNegOneNegOne.txt";
+        string EntityNegOneNegThree = "Content/Level Data/EntityNegOneNegThree.txt";
+        string EntityNegOneTwo = "Content/Level Data/EntityNegOneTwo.txt";
+        string EntityNegOneZero = "Content/Level Data/EntityNegOneZero.txt";
+        string EntityNegTwoZero = "Content/Level Data/EntityNegTwoZero.txt";
+        string EntityOneNegOne = "Content/Level Data/EntityOneNegOne.txt";
+        string EntityOneNegThree = "Content/Level Data/EntityOneNegThree.txt";
+        string EntityOneZero = "Content/Level Data/EntityOneZero.txt";
+        string EntityThreeOne = "Content/Level Data/EntityThreeOne.txt";
+        string EntityTwoOne = "Content/Level Data/EntityTwoOne.txt";
+        string EntityTwoZero = "Content/Level Data/EntityTwoZero.txt";
+        string EntityZeroNegOne = "Content/Level Data/EntityZeroNegOne.txt";
+        string EntityZeroNegThree = "Content/Level Data/EntityZeroNegThree.txt";
+        string EntityZeroNegTwo = "Content/Level Data/EntityZeroNegTwo.txt";
+        string EntityZeroOne = "Content/Level Data/EntityZeroOne.txt";
+        string EntityZeroTwo = "Content/Level Data/EntityZeroTwo.txt";
 
 
 
@@ -54,23 +70,23 @@ namespace Project1.LevelLoading
             this.TileTex = environmentTexture;
             EntityBuilder = new EntityBuilder(aquamentusTexture, enemytexture, itemSprites, deathAnim);
 
-            levels.Add(new Level(levelZeroZero,entityZeroZero,0,0));
-            levels.Add(new Level(levelZeroNegOne,entityZeroZero,0,(-1*pageSizeY)));
-            levels.Add(new Level(levelNegOneNegOne, entityZeroZero, -1 * pageSizeX, -1 * pageSizeY));
-            levels.Add(new Level(levelNegOneNegThree, entityZeroZero, -1 * pageSizeX, -3 * pageSizeY));
-            levels.Add(new Level(levelNegOneTwo,entityZeroZero, -1 * pageSizeX, 2 *pageSizeY));
-            levels.Add(new Level(levelNegOneZero,entityZeroZero,-1*pageSizeX,0));
-            levels.Add(new Level(levelNegTwoZero, entityZeroZero, -2 * pageSizeX, 0));
-            levels.Add(new Level(levelOneNegOne, entityZeroZero, pageSizeX, -1 * pageSizeY));
-            levels.Add(new Level(levelOneNegThree, entityZeroZero, pageSizeX, -3 * pageSizeY));
-            levels.Add(new Level(levelOneZero, entityZeroZero,1*pageSizeX, 0));
-            levels.Add(new Level(levelThreeOne, entityZeroZero, 3 * pageSizeX, 1*pageSizeY));
-            levels.Add(new Level(levelTwoOne,entityZeroZero, 2 * pageSizeX, 1* pageSizeY));
-            levels.Add(new Level(levelTwoZero,entityZeroZero,2*pageSizeX, 0));
-            levels.Add(new Level(levelZeroNegThree, entityZeroZero, 0 * pageSizeX, -3*pageSizeY));
-            levels.Add(new Level(levelZeroNegTwo, entityZeroZero, 0 * pageSizeX, -2 * pageSizeY));
-            levels.Add(new Level(levelZeroOne, entityZeroZero, 0 * pageSizeX, 1 * pageSizeY));
-            levels.Add(new Level(levelZeroTwo, entityZeroZero, 0 * pageSizeX, 2 * pageSizeY));
+            levels.Add(new Level(levelZeroZero,EntityZeroZero,0,0));
+            levels.Add(new Level(levelZeroNegOne,EntityZeroNegOne,0,(-1*pageSizeY)));
+            levels.Add(new Level(levelNegOneNegOne, EntityNegOneNegOne, -1 * pageSizeX, -1 * pageSizeY));
+            levels.Add(new Level(levelNegOneNegThree, EntityNegOneNegThree, -1 * pageSizeX, -3 * pageSizeY));
+            levels.Add(new Level(levelNegOneTwo, EntityNegOneTwo, -1 * pageSizeX, 2 *pageSizeY));
+            levels.Add(new Level(levelNegOneZero, EntityNegOneZero, -1*pageSizeX,0));
+            levels.Add(new Level(levelNegTwoZero, EntityNegTwoZero, -2 * pageSizeX, 0));
+            levels.Add(new Level(levelOneNegOne, EntityOneNegOne, pageSizeX, -1 * pageSizeY));
+            levels.Add(new Level(levelOneNegThree, EntityOneNegThree, pageSizeX, -3 * pageSizeY));
+            levels.Add(new Level(levelOneZero, EntityOneZero,1*pageSizeX, 0));
+            levels.Add(new Level(levelThreeOne, EntityThreeOne, 3 * pageSizeX, 1*pageSizeY));
+            levels.Add(new Level(levelTwoOne,EntityTwoOne, 2 * pageSizeX, 1* pageSizeY));
+            levels.Add(new Level(levelTwoZero,EntityTwoZero,2*pageSizeX, 0));
+            levels.Add(new Level(levelZeroNegThree, EntityZeroNegThree, 0 * pageSizeX, -3*pageSizeY));
+            levels.Add(new Level(levelZeroNegTwo, EntityZeroNegTwo, 0 * pageSizeX, -2 * pageSizeY));
+            levels.Add(new Level(levelZeroOne, EntityZeroOne, 0 * pageSizeX, 1 * pageSizeY));
+            levels.Add(new Level(levelZeroTwo, EntityZeroTwo, 0 * pageSizeX, 2 * pageSizeY));
 
         }
 
