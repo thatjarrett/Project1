@@ -8,3 +8,12 @@ This was largely due to some procrastination earlier in the sprint, which we’ll 
 The technical demands of this sprint were pretty high too, involving more complex logic and more bugfixing, which naturally made the work more difficult.
 However, this also pushed us to improve our understanding of the code and use more collaboration in difficult parts.
 While the sprint had its rough patches, it was productive even though other classes were also taking up a lot of our time.
+
+Bren- This sprint had a very high technical demand, with the camera and level loading being probably the most complicated systems to create for this project.
+This created a natural difficulty, as a lot of other work that needed to be done depended on level loading working first.
+Unfortunately, this means a large portion of our work was saved for the final week of the Sprint, however, we did, in fact get it done.
+My work this sprint mostly revolved around the inventory, as such I wouldn't say I had too much difficulty with anything in particular. The biggest delay I faced was
+simply waiting for those working on item collection to get that system finished before I could add things like items to the inventory. The Map was something that depended
+on level loading, so I added it pretty much last second.
+Overall, I feel we as a team did great this sprint, albeit we could have been more proactive on getting work done. However, it is worth noting a few of us reported that
+other classes were taking up our time, which I feel is a reasonable explanation for work being delayed.
