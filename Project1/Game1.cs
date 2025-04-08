@@ -236,9 +236,9 @@ public class Game1 : Game
             
             if(!IsTransitioning)
             {
-                link.Update(gameTime);
+                //freezing link during transition breaks only the downward transition for some reason
             }
-            
+            link.Update(gameTime);
             foreach (var tile in tiles)
             {
                 tile.Update(gameTime);
