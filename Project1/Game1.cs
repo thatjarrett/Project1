@@ -97,7 +97,7 @@ public class Game1 : Game
         GameManager.Instance.LoadContent(Content);
         AttackCommand.LoadContent(Content);
         BombProjectile.LoadContent(Content);
-        link = new Link(new Vector2(350, 170));
+        link = new Link(new Vector2(350, 250));
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         Texture2D crackedWallTexture = Content.Load<Texture2D>("Images/crackedWall");
 
@@ -121,7 +121,11 @@ public class Game1 : Game
         tiles.AddRange(levels.buildTiles());
         foreach (var tile in tiles)
         {
-            tile.SetCollider(); // Do this once
+            if (!(tile is doorTile door && door.GetOpen()))
+            {
+                tile.SetCollider(); // Do this once
+            }
+            
         }
         
 
@@ -230,28 +234,32 @@ public class Game1 : Game
             DungeonMusicPlayer.Instance.PlayDungeonMusic();
             GameManager.Instance.Update(gameTime);
             
-        link.Update(gameTime);
-        foreach (var tile in tiles)
-        {
-            tile.Update(gameTime);
-                if(tile is pushableBlock block)
-                {
-                    block.Update();
-                }
-        }
-            KeyboardState currentKeyboard = Keyboard.GetState();
-            if (currentKeyboard.IsKeyDown(Keys.M) && previousKeyboard.IsKeyUp(Keys.M))
+            if(!IsTransitioning)
             {
-                DungeonMusicPlayer.Instance.ToggleMusic();
+                link.Update(gameTime);
             }
-            previousKeyboard = currentKeyboard;
+            
+            foreach (var tile in tiles)
+            {
+                tile.Update(gameTime);
+                    if(tile is pushableBlock block)
+                    {
+                        block.Update();
+                    }
+            }
+                KeyboardState currentKeyboard = Keyboard.GetState();
+                if (currentKeyboard.IsKeyDown(Keys.M) && previousKeyboard.IsKeyUp(Keys.M))
+                {
+                    DungeonMusicPlayer.Instance.ToggleMusic();
+                }
+                previousKeyboard = currentKeyboard;
 
-            base.Update(gameTime);
+                base.Update(gameTime);
 
         
-        UpdateCollisions(gameTime);
+            UpdateCollisions(gameTime);
 
-        removeInactive();
+            removeInactive();
         }
         else
         {
@@ -315,7 +323,7 @@ public class Game1 : Game
         // Draw regular tiles first
         foreach (var tile in tiles)
         {
-            if (tile is not pushableBlock)
+            if (tile is not pushableBlock/* && tile is not doorTile*/)
                 tile.Draw(_spriteBatch);
         }
 
@@ -324,6 +332,19 @@ public class Game1 : Game
         {
             if (tile is pushableBlock)
                 tile.Draw(_spriteBatch);
+        }
+
+        foreach (var tile in tiles)
+        {
+            if (tile is doorTile)
+            {
+                CollisionBox collider = tile.GetCollider();
+                if(collider != null)
+                {
+                    tile.GetCollider().DebugDraw(_spriteBatch, pixelTexture, collider.hitbox, Color.White);
+                }
+                
+            }
         }
 
 
@@ -515,7 +536,28 @@ public class Game1 : Game
                 }
                 else if (collider != null)
                 {
-                    link.CollisionUpdate(collider);
+                    if(!(tile is doorTile door && door.GetOpen()))
+                    {
+                        link.CollisionUpdate(collider);
+                    } else if (tile is doorTile door2 && door2.GetOpen())
+                    {
+                        if(link.GetCollidingSide(collider) == CollisionSide.Bottom)
+                        {
+                            link.Move(0, -144);
+                        } 
+                        else if(link.GetCollidingSide(collider) == CollisionSide.Top)
+                        {
+                            link.Move(0, 144);
+                        }
+                        else if (link.GetCollidingSide(collider) == CollisionSide.Right)
+                        {
+                            link.Move(-144, 0);
+                        }
+                        else if (link.GetCollidingSide(collider) == CollisionSide.Left)
+                        {
+                            link.Move(144, 0);
+                        }
+                    }
                 }
                 foreach (var enemy in enemies)
                 {

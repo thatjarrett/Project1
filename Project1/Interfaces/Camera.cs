@@ -26,19 +26,19 @@ namespace Project1.Interfaces
             this.CurrPlayerPosY = (int)playerPosition.Y;
             if ((CameraPosX - CurrPlayerPosX) < -384)
             {
-                targetPosX = CameraPosX + 768;//row++
+                targetPosX = CameraPosX + 768 - 48;//row++
                 row++;
             } else if (CameraPosX - CurrPlayerPosX > 384)
             {
-                targetPosX = CameraPosX - 768;//row--
+                targetPosX = CameraPosX - 768 + 96;//row--
                 row--;
             } else if ((CameraPosY - (CurrPlayerPosY+100))<-264)
             {
-                targetPosY = CameraPosY + 528;//column++
+                targetPosY = CameraPosY + 528 - 96;//column++
                 column++;
             } else if ((CameraPosY - (CurrPlayerPosY + 100)) > 264)
             {
-                targetPosY = CameraPosY - 528;//column--
+                targetPosY = CameraPosY - 528 + 48;//column--
                 column--;
             }
             

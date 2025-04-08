@@ -24,6 +24,12 @@ namespace Project1.Entities
             }
         }
 
+        public CollisionSide GetCollidingSide(CollisionBox other)
+        {
+            int distance = collider.GetSidePush(other);
+            return collider.side;
+        }
+
         public CollisionBox GetCollider() => collider;
         public bool IsInvincible() => isInvincible;
         public Vector2 GetPosition() => position;
