@@ -10,18 +10,14 @@ namespace Project1.GameObjects.Environment
         private Vector2 targetPosition;
         private float speed = 2f;
 
-
-        public pushableBlock(Vector2 pos) :
-            base(pos, true)
+        public pushableBlock(Vector2 pos) : base(pos, true)
         {
-            SetCollider();
+            SetCollider(); // Initial collider
         }
 
         public void CollisionUpdate(CollisionBox other, List<CollisionBox> blockingColliders)
         {
-            if (isMoving) return;
-
-            if (!collider.Intersects(other)) return;
+            if (isMoving || !collider.Intersects(other)) return;
 
             int distance = collider.GetSidePush(other);
             CollisionSide side = collider.side;
@@ -43,42 +39,44 @@ namespace Project1.GameObjects.Environment
             foreach (var box in blockingColliders)
             {
                 if (futureHitbox.Intersects(box.hitbox))
-                {
-                    return;
-                }
+                    return; // Blocked, can't move
             }
 
-            StartMove((int)offset.X, (int)offset.Y);
+            StartMove(offset);
         }
-
-
 
         public void Update()
         {
-            if (isMoving)
-            {
-                Vector2 direction = targetPosition - _position;
+            if (!isMoving) return;
 
-                if (direction.Length() < speed)
-                {
-                    _position = targetPosition;
-                    collider.setPos((int)_position.X, (int)_position.Y);
-                    isMoving = false;
-                }
-                else
-                {
-                    direction.Normalize();
-                    Vector2 movement = direction * speed;
-                    _position += movement;
-                    collider.Move((int)movement.X, (int)movement.Y);
-                }
+            Vector2 direction = targetPosition - _position;
+
+            if (direction.Length() <= speed)
+            {
+                _position = targetPosition;
+                collider.setPos((int)_position.X, (int)_position.Y);
+                isMoving = false;
+            }
+            else
+            {
+                direction.Normalize();
+                Vector2 movement = direction * speed;
+                _position += movement;
+                collider.Move((int)movement.X, (int)movement.Y);
             }
         }
 
-        private void StartMove(int dx, int dy)
+        private void StartMove(Vector2 offset)
         {
-            targetPosition = _position + new Vector2(dx, dy);
+            targetPosition = _position + offset;
             isMoving = true;
+        }
+
+        // Optional: override SetCollider so it's only reset once if needed externally
+        public override void SetCollider()
+        {
+            if (!isMoving)
+                collider = new CollisionBox((int)_position.X, (int)_position.Y, 48, 48, this);
         }
     }
 }

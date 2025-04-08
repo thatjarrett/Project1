@@ -125,7 +125,7 @@ public class Game1 : Game
         }
         
 
-        tiles.AddRange(levels.buildTiles());
+      
 
         List<IItem> tempitemlist = new List<IItem>();
         List<IEnemy> tempenemylist = new List<IEnemy>();
@@ -312,11 +312,21 @@ public class Game1 : Game
             null,
             Camera.GetTransformation(link.GetCenterPos(), ref IsTransitioning)
         );
+        // Draw regular tiles first
         foreach (var tile in tiles)
         {
-           
-            tile.Draw(_spriteBatch);
+            if (tile is not pushableBlock)
+                tile.Draw(_spriteBatch);
         }
+
+        // Then draw pushable blocks on top
+        foreach (var tile in tiles)
+        {
+            if (tile is pushableBlock)
+                tile.Draw(_spriteBatch);
+        }
+
+
         /*foreach (var tile in tiles)
         {
             tile.SetCollider();

@@ -12,7 +12,7 @@ namespace Project1.Collision
     {
         public CollisionSide side = CollisionSide.None;
         public Rectangle hitbox { get; private set; }
-        public CollisionBox(int x, int y, int width = 48, int height = 48)
+        public CollisionBox(int x, int y, int width = 48, int height = 48, GameObjects.Environment.pushableBlock pushableBlock = null)
         {
             hitbox = new Rectangle(x,y,width, height);
         }
