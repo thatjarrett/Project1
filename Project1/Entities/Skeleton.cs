@@ -134,6 +134,7 @@ namespace Project1.Entities
 
         public void Update(GameTime gameTime, bool frozen)
         {
+            if (frozen) return;
             if (isInvincible)
             {
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds;

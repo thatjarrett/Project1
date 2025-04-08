@@ -43,6 +43,12 @@
 /processorParam:Quality=Best
 /build:Audio/GameOver.wav
 
+#begin Audio/itemget.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/itemget.wav
+
 #begin Audio/Sword.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

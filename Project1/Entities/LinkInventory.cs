@@ -1,4 +1,5 @@
-﻿using Project1.GameObjects.Items;
+﻿using Project1.Audio;
+using Project1.GameObjects.Items;
 using Project1.Interfaces;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -51,6 +52,7 @@ namespace Project1.Entities
                     break;
                 case Map:
                     hasMap = true;
+                    GameManager.Instance.Playitemget();
                     inventory.Add(item);
                     break;
                 case TriForcePiece:

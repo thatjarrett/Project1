@@ -36,6 +36,7 @@ namespace Project1.Entities
 
         public void Update(GameTime gameTime)
         {
+            
             currentState.Update(this, gameTime);
 
             if (!(currentState is LinkDeathState) && health == 0)

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Project1.Audio;
 
 public class GameManager
@@ -22,6 +23,7 @@ public class GameManager
     private const double GameOverDelay = 2.0;
     private const double ResetDelay = 1.5;
     private SoundEffect gameOverSoundEffect;
+    private SoundEffect itemget;
     private SoundEffectInstance activeGameOverInstance;
 
 
@@ -34,7 +36,7 @@ public class GameManager
     public void LoadContent(ContentManager content)
     {
         gameOverSoundEffect = content.Load<SoundEffect>("Audio/GameOver");
-       
+        itemget = content.Load<SoundEffect>("Audio/itemget");
 
         try
         {
@@ -65,7 +67,11 @@ public class GameManager
     }
 
 
+    public void Playitemget()
+    {
+        itemget.Play();
 
+    }
     public void Update(GameTime gameTime)
     {
         if (isGameOver)
