@@ -118,6 +118,11 @@ public class Game1 : Game
 
 
         levels = new levelManager(environmentTexture, npcTexture, aquamentusTexture, enemyTexture, itemTexture, crackedWallTexture, enemyDeathTexture);
+        tiles.AddRange(levels.buildTiles());
+        foreach (var tile in tiles)
+        {
+            tile.SetCollider(); // Do this once
+        }
 
 
         tiles.AddRange(levels.buildTiles());
@@ -135,11 +140,11 @@ public class Game1 : Game
         //itemsList.Add(enemySpawnCloud);
 
 
-         //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
-         //Add bomb to list of items and delete this comment when items are implemented! -Bren
-         //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
+        //When adding other tiles remember to add them to "tiles" list and delete this comment! - Bren
+        //Add bomb to list of items and delete this comment when items are implemented! -Bren
+        //Add old man to list of characters and delete this comment when enemies are implemented! -Bren
 
-         entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture, enemyDeathTexture);
+        entityBuilder = new EntityBuilder(aquamentusTexture, enemyTexture, itemTexture, enemyDeathTexture);
 
         //IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
         //enemies.Add(g);
@@ -296,6 +301,7 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
+      
 
         _spriteBatch.Begin(
             SpriteSortMode.Deferred,
@@ -306,7 +312,11 @@ public class Game1 : Game
             null,
             Camera.GetTransformation(link.GetCenterPos(), ref IsTransitioning)
         );
-        
+        foreach (var tile in tiles)
+        {
+           
+            tile.Draw(_spriteBatch);
+        }
         /*foreach (var tile in tiles)
         {
             tile.SetCollider();
@@ -321,11 +331,7 @@ public class Game1 : Game
             }
         }*/
 
-        foreach(var tile in tiles)
-        {
-            tile.SetCollider();
-            tile.Draw(_spriteBatch);
-        }
+
 
         foreach (var anim in animationsList) {
             anim.Draw(_spriteBatch, SpriteEffects.None);
@@ -514,7 +520,7 @@ public class Game1 : Game
 
         foreach (var item in itemsList)
         {
-            item.Update(gameTime);
+            
 
             item.Update(gameTime);
             LinkEnemyCollisionHandler.HandleCollision(item, link);

@@ -26,6 +26,7 @@ namespace Project1.Sprites
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects)
         {
+           
             spriteBatch.Draw(
                 _texture,
                 position,
