@@ -29,6 +29,8 @@ namespace Project1.HUD
         private Vector2 selectorOffset = new Vector2(384, 141);
         private Vector2 bItemOffset = new Vector2(192,141);
         private Vector2 barItemOffset = new Vector2(372,600);
+        private Vector2 MAPPOS = new Vector2(48, 573);
+        private Vector2 INDICATOROFFSET = new Vector2(135, 648);
 
         private Vector2 SELECTORMULT = new Vector2(72,48);
         private int inventoryPosition;

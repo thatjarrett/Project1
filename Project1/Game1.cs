@@ -123,7 +123,7 @@ public class Game1 : Game
         {
             tile.SetCollider(); // Do this once
         }
-
+        
 
       
 
@@ -134,7 +134,7 @@ public class Game1 : Game
         itemsList.AddRange(tempitemlist);
         enemies.AddRange(tempenemylist);
 
-
+        
 
         //itemsList.Add(enemyDeathCloud);
         //itemsList.Add(enemySpawnCloud);

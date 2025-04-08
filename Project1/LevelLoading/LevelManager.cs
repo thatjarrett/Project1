@@ -35,6 +35,7 @@ namespace Project1.LevelLoading
         string levelZeroNegTwo = "Content/Level Data/ZeroNegTwo.txt";
         string levelZeroOne = "Content/Level Data/ZeroOne.txt";
         string levelZeroTwo = "Content/Level Data/ZeroTwo.txt";
+        string levelLadderRoom = "Content/Level Data/LevelLadderRoom.txt";
 
         string EntityZeroZero = "Content/Level Data/EntityZeroZero.txt";
         string EntityNegOneNegOne = "Content/Level Data/EntityNegOneNegOne.txt";
@@ -53,6 +54,7 @@ namespace Project1.LevelLoading
         string EntityZeroNegTwo = "Content/Level Data/EntityZeroNegTwo.txt";
         string EntityZeroOne = "Content/Level Data/EntityZeroOne.txt";
         string EntityZeroTwo = "Content/Level Data/EntityZeroTwo.txt";
+        string EntityLadderRoom = "Content/Level Data/EntityLadderRoom.txt";
 
 
 
@@ -87,6 +89,7 @@ namespace Project1.LevelLoading
             levels.Add(new Level(levelZeroNegTwo, EntityZeroNegTwo, 0 * pageSizeX, -2 * pageSizeY));
             levels.Add(new Level(levelZeroOne, EntityZeroOne, 0 * pageSizeX, 1 * pageSizeY));
             levels.Add(new Level(levelZeroTwo, EntityZeroTwo, 0 * pageSizeX, 2 * pageSizeY));
+            levels.Add(new Level(levelLadderRoom, EntityLadderRoom, -1 * pageSizeX, 1 * pageSizeY));
 
         }
 
