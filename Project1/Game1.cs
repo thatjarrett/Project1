@@ -125,7 +125,7 @@ public class Game1 : Game
         }
 
 
-        tiles.AddRange(levels.buildTiles());
+      
 
         List<IItem> tempitemlist = new List<IItem>();
         List<IEnemy> tempenemylist = new List<IEnemy>();
