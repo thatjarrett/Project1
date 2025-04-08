@@ -30,7 +30,7 @@ namespace Project1.HUD
         private Vector2 bItemOffset = new Vector2(192,141);
         private Vector2 barItemOffset = new Vector2(372,600);
         private Vector2 MAPPOS = new Vector2(48, 573);
-        private Vector2 INDICATOROFFSET = new Vector2(135, 612);
+        private Vector2 INDICATOROFFSET = new Vector2(135, 648);
 
         private Vector2 SELECTORMULT = new Vector2(72,48);
         private int inventoryPosition;
@@ -55,9 +55,6 @@ namespace Project1.HUD
         private ISprite bowSprite;
         private ISprite boomerangSprite;
 
-        private ISprite mapSprite;
-        private ISprite indicator;
-
         private SpriteEffects heartEffect;
 
         private bool canMove = true;
@@ -66,8 +63,6 @@ namespace Project1.HUD
         private TextSprite _rupeeCount;
         private TextSprite _bombCount;
         private TextSprite _keyCount;
-
-        private Camera _camera;
 
         private Collection<IItem> inventory;
         public IHUD(Link link,Texture2D texture, Texture2D hearts, Texture2D cover,Texture2D atlas, SpriteFont font, Camera camera)
@@ -84,13 +79,9 @@ namespace Project1.HUD
             bowSprite = new NMoveNAnim(atlas, new Rectangle(176, 47, 16, 16));
             boomerangSprite = new NMoveNAnim(atlas, new Rectangle(64, 47, 16, 16));
 
-            mapSprite = new NMoveNAnim(atlas, new Rectangle(16, 191, 64, 32));
-            indicator = new NMoveNAnim(atlas,new Rectangle(45,182,3,3));
-
             _rupeeCount = new TextSprite("", font, Vector2.Zero);
             _bombCount = new TextSprite("", font, Vector2.Zero);
             _keyCount = new TextSprite("", font, Vector2.Zero);
-            _camera = camera;
         }
         public void Update(GameTime gameTime)
         {
@@ -130,10 +121,6 @@ namespace Project1.HUD
             _bombCount.Draw(spriteBatch, new Vector2(0, height) + BOMBCOUNTPOS, SpriteEffects.None);
             _keyCount.Draw(spriteBatch, new Vector2(0, height) + KEYCOUNTPOS, SpriteEffects.None);
             DrawItems(spriteBatch);
-            if (_link.GetMap())
-            {
-                DrawMap(spriteBatch);
-            }
             selectorSprite.Draw(spriteBatch, DRAWOFFSET + selectorOffset + (SELECTORMULT * selectorPosition), SpriteEffects.None);
         }
         public void slideIn()
@@ -204,7 +191,7 @@ namespace Project1.HUD
         }
         private void DrawItems(SpriteBatch spriteBatch)
         {
-            foreach (IItem item in inventory)
+            foreach(IItem item in inventory)
             {
                 if(item is Boomerang)
                 {
@@ -240,11 +227,6 @@ namespace Project1.HUD
         {
             item.Draw(spriteBatch, DRAWOFFSET + bItemOffset, SpriteEffects.None);
             item.Draw(spriteBatch, DRAWOFFSET + barItemOffset, SpriteEffects.None);
-        }
-        private void DrawMap(SpriteBatch spriteBatch)
-        {
-            mapSprite.Draw(spriteBatch, new Vector2(0, height) + MAPPOS, SpriteEffects.None);
-            indicator.Draw(spriteBatch, new Vector2(0, height) + INDICATOROFFSET + new Vector2(24, 12)*_camera.getCameraPos(), SpriteEffects.None);
         }
     }
 }
