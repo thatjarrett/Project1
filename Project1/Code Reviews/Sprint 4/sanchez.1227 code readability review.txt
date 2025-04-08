@@ -1,0 +1,9 @@
+Review by Nick
+Reviewing LevelManager
+Original file by Bennett
+4/7/2025
+Sprint 4
+
+Review: This class is pretty well-organized and clearly lays out the level setup and building processes. It was confusing at first to wrap my head around
+the coordinate system for rooms since its an inverted axis, but once I was able to get around that, the code was pretty easy to follow. I like how it also
+separates responsibilities between tiles and entities, which helps in making it easy to read.

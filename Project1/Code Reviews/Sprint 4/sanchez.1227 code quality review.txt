@@ -1,0 +1,9 @@
+Review by Nick
+Reviewing CollisionBox.cs
+Original file by Bren
+4/7/2025
+Sprint 4
+
+Review: The code is pretty well-structured and robust. It has clear naming and apropriate purpose for methods. However, I did notice that 
+the rect parameter in the DebugDraw method could be replaced with the hitbox directly. But, this is a method just used for the developer anyways. 
+Overall I think the code is really well done especially since it is such a core part of getting everything in the game to work.

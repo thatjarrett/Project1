@@ -17,3 +17,10 @@ simply waiting for those working on item collection to get that system finished 
 on level loading, so I added it pretty much last second.
 Overall, I feel we as a team did great this sprint, albeit we could have been more proactive on getting work done. However, it is worth noting a few of us reported that
 other classes were taking up our time, which I feel is a reasonable explanation for work being delayed.
+
+Nick- I feel like I didn't have much to do this sprint since my responsibilities were mainly having to do with collisions. I think this led to procrastinate a bit on my
+tasks. However, I think I did a good job stepping in to help Bennett when the walls were giving him trouble with the room transitions. I think that in terms of functionality,
+our code has turned out pretty well. I think there is space for improvement when it comes to optimizing the game for better performance and bug fixes. I think one thing to watch
+out for going forward is making sure that our final product for sprint 4 is robust enough to withstand the additions we are going to make for sprint 5 as they may expose 
+some underlying bugs and performance issues within the code. In general, I think the team did a good job in keeping up the momentum from sprint 3 to get the main game 
+functionality finished.
