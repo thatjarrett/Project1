@@ -147,6 +147,17 @@ namespace Project1.Entities
         new Rectangle(10, 158, 16, 9), new Rectangle(115, 158, 16, 9)
     };
 
+            Rectangle[] boomerang = {
+        new Rectangle(65, 185, 5, 16), new Rectangle(73, 185, 8, 16),
+        new Rectangle(82, 185, 8, 16)
+    };
+
+            Rectangle[] bombExplode = {
+        new Rectangle(138, 185, 16, 16), new Rectangle(155, 185, 16, 16),
+        new Rectangle(172, 185, 16, 16)
+    };
+
+
             walkSideSprite = new NMoveAnim(linkTexture, walkSide, 5);
             walkUpSprite = new NMoveAnim(linkTexture, walkUp, 5);
             walkDownSprite = new NMoveAnim(linkTexture, walkDown, 5);
@@ -166,6 +177,15 @@ namespace Project1.Entities
 
             swordBeamHorizontal = new NMoveAnim(linkTexture, swordBeamH, 5);
             swordBeamVertical = new NMoveAnim(linkTexture, swordBeamV, 5);
+
+            arrowVertical = new NMoveNAnim(linkTexture, new Rectangle(0, 185, 10, 16));
+            arrowHorizontal = new NMoveNAnim(linkTexture, new Rectangle(10, 185, 16, 15));
+
+            boomerangSprite = new NMoveAnim(linkTexture, boomerang, 5);
+
+            bombSprite = new NMoveNAnim(linkTexture, new Rectangle(128, 184, 10, 16));
+
+            explodingBombSprite = new NMoveAnim(linkTexture, bombExplode, 5);
 
             currentIdleSprite = idleDownSprite;
             currentAttackSprite = attackDownSprite;
