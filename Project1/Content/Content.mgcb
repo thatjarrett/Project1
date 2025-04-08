@@ -275,6 +275,9 @@
 #begin Level Data/BlockLevel.txt
 /copy:Level Data/BlockLevel.txt
 
+#begin Level Data/EntityLadderRoom.txt
+/copy:Level Data/EntityLadderRoom.txt
+
 #begin Level Data/EntityLevel.txt
 /copy:Level Data/EntityLevel.txt
 
@@ -328,6 +331,9 @@
 
 #begin Level Data/EntityZeroZero.txt
 /copy:Level Data/EntityZeroZero.txt
+
+#begin Level Data/LevelLadderRoom.txt
+/copy:Level Data/LevelLadderRoom.txt
 
 #begin Level Data/NegOneNegOne.txt
 /copy:Level Data/NegOneNegOne.txt
