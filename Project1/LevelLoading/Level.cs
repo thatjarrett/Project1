@@ -111,7 +111,7 @@ namespace Project1.LevelLoading
                     int entityNum = levelEntities[i, j];
                     int destinationx = roomOffsetX + (3 * 32) + (x * j);
                     int destinationy = roomOffsetY + 120 + (3 * 32) + (y * i);
-                    if (entityNum >=1 && entityNum <= 7)
+                    if (entityNum >=1 && entityNum <= 7 || entityNum > 20)
                     {
                         enemyList.Add(EntityBuilder.buildEnemy(entityNum, new Vector2(destinationx, destinationy)));
                     }else if (entityNum >=8 && entityNum <= 20)
