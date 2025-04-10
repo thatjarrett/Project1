@@ -93,20 +93,22 @@ public class BombProjectile : IProjectile
     private void BreakNearbyWalls()
     {
         const int explosionRadius = 48;
-
-        foreach (var tile in tileList)
+        if (tileList != null)
         {
-            if (tile.IsBreakable && tile.IsSolid)
+            foreach (var tile in tileList)
             {
-                CollisionBox box = tile.GetCollider();
-                if (box != null)
+                if (tile.IsBreakable && tile.IsSolid)
                 {
-                    Rectangle hitbox = box.hitbox;
-                    Vector2 tileCenter = new Vector2(hitbox.X + hitbox.Width / 2f, hitbox.Y + hitbox.Height / 2f);
-
-                    if (Vector2.Distance(tileCenter, _position) <= explosionRadius)
+                    CollisionBox box = tile.GetCollider();
+                    if (box != null)
                     {
-                        tile.Break();
+                        Rectangle hitbox = box.hitbox;
+                        Vector2 tileCenter = new Vector2(hitbox.X + hitbox.Width / 2f, hitbox.Y + hitbox.Height / 2f);
+
+                        if (Vector2.Distance(tileCenter, _position) <= explosionRadius)
+                        {
+                            tile.Break();
+                        }
                     }
                 }
             }

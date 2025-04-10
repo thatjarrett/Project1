@@ -12,11 +12,12 @@ namespace Project1.GameObjects.Items
     {
         Texture2D texture;
         Rectangle destinationRectangle;
+        int frameState = 0;
         Vector2 Pos;
 
         private CollisionBox collider;
 
-        private bool active = false;
+        private bool active = true;
 
         public Bomb(Texture2D texture, Vector2 pos)
         {
@@ -29,16 +30,18 @@ namespace Project1.GameObjects.Items
         {
 
             Rectangle source = new Rectangle(136, 0, 8, 16);
-            destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 8, 2 * 16);
+
+            destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 16, 2 * 16);
 
 
             spriteBatch.Draw(texture, destinationRectangle, source, Color.White);
         }
-        public void Draw(SpriteBatch spriteBatch,Vector2 location, SpriteEffects spriteEffects)
+        public void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects)
         {
 
-            Rectangle source = new Rectangle(136, 0, 8, 16);
-            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 8, 2 * 16);
+            Rectangle source = new Rectangle(56, 0, 16, 16);
+
+            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 16, 2 * 16);
 
 
             spriteBatch.Draw(texture, destinationRectangle, source, Color.White);
@@ -46,7 +49,6 @@ namespace Project1.GameObjects.Items
 
         public void Update(GameTime gameTime)
         {
-
 
         }
         public void SetColor(Color _color)
