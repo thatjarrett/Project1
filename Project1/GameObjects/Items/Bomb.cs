@@ -31,7 +31,7 @@ namespace Project1.GameObjects.Items
 
             Rectangle source = new Rectangle(136, 0, 8, 16);
 
-            destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 16, 2 * 16);
+            destinationRectangle = new Rectangle((int)Pos.X, (int)Pos.Y, 2 * 8, 2 * 16);
 
 
             spriteBatch.Draw(texture, destinationRectangle, source, Color.White);
