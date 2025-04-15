@@ -20,6 +20,10 @@ using Project1.LevelLoading;
 using Microsoft.Xna.Framework.Media;
 using Project1.Audio;
 using Project1.HUD;
+using static Project1.Entities.Link;
+using Project1;
+
+
 
 public class Game1 : Game
 {
@@ -49,6 +53,7 @@ public class Game1 : Game
     Texture2D enemyDeathTexture;
     Texture2D enemySpawnTexture;
     Texture2D atlasTexture;
+    private PortalManager portalManager;
 
     //ISprite enemyDeathCloud;
     //ISprite enemySpawnCloud;
@@ -100,6 +105,27 @@ public class Game1 : Game
         link = new Link(new Vector2(350, 250));
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         Texture2D crackedWallTexture = Content.Load<Texture2D>("Images/crackedWall");
+        Texture2D portalSheet = Content.Load<Texture2D>("Images/portalSprites");
+
+        // Define source rectangles from the sprite sheet
+        Rectangle bluePortalRect = new Rectangle(0, 0, 32, 32);         // example coords
+        Rectangle blueProjectileRect = new Rectangle(64, 0, 16, 16);    // projectile
+        Rectangle orangePortalRect = new Rectangle(0, 32, 32, 32);      // example coords
+        Rectangle orangeProjectileRect = new Rectangle(64, 32, 16, 16); // projectile
+
+        // Create the portal manager with all required arguments
+        portalManager = new PortalManager(
+            portalSheet,
+            bluePortalRect,
+            blueProjectileRect,
+            orangePortalRect,
+            orangeProjectileRect
+        );
+
+        // Attach to Link
+        link.SetPortalManager(portalManager);
+
+
 
 
         createSprites();
@@ -162,7 +188,8 @@ public class Game1 : Game
         hud = new IHUD(link, hudTexture, heartsTexture, coverTexture, atlasTexture, font1, Camera);
 
         var commands = new Dictionary<Keys, ICommand>
-    {
+    {{ Keys.C, new StartBluePortalCommand(link) },     
+    { Keys.V, new StartOrangePortalCommand(link) },
 { Keys.W, new MoveUpCommand(link,hud) },
 { Keys.Up, new MoveUpCommand(link,hud) },
 { Keys.S, new MoveDownCommand(link,hud) },
@@ -179,6 +206,7 @@ public class Game1 : Game
 { Keys.Q, new QuitCommand(this) },
 { Keys.R, new ResetCommand(this) },
 { Keys.Escape, new PauseCommand(this) },
+
 /*{ Keys.T, new CycleBlockCommand(this, false) }, // Previous block
 { Keys.Y, new CycleBlockCommand(this, true) },  // Next block
 { Keys.U, new CycleItemCommand(this, false) }, // Previous item
@@ -187,6 +215,14 @@ public class Game1 : Game
 { Keys.P, new CycleNPCCommand(this, true) }   // Next NPC
 */
     };
+        var releaseCommands = new Dictionary<Keys, ICommand>
+{
+    { Keys.C, new EndBluePortalCommand(link) },
+    { Keys.V, new EndOrangePortalCommand(link) }
+};
+
+        keyboardController = new KeyboardController(commands, new IdleCommand(link), releaseCommands);
+
         var movementCommands = new Dictionary<Project1.Controllers.Direction, ICommand>
 {
     { Project1.Controllers.Direction.Up, new MoveUpCommand(link, hud) },
@@ -215,7 +251,7 @@ public class Game1 : Game
 };
         gamepadController = new GamepadController(gamepadCommands, movementCommands, new IdleCommand(link));
 
-        keyboardController = new KeyboardController(commands, new IdleCommand(link));
+        
         _graphics.PreferredBackBufferWidth = 768;
         _graphics.PreferredBackBufferHeight = 648;
         _graphics.ApplyChanges();
@@ -227,6 +263,7 @@ public class Game1 : Game
         keyboardController.Update(gameTime);
         gamepadController.Update(gameTime);
         hud.Update(gameTime);
+        portalManager?.Update(gameTime);
         GameTimer.Update(gameTime);// Gamepad input added
         if (!paused)
         { 
@@ -309,8 +346,8 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
-      
 
+        
         _spriteBatch.Begin(
             SpriteSortMode.Deferred,
             BlendState.NonPremultiplied,
@@ -320,6 +357,7 @@ public class Game1 : Game
             null,
             Camera.GetTransformation(link.GetCenterPos(), ref IsTransitioning)
         );
+        portalManager?.Draw(_spriteBatch);
         // Draw regular tiles first
         foreach (var tile in tiles)
         {

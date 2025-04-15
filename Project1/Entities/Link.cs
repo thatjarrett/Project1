@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Project1.Collision;
 using Project1.GameObjects.Items;
 using Project1.Interfaces;
+
 using Project1.Projectiles;
 using Project1.Sprites;
 
@@ -89,6 +90,14 @@ namespace Project1.Entities
             swordCollision = null;
             health = maxHealth;
         }
+        private bool firingBluePortal = false;
+        private bool firingOrangePortal = false;
+        private PortalManager portalManager; 
+
+        public void SetPortalManager(PortalManager manager)
+        {
+            this.portalManager = manager;
+        }
 
         public void ChangeState(ILinkState newState)
         {
@@ -101,6 +110,11 @@ namespace Project1.Entities
             currentState = newState;
             currentState.Enter(this);
         }
+        public void TeleportTo(Vector2 newPosition)
+        {
+            position = newPosition;
+            collider.setPos((int)position.X, (int)position.Y);
+        }
 
         public Vector2 GetCenterPos()
         {
@@ -108,6 +122,71 @@ namespace Project1.Entities
             return position + new Vector2(-384, -324);
         }
 
+        public class StartBluePortalCommand : ICommand
+        {
+            private Link link;
+            public StartBluePortalCommand(Link l) => link = l;
+            public void Execute() => link.BeginFireBluePortal();
+        }
+
+        public class EndBluePortalCommand : ICommand
+        {
+            private Link link;
+            public EndBluePortalCommand(Link l) => link = l;
+            public void Execute() => link.EndFireBluePortal();
+        }
+        public class StartOrangePortalCommand : ICommand
+        {
+            private Link link;
+            public StartOrangePortalCommand(Link l) => link = l;
+            public void Execute() => link.BeginFireOrangePortal();
+        }
+
+        public class EndOrangePortalCommand : ICommand
+        {
+            private Link link;
+            public EndOrangePortalCommand(Link l) => link = l;
+            public void Execute() => link.EndFireOrangePortal();
+        }
+        private bool isFiringBlue = false;
+        private bool isFiringOrange = false;
+        private Vector2 fireDirection;
+
+       
+
+        public void BeginFireBluePortal()
+        {
+            isFiringBlue = true;
+            fireDirection = faceDirection; // or whatever direction Link is facing
+        }
+
+        public void EndFireBluePortal()
+        {
+            Debug.WriteLine("Firing blue portal!");
+            if (isFiringBlue)
+            {
+                Vector2 spawnPos = position + fireDirection * 32; // offset from Link
+                portalManager.FireBlue(spawnPos, fireDirection);
+                isFiringBlue = false;
+            }
+        }
+
+        public void BeginFireOrangePortal()
+        {
+            isFiringOrange = true;
+            fireDirection = faceDirection;
+        }
+
+        public void EndFireOrangePortal()
+        {
+            Debug.WriteLine("Firing orange portal!");
+            if (isFiringOrange)
+            {
+                Vector2 spawnPos = position + fireDirection * 32;
+                portalManager.FireOrange(spawnPos, fireDirection);
+                isFiringOrange = false;
+            }
+        }
 
         public void Hide()
         {

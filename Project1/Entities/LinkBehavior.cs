@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Project1.GameObjects.Items;
 using Project1.Projectiles;
 using Project1.Sprites;
@@ -36,7 +37,9 @@ namespace Project1.Entities
 
         public void Update(GameTime gameTime)
         {
-            
+        
+
+
             currentState.Update(this, gameTime);
 
             if (!(currentState is LinkDeathState) && health == 0)

@@ -13,20 +13,31 @@ namespace Project1.Controllers
         private readonly HashSet<Keys> _itemKeys;
         private ICommand _idleCommand;
         private KeyboardState _previousState;
+        private readonly Dictionary<Keys, ICommand> _keyReleaseCommands = new();
 
-        public KeyboardController(Dictionary<Keys, ICommand> commands, ICommand idleCommand)
+        public KeyboardController(Dictionary<Keys, ICommand> commands, ICommand idleCommand,
+                                  Dictionary<Keys, ICommand>? keyReleaseCommands = null)
         {
             _commands = commands;
             _idleCommand = idleCommand;
             _previousState = Keyboard.GetState();
             _movementKeys = new HashSet<Keys> { Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Left, Keys.Down, Keys.Right };
             _itemKeys = new HashSet<Keys> { Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0 };
+            _keyReleaseCommands = keyReleaseCommands ?? new Dictionary<Keys, ICommand>();
         }
+
 
         public void Update(GameTime gameTime)
         {
             KeyboardState state = Keyboard.GetState();
             bool movementKeyPressed = false;
+            foreach (var key in _keyReleaseCommands.Keys)
+            {
+                if (_previousState.IsKeyDown(key) && !state.IsKeyDown(key))
+                {
+                    _keyReleaseCommands[key].Execute();
+                }
+            }
 
             foreach (var key in _commands.Keys)
             {
