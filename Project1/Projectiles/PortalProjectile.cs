@@ -23,6 +23,7 @@ namespace Project1.Projectiles
         private bool _collided = false;
         private float _speed = 5f;
         private SpriteEffects _spriteEffect = SpriteEffects.None;
+        private bool isOpen;
 
         public PortalProjectile(Vector2 startPosition, Vector2 direction, Texture2D texture, Rectangle portalSprite, Rectangle projectileSprite, Rectangle closedPortalSprite, Rectangle vProjectileSprite)
         {
@@ -67,6 +68,14 @@ namespace Project1.Projectiles
             else
             {
                 _spriteEffect = SpriteEffects.None;
+                if (isOpen)
+                {
+                    _currentProjectileSprite = _portalSprite;
+                }
+                else
+                {
+                    _currentProjectileSprite = _closedPortalSprite;
+                }
             }
         }
 
@@ -85,7 +94,10 @@ namespace Project1.Projectiles
         {
             return _collided;
         }
-
+        public void setOpen()
+        {
+            isOpen = true;
+        }
         public void Throw(Vector2 start, Vector2 direction)
         {
             _position = start;

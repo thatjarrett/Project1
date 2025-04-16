@@ -28,9 +28,11 @@ namespace Project1
             this.bluePortalRect = bluePortalRect;
             this.blueProjectileRect = blueProjectileRect;
             this.blueProjectileRectV = blueProjectileRectV;
+            this.bluePortalClosed = bluePortalClosed;
             this.orangePortalRect = orangePortalRect;
             this.orangeProjectileRect = orangeProjectileRect;
             this.orangeProjectileRectV = orangeProjectileRectV;
+            this.orangePortalClosed = orangePortalClosed;
         }
 
         public void FireBlue(Vector2 start, Vector2 direction)
@@ -56,9 +58,20 @@ namespace Project1
             orangePortal?.Update(gameTime);
 
             if (bluePortal?.HasCollided() == true)
+            {
                 bluePortal.StopMoving();
+            }
+                
             if (orangePortal?.HasCollided() == true)
+            {
                 orangePortal.StopMoving();
+            }
+            if (HasValidPortals())
+            {
+                bluePortal.setOpen();
+                orangePortal.setOpen();
+            }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -71,5 +84,6 @@ namespace Project1
 
         public Vector2? GetBluePosition() => bluePortal?.GetPosition();
         public Vector2? GetOrangePosition() => orangePortal?.GetPosition();
+
     }
 }
