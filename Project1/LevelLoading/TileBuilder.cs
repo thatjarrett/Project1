@@ -61,6 +61,8 @@ namespace Project1.LevelLoading
         ISprite blueFloorSprite;
         ISprite blueSandSprite;
 
+        ISprite voidSprite;
+
 
         public TileBuilder(Texture2D environmentTexture, Texture2D npcTexture, Texture2D crackedWallTexture)
 
@@ -118,6 +120,7 @@ namespace Project1.LevelLoading
             this.blueFloorSprite = new NMoveNAnim(environmentTexture, new Rectangle(464, 1, 16, 16));
             this.blueSandSprite = new NMoveNAnim(environmentTexture, new Rectangle(481, 18, 16, 16));
 
+            this.voidSprite = new NMoveNAnim(environmentTexture, new Rectangle(464, 18, 16, 16));
         }
 
         public environmentTile buildTile(int tileID, Vector2 location)
@@ -402,6 +405,13 @@ namespace Project1.LevelLoading
                     {
                         tile = new CrackedWallTile(location, this.rightBombedOpeningSprite);
                         tile.setSprite(this.rightCrackedWallSprite);
+                        break;
+                    }
+
+                case 40:
+                    {
+                        tile = new VoidTile(location);
+                        tile.setSprite(this.voidSprite);
                         break;
                     }
 
