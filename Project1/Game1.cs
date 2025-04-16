@@ -300,8 +300,17 @@ public class Game1 : Game
                 previousKeyboard = currentKeyboard;
 
                 base.Update(gameTime);
+            CollisionBox portalBox = portalManager.GetBlueCollider(); // or similar
+            foreach (var tile in tiles)
+            {
+                var wallCollider = tile.GetCollider();
+                if (wallCollider != null && portalBox != null && portalBox.Intersects(wallCollider))
+                {
+                    portalManager.StopBluePortal(); // or: portal.StopMoving()
+                }
+            }
 
-        
+
             UpdateCollisions(gameTime);
 
             removeInactive();
@@ -365,7 +374,7 @@ public class Game1 : Game
             null,
             Camera.GetTransformation(link.GetCenterPos(), ref IsTransitioning)
         );
-        portalManager?.Draw(_spriteBatch);
+        
         // Draw regular tiles first
         foreach (var tile in tiles)
         {
@@ -441,7 +450,7 @@ public class Game1 : Game
                 tile.Draw(_spriteBatch);
             }
         }
-
+        portalManager?.Draw(_spriteBatch);
         if (!paused && !IsTransitioning)
         {
             link.Draw(_spriteBatch);
@@ -536,11 +545,20 @@ public class Game1 : Game
                     {
                         link.CollisionUpdate(collider);
                         foreach (var enemy in enemies)
-                        {
                             enemy.CollisionUpdate(collider);
+
+                        if (portalManager?.GetBlueCollider()?.Intersects(collider) == true)
+                        {
+                            portalManager.StopBluePortal();
+                        }
+
+                        if (portalManager?.GetOrangeCollider()?.Intersects(collider) == true)
+                        {
+                            portalManager.StopOrangePortal();
                         }
                     }
                 }
+
 
             }
             else if (tile is stairsTile stairs) {
@@ -614,6 +632,25 @@ public class Game1 : Game
                 }
             }
 
+        }
+        
+        CollisionBox blue = portalManager?.GetBlueCollider();
+        CollisionBox orange = portalManager?.GetOrangeCollider();
+
+        foreach (var tile in tiles)
+        {
+            var wallCollider = tile.GetCollider();
+            if (wallCollider != null)
+            {
+                if (blue != null && blue.Intersects(wallCollider))
+                {
+                    portalManager.StopBluePortal();
+                }
+                if (orange != null && orange.Intersects(wallCollider))
+                {
+                    portalManager.StopOrangePortal();
+                }
+            }
         }
 
         foreach (var item in itemsList)

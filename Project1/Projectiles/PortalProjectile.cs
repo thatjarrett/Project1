@@ -34,6 +34,8 @@ namespace Project1.Projectiles
             _projectileSprite = new NMoveNAnim(texture, projectileSprite);
             _projectileSpriteV = new NMoveNAnim(texture, vProjectileSprite);
             _collider = new CollisionBox((int)_position.X, (int)_position.Y, 16, 16);
+            _currentProjectileSprite = _projectileSprite; 
+
         }
 
         public void Update(GameTime gameTime)

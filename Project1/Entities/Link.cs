@@ -51,6 +51,8 @@ namespace Project1.Entities
         private int arrowCount;
 
         private int currentItemIndex = 2;
+        private double portalCooldownTimer = 0;
+        private const double PortalCooldownDuration = 0.5; 
 
         private bool hasBow;
         private bool hasBoomerang;
@@ -164,16 +166,6 @@ namespace Project1.Entities
             fireDirection = faceDirection; // or whatever direction Link is facing
         }
 
-        public void EndFireBluePortal()
-        {
-            Debug.WriteLine("Firing blue portal!");
-            if (isFiringBlue)
-            {
-                Vector2 spawnPos = position + fireDirection * 32; // offset from Link
-                portalManager.FireBlue(spawnPos, fireDirection);
-                isFiringBlue = false;
-            }
-        }
 
         public void BeginFireOrangePortal()
         {
@@ -181,16 +173,28 @@ namespace Project1.Entities
             fireDirection = faceDirection;
         }
 
+        public void EndFireBluePortal()
+        {
+            if (isFiringBlue)
+            {
+                Vector2 spawnPos = position + fireDirection * 32;
+                portalManager.FireBlue(spawnPos, fireDirection);
+                isFiringBlue = false;
+                portalCooldownTimer = PortalCooldownDuration;
+            }
+        }
+
         public void EndFireOrangePortal()
         {
-            Debug.WriteLine("Firing orange portal!");
             if (isFiringOrange)
             {
                 Vector2 spawnPos = position + fireDirection * 32;
                 portalManager.FireOrange(spawnPos, fireDirection);
                 isFiringOrange = false;
+                portalCooldownTimer = PortalCooldownDuration;
             }
         }
+
 
         public void Hide()
         {

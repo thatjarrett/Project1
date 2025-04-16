@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project1.Collision;
 using Project1.Projectiles;
 
 namespace Project1
@@ -35,23 +36,29 @@ namespace Project1
         public void FireBlue(Vector2 start, Vector2 direction)
         {
             bluePortal = new PortalProjectile(start, direction, portalTexture, bluePortalRect, blueProjectileRect,bluePortalClosed,blueProjectileRectV);
+            Vector2.Normalize(direction);
+
         }
+        public CollisionBox GetBlueCollider() => bluePortal?.GetCollider();
+        public void StopBluePortal() => bluePortal?.StopMoving();
 
         public void FireOrange(Vector2 start, Vector2 direction)
         {
             orangePortal = new PortalProjectile(start, direction, portalTexture, orangePortalRect, orangeProjectileRect,orangePortalClosed, orangeProjectileRectV);
+            Vector2.Normalize(direction);
         }
+        public CollisionBox GetOrangeCollider() => orangePortal?.GetCollider();
+        public void StopOrangePortal() => orangePortal?.StopMoving();
 
         public void Update(GameTime gameTime)
         {
             bluePortal?.Update(gameTime);
             orangePortal?.Update(gameTime);
 
-            if (bluePortal?.HasCollided() == true || orangePortal?.HasCollided() == true)
-            {
-                bluePortal?.StopMoving();
-                orangePortal?.StopMoving();
-            }
+            if (bluePortal?.HasCollided() == true)
+                bluePortal.StopMoving();
+            if (orangePortal?.HasCollided() == true)
+                orangePortal.StopMoving();
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -69,6 +69,11 @@ namespace Project1.Collision
         {
             return new Vector2(hitbox.X + hitbox.Width / 2, hitbox.Y + hitbox.Height / 2);
         }
+        public bool Contains(Vector2 point)
+        {
+            return (point.X >= hitbox.X && point.X <= hitbox.X + hitbox.Width &&
+                    point.Y >= hitbox.Y && point.Y <= hitbox.Y + hitbox.Height);
+        }
 
         public void DebugDraw(SpriteBatch spriteBatch, Texture2D pixel, Rectangle rect, Color color)
         {

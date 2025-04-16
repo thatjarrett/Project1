@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project1.Collision;
 using Project1.GameObjects.Items;
 using Project1.Projectiles;
 using Project1.Sprites;
@@ -15,6 +16,8 @@ namespace Project1.Entities
         public void MoveUp() => TryMove(() => currentState.MoveUp(this));
         public void MoveDown() => TryMove(() => currentState.MoveDown(this));
         public void PerformAttack() => TryMove(() => currentState.Attack(this));
+        public double GetPortalCooldown() => portalCooldownTimer;
+        public void ResetPortalCooldown() => portalCooldownTimer = PortalCooldownDuration;
 
         private void TryMove(System.Action action)
         {
@@ -37,7 +40,28 @@ namespace Project1.Entities
 
         public void Update(GameTime gameTime)
         {
-        
+            if (portalCooldownTimer > 0)
+                portalCooldownTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+
+            Vector2? blue = portalManager.GetBluePosition();
+            Vector2? orange = portalManager.GetOrangePosition();
+            if (blue.HasValue && orange.HasValue && this.GetPortalCooldown() <= 0)
+            {
+                CollisionBox linkBox = this.GetCollider();
+
+                if (linkBox.Intersects(new CollisionBox((int)blue.Value.X, (int)blue.Value.Y, 16, 16)))
+                {
+                    this.TeleportTo(orange.Value + new Vector2(0, 16));
+                    this.ResetPortalCooldown();
+                }
+                else if (linkBox.Intersects(new CollisionBox((int)orange.Value.X, (int)orange.Value.Y, 16, 16)))
+                {
+                    this.TeleportTo(blue.Value + new Vector2(0, 16));
+                    this.ResetPortalCooldown();
+                }
+            }
+
+
 
 
             currentState.Update(this, gameTime);
