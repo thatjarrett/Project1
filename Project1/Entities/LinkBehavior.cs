@@ -148,9 +148,11 @@ namespace Project1.Entities
 
             boomerangProjectile?.Draw(spriteBatch);
 
-            foreach (var bomb in bombs)
-                bomb.Draw(spriteBatch);
-            
+            for (int i = 0; i < bombs.Count; i++)
+            {
+                bombs[i].Draw(spriteBatch);
+            }
+
 
             if (dying)
             {
