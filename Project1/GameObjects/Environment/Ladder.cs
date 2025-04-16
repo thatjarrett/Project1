@@ -6,7 +6,7 @@ namespace Project1.GameObjects.Environment
     {
 
         public Ladder(Vector2 pos) :
-            base(pos, true)
+            base(pos, false)
         { }
     }
 }
