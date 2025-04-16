@@ -108,18 +108,26 @@ public class Game1 : Game
         Texture2D portalSheet = Content.Load<Texture2D>("Images/portalSprites");
 
         // Define source rectangles from the sprite sheet
-        Rectangle bluePortalRect = new Rectangle(0, 0, 32, 32);         // example coords
-        Rectangle blueProjectileRect = new Rectangle(64, 0, 16, 16);    // projectile
-        Rectangle orangePortalRect = new Rectangle(0, 32, 32, 32);      // example coords
-        Rectangle orangeProjectileRect = new Rectangle(64, 32, 16, 16); // projectile
+        Rectangle bluePortalRect = new Rectangle(16, 0, 16, 16);         // example coords
+        Rectangle blueProjectileRect = new Rectangle(32, 0, 16, 16);    // projectile
+        Rectangle bluePortalClosedRect = new Rectangle(0, 0, 16, 16);         // example coords
+        Rectangle blueProjectileVRect = new Rectangle(48, 0, 16, 16);    // projectile
+        Rectangle orangePortalRect = new Rectangle(16, 16, 16, 16);      // example coords
+        Rectangle orangeProjectileRect = new Rectangle(32, 16, 16, 16); // projectile
+        Rectangle orangePortalClosedRect = new Rectangle(0, 16, 16, 16);      // example coords
+        Rectangle orangeProjectileVRect = new Rectangle(48, 16, 16, 16); // projectile
 
         // Create the portal manager with all required arguments
         portalManager = new PortalManager(
             portalSheet,
             bluePortalRect,
             blueProjectileRect,
+            bluePortalClosedRect,
+            blueProjectileVRect,
             orangePortalRect,
-            orangeProjectileRect
+            orangeProjectileRect,
+            orangePortalClosedRect,
+            orangeProjectileVRect
         );
 
         // Attach to Link

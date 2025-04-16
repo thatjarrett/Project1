@@ -109,6 +109,7 @@ namespace Project1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            portalManager.Draw(spriteBatch);
             if (!isVisible || linkSprite == null)
                 return;
 
@@ -125,6 +126,7 @@ namespace Project1.Entities
 
             foreach (var bomb in bombs)
                 bomb.Draw(spriteBatch);
+            
 
             if (dying)
             {
@@ -133,6 +135,7 @@ namespace Project1.Entities
                     ? SpriteEffects.FlipHorizontally
                     : SpriteEffects.None;
             }
+            
         }
 
         private void UpdateDamageFrame()

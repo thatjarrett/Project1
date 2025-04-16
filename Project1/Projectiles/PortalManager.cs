@@ -12,28 +12,34 @@ namespace Project1
         private Texture2D portalTexture;
         private Rectangle bluePortalRect;
         private Rectangle blueProjectileRect;
+        private Rectangle bluePortalClosed;
+        private Rectangle blueProjectileRectV;
         private Rectangle orangePortalRect;
         private Rectangle orangeProjectileRect;
+        private Rectangle orangePortalClosed;
+        private Rectangle orangeProjectileRectV;
 
         public PortalManager(Texture2D portalTexture,
-                             Rectangle bluePortalRect, Rectangle blueProjectileRect,
-                             Rectangle orangePortalRect, Rectangle orangeProjectileRect)
+                             Rectangle bluePortalRect, Rectangle blueProjectileRect, Rectangle bluePortalClosed, Rectangle blueProjectileRectV,
+                             Rectangle orangePortalRect, Rectangle orangeProjectileRect, Rectangle orangePortalClosed, Rectangle orangeProjectileRectV)
         {
             this.portalTexture = portalTexture;
             this.bluePortalRect = bluePortalRect;
             this.blueProjectileRect = blueProjectileRect;
+            this.blueProjectileRectV = blueProjectileRectV;
             this.orangePortalRect = orangePortalRect;
             this.orangeProjectileRect = orangeProjectileRect;
+            this.orangeProjectileRectV = orangeProjectileRectV;
         }
 
         public void FireBlue(Vector2 start, Vector2 direction)
         {
-            bluePortal = new PortalProjectile(start, direction, portalTexture, bluePortalRect, blueProjectileRect);
+            bluePortal = new PortalProjectile(start, direction, portalTexture, bluePortalRect, blueProjectileRect,bluePortalClosed,blueProjectileRectV);
         }
 
         public void FireOrange(Vector2 start, Vector2 direction)
         {
-            orangePortal = new PortalProjectile(start, direction, portalTexture, orangePortalRect, orangeProjectileRect);
+            orangePortal = new PortalProjectile(start, direction, portalTexture, orangePortalRect, orangeProjectileRect,orangePortalClosed, orangeProjectileRectV);
         }
 
         public void Update(GameTime gameTime)

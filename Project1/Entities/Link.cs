@@ -92,13 +92,17 @@ namespace Project1.Entities
         }
         private bool firingBluePortal = false;
         private bool firingOrangePortal = false;
-        private PortalManager portalManager; 
+        private PortalManager portalManager;
 
         public void SetPortalManager(PortalManager manager)
         {
             this.portalManager = manager;
         }
-
+ 
+        public SpriteEffects GetSpriteEffect()
+        {
+            return currentSpriteEffect;
+        }
         public void ChangeState(ILinkState newState)
         {
             //Debug.WriteLine($"Changing state to: {newState.GetType().Name}");
