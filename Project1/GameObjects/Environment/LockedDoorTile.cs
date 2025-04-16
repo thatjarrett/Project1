@@ -8,22 +8,23 @@ namespace Project1.GameObjects.Environment
     public class LockedDoorTile : doorTile
     {
         private ISprite openSprite;
-        private bool isOpen = false;
+        private Direction direction;
 
-        public LockedDoorTile(Vector2 position, ISprite closedSprite, ISprite openSprite)
+        public LockedDoorTile(Vector2 position, ISprite closedSprite, ISprite openSprite, Direction direction)
             : base(position)
         {
             this.setSprite(closedSprite);
             this.openSprite = openSprite;
-            this.IsSolid = true;
-            this.IsBreakable = false;
+            //this.IsSolid = true;
+            //this.IsBreakable = false;
             this._collides = true;
+            this.direction = direction;
             SetCollider();
         }
 
         public void TryOpen(Link link)
         {
-            if (!isOpen && link.keyCount > 0)
+            if (!this.isOpen && link.keyCount > 0)
             {
                 link.keyCount--;
                 Open();
@@ -32,11 +33,26 @@ namespace Project1.GameObjects.Environment
 
         public void Open()
         {
+            isOpen = true;
             this.setSprite(openSprite);
-            this.isOpen = true;
-            this.IsSolid = false;
-            this._collides = false;
-            this.collider = null;
+            if (this.direction == Direction.Left)
+            {
+                this.SetCollider((int)_position.X, (int)_position.Y, 48, 96);
+            }
+            else if (this.direction == Direction.Right)
+            {
+                this.SetCollider((int)_position.X + 48, (int)_position.Y, 48, 96);
+            }
+            else if (this.direction == Direction.Up)
+            {
+                this.SetCollider((int)_position.X, (int)_position.Y, 96, 48);
+            }
+            else if (this.direction == Direction.Down)
+            {
+                this.SetCollider((int)_position.X, (int)_position.Y + 48, 96, 48);
+            }
+            
+            
         }
     }
 }

@@ -204,8 +204,7 @@ namespace Project1.LevelLoading
                     }
                 case 11:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
-                        tile.setSprite(this.topKeyLockedDoorSprite);
+                        tile = new LockedDoorTile(location, this.topKeyLockedDoorSprite, this.topOpenDoorSprite, Entities.Direction.Up);
                         break;
                     }
                 case 12:
@@ -252,8 +251,7 @@ namespace Project1.LevelLoading
                     }
                 case 17:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
-                        tile.setSprite(this.bottomKeyLockedDoorSprite);
+                        tile = new LockedDoorTile(location, this.bottomKeyLockedDoorSprite, this.bottomOpenDoorSprite, Entities.Direction.Down);
                         break;
                     }
                 case 18:
@@ -298,8 +296,7 @@ namespace Project1.LevelLoading
                     }
                 case 23:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
-                        tile.setSprite(this.leftKeyLockedDoorSprite);
+                        tile = new LockedDoorTile(location, this.leftKeyLockedDoorSprite, this.leftOpenDoorSprite, Entities.Direction.Left);
                         break;
                     }
                 case 24:
@@ -344,8 +341,7 @@ namespace Project1.LevelLoading
                     }
                 case 29:
                     {
-                        tile = new doorTile(location);
-                        tile.setSprite(this.rightKeyLockedDoorSprite);
+                        tile = new LockedDoorTile(location, this.rightKeyLockedDoorSprite, this.rightOpenDoorSprite, Entities.Direction.Right);
                         break;
                     }
                 case 30:
@@ -408,21 +404,6 @@ namespace Project1.LevelLoading
                         tile.setSprite(this.rightCrackedWallSprite);
                         break;
                     }
-                case 40: 
-                    tile = new LockedDoorTile(location, this.topKeyLockedDoorSprite, this.topOpenDoorSprite);
-                    break;
-
-                case 41:
-                    tile = new LockedDoorTile(location, this.bottomKeyLockedDoorSprite, this.bottomOpenDoorSprite);
-                    break;
-
-                case 42:
-                    tile = new LockedDoorTile(location, this.leftKeyLockedDoorSprite, this.leftOpenDoorSprite);
-                    break;
-
-                case 43: 
-                    tile = new LockedDoorTile(location, this.rightKeyLockedDoorSprite, this.rightOpenDoorSprite);
-                    break;
 
                 default:
                     {

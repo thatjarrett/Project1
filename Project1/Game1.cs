@@ -600,16 +600,17 @@ public class Game1 : Game
                 }
                 else if (collider != null)
                 {
-                    if(!(tile is doorTile door && door.GetOpen()))
+                    if (tile is LockedDoorTile keyDoor && link.GetCollidingSide(collider) != CollisionSide.None && !keyDoor.GetOpen())
                     {
-                        link.CollisionUpdate(collider);
-                    } else if (tile is doorTile door2 && door2.GetOpen())
+                        keyDoor.TryOpen(link); 
+                    }
+                    else if (tile is doorTile door2 && door2.GetOpen())
                     {
-                        if(link.GetCollidingSide(collider) == CollisionSide.Bottom)
+                        if (link.GetCollidingSide(collider) == CollisionSide.Bottom)
                         {
                             link.Move(0, -144);
-                        } 
-                        else if(link.GetCollidingSide(collider) == CollisionSide.Top)
+                        }
+                        else if (link.GetCollidingSide(collider) == CollisionSide.Top)
                         {
                             link.Move(0, 144);
                         }
@@ -621,6 +622,10 @@ public class Game1 : Game
                         {
                             link.Move(144, 0);
                         }
+                    }
+                    else if (!(tile is doorTile door && door.GetOpen()))
+                    {
+                        link.CollisionUpdate(collider);
                     }
                 }
                 foreach (var enemy in enemies)

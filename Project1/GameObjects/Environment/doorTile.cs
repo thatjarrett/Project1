@@ -6,7 +6,7 @@ namespace Project1.GameObjects.Environment
 {
     public class doorTile : environmentTile
     {
-        private bool open = false;
+        protected bool isOpen = false;
         public doorTile(Vector2 pos) :
             base(pos, true)
         {
@@ -15,7 +15,7 @@ namespace Project1.GameObjects.Environment
 
         public void SetCollider(int x, int y, int w, int h)
         {
-            if(_collides && open)
+            if(_collides && isOpen)
             {
                 collider = new CollisionBox(x, y, w, h);
             } else if (_collides)
@@ -35,12 +35,12 @@ namespace Project1.GameObjects.Environment
 
         public void SetOpen(bool val)
         {
-            open = val;
+            isOpen = val;
         }
 
         public bool GetOpen()
         {
-            return open;
+            return isOpen;
         }
 
     }
