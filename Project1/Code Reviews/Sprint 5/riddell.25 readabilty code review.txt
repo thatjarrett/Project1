@@ -1,0 +1,8 @@
+Review by Bren
+Reviewing PortalProjectile.cs
+Original file by Jarrett
+4/16/2025
+Sprint 5
+
+Portal projectile is an easy to read class composed of a set of functions, plenty of which take up only one line. The longer functions are decently concise with simple
+if else logic. There aren't any instances of confusing numbers or overly nested logic, as such, this class is highly readable and concise, serving the purpose it needs to serve.

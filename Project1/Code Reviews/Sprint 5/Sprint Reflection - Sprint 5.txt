@@ -1,0 +1,8 @@
+Sprint Reflection
+Sprint 5
+4/16/2025
+
+Bren- This sprint was a relatively calm ending to an otherwise strenuous project. I worked with Jarrett to get the Portal Gun working, though I mostly handled the visuals.
+I enjoyed having a chance to dabble in a more artistic side of things this sprint by creating the sprite sheet for the portal stuff. From there, my work programming was
+pretty much just spent implementing the sprites for the portals. There was some difficulty, as before I started work, Jarret had already given a hand at the sprites, so I had
+to do some refactoring to acclimate to my new implementation of the sprites. Beyond that, this sprint was pretty straightforward, and a fun ending to the project.

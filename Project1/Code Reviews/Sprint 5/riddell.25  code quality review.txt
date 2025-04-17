@@ -1,0 +1,10 @@
+Review by Bren
+Reviewing PortalManager.cs
+Original file by Jarrett
+4/16/2025
+Sprint 5
+
+PortalManager initially had some issues with the sprite work which I resolved. Namely, sprites were actually rectangle objects rather than ISprites, which led to a multitude
+of issues. Firstly, it broke the standard of sprites established, and secondly, sprites would not draw correctly due to scale issues (and issues regarding the aforementioned
+standards established with using ISprites). After fixing these issues, I have few issues with the class. The functions are very concise, plenty of them taking up only one
+line. Each function seems to properly only serve one purpose. Overall a well written class that serves its purpose well.
