@@ -129,7 +129,7 @@ public class Game1 : Game
             orangePortalClosedRect,
             orangeProjectileVRect
         );
-
+        
         // Attach to Link
         link.SetPortalManager(portalManager);
 
