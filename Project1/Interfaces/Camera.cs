@@ -77,6 +77,16 @@ namespace Project1.Interfaces
             {
                 isTransitioning = false;
             }
+
+            if (Math.Abs(CameraPosX - targetPosX) < 24)
+            {
+                CameraPosX = targetPosX;
+            }
+            if (Math.Abs(CameraPosY - targetPosY) < 24)
+            {
+                CameraPosY = targetPosY;
+            }
+
         }
         public Camera(Viewport view)
         {
