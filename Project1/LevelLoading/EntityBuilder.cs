@@ -106,6 +106,12 @@ namespace Project1.LevelLoading
                         enemy.createEnemySprites(enemyTexture);
                         break;    
                 }
+                case 22:
+                    {
+                        enemy = new Triceratops(Location);
+                        enemy.createEnemySprites(aquamentusTexture);
+                        break;
+                    }
                 default:
                 {
                     enemy = new Hand(Location);

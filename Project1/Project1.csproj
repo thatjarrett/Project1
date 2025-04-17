@@ -23,6 +23,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Entities\TriceratopsAttackStatecs.cs" />
     <None Include="Entities\UseItemCommand.cs" />
     <None Include="GameObjects\Environment\WhiteBrick.cs" />
   </ItemGroup>
