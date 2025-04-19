@@ -9,6 +9,7 @@ namespace Project1.GameObjects.Environment
     {
         private ISprite openSprite;
         private Direction direction;
+        private bool isOpen = false;
 
         public LockedDoorTile(Vector2 position, ISprite closedSprite, ISprite openSprite, Direction direction)
             : base(position)
