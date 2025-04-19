@@ -11,20 +11,18 @@ using Project1.Projectiles;
 using Project1.Sprites;
 namespace Project1.Entities
 {
-    public class Triceratops : IDependentEnemy
+    public class LargeSlime : IDependentEnemy
     {
-        private IEnemyState currentState;
+        private LargeSlimeMoveState currentState;
         private IEnemyState walk;
         private IEnemyState attack;
 
         private Vector2 position;
         private Vector2 originalPos;
-        private ISprite dinoSprite;
+        private ISprite sprite;
         private SpriteEffects currentSpriteEffect = SpriteEffects.None;
         
         private CollisionBox collider;
-        private CollisionBox frontBack;
-        private CollisionBox leftRight;
 
         private ISprite side;
         private ISprite forward;
@@ -33,11 +31,12 @@ namespace Project1.Entities
         int damageFrameCounter = 0;
         bool hurting = false;
 
-        private IProjectile[] projectiles = null;
+        private IProjectile[] projectiles = new StraightProjectile[5];
+        private int currentProjectile = 0;
+
+        private ISprite projectileSprite;
 
         int health = 10;
-
-        Direction currentDirection = Direction.Down;
 
         private bool alive = true;
 
@@ -46,15 +45,14 @@ namespace Project1.Entities
         private bool isInvincible = false;
         private double invincibleTime = .25;
 
-
-        public Triceratops(Vector2 startPos)
+        public LargeSlime(Vector2 startPos)
         {
             position = startPos;
             originalPos = startPos;
 
             //walk = new TriceratopsMoveState(false);
             //attack = 
-            currentState = new TriceratopsMoveState(false);
+            currentState = new LargeSlimeMoveState();
 
             //frontBack = new CollisionBox((int)startPos.X, (int)startPos.Y);
             //leftRight = new CollisionBox((int)startPos.X, (int)startPos.Y, 84, 48);
@@ -66,8 +64,8 @@ namespace Project1.Entities
             //Debug.WriteLine($"Changing state to: {newState.GetType().Name}");
 
             // Change the current state
-            currentState = newState;
-            currentState.Enter(this);
+            //currentState = newState;
+            //currentState.Enter(this);
         }
 
         public void SetInvincible(bool value)
@@ -77,31 +75,19 @@ namespace Project1.Entities
 
         public void MoveLeft()
         {
-            currentDirection = Direction.Left;
-            dinoSprite = side;
-            currentSpriteEffect = SpriteEffects.FlipHorizontally;
-            collider = new CollisionBox((int)position.X, (int)position.Y, 84, 48);
+            //
         }
         public void MoveRight()
         {
-            currentDirection = Direction.Right;
-            dinoSprite = side;
-            currentSpriteEffect = SpriteEffects.None;
-            collider = new CollisionBox((int)position.X, (int)position.Y, 84, 48);
+            //
         }
         public void MoveUp()
         {
-            currentDirection = Direction.Up;
-            dinoSprite = back;
-            currentSpriteEffect = SpriteEffects.None;
-            collider = new CollisionBox((int)position.X, (int)position.Y);
+            //
         }
         public void MoveDown()
         {
-            currentDirection = Direction.Down;
-            dinoSprite = forward;
-            currentSpriteEffect = SpriteEffects.None;
-            collider = new CollisionBox((int)position.X, (int)position.Y); ;
+            //
         }
         public void Update(GameTime gameTime, bool frozen)
         {
@@ -112,54 +98,52 @@ namespace Project1.Entities
             if (isInvincible)
             {
                 invincibleTime -= gameTime.ElapsedGameTime.TotalSeconds; ;
-                if (invincibleTime <= 0) {
+                if (invincibleTime <= 0)
                     isInvincible = false;
-                }
-                    
+                SetAnimation("");
 
             }
-
             if (!frozen) {
                 Vector2 linkPos = link.GetPosition();
 
-                if (linkPos.X == this.position.X && linkPos.Y < this.position.Y && currentState is TriceratopsMoveState)
+                if (linkPos.X == this.position.X && linkPos.Y < this.position.Y && !currentState.waiting())
                 {
                     //attack up
-                    MoveUp();
-                    currentState = new TriceratopsAttackState(Direction.Up);
+                    shoot(Direction.Up);
+                    currentState.wait();
+                    
                 }
-                else if (linkPos.X == this.position.X && linkPos.Y > this.position.Y && currentState is TriceratopsMoveState)
+                else if (linkPos.X == this.position.X && linkPos.Y > this.position.Y && !currentState.waiting())
                 {
                     //attack down
-                    MoveDown();
-                    currentState = new TriceratopsAttackState(Direction.Down);
+                    shoot(Direction.Down);
+                    currentState.wait();
                 }
-                else if (linkPos.Y == this.position.Y && linkPos.X < this.position.X && currentState is TriceratopsMoveState)
+                else if (linkPos.Y == this.position.Y && linkPos.X < this.position.X && !currentState.waiting())
                 {
                     //attack left
-                    MoveLeft();
-                    currentState = new TriceratopsAttackState(Direction.Left);
+                    shoot(Direction.Left);
+                    currentState.wait();
                 }
-                else if (linkPos.Y == this.position.Y && linkPos.X > this.position.X && currentState is TriceratopsMoveState)
+                else if (linkPos.Y == this.position.Y && linkPos.X > this.position.X && !currentState.waiting())
                 {
                     //attack right
-                    MoveRight();
-                    currentState = new TriceratopsAttackState(Direction.Right);
+                    shoot(Direction.Right);
+                    currentState.wait();
                 }
 
                 currentState.Update(this, gameTime);
 
-                if (currentDirection == Direction.Up || currentDirection == Direction.Down) {
-                    if ((int)(gameTime.TotalGameTime.TotalMilliseconds / 150) % 2 == 0)
+                for (int i = 0; i < 5; i++)
+                {
+                    if (projectiles[i] != null)
                     {
-                        currentSpriteEffect = SpriteEffects.None;
+                        projectiles[i].Update(gameTime);
                     }
-                    else
-                    {
-                        currentSpriteEffect = SpriteEffects.FlipHorizontally;
-                    } 
                 }
-                dinoSprite.Update(gameTime);
+
+
+                sprite.Update(gameTime);
                 
             }
         }
@@ -178,7 +162,6 @@ namespace Project1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             if (isInvincible)
             {
                 damageFrameCounter++;
@@ -189,28 +172,32 @@ namespace Project1.Entities
             }
             if (damageFrameCounter > 0)
             {
-                dinoSprite.SetColor(Color.Magenta);
+                sprite.SetColor(Color.Magenta);
             }
             else
             {
-                dinoSprite.SetColor(Color.White);
+                sprite.SetColor(Color.White);
             }
 
-            dinoSprite.Draw(spriteBatch, position, currentSpriteEffect);
+            for (int i = 0; i < 5; i++)
+                {
+                    if (projectiles[i] != null)
+                    {
+                        projectiles[i].Draw(spriteBatch);
+                    }
+                }
+            
+            sprite.Draw(spriteBatch, position, currentSpriteEffect);
 
         }
-        public void createEnemySprites(Texture2D bossTexture)
+        public void createEnemySprites(Texture2D enemyTexture)
         {
+            Rectangle[] projRectangle = new Rectangle[] { new Rectangle(351, 59, 8, 16), new Rectangle(369, 59, 8, 16) };
+           
+            Rectangle[] goopRect = new Rectangle[] {new Rectangle(77, 11, 16, 16), new Rectangle(94, 11, 16, 16)};
 
-            Rectangle[] frontRect = new Rectangle[] { new Rectangle(1, 58, 16, 16) };
-            Rectangle[] backRect = new Rectangle[] {new Rectangle(35, 58, 16, 16)};
-            Rectangle[] sideRect = new Rectangle[] {new Rectangle(69, 58, 28, 16), new Rectangle(102, 58, 28, 16)};
-
-            forward = new NMoveAnim(bossTexture, frontRect, 5);
-            back = new NMoveAnim(bossTexture, backRect, 5);
-            side = new NMoveAnim(bossTexture, sideRect, 5);
-
-            dinoSprite = forward;
+            sprite = new NMoveAnim(enemyTexture, goopRect, 5);
+            projectileSprite = new NMoveAnim(enemyTexture, projRectangle, 5);
         }
 
         public void SetAnimation(string action)
@@ -226,31 +213,15 @@ namespace Project1.Entities
             {
                 case CollisionSide.Top:
                     Move(0, -intersectionDistance);
-                    if (currentState is TriceratopsAttackState)
-                    {
-                        currentState = new TriceratopsMoveState(true);
-                    }
                     break;
                 case CollisionSide.Left:
                     Move(-intersectionDistance, 0);
-                    if (currentState is TriceratopsAttackState)
-                    {
-                        currentState = new TriceratopsMoveState(true);
-                    }
                     break;
                 case CollisionSide.Right:
                     Move(intersectionDistance, 0);
-                    if (currentState is TriceratopsAttackState)
-                    {
-                        currentState = new TriceratopsMoveState(true);
-                    }
                     break;
                 case CollisionSide.Bottom:
                     Move(0, intersectionDistance);
-                    if (currentState is TriceratopsAttackState)
-                    {
-                        currentState = new TriceratopsMoveState(true);
-                    }
                     break;
                 case CollisionSide.None:
                     break;
@@ -302,6 +273,31 @@ namespace Project1.Entities
         public Vector2 getPos()
         {
             return position;
+        }
+
+        public void shoot(Direction d) {
+            switch (d) {
+                case Direction.Up:
+                    projectiles[currentProjectile] = new StraightProjectile(position, new Vector2(0, -2), projectileSprite, projectileSprite, 2);
+                    break;
+                case Direction.Down:
+                    projectiles[currentProjectile] = new StraightProjectile(position, new Vector2(0, 2), projectileSprite, projectileSprite, 2);
+                    break;
+                case Direction.Left:
+                    projectiles[currentProjectile] = new StraightProjectile(position, new Vector2(-2, 0), projectileSprite, projectileSprite, 2);
+                    break;
+                case Direction.Right:
+                    projectiles[currentProjectile] = new StraightProjectile(position, new Vector2(2, 0), projectileSprite, projectileSprite, 2);
+                    break;
+            }
+            //set to do nothing state;
+            if (currentProjectile >= 5)
+            {
+                currentProjectile = 0;
+            }
+            else {
+                currentProjectile++;
+            }
         }
     }
 }

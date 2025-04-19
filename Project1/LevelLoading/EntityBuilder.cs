@@ -112,6 +112,12 @@ namespace Project1.LevelLoading
                         enemy.createEnemySprites(aquamentusTexture);
                         break;
                     }
+                case 23:
+                    {
+                        enemy = new LargeSlime(Location);
+                        enemy.createEnemySprites(enemyTexture);
+                        break;
+                    }
                 default:
                 {
                     enemy = new Hand(Location);
