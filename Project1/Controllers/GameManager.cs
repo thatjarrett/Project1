@@ -15,6 +15,7 @@ public class GameManager
 
     private bool isGameOver = false;
     private bool showGameOverScreen = false;
+    private bool showWinScreen = false;
     private double gameOverTimer = 0;
     private double resetCooldown = 0;
     private const double GameOverMusicMinPlayTime = 0; 
@@ -30,6 +31,7 @@ public class GameManager
     private bool allowReset = false;
 
     private Texture2D gameOverTexture;
+    private Texture2D winTexture;
 
     private GameManager() { }
 
@@ -41,11 +43,20 @@ public class GameManager
         try
         {
             gameOverTexture = content.Load<Texture2D>("Images/Game_Over");
-            Debug.WriteLine($"Game Over texture loaded: {gameOverTexture != null}");
+            //Debug.WriteLine($"Game Over texture loaded: {gameOverTexture != null}");
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Failed to load Game Over texture: {ex.Message}");
+        }
+
+        try
+        {
+            gameOverTexture = content.Load<Texture2D>("Images/win");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Failed to load victory texture: {ex.Message}");
         }
     }
 
@@ -53,9 +64,10 @@ public class GameManager
     {
         if (isGameOver) return;
 
-        Debug.WriteLine("Game Over triggered.");
+        //Debug.WriteLine("Game Over triggered.");
         isGameOver = true;
         showGameOverScreen = false;
+        showWinScreen = false;
         gameOverTimer = 0;
         resetCooldown = 0;
         gameOverMusicStarted = false;
@@ -64,6 +76,24 @@ public class GameManager
         MusicManager.Instance.Stop();
         MusicManager.Instance.LockToGameOver(); 
         MusicManager.Instance.PlayDeathMusic();
+    }
+
+    public void SetWin()
+    {
+        if (isGameOver) return;
+
+        //Debug.WriteLine("Game Over triggered.");
+        isGameOver = true;
+        showGameOverScreen = false;
+        showWinScreen = false;
+        gameOverTimer = 0;
+        resetCooldown = 0;
+        gameOverMusicStarted = false;
+
+
+        MusicManager.Instance.Stop();
+        MusicManager.Instance.LockToGameOver();
+        //MusicManager.Instance.PlayDeathMusic();
     }
 
 
@@ -82,7 +112,7 @@ public class GameManager
             {
                 showGameOverScreen = true;
                 allowReset = true; // allow reset now
-                Debug.WriteLine("Game Over screen shown.");
+                //Debug.WriteLine("Game Over screen shown.");
 
                 if (!gameOverMusicStarted)
                 {
@@ -93,7 +123,28 @@ public class GameManager
                         activeGameOverInstance.IsLooped = false;
                         activeGameOverInstance.Play();
 
-                        Debug.WriteLine("✅ Playing Game Over SoundEffect (tracked instance).");
+                        //Debug.WriteLine("✅ Playing Game Over SoundEffect (tracked instance).");
+                        gameOverMusicStarted = true;
+                    }
+                }
+
+
+            } else if (!showWinScreen && gameOverTimer >= GameOverDelay)
+            {
+                showWinScreen = true;
+                allowReset = true; // allow reset now
+                //Debug.WriteLine("Game Over screen shown.");
+
+                if (!gameOverMusicStarted)
+                {
+                    if (gameOverSoundEffect != null)
+                    {
+                        activeGameOverInstance = gameOverSoundEffect.CreateInstance(); // 🎯 this is the one we track
+                        activeGameOverInstance.Volume = 1f;
+                        activeGameOverInstance.IsLooped = false;
+                        activeGameOverInstance.Play();
+
+                        //Debug.WriteLine("✅ Playing Game Over SoundEffect (tracked instance).");
                         gameOverMusicStarted = true;
                     }
                 }
@@ -108,7 +159,7 @@ public class GameManager
 
             if (allowReset && resetKeyNow && !resetKeyPreviouslyDown)
             {
-                Debug.WriteLine("Player triggered reset.");
+                //Debug.WriteLine("Player triggered reset.");
                 ResetGame();
             }
 
@@ -124,6 +175,10 @@ public class GameManager
         {
             Rectangle fullScreen = new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             spriteBatch.Draw(gameOverTexture, fullScreen, Color.White);
+        } else if (showWinScreen && winTexture != null)
+        {
+            Rectangle fullScreen = new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
+            spriteBatch.Draw(winTexture, fullScreen, Color.White);
         }
     }
 
@@ -132,14 +187,14 @@ public class GameManager
         if (activeGameOverInstance != null &&
           activeGameOverInstance.State == SoundState.Playing)
         {
-            Debug.WriteLine("🛑 Stopping active Game Over sound.");
+            //Debug.WriteLine("🛑 Stopping active Game Over sound.");
             activeGameOverInstance.Stop();
             activeGameOverInstance.Dispose();
             activeGameOverInstance = null;
         }
 
 
-        Debug.WriteLine("Game reset.");
+        //Debug.WriteLine("Game reset.");
         isGameOver = false;
         showGameOverScreen = false;
         gameOverTimer = 0;

@@ -284,6 +284,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/Untitled.png;Images/HealthSprite.png
 
+#begin Images/win.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/win.png
+
 #begin Legend of Zelda, The (NES) Music - Dungeon Theme.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

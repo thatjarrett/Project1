@@ -276,6 +276,15 @@ namespace Project1.Entities
         }
 
         public void shoot(Direction d) {
+            if (currentProjectile >= 5)
+            {
+                currentProjectile = 0;
+            }
+            else
+            {
+                currentProjectile++;
+            }
+
             switch (d) {
                 case Direction.Up:
                     projectiles[currentProjectile] = new StraightProjectile(position, new Vector2(0, -2), projectileSprite, projectileSprite, 2);
@@ -291,13 +300,7 @@ namespace Project1.Entities
                     break;
             }
             //set to do nothing state;
-            if (currentProjectile >= 5)
-            {
-                currentProjectile = 0;
-            }
-            else {
-                currentProjectile++;
-            }
+            
         }
     }
 }

@@ -56,8 +56,9 @@ namespace Project1.Entities
                     inventory.Add(item);
                     break;
                 case TriForcePiece:
-                    hasTriforce = true;
+                    //hasTriforce = true;
                     inventory.Add(item);
+                    triforceCount++;
                     break;
                 default:
                     Debug.WriteLine("ERROR: UNKNOWN ITEM");
@@ -78,13 +79,15 @@ namespace Project1.Entities
         public int GetRupeeCount() => rupeeCount;
         public int GetBombCount() => bombCount;
         public int GetKeyCount() => keyCount;
+
+        public int GetTriforceCount() => triforceCount;
         public Collection<IItem> GetInventory() => inventory;
 
         public bool GetMap() => hasMap;
         public bool IsFrozen()
         {
-            if (freezeEnemies)
-                Debug.WriteLine("⏸ Link freezeEnemies is TRUE");
+            //if (freezeEnemies)
+                //Debug.WriteLine("⏸ Link freezeEnemies is TRUE");
 
             return freezeEnemies;
         }
