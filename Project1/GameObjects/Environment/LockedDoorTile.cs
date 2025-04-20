@@ -14,6 +14,8 @@ namespace Project1.GameObjects.Environment
         public LockedDoorTile(Vector2 position, ISprite closedSprite, ISprite openSprite, Direction direction)
             : base(position)
         {
+            this.IsSolid = true;
+
             this.setSprite(closedSprite);
             this.openSprite = openSprite;
             //this.IsSolid = true;
@@ -34,7 +36,7 @@ namespace Project1.GameObjects.Environment
 
         public void Open()
         {
-            isOpen = true;
+            this.isOpen = true;
             this.setSprite(openSprite);
             if (this.direction == Direction.Left)
             {
@@ -52,6 +54,8 @@ namespace Project1.GameObjects.Environment
             {
                 this.SetCollider((int)_position.X, (int)_position.Y + 48, 96, 48);
             }
+
+            this.IsSolid = false;
             
             
         }

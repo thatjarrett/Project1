@@ -608,7 +608,11 @@ public class Game1 : Game
                 {
                     if (tile is LockedDoorTile keyDoor && link.GetCollidingSide(collider) != CollisionSide.None && !keyDoor.GetOpen())
                     {
-                        keyDoor.TryOpen(link); 
+                        keyDoor.TryOpen(link);
+                        if (keyDoor.IsSolid) {
+
+                            link.CollisionUpdate(collider);
+                        }
                     }
                     else if (tile is doorTile door2 && door2.GetOpen())
                     {
