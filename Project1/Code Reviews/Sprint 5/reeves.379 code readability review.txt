@@ -1,0 +1,10 @@
+Review by Jarrett
+Reviewing LootTables.cs
+Original file by Angstrom
+4/21/2025
+Sprint 5
+
+The loot tables are perfectly easy to understand and make a lot of sense on a single read.
+The loot tables are also very easy to add to, and I would be able to add to it for a new enemy type in a matter of minutes.
+Each enemy has a loot table, and the loot tables are all in one place, which is very convenient.
+The use of IDs for the items is also a good idea, as it makes it easy to add new items without having to change the loot tables.

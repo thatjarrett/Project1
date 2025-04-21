@@ -1,0 +1,11 @@
+Review by Jarrett
+Reviewing Triceratops.cs
+Original file by Angstrom
+4/21/2025
+Sprint 5
+
+This function adds a really cool new enemy to our game that we didn't have before.
+It has unique behavior with the charge attack, and the implementation is really clean and easy to understand.
+The enemy has a unique attack that is different from the other enemies, and it is easy to understand how it works.
+The enemy also has a unique loot table, dropping a triforce piece, which is a really cool addition to the game.
+The sprite management is done really well, even though that was a hard learning curve for our team, and the enemy is a cool addition overall.

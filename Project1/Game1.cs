@@ -248,6 +248,7 @@ public class Game1 : Game
     { Project1.Controllers.Direction.Down, new MoveDownCommand(link, hud) },
     { Project1.Controllers.Direction.Left, new MoveLeftCommand(link, hud) },
     { Project1.Controllers.Direction.Right, new MoveRightCommand(link, hud) },
+
 };
 
 
@@ -263,17 +264,25 @@ public class Game1 : Game
     { Buttons.LeftThumbstickRight, new MoveRightCommand(link,hud) },
     { Buttons.A, new AttackCommand(link) },
     { Buttons.B, new UseItemCommand(link) },
+    { Buttons.LeftShoulder, new StartBluePortalCommand(link) },
+{ Buttons.RightShoulder, new StartOrangePortalCommand(link) },
 
     { Buttons.Back, new QuitCommand(this) },
     { Buttons.Start, new ResetCommand(this) },
     { Buttons.BigButton, new ResetCommand(this) }
 };
-        gamepadController = new GamepadController(gamepadCommands, movementCommands, new IdleCommand(link));
+        var gamepadReleaseCommands = new Dictionary<Buttons, ICommand>
+{
+    { Buttons.LeftShoulder, new EndBluePortalCommand(link) },
+    { Buttons.RightShoulder, new EndOrangePortalCommand(link) }
+};
+        gamepadController = new GamepadController(gamepadCommands, movementCommands, new IdleCommand(link), gamepadReleaseCommands);
 
         
         _graphics.PreferredBackBufferWidth = 768;
         _graphics.PreferredBackBufferHeight = 648;
         _graphics.ApplyChanges();
+   
 
     }
 

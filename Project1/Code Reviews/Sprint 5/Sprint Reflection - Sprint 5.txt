@@ -11,3 +11,8 @@ Angstrom- For my sprint 5 content, I added two new enemies, as well as a rudimen
 (and the dragon, who was already part of the game). While I found my work for the sprint itself to be relatively uneventful and straightforward, I
 could not shake the feeling that there were still a few parts of the game "missing", for lack of a better term. In hindsight, during both this sprint
 and the previous one, I think we should have focused a lot more on getting all the base game functions working...
+
+Jarrett - This sprint was a really nice way to close out the semester, and was easier to do with our division of tasks.
+I worked with Bren to do the portal gun, which was a really fun new challenge opposed to the typical emulation of the original game.
+I wish I was better at spritework, because that's a typically very important part of game development, but I think I did a good job with collaborating with Bren to get it done.
+We also caught up on the work that was overdue from Sprint 4, which was nice to finally get done.
