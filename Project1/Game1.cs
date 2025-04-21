@@ -83,7 +83,7 @@ public class Game1 : Game
 
     //Debug Variables
     Texture2D pixelTexture;
-    bool debugDraw = true;
+    bool debugDraw = false;
 
     private EntityBuilder entityBuilder;// = new EntityBuilder(aquamentusTexture, enemytexture, );
     public Game1()
