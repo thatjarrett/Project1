@@ -19,7 +19,7 @@ namespace Project1.Entities
 
         public void Enter(Link link)
         {
-            Debug.WriteLine("attack");
+            //Debug.WriteLine("attack");
             link.SetAnimation(GetAttackAnimationName());
             elapsedTime = 0;
             link.SetSword(_previousDirection);
@@ -60,7 +60,7 @@ namespace Project1.Entities
 
             if (elapsedTime >= AttackDuration)
             {
-                Debug.WriteLine("previous direction " + _previousDirection);
+                //Debug.WriteLine("previous direction " + _previousDirection);
                 link.ClearSword();
                 link.ChangeState(new LinkIdleState(_previousDirection)); // Return to previous idle direction
             }

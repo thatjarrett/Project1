@@ -22,6 +22,7 @@ using Project1.Audio;
 using Project1.HUD;
 using static Project1.Entities.Link;
 using Project1;
+using Microsoft.Xna.Framework.Audio;
 
 
 
@@ -109,6 +110,8 @@ public class Game1 : Game
         linkTexture = Content.Load<Texture2D>("Images/Link Spritesheet");
         Texture2D crackedWallTexture = Content.Load<Texture2D>("Images/crackedWall");
         Texture2D portalSheet = Content.Load<Texture2D>("Images/portalSprites");
+        SoundEffect bluePortalSound = Content.Load<SoundEffect>("portal1");
+        SoundEffect orangePortalSound = Content.Load<SoundEffect>("portal2");
 
         // Define source rectangles from the sprite sheet
         Rectangle bluePortalRect = new Rectangle(16, 0, 16, 16);         // example coords
@@ -122,16 +125,19 @@ public class Game1 : Game
 
         // Create the portal manager with all required arguments
         portalManager = new PortalManager(
-            portalSheet,
-            bluePortalRect,
-            blueProjectileRect,
-            bluePortalClosedRect,
-            blueProjectileVRect,
-            orangePortalRect,
-            orangeProjectileRect,
-            orangePortalClosedRect,
-            orangeProjectileVRect
-        );
+     portalSheet,
+     bluePortalRect,
+     blueProjectileRect,
+     bluePortalClosedRect,
+     blueProjectileVRect,
+     orangePortalRect,
+     orangeProjectileRect,
+     orangePortalClosedRect,
+     orangeProjectileVRect,
+     bluePortalSound,
+     orangePortalSound
+ );
+
 
         // Attach to Link
         link.SetPortalManager(portalManager);
@@ -635,7 +641,11 @@ public class Game1 : Game
                 {
                     if (tile is LockedDoorTile keyDoor && link.GetCollidingSide(collider) != CollisionSide.None && !keyDoor.GetOpen())
                     {
-                        keyDoor.TryOpen(link); 
+                        keyDoor.TryOpen(link);
+                        if (keyDoor.IsSolid) {
+
+                            link.CollisionUpdate(collider);
+                        }
                     }
                     else if (tile is doorTile door2 && door2.GetOpen())
                     {

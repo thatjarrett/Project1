@@ -58,7 +58,8 @@ namespace Project1.Entities
         private bool hasBoomerang;
         private bool hasCompass;
         private bool hasMap;
-        private bool hasTriforce;
+        //private bool hasTriforce;
+        private int triforceCount = 1; //TODO: MAKE THIS 0 INSTEAD ONCE U CAN GET TO THE DRAGON
 
         private ISprite linkSprite;
 
@@ -204,7 +205,7 @@ namespace Project1.Entities
         public void DisableControls()
         {
             isControlsDisabled = true;
-            Debug.WriteLine("Controls disabled.");
+            //Debug.WriteLine("Controls disabled.");
         }
 
         public void CreateLinkSprites(Texture2D linkTexture)

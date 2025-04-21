@@ -85,18 +85,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/blankUI.png
 
-#begin Images/blankUI.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/blankUI.png
-
 #begin Images/bosses.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -296,6 +284,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/Untitled.png;Images/HealthSprite.png
 
+#begin Images/win.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/win.png
+
 #begin Legend of Zelda, The (NES) Music - Dungeon Theme.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -424,4 +424,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:NES - The Legend of Zelda - Items & Weapons.png
+
+#begin portal1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:portal1.wav
+
+#begin portal2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:portal2.wav
 

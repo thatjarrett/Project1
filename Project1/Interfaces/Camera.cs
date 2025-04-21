@@ -24,21 +24,22 @@ namespace Project1.Interfaces
         {
             this.CurrPlayerPosX = (int)playerPosition.X;
             this.CurrPlayerPosY = (int)playerPosition.Y;
-            if ((CameraPosX - CurrPlayerPosX) < -384)
+            if ((targetPosX - CurrPlayerPosX) < -384)
             {
-                targetPosX = CameraPosX + 768 - 48;//row++
+                targetPosX = CameraPosX + 768;//row++
                 row++;
-            } else if (CameraPosX - CurrPlayerPosX > 384)
+            } else if (targetPosX - CurrPlayerPosX > 384)
             {
-                targetPosX = CameraPosX - 768 + 96;//row--
+                targetPosX = CameraPosX - 768; //row--
                 row--;
-            } else if ((CameraPosY - (CurrPlayerPosY+100))<-264)
+            } 
+            if ((targetPosY - (CurrPlayerPosY+100))<-264)
             {
-                targetPosY = CameraPosY + 528 - 96;//column++
+                targetPosY = CameraPosY + 528;//column++
                 column++;
-            } else if ((CameraPosY - (CurrPlayerPosY + 100)) > 264)
+            } else if ((targetPosY - (CurrPlayerPosY + 100)) > 264)
             {
-                targetPosY = CameraPosY - 528 + 48;//column--
+                targetPosY = CameraPosY - 528;//column--
                 column--;
             }
             
@@ -63,7 +64,12 @@ namespace Project1.Interfaces
                 isTransitioning = true;
                 CameraPosY -= cameraSpeed;
             }
-            else if (CameraPosX < targetPosX)
+            else
+            {
+                isTransitioning = false;
+            }
+
+            if (CameraPosX < targetPosX)
             {
                 isTransitioning = true;
                 CameraPosX += cameraSpeed;
@@ -78,7 +84,7 @@ namespace Project1.Interfaces
                 isTransitioning = false;
             }
 
-            if (Math.Abs(CameraPosX - targetPosX) < 24)
+            /*if (Math.Abs(CameraPosX - targetPosX) < 24)
             {
                 CameraPosX = targetPosX;
             }
@@ -86,7 +92,7 @@ namespace Project1.Interfaces
             {
                 CameraPosY = targetPosY;
             }
-
+            */
         }
         public Camera(Viewport view)
         {

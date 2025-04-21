@@ -71,8 +71,12 @@ namespace Project1.Entities
                 ChangeState(new LinkDeathState());
                 return;
             }
+            if (!(currentState is LinkDeathState) && triforceCount == 3) {
+                ChangeState(new LinkWinState());
+                return;
+            }
 
-            HandleTimers(gameTime);
+                HandleTimers(gameTime);
             UpdateSprites(gameTime);
         }
 

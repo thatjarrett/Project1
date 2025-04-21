@@ -55,9 +55,9 @@ namespace Project1.Entities
 
         public void SetInvincible(bool value)
         {
-            isInvincible = value;
-            if (value)
-                invincibleTime = InvincibilityDuration;
+            //isInvincible = value;
+            //if (value)
+            //    invincibleTime = InvincibilityDuration;
         }
 
         public void MoveLeft()
@@ -247,6 +247,8 @@ namespace Project1.Entities
         {
             if (health > 0 && !isInvincible) {
                 health--;
+                isInvincible = true;
+                invincibleTime = .25;
             }
         }
 
