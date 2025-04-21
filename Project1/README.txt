@@ -29,7 +29,7 @@ D / Right Arrow	Move Right
 Z / N	Attack
 X				Use Item
 M				Pause Music
-G	Trigger Death
+C/V Portal Gun
 Q	Quit Game
 R	Reset Game
 
@@ -42,7 +42,7 @@ Left	Move Left
 RightMove Right
 A	Attack
 B	Take Damage
-
+L/R shoulders Portal Gun
 Start	Quit Game
 Select	Reset Game
 
@@ -107,6 +107,14 @@ Depth of Inheritance - 2
 Class Coupling - 167
 Lines of Code - 7967
 Lines of Executable Code - 2134
+
+CODE METRICS - 4/21/25
+Maintainability - 85
+Cyclomatic Complexity - 1940
+Depth of Inheritance - 3
+Class Coupling - 189
+Lines of Code - 10811
+Lines of Executable Code - 2947
 
 BURNDOWN CHART
 BurndownChart.png
