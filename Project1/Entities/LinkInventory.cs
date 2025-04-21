@@ -1,6 +1,8 @@
-﻿using Project1.Audio;
+﻿using Microsoft.Xna.Framework;
+using Project1.Audio;
 using Project1.GameObjects.Items;
 using Project1.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -64,6 +66,10 @@ namespace Project1.Entities
                     break;
             }
         }
+
+        public void SetHealth(int value) => health = MathHelper.Clamp(value, 0, maxHealth);
+        //public void SetSpeed(float value) => speed = MathHelper.Max(0f, value);
+        public void SetKeys(int value) => keyCount = Math.Max(0, value);
 
         public bool HasKey() => keyCount > 0;
         public void UseKey() => keyCount--;

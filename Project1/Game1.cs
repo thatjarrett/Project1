@@ -40,6 +40,9 @@ public class Game1 : Game
     private DungeonMusicPlayer dungeonMusicPlayer;
 
     private Camera Camera;
+    private DevConsole devConsole;
+    private KeyboardState prevKeyboardState;
+
 
     Texture2D linkTexture;
     Texture2D hudTexture;
@@ -194,6 +197,8 @@ public class Game1 : Game
 
         Camera = new Camera(new Viewport());
         hud = new IHUD(link, hudTexture, heartsTexture, coverTexture, atlasTexture, font1, Camera);
+        devConsole = new DevConsole(font1, GraphicsDevice, link);
+
 
         var commands = new Dictionary<Keys, ICommand>
     {{ Keys.C, new StartBluePortalCommand(link) },     
@@ -268,8 +273,12 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        keyboardController.Update(gameTime);
-        gamepadController.Update(gameTime);
+        if (!devConsole.IsOpen)
+        {
+            keyboardController.Update(gameTime);
+            gamepadController.Update(gameTime);
+        }
+
         hud.Update(gameTime);
         portalManager?.Update(gameTime);
         GameTimer.Update(gameTime);// Gamepad input added
@@ -319,6 +328,26 @@ public class Game1 : Game
         {
             hud.slideIn();
         }
+        KeyboardState currentKeyboardState = Keyboard.GetState();
+
+        // Toggle console with Tilde (~)
+        if (currentKeyboardState.IsKeyDown(Keys.OemTilde) && prevKeyboardState.IsKeyUp(Keys.OemTilde))
+        {
+            devConsole.Toggle();
+        }
+
+        devConsole.Update(gameTime);
+
+        // If console is open, capture input and return early
+        if (devConsole.IsOpen)
+        {
+            
+            prevKeyboardState = currentKeyboardState;
+            return;
+        }
+
+        prevKeyboardState = currentKeyboardState;
+
 
     }
 
@@ -477,6 +506,10 @@ public class Game1 : Game
         _spriteBatch.End();
 
         base.Draw(gameTime);
+
+        _spriteBatch.Begin();
+        devConsole.Draw(_spriteBatch);
+        _spriteBatch.End();
     }
 
     protected void createSprites()
