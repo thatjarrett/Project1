@@ -336,7 +336,6 @@ public class Game1 : Game
         }
         KeyboardState currentKeyboardState = Keyboard.GetState();
 
-        // Toggle console with Tilde (~)
         if (currentKeyboardState.IsKeyDown(Keys.OemTilde) && prevKeyboardState.IsKeyUp(Keys.OemTilde))
         {
             devConsole.Toggle();
@@ -344,7 +343,6 @@ public class Game1 : Game
 
         devConsole.Update(gameTime);
 
-        // If console is open, capture input and return early
         if (devConsole.IsOpen)
         {
             
