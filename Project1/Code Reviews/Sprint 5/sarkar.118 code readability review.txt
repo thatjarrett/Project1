@@ -1,0 +1,8 @@
+Review by Angstrom
+Reviewing Camera.cs
+Original file by Bennett
+4/21/2025
+Sprint 5
+
+Almost all of the functions are short, and those that arent are still conscice and legible. While I admittedly was unable to discern what exactly
+these methods are used for in the greater scope of the project, it is easy to tell how the individual functions work. 

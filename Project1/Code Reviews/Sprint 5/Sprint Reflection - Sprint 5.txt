@@ -6,3 +6,8 @@ Bren- This sprint was a relatively calm ending to an otherwise strenuous project
 I enjoyed having a chance to dabble in a more artistic side of things this sprint by creating the sprite sheet for the portal stuff. From there, my work programming was
 pretty much just spent implementing the sprites for the portals. There was some difficulty, as before I started work, Jarret had already given a hand at the sprites, so I had
 to do some refactoring to acclimate to my new implementation of the sprites. Beyond that, this sprint was pretty straightforward, and a fun ending to the project.
+
+Angstrom- For my sprint 5 content, I added two new enemies, as well as a rudimentary "victory" state that triggers after defeating the new enemies 
+(and the dragon, who was already part of the game). While I found my work for the sprint itself to be relatively uneventful and straightforward, I
+could not shake the feeling that there were still a few parts of the game "missing", for lack of a better term. In hindsight, during both this sprint
+and the previous one, I think we should have focused a lot more on getting all the base game functions working...

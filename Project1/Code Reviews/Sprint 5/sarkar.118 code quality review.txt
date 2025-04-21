@@ -1,0 +1,8 @@
+Review by Angstrom
+Reviewing DevConsole.cs
+Original file by Nick
+4/21/2025
+Sprint 5
+
+Many of the functions are slightly long. In theory, many of the cases could be split into smaller functions of their own, but this is not strictly
+neccesary. 
