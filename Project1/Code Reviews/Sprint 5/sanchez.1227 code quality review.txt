@@ -1,0 +1,9 @@
+Review by Nick
+Reviewing LockedDoorTile.cs
+Original file by Jarrett
+4/21/2025
+Sprint 5
+
+I think it was a really good idea to create a separate class for locked doors since they surprisingly have a lot of different functionality when compared to normal
+static doors. I updated the opening function to correspond to the direction that the door is facing. However, this added the use of quite a few magic numbers which
+most likely could have been avoided by using constants for the collision box dimensions instead.

@@ -16,3 +16,9 @@ Jarrett - This sprint was a really nice way to close out the semester, and was e
 I worked with Bren to do the portal gun, which was a really fun new challenge opposed to the typical emulation of the original game.
 I wish I was better at spritework, because that's a typically very important part of game development, but I think I did a good job with collaborating with Bren to get it done.
 We also caught up on the work that was overdue from Sprint 4, which was nice to finally get done.
+
+Nick - I enjoyed working on this sprint since it gave the freedom to work on features of our choice. I chose to create a developer console inspired by the one in the source engine.
+It currently has commands for setting the health and keys of the player as well as as a help command to display the available commands. I wanted to add more commands before the
+deadline but ran into some issues with item initialization and how they are currently added to the game. Overall, I think the current implentation of the console allows for easy
+expansion so I think I could be able to add more commands before the final demonstration. I, along with everyone else also worked on ironing out missing features from the last
+sprint like doors and overall game progression. It was satisfying to our game come together into a final playable product.

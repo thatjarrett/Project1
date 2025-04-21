@@ -438,7 +438,7 @@ public class Game1 : Game
                 CollisionBox collider = tile.GetCollider();
                 if(collider != null)
                 {
-                    tile.GetCollider().DebugDraw(_spriteBatch, pixelTexture, collider.hitbox, Color.White);
+                    //tile.GetCollider().DebugDraw(_spriteBatch, pixelTexture, collider.hitbox, Color.White);
                 }
                 
             }

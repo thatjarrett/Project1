@@ -82,9 +82,7 @@ public class DevConsole
         {
             commandHistory.Add("Available commands:");
             commandHistory.Add("- set health [number]");
-            commandHistory.Add("- set speed [number]");
             commandHistory.Add("- set keys [number]");
-            commandHistory.Add("- set bombs [number]");
         }
         else if (parts[0] == "set" && parts.Length == 3)
         {
@@ -101,17 +99,9 @@ public class DevConsole
                     link.SetHealth(value);
                     commandHistory.Add($"Set health to {value}");
                     break;
-                case "speed":
-                    //link.SetSpeed(value); // You need to implement this if not already available
-                    commandHistory.Add($"Set speed to {value}");
-                    break;
                 case "keys":
                     link.SetKeys(value); // Implement if needed
                     commandHistory.Add($"Set keys to {value}");
-                    break;
-                case "bombs":
-                    //link.SetBombCount(value); // Implement if needed
-                    commandHistory.Add($"Set bombs to {value}");
                     break;
                 default:
                     commandHistory.Add("Unknown set target.");

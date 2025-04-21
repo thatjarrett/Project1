@@ -1,0 +1,9 @@
+Review by Nick
+Reviewing LootTables.cs
+Original file by Angstrom
+4/21/2025
+Sprint 5
+
+The loot tables class is pretty easy to read since it mainly consists of simply branching logic from random integers to determine item spawns. I think it code be changed to
+just return the ramdom number generated and have that correspond with loot items itself rather than having a separate lootid variable, but overall the introduction of a
+second variable does not make it much harder read or understand.
