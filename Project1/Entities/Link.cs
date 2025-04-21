@@ -59,7 +59,7 @@ namespace Project1.Entities
         private bool hasCompass;
         private bool hasMap;
         //private bool hasTriforce;
-        private int triforceCount = 1; //TODO: MAKE THIS 0 INSTEAD ONCE U CAN GET TO THE DRAGON
+        private int triforceCount = 0;
 
         private ISprite linkSprite;
 

@@ -33,9 +33,12 @@ namespace Project1.LevelLoading
         public int getLootB() {
             int x = random.Next(0, 5);
             int lootID;
-            if (x != 3)
+            if (x > 1)
             {
                 lootID = 17; //arrow
+            }
+            else if (x >= 1 && x < 3) {
+                lootID = 18; //bomb
             }
             else
             {
@@ -52,11 +55,11 @@ namespace Project1.LevelLoading
             {
                 lootID = 20; //clock
             }
-            else if (x >= 1 && x <= 2)
+            else if (x >= 1 && x <= 3)
             {
                 lootID = 18; //bomb
             }
-            else if (x >= 3 && x <= 5)
+            else if (x > 3 && x <= 5)
             {
                 lootID = 15; //heart
             }

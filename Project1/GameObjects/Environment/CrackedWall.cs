@@ -21,22 +21,26 @@ namespace Project1.GameObjects.Environment
             this.IsSolid = true;
             this.IsBreakable = true;
             this.IsBroken = false;
+            SetCollider();
         }
 
         public override void Break()
         {
+            environmentTile replacement = null;
             if (!IsBroken)
             {
                 IsBroken = true;
 
-               
-                environmentTile replacement = new doorTile(this._position);
-                replacement.setSprite(this._bombedOpeningSprite);
-                replacement.SetCollider(); 
 
-               
+                //replacement = new doorTile(this._position);
+                setSprite(this._bombedOpeningSprite);
+                collider = null;
+                //replacement.SetCollider();
+
+
                 //_tileList[_index] = replacement;
             }
+                        
         }
     }
 }

@@ -129,4 +129,10 @@ public class BombProjectile : IProjectile
     {
         //does nothing
     }
+
+    public CollisionSide GetCollidingSide(CollisionBox other)
+    {
+        int distance = collider.GetSidePush(other);
+        return collider.side;
+    }
 }

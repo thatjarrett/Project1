@@ -712,9 +712,17 @@ public class Game1 : Game
         }
 
         List<IProjectile> linkBombs = link.GetBombs();
-        foreach (var b in linkBombs)
+        int tileCount = tiles.Count - 1;
+        foreach (BombProjectile b in linkBombs)
         {
             LinkEnemyCollisionHandler.HandleCollision(link, b);
+            while (tileCount >= 0) {
+                environmentTile t = tiles[tileCount];
+                if (t is CrackedWallTile c) {
+                    LinkEnemyCollisionHandler.HandleCollision(b, c);
+                }
+                tileCount --;
+            }
         }
 
         foreach (var enemy in enemies)

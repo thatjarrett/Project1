@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Project1.Collision;
 using Project1.Entities;
+using Project1.GameObjects.Environment;
 using Project1.Interfaces;
 using Project1.Projectiles;
 
@@ -16,7 +17,7 @@ namespace Project1.Handlers
             {
                 if (!link.IsInvincible())
                 {
-                    Debug.WriteLine("Link collided with an enemy! Taking damage and knockback.");
+                    //Debug.WriteLine("Link collided with an enemy! Taking damage and knockback.");
                     Debug.WriteLine("Health: " + link.GetHealth());
 
                     // Get knockback direction (opposite of enemy)
@@ -39,7 +40,7 @@ namespace Project1.Handlers
             {
                 if (!link.IsInvincible())
                 {
-                    Debug.WriteLine("Link collided with a projectile! Taking damage and knockback.");
+                    //Debug.WriteLine("Link collided with a projectile! Taking damage and knockback.");
                     Debug.WriteLine("Health: " + link.GetHealth());
 
                     // Get knockback direction (opposite of enemy)
@@ -61,7 +62,7 @@ namespace Project1.Handlers
             if (enemy.GetCollider() != null && projectile.GetCollider() != null && projectile.GetCollider().Intersects(enemy.GetCollider()))
             {
                 
-                Debug.WriteLine("Link shot an enemy! Dealing damage.");
+                //Debug.WriteLine("Link shot an enemy! Dealing damage.");
 
 
                     // Change enemy's state to damage
@@ -80,7 +81,7 @@ namespace Project1.Handlers
         {
             if (item.GetCollider() != null && Link.GetCollider().Intersects(item.GetCollider()))
             {
-                Debug.WriteLine("⚠️ Link picked up an item!");
+                //Debug.WriteLine("⚠️ Link picked up an item!");
                 Link.Pickup(item);
                 item.pickup();
                 //delete item
@@ -91,7 +92,7 @@ namespace Project1.Handlers
         {
             if (enemy.GetCollider() != null && sword != null && sword.Intersects(enemy.GetCollider()))
             {
-                Debug.WriteLine("Link stabbed an enemy! Dealing damage.");
+                //Debug.WriteLine("Link stabbed an enemy! Dealing damage.");
 
 
                 // Change enemy's state to damage
@@ -104,6 +105,15 @@ namespace Project1.Handlers
 
                 // Set enemy to invincible and apply knockback
                 enemy.SetInvincible(true);
+            }
+        }
+
+        public static void HandleCollision(BombProjectile projectile, CrackedWallTile wall)
+        {
+            if (wall.GetCollider() != null && projectile.GetCollider() != null && projectile.GetCollidingSide(projectile.GetCollider()) != CollisionSide.None)
+            {
+                // blow up wall
+                wall.Break();
             }
         }
     }
