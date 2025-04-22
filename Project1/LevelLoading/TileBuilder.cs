@@ -212,8 +212,9 @@ namespace Project1.LevelLoading
                     }
                 case 12:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
-                        tile.setSprite(this.topDiamondLockedDoorSprite);
+                        //tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                        tile = new LockedDoorTile(location, this.topDiamondLockedDoorSprite, this.topOpenDoorSprite, Entities.Direction.Up);
+                       // tile.setSprite(this.topDiamondLockedDoorSprite);
                         break;
                     }
                 case 13:
@@ -259,8 +260,9 @@ namespace Project1.LevelLoading
                     }
                 case 18:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
-                        tile.setSprite(this.bottomDiamondLockedDoorSprite);
+                        //tile = new doorTile(location);       // need to remove ID requirement from doorTile //cheap solution to big problem
+                        tile = new LockedDoorTile(location, this.bottomDiamondLockedDoorSprite, this.bottomOpenDoorSprite, Entities.Direction.Down);
+                        //tile.setSprite(this.bottomDiamondLockedDoorSprite);
                         break;
                     }
                 case 19:
@@ -304,8 +306,9 @@ namespace Project1.LevelLoading
                     }
                 case 24:
                     {
-                        tile = new doorTile(location);
-                        tile.setSprite(this.leftDiamondLockedDoorSprite);
+                        //tile = new doorTile(location);
+                        tile = new LockedDoorTile(location, this.leftDiamondLockedDoorSprite, this.leftOpenDoorSprite, Entities.Direction.Left);
+                       // tile.setSprite(this.leftDiamondLockedDoorSprite);
                         break;
                     }
                 case 25:
@@ -349,8 +352,9 @@ namespace Project1.LevelLoading
                     }
                 case 30:
                     {
-                        tile = new doorTile(location);
-                        tile.setSprite(this.rightDiamondLockedDoorSprite);
+                        //tile = new doorTile(location);
+                        tile = new LockedDoorTile(location, this.rightDiamondLockedDoorSprite, this.rightOpenDoorSprite, Entities.Direction.Right);
+                        //tile.setSprite(this.rightDiamondLockedDoorSprite);
                         break;
                     }
                 case 31:
