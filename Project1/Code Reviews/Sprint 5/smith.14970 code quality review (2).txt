@@ -1,0 +1,9 @@
+Review by Bennett
+Reviewing LootTables.cs
+Original file by angstrom
+4/21/2025
+Sprint 5
+
+The loot table is an awesome way to  implement the loot drops of items for the enemies
+The item IDs are full of magic numbers, but it is well commented and consistent with the item IDs used in level loading and is therefore 
+a good way to handle the item production.

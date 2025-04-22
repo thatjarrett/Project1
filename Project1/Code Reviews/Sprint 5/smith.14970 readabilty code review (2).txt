@@ -1,0 +1,8 @@
+Review by bennett
+Reviewing Game1.cs
+Original file by Everyone
+4/21/2025
+Sprint 5
+Game1 is getting pretty full and is becoming hard to follow, there is much evidence of editing to the point where several spots no longer follow the general standards
+for indentation. However, the code makes solid use of methods to pull functionality out and sort it effectively. this Greatly offsets the other difficulties that exist in reading the code
+Overall it is a solid program.
