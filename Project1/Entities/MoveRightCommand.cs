@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using Project1.HUD;
+using Project1.HUDNamespace;
 using Project1.Interfaces;
 
 namespace Project1.Entities
@@ -7,9 +7,9 @@ namespace Project1.Entities
     internal class MoveRightCommand : ICommand
     {
         private readonly Link _link;
-        private readonly IHUD _hud;
+        private readonly HUD _hud;
 
-        public MoveRightCommand(Link link, IHUD hud)
+        public MoveRightCommand(Link link, HUD hud)
         {
             _link = link;
             _hud = hud;

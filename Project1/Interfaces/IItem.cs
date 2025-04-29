@@ -12,8 +12,7 @@ namespace Project1.Interfaces
     public interface IItem
     {
         public void Update(GameTime gametime);
-        //public void Draw(SpriteBatch spriteBatch);
-        //public void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects);
+
         void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects);
         void Draw(SpriteBatch spriteBatch, SpriteEffects spriteEffects);
 
@@ -21,10 +20,9 @@ namespace Project1.Interfaces
         public void SetPosition(Vector2 pos);
         public Vector2 getPosition();
         public CollisionBox GetCollider();
-        //public void createItemSprites();
-        //ADD ITEM ID SYSTEM!!!!!!!!!!!!!
+
         public void pickup();
         public bool isActive();
-        //set sprite effects
+
     }
 }

@@ -14,9 +14,9 @@ using Project1.Sprites;
 using Project1.GameObjects.Items;
 using System.Diagnostics;
 
-namespace Project1.HUD
+namespace Project1.HUDNamespace
 {
-    public class IHUD
+    public class HUD
     {
         private static double lastMoveTime = 0;
         private const double moveCooldown = 0.2;
@@ -70,7 +70,7 @@ namespace Project1.HUD
         private ISprite indicator;
 
         private Collection<IItem> inventory;
-        public IHUD(Link link,Texture2D texture, Texture2D hearts, Texture2D cover,Texture2D atlas, SpriteFont font, Camera camera)
+        public HUD(Link link,Texture2D texture, Texture2D hearts, Texture2D cover,Texture2D atlas, SpriteFont font, Camera camera)
         {
             _link = link;
 

@@ -19,7 +19,7 @@ using Project1.Sprites;
 using Project1.LevelLoading;
 using Microsoft.Xna.Framework.Media;
 using Project1.Audio;
-using Project1.HUD;
+using Project1.HUDNamespace;
 using static Project1.Entities.Link;
 using Project1;
 using Microsoft.Xna.Framework.Audio;
@@ -74,7 +74,7 @@ public class Game1 : Game
     private List<IAnimation> animationsList = new List<IAnimation>();
 
     levelManager levels;
-    IHUD hud;
+    HUD hud;
 
     private bool paused = false;
     private bool IsTransitioning = false;
@@ -202,7 +202,7 @@ public class Game1 : Game
         base.Initialize();
 
         Camera = new Camera(new Viewport());
-        hud = new IHUD(link, hudTexture, heartsTexture, coverTexture, atlasTexture, font1, Camera);
+        hud = new HUD(link, hudTexture, heartsTexture, coverTexture, atlasTexture, font1, Camera);
         devConsole = new DevConsole(font1, GraphicsDevice, link);
 
 

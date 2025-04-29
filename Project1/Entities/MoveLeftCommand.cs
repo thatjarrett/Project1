@@ -1,4 +1,4 @@
-﻿using Project1.HUD;
+﻿using Project1.HUDNamespace;
 using Project1.Interfaces;
 
 namespace Project1.Entities
@@ -6,9 +6,9 @@ namespace Project1.Entities
     internal class MoveLeftCommand : ICommand
     {
         private readonly Link _link;
-        private readonly IHUD _hud;
+        private readonly HUD _hud;
 
-        public MoveLeftCommand(Link link, IHUD hud)
+        public MoveLeftCommand(Link link, HUD hud)
         {
             _link = link;
             _hud = hud;
