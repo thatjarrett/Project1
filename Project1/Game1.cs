@@ -8,64 +8,6 @@ using Project1.Audio;
 
 public partial class Game1 : Game
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
-    private KeyboardController keyboardController;
-    private GamepadController gamepadController;
-    private Link link;
-    private KeyboardState previousKeyboard;
-
-    private List<environmentTile> tiles = new List<environmentTile>();
-    private List<IEnemy> enemies = new List<IEnemy>();
-
-    private DungeonMusicPlayer dungeonMusicPlayer;
-
-    private Camera Camera;
-    private DevConsole devConsole;
-    private KeyboardState prevKeyboardState;
-
-
-    Texture2D linkTexture;
-    Texture2D hudTexture;
-    Texture2D heartsTexture;
-    Texture2D coverTexture;
-    Texture2D environmentTexture;
-    Texture2D npcTexture;
-    Texture2D itemTexture;
-    Texture2D aquamentusTexture;
-    Texture2D enemyTexture;
-    Texture2D enemyDeathTexture;
-    Texture2D enemySpawnTexture;
-    Texture2D atlasTexture;
-    private PortalManager portalManager;
-
-    //ISprite enemyDeathCloud;
-    //ISprite enemySpawnCloud;
-    SpriteFont font1;
-    
-    private int currentBlockIndex = 0;
-    private int currentItemIndex = 0;
-    //private int currentNPCIndex = 0;
-    
-    private int currentEnemyIndex = 0;
-
-    private List<IItem> itemsList = new List<IItem>();
-
-    private List<IAnimation> animationsList = new List<IAnimation>();
-
-    levelManager levels;
-    HUD hud;
-
-    private bool paused = false;
-    private bool IsTransitioning = false;
-
-
-
-    //Debug Variables
-    Texture2D pixelTexture;
-    bool debugDraw = false;
-
-    private EntityBuilder entityBuilder;// = new EntityBuilder(aquamentusTexture, enemytexture, );
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
