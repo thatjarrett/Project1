@@ -66,21 +66,6 @@ namespace Project1.GameObjects.Animations
             return active;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 location, SpriteEffects spriteEffects)
-        {
-            Rectangle[] sourceArray = new Rectangle[7];
-            sourceArray[0] = new Rectangle(32, 0, 16, 16);
-            sourceArray[1] = new Rectangle(48, 0, 16, 16);
-            sourceArray[2] = new Rectangle(0, 0, 16, 16);
-            sourceArray[3] = new Rectangle(16, 0, 16, 16);
-            sourceArray[4] = new Rectangle(0, 0, 16, 16);
-            sourceArray[5] = new Rectangle(48, 0, 16, 16);
-            sourceArray[6] = new Rectangle(32, 0, 16, 16);
-            destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 2 * 16, 2 * 16);
-
-
-
-            spriteBatch.Draw(texture, destinationRectangle, sourceArray[frameState], Color.White);
-        }
+        
     }
 }
