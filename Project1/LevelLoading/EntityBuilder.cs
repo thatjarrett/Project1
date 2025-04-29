@@ -11,6 +11,8 @@ using Project1.Interfaces;
 using Project1.Entities;
 using Project1.GameObjects.Items;
 using Project1.GameObjects.Animations;
+using System.Reflection.Metadata;
+using System.Runtime.ConstrainedExecution;
 
 
 namespace Project1.LevelLoading
@@ -127,6 +129,16 @@ namespace Project1.LevelLoading
             }
             return enemy;
         }
+        private static int xCenterItemOffset = 16;
+        private static int yCenterItemOffset = 13;
+        private static int xCenterItemOffsetGeneral = 15;
+        private static int yCenterItemOffsetGeneral = 7;
+        private static int xCenterItemOffsetSkinny = 11;
+        private static int yCenterItemOffsetSkinny = 10;
+        private static int xCenterItemOffsetElse = 10;
+        private static int yCenterItemOffsetElse = 7;
+
+
 
         public IItem buildItem(int IdNum, Vector2 Location)
         {
@@ -135,23 +147,23 @@ namespace Project1.LevelLoading
 
             if (IdNum == 11 || IdNum == 12 || IdNum == 14 || IdNum == 16 || IdNum == 17 || IdNum == 18 || IdNum == 19)
             {
-                offset.X = 15;
-                offset.Y = 7;
+                offset.X = xCenterItemOffsetGeneral;
+                offset.Y = yCenterItemOffsetGeneral;
             }
             else if (IdNum == 8 || IdNum == 15)
             {
-                offset.X = 16;
-                offset.Y = 13;
+                offset.X = xCenterItemOffset;
+                offset.Y = yCenterItemOffset;
             }
             else if (IdNum == 10 || IdNum == 13)
             {
-                offset.X = 11;
-                offset.Y = 10;
+                offset.X = xCenterItemOffsetSkinny;
+                offset.Y = yCenterItemOffsetSkinny;
             } 
             else
             {
-                offset.X = 10;
-                offset.Y = 7;
+                offset.X = xCenterItemOffsetElse;
+                offset.Y = yCenterItemOffsetElse;
             }
 
             Location += offset;
@@ -249,76 +261,3 @@ namespace Project1.LevelLoading
 
     }
 }
-
-
-/* 
- *      boomerang = new Boomerang(itemTexture);
-        HeartContainer = new HeartContainer(itemTexture);
-        compass = new Compass(itemTexture);
-        Map = new Map(itemTexture);
-        Key = new Key(itemTexture);
-        TriForcePiece = new TriForcePiece(itemTexture);
-        Bow = new Bow(itemTexture);
-        Heart = new Heart(itemTexture);
-        Rupee = new Rupee(itemTexture);
-        Arrow = new Arrow(itemTexture);
-        Bomb = new Bomb(itemTexture);
-        Fairy = new Fairy(itemTexture);
-        Clock = new Clock(itemTexture);
-
- *        itemsList.Add(boomerang);
-        itemsList.Add(HeartContainer);
-        itemsList.Add(compass);
-        itemsList.Add(Map);
-        itemsList.Add(Key);
-        itemsList.Add(TriForcePiece);
-        itemsList.Add(Bow);
-        itemsList.Add(Heart);
-        itemsList.Add(Rupee);
-        itemsList.Add(Arrow);
-        itemsList.Add(Bomb);
-        itemsList.Add(Fairy);
-        itemsList.Add(Clock);
- * 
- * 
- * 
- * 
- * 
- * aquamentus.createEnemySprites(aquamentusTexture);
-        trap.createEnemySprites(enemyTexture);
-
-
-        bat.createEnemySprites(enemyTexture);
-        slime.createEnemySprites(enemyTexture);
-        skeleton.createEnemySprites(enemyTexture);
-        goriya.createEnemySprites(enemyTexture);
-        hand.createEnemySprites(enemyTexture);
-
- 
- aquamentus = new Aquamentus(new Vector2(500, 170));
-        trap = new SpikeTrap(new Vector2(500, 170));
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        
-
-
-        bat = new Bat(new Vector2(500, 170));
-        slime = new Slime(new Vector2(500, 170));
-        skeleton = new Skeleton(new Vector2(500, 170));
-        goriya = new Goriya(new Vector2(500, 170));
-        hand = new Hand(new Vector2(500, 170));
-
- 
- 
-        enemies.Add(aquamentus);
-        enemies.Add(trap);
-
-        enemies.Add(bat);
-        enemies.Add(slime);
-        enemies.Add(skeleton);
-        enemies.Add(goriya);
-        enemies.Add(hand);
- 
- 
- 
- */
