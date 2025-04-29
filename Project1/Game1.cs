@@ -86,6 +86,8 @@ public class Game1 : Game
     bool debugDraw = false;
 
     private EntityBuilder entityBuilder;// = new EntityBuilder(aquamentusTexture, enemytexture, );
+
+    private CommandFactory commandFactory;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -196,6 +198,8 @@ public class Game1 : Game
         //IEnemy g = entityBuilder.buildEnemy(6, new Vector2(200, 200));
         //enemies.Add(g);
 
+        commandFactory = new CommandFactory();
+
     }
     protected override void Initialize()
     {
@@ -206,76 +210,20 @@ public class Game1 : Game
         devConsole = new DevConsole(font1, GraphicsDevice, link);
 
 
-        var commands = new Dictionary<Keys, ICommand>
-    {{ Keys.C, new StartBluePortalCommand(link) },     
-    { Keys.V, new StartOrangePortalCommand(link) },
-{ Keys.W, new MoveUpCommand(link,hud) },
-{ Keys.Up, new MoveUpCommand(link,hud) },
-{ Keys.S, new MoveDownCommand(link,hud) },
-{ Keys.Down, new MoveDownCommand(link,hud) },
-{ Keys.A, new MoveLeftCommand(link,hud) },
-{ Keys.Left, new MoveLeftCommand(link,hud) },
-{ Keys.D, new MoveRightCommand(link,hud) },
-{ Keys.Right, new MoveRightCommand(link,hud) },
-{ Keys.Z, new AttackCommand(link) },
-{ Keys.N, new AttackCommand(link) },
-{ Keys.E, new DamageCommand(link) },
-{ Keys.X, new UseItemCommand(link)},
-{ Keys.G, new DeathCommand(link) },
-{ Keys.Q, new QuitCommand(this) },
-{ Keys.R, new ResetCommand(this) },
-{ Keys.Escape, new PauseCommand(this) },
+        var commands = commandFactory.commands(link, hud, this);
 
-/*{ Keys.T, new CycleBlockCommand(this, false) }, // Previous block
-{ Keys.Y, new CycleBlockCommand(this, true) },  // Next block
-{ Keys.U, new CycleItemCommand(this, false) }, // Previous item
-{ Keys.I, new CycleItemCommand(this, true) },  // Next item
-{ Keys.O, new CycleNPCCommand(this, false) }, // Previous NPC
-{ Keys.P, new CycleNPCCommand(this, true) }   // Next NPC
-*/
-    };
-        var releaseCommands = new Dictionary<Keys, ICommand>
-{
-    { Keys.C, new EndBluePortalCommand(link) },
-    { Keys.V, new EndOrangePortalCommand(link) }
-};
+        var releaseCommands = commandFactory.releaseCommands(link);
+
 
         keyboardController = new KeyboardController(commands, new IdleCommand(link), releaseCommands);
 
-        var movementCommands = new Dictionary<Project1.Controllers.Direction, ICommand>
-{
-    { Project1.Controllers.Direction.Up, new MoveUpCommand(link, hud) },
-    { Project1.Controllers.Direction.Down, new MoveDownCommand(link, hud) },
-    { Project1.Controllers.Direction.Left, new MoveLeftCommand(link, hud) },
-    { Project1.Controllers.Direction.Right, new MoveRightCommand(link, hud) },
-
-};
+        var movementCommands = commandFactory.moveCommands(link, hud);
 
 
-        var gamepadCommands = new Dictionary<Buttons, ICommand>
-{
-    { Buttons.DPadUp, new MoveUpCommand(link,hud) },
-    { Buttons.LeftThumbstickUp, new MoveUpCommand(link,hud) },
-    { Buttons.DPadDown, new MoveDownCommand(link,hud) },
-    { Buttons.LeftThumbstickDown, new MoveDownCommand(link,hud) },
-    { Buttons.DPadLeft, new MoveLeftCommand(link,hud) },
-    { Buttons.LeftThumbstickLeft, new MoveLeftCommand(link,hud) },
-    { Buttons.DPadRight, new MoveRightCommand(link,hud) },
-    { Buttons.LeftThumbstickRight, new MoveRightCommand(link,hud) },
-    { Buttons.A, new AttackCommand(link) },
-    { Buttons.B, new UseItemCommand(link) },
-    { Buttons.LeftShoulder, new StartBluePortalCommand(link) },
-{ Buttons.RightShoulder, new StartOrangePortalCommand(link) },
+        var gamepadCommands = commandFactory.gamepadComm(link, hud, this);
 
-    { Buttons.Back, new QuitCommand(this) },
-    { Buttons.Start, new ResetCommand(this) },
-    { Buttons.BigButton, new ResetCommand(this) }
-};
-        var gamepadReleaseCommands = new Dictionary<Buttons, ICommand>
-{
-    { Buttons.LeftShoulder, new EndBluePortalCommand(link) },
-    { Buttons.RightShoulder, new EndOrangePortalCommand(link) }
-};
+        var gamepadReleaseCommands = commandFactory.gamepadReleaseComm(link);
+
         gamepadController = new GamepadController(gamepadCommands, movementCommands, new IdleCommand(link), gamepadReleaseCommands);
 
         
