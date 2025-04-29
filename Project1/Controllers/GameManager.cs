@@ -50,14 +50,6 @@ public class GameManager
             Debug.WriteLine($"Failed to load Game Over texture: {ex.Message}");
         }
 
-        try
-        {
-            gameOverTexture = content.Load<Texture2D>("Images/win");
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"Failed to load victory texture: {ex.Message}");
-        }
     }
 
     public void SetGameOver()
@@ -67,7 +59,7 @@ public class GameManager
         //Debug.WriteLine("Game Over triggered.");
         isGameOver = true;
         showGameOverScreen = false;
-        showWinScreen = false;
+        //showWinScreen = false;
         gameOverTimer = 0;
         resetCooldown = 0;
         gameOverMusicStarted = false;
@@ -84,7 +76,7 @@ public class GameManager
 
         //Debug.WriteLine("Game Over triggered.");
         isGameOver = true;
-        showGameOverScreen = false;
+        //showGameOverScreen = true;
         showWinScreen = false;
         gameOverTimer = 0;
         resetCooldown = 0;
@@ -195,8 +187,8 @@ public class GameManager
 
 
         //Debug.WriteLine("Game reset.");
-        isGameOver = false;
-        showGameOverScreen = false;
+        isGameOver = true;
+        showGameOverScreen = true;
         gameOverTimer = 0;
         resetCooldown = 0;
         gameOverMusicStarted = false;

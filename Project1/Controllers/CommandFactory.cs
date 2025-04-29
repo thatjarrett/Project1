@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Project1.Interfaces;
 using Project1.Commands;
 using Project1.Entities;
-using Project1.HUD;
+using Project1.HUDNamespace;
 using static Project1.Entities.Link;
 
 namespace Project1.Controllers
@@ -15,7 +15,7 @@ namespace Project1.Controllers
     class CommandFactory
     {
 
-        public Dictionary<Keys, ICommand> commands(Link link, IHUD hud, Game1 game) {
+        public Dictionary<Keys, ICommand> commands(Link link, HUD hud, Game1 game) {
             var commands = new Dictionary<Keys, ICommand>
             {{ Keys.C, new StartBluePortalCommand(link) },
                 { Keys.V, new StartOrangePortalCommand(link) },
@@ -45,7 +45,7 @@ namespace Project1.Controllers
             return releaseCommands;
         }
 
-        public Dictionary<Project1.Controllers.Direction, ICommand> moveCommands(Link link, IHUD hud) {
+        public Dictionary<Project1.Controllers.Direction, ICommand> moveCommands(Link link, HUD hud) {
             var movementCommands = new Dictionary<Project1.Controllers.Direction, ICommand>
             {{ Project1.Controllers.Direction.Up, new MoveUpCommand(link, hud) },
             { Project1.Controllers.Direction.Down, new MoveDownCommand(link, hud) },
@@ -54,7 +54,7 @@ namespace Project1.Controllers
             return movementCommands;
         }
 
-        public Dictionary<Buttons, ICommand> gamepadComm(Link link, IHUD hud, Game1 game) {
+        public Dictionary<Buttons, ICommand> gamepadComm(Link link, HUD hud, Game1 game) {
             var gamepadCommands = new Dictionary<Buttons, ICommand>
 {
     { Buttons.DPadUp, new MoveUpCommand(link,hud) },
