@@ -20,24 +20,19 @@ namespace Project1.Entities
            
         }
 
-        public void MoveLeft(IEnemy dino) { }
-        public void MoveRight(IEnemy dino) { }
-        public void MoveUp(IEnemy dino) { }
-        public void MoveDown(IEnemy dino) { }
-        public void Attack(IEnemy dino) { }
-        public void Damage(IEnemy dino) { }
-
-        public void Update(IEnemy dino, GameTime gameTime)
+        public void Update(IEnemy enemy, GameTime gameTime)
         {
-            double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
-            movementDuration -= timeStep;
-
-            if (movementDuration <= 0)
+            if(enemy is Triceratops dino)
             {
-                movementDuration = 1.0;
-                int x = random.Next(4); 
+                double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
+                movementDuration -= timeStep;
 
-                
+                if (movementDuration <= 0)
+                {
+                    movementDuration = 1.0;
+                    int x = random.Next(4);
+
+
                     tired = false;
                     switch (x)
                     {
@@ -57,29 +52,30 @@ namespace Project1.Entities
                             movingDirection = Direction.Up;
                             dino.MoveUp();
                             break;
-                    
-                }
-            }
 
-            if (!tired) 
-            {
-                switch (movingDirection)
+                    }
+                }
+
+                if (!tired)
                 {
-                    case Direction.Up:
-                        dino.Move(0, -1);
-                        break;
-                    case Direction.Right:
-                        dino.Move(1, 0);
-                        break;
-                    case Direction.Down:
-                        dino.Move(0, 1);
-                        break;
-                    case Direction.Left:
-                        dino.Move(-1, 0);
-                        break;
-                    case Direction.None:
-                      
-                        break;
+                    switch (movingDirection)
+                    {
+                        case Direction.Up:
+                            dino.Move(0, -1);
+                            break;
+                        case Direction.Right:
+                            dino.Move(1, 0);
+                            break;
+                        case Direction.Down:
+                            dino.Move(0, 1);
+                            break;
+                        case Direction.Left:
+                            dino.Move(-1, 0);
+                            break;
+                        case Direction.None:
+
+                            break;
+                    }
                 }
             }
         }

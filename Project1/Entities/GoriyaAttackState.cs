@@ -21,64 +21,45 @@ namespace Project1.Entities
             enemy.SetAnimation("Attack");
         }
 
-        public void MoveLeft(IEnemy enemy)
+        public void Update(IEnemy enemy, GameTime gameTime)
         {
-            //N/A
-        }
-        public void MoveRight(IEnemy enemy)
-        {
-            //N/A
-        }
-        public void MoveUp(IEnemy enemy)
-        {
-            //N/A
-        }
-        public void MoveDown(IEnemy enemy)
-        {
-            //N/A
-        }
-        public void Attack(IEnemy enemy)
-        {
-            //
-        }
-        public void Damage(IEnemy aquamentus)
-        {
-            //
-        }
-        public void Update(IEnemy goriya, GameTime gameTime)
-        {
-            double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
-            movementDuration -= timeStep;
+            if(enemy is Goriya goriya)
+            {
+                double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
+                movementDuration -= timeStep;
 
-            //Trace.WriteLine(movementDuration + ", boomerang throwing in progress");
+                //Trace.WriteLine(movementDuration + ", boomerang throwing in progress");
 
-            if (movementDuration <= 0) {
-                movementDuration = 1.0;
-                //goriya.MoveUp();
-                int x = random.Next(5);
-                switch (x)
+                if (movementDuration <= 0)
                 {
-                    case 0:
-                        movingDirection = Direction.Right;
-                        goriya.MoveRight();
-                        break;
-                    case 1:
-                        movingDirection = Direction.Down;
-                        goriya.MoveDown();
-                        break;
-                    case 2:
-                        movingDirection = Direction.Left;
-                        goriya.MoveLeft();
-                        break;
-                    case 3:
-                        movingDirection = Direction.Up;
-                        goriya.MoveUp();
-                        break;
-                    case 4:
-                        goriya.PerformAttack();
-                        break;
+                    movementDuration = 1.0;
+                    //goriya.MoveUp();
+                    int x = random.Next(5);
+                    switch (x)
+                    {
+                        case 0:
+                            movingDirection = Direction.Right;
+                            goriya.MoveRight();
+                            break;
+                        case 1:
+                            movingDirection = Direction.Down;
+                            goriya.MoveDown();
+                            break;
+                        case 2:
+                            movingDirection = Direction.Left;
+                            goriya.MoveLeft();
+                            break;
+                        case 3:
+                            movingDirection = Direction.Up;
+                            goriya.MoveUp();
+                            break;
+                        case 4:
+                            goriya.PerformAttack();
+                            break;
+                    }
                 }
             }
+            
         }
 
         public Direction GetDirection()

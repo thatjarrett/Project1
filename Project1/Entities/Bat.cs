@@ -91,31 +91,6 @@ namespace Project1.Entities
             collider.Move(dx, dy);
         }
 
-        public void MoveDown()
-        {
-            //
-        }
-
-        public void MoveLeft()
-        {
-            //
-        }
-
-        public void MoveRight()
-        {
-            //
-        }
-
-        public void MoveUp()
-        {
-            //
-        }
-
-        public void PerformAttack()
-        {
-            //the bat just flies around i think
-        }
-
         public void SetAnimation(string action)
         {
             if (action.Contains("Damage"))

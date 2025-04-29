@@ -48,22 +48,6 @@ namespace Project1.Entities
 
         }
 
-        public void MoveLeft()
-        {
-            //N/A
-        }
-        public void MoveRight()
-        {
-            //N/A
-        }
-        public void MoveUp()
-        {
-            //N/A
-        }
-        public void MoveDown()
-        {
-            //N/A
-        }
         public void Update(GameTime gameTime, bool frozen)
         {
 
@@ -104,11 +88,6 @@ namespace Project1.Entities
             position.X += dx;
             position.Y += dy;
             collider.Move(dx, dy);
-        }
-
-        public void PerformAttack()
-        {
-
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -22,30 +22,6 @@ namespace Project1.Entities
             //N/A
         }
 
-        public void MoveLeft(IEnemy dino)
-        {
-            //N/A
-        }
-        public void MoveRight(IEnemy dino)
-        {
-            //N/A
-        }
-        public void MoveUp(IEnemy dino)
-        {
-            //N/A
-        }
-        public void MoveDown(IEnemy dino)
-        {
-            //N/A
-        }
-        public void Attack(IEnemy dino)
-        {
-            //N/A
-        }
-        public void Damage(IEnemy dino)
-        {
-            //N/A
-        }
         public void Update(IEnemy dino, GameTime gameTime)
         {
             accelTime -= gameTime.ElapsedGameTime.TotalMilliseconds;

@@ -60,22 +60,6 @@ namespace Project1.Entities
             //    invincibleTime = InvincibilityDuration;
         }
 
-        public void MoveLeft()
-        {
-            //N/A
-        }
-        public void MoveRight()
-        {
-            //N/A
-        }
-        public void MoveUp()
-        {
-            //N/A
-        }
-        public void MoveDown()
-        {
-            //N/A
-        }
         public void Update(GameTime gameTime, bool frozen)
         {
             if (isInvincible)

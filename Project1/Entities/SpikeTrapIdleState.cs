@@ -13,31 +13,6 @@ namespace Project1.Entities
         {
             //N/A
         }
-
-        public void MoveLeft(IEnemy spikeTrap)
-        {
-            //N/A
-        }
-        public void MoveRight(IEnemy spikeTrap)
-        {
-            //N/A
-        }
-        public void MoveUp(IEnemy spikeTrap)
-        {
-            //N/A
-        }
-        public void MoveDown(IEnemy spikeTrap)
-        {
-            //N/A
-        }
-        public void Attack(IEnemy spikeTrap)
-        {
-            //N/A
-        }
-        public void Damage(IEnemy spikeTrap)
-        {
-            //N/A
-        }
         public void Update(IEnemy spikeTrap, GameTime gameTime)
         {
             

@@ -171,11 +171,6 @@ namespace Project1.Entities
             collider.Move(dx, dy);
         }
 
-        public void PerformAttack()
-        {
-
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
 

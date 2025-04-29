@@ -20,30 +20,6 @@ namespace Project1.Entities
             aquamentus.SetAnimation("Walk");
         }
 
-        public void MoveLeft(IEnemy aquamentus)
-        {
-            //N/A
-        }
-        public void MoveRight(IEnemy aquamentus)
-        {
-            //N/A
-        }
-        public void MoveUp(IEnemy aquamentus)
-        {
-            //N/A
-        }
-        public void MoveDown(IEnemy aquamentus)
-        {
-            //N/A
-        }
-        public void Attack(IEnemy aquamentus)
-        {
-            //aquamentus.ChangeState(new AquamentusAttackState());
-        }
-        public void Damage(IEnemy aquamentus)
-        {
-            //aquamentus.ChangeState(new aquamentusDamageState());
-        }
         public void Update(IEnemy aquamentus, GameTime gameTime)
         {
             oscillationDuration -= gameTime.ElapsedGameTime.TotalSeconds;

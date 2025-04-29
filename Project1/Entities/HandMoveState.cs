@@ -18,30 +18,6 @@ namespace Project1.Entities
             //N/A
         }
 
-        public void MoveLeft(IEnemy enemy)
-        {
-            //N/A
-        }
-        public void MoveRight(IEnemy enemy)
-        {
-            //N/A
-        }
-        public void MoveUp(IEnemy enemy)
-        {
-            //N/A
-        }
-        public void MoveDown(IEnemy enemy)
-        {
-            //N/A
-        }
-        public void Attack(IEnemy enemy)
-        {
-            //N/A
-        }
-        public void Damage(IEnemy enemy)
-        {
-            //N/A
-        }
         public void Update(IEnemy enemy, GameTime gameTime)
         {
             double timeStep = gameTime.ElapsedGameTime.TotalSeconds;

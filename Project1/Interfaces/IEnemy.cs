@@ -11,19 +11,9 @@ namespace Project1.Interfaces
 
         public void SetInvincible(bool value);
 
-        public void MoveLeft();
-
-        public void MoveRight();
-
-        public void MoveUp();
-
-        public void MoveDown();
-
         public void Update(GameTime gameTime, bool frozen);
 
         public void Move(int dx, int dy);
-
-        public void PerformAttack();
 
         public void Draw(SpriteBatch spriteBatch);
 

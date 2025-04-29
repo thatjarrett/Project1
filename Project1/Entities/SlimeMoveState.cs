@@ -18,30 +18,6 @@ namespace Project1.Entities
             //N/A
         }
 
-        public void MoveLeft(IEnemy slime)
-        {
-            //N/A
-        }
-        public void MoveRight(IEnemy slime)
-        {
-            //N/A
-        }
-        public void MoveUp(IEnemy slime)
-        {
-            //N/A
-        }
-        public void MoveDown(IEnemy slime)
-        {
-            //N/A
-        }
-        public void Attack(IEnemy slime)
-        {
-            //N/A
-        }
-        public void Damage(IEnemy slime)
-        {
-            //N/A
-        }
         public void Update(IEnemy slime, GameTime gameTime)
         {
             double timeStep = gameTime.ElapsedGameTime.TotalSeconds;

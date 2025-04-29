@@ -16,75 +16,72 @@ namespace Project1.Entities
            
         }
 
-        public void MoveLeft(IEnemy goriya) { }
-        public void MoveRight(IEnemy goriya) { }
-        public void MoveUp(IEnemy goriya) { }
-        public void MoveDown(IEnemy goriya) { }
-        public void Attack(IEnemy goriya) { }
-        public void Damage(IEnemy goriya) { }
-
-        public void Update(IEnemy goriya, GameTime gameTime)
+        public void Update(IEnemy enemy, GameTime gameTime)
         {
-            double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
-            movementDuration -= timeStep;
-
-            if (movementDuration <= 0)
+            if (enemy is Goriya goriya)
             {
-                movementDuration = 1.0;
-                int x = random.Next(5); 
+                double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
+                movementDuration -= timeStep;
 
-                if (x == 4)
+                if (movementDuration <= 0)
                 {
-                    goriya.PerformAttack();
-                    isAttacking = true;
-                    movingDirection = Direction.None; 
-                }
-                else
-                {
-                    isAttacking = false;
-                    switch (x)
+                    movementDuration = 1.0;
+                    int x = random.Next(5);
+
+                    if (x == 4)
                     {
-                        case 0:
-                            movingDirection = Direction.Right;
-                            goriya.MoveRight();
+                        goriya.PerformAttack();
+                        isAttacking = true;
+                        movingDirection = Direction.None;
+                    }
+                    else
+                    {
+                        isAttacking = false;
+                        switch (x)
+                        {
+                            case 0:
+                                movingDirection = Direction.Right;
+                                goriya.MoveRight();
+                                break;
+                            case 1:
+                                movingDirection = Direction.Down;
+                                goriya.MoveDown();
+                                break;
+                            case 2:
+                                movingDirection = Direction.Left;
+                                goriya.MoveLeft();
+                                break;
+                            case 3:
+                                movingDirection = Direction.Up;
+                                goriya.MoveUp();
+                                break;
+                        }
+                    }
+                }
+
+                if (!isAttacking)
+                {
+                    switch (movingDirection)
+                    {
+                        case Direction.Up:
+                            goriya.Move(0, -1);
                             break;
-                        case 1:
-                            movingDirection = Direction.Down;
-                            goriya.MoveDown();
+                        case Direction.Right:
+                            goriya.Move(1, 0);
                             break;
-                        case 2:
-                            movingDirection = Direction.Left;
-                            goriya.MoveLeft();
+                        case Direction.Down:
+                            goriya.Move(0, 1);
                             break;
-                        case 3:
-                            movingDirection = Direction.Up;
-                            goriya.MoveUp();
+                        case Direction.Left:
+                            goriya.Move(-1, 0);
+                            break;
+                        case Direction.None:
+
                             break;
                     }
                 }
             }
-
-            if (!isAttacking) 
-            {
-                switch (movingDirection)
-                {
-                    case Direction.Up:
-                        goriya.Move(0, -1);
-                        break;
-                    case Direction.Right:
-                        goriya.Move(1, 0);
-                        break;
-                    case Direction.Down:
-                        goriya.Move(0, 1);
-                        break;
-                    case Direction.Left:
-                        goriya.Move(-1, 0);
-                        break;
-                    case Direction.None:
-                      
-                        break;
-                }
-            }
+            
         }
 
         public Direction GetDirection()

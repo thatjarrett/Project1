@@ -18,15 +18,6 @@ namespace Project1.Entities
             movementDuration = duration;
             movingDirection = d;
         }
-        public void Attack(IEnemy enemy)
-        {
-            //
-        }
-
-        public void Damage(IEnemy enemy)
-        {
-            //
-        }
 
         public void Enter(IEnemy bat)
         {
@@ -41,26 +32,6 @@ namespace Project1.Entities
         public double GetMovementDuration()
         {
             return movementDuration;
-        }
-
-        public void MoveDown(IEnemy enemy)
-        {
-            //
-        }
-
-        public void MoveLeft(IEnemy enemy)
-        {
-            //
-        }
-
-        public void MoveRight(IEnemy enemy)
-        {
-            //
-        }
-
-        public void MoveUp(IEnemy enemy)
-        {
-            //
         }
 
         public void Update(IEnemy enemy, GameTime gameTime)
