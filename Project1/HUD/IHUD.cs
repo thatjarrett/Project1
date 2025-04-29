@@ -64,6 +64,11 @@ namespace Project1.HUD
         private TextSprite _bombCount;
         private TextSprite _keyCount;
 
+        private Camera _camera;
+        private ISprite mapSprite;
+
+        private ISprite indicator;
+
         private Collection<IItem> inventory;
         public IHUD(Link link,Texture2D texture, Texture2D hearts, Texture2D cover,Texture2D atlas, SpriteFont font, Camera camera)
         {
@@ -82,6 +87,12 @@ namespace Project1.HUD
             _rupeeCount = new TextSprite("", font, Vector2.Zero);
             _bombCount = new TextSprite("", font, Vector2.Zero);
             _keyCount = new TextSprite("", font, Vector2.Zero);
+
+            mapSprite = new NMoveNAnim(atlas, new Rectangle(16, 191, 64, 32));
+
+            indicator = new NMoveNAnim(atlas, new Rectangle(45, 182, 3, 3));
+
+            _camera = camera;
         }
         public void Update(GameTime gameTime)
         {
@@ -114,6 +125,7 @@ namespace Project1.HUD
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            
             hudSprite.Draw(spriteBatch, new Vector2(0,height), SpriteEffects.None);
             heartsSprite.Draw(spriteBatch, new Vector2(24*MathF.Floor(linkHealth/2), height)+HEARTOFFSET, heartEffect);
             coverSprite.Draw(spriteBatch, new Vector2(0, height)+COVEROFFSET, SpriteEffects.None);
@@ -122,6 +134,13 @@ namespace Project1.HUD
             _keyCount.Draw(spriteBatch, new Vector2(0, height) + KEYCOUNTPOS, SpriteEffects.None);
             DrawItems(spriteBatch);
             selectorSprite.Draw(spriteBatch, DRAWOFFSET + selectorOffset + (SELECTORMULT * selectorPosition), SpriteEffects.None);
+            if (_link.GetMap() )
+
+            {
+
+                DrawMap(spriteBatch);
+
+            }
         }
         public void slideIn()
         {
@@ -228,5 +247,15 @@ namespace Project1.HUD
             item.Draw(spriteBatch, DRAWOFFSET + bItemOffset, SpriteEffects.None);
             item.Draw(spriteBatch, DRAWOFFSET + barItemOffset, SpriteEffects.None);
         }
+        private void DrawMap(SpriteBatch spriteBatch)
+
+        {
+
+            mapSprite.Draw(spriteBatch, new Vector2(0, height) + MAPPOS, SpriteEffects.None);
+
+            indicator.Draw(spriteBatch, new Vector2(0, height) + INDICATOROFFSET + new Vector2(24, 12) * _camera.getCameraPos(), SpriteEffects.None);
+
+        }
     }
-}
+   
+    }
