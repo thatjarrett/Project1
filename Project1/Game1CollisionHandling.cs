@@ -146,7 +146,7 @@ public partial class Game1 : Game
 
 
             item.Update(gameTime);
-            LinkEnemyCollisionHandler.HandleCollision(item, link);
+            LinkItemCollisionHandler.HandleCollision(item, link);
         }
 
         foreach (var anim in animationsList)
@@ -164,7 +164,7 @@ public partial class Game1 : Game
                 environmentTile t = tiles[tileCount];
                 if (t is CrackedWallTile c)
                 {
-                    LinkEnemyCollisionHandler.HandleCollision(b, c);
+                    BombWallCollisionHandler.HandleCollision(b, c);
                 }
                 tileCount--;
             }

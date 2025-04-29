@@ -17,8 +17,6 @@ namespace Project1.Handlers
             {
                 if (!link.IsInvincible())
                 {
-                    //Debug.WriteLine("Link collided with an enemy! Taking damage and knockback.");
-                    Debug.WriteLine("Health: " + link.GetHealth());
 
                     // Get knockback direction (opposite of enemy)
                     Vector2 knockbackDir = link.GetCollider().GetCenter() - enemy.GetCollider().GetCenter();
@@ -40,8 +38,7 @@ namespace Project1.Handlers
             {
                 if (!link.IsInvincible())
                 {
-                    //Debug.WriteLine("Link collided with a projectile! Taking damage and knockback.");
-                    Debug.WriteLine("Health: " + link.GetHealth());
+
 
                     // Get knockback direction (opposite of enemy)
                     Vector2 knockbackDir = link.GetCollider().GetCenter() - projectile.GetCollider().GetCenter();
@@ -61,9 +58,6 @@ namespace Project1.Handlers
         {
             if (enemy.GetCollider() != null && projectile.GetCollider() != null && projectile.GetCollider().Intersects(enemy.GetCollider()))
             {
-                
-                //Debug.WriteLine("Link shot an enemy! Dealing damage.");
-
 
                     // Change enemy's state to damage
                 enemy.SetAnimation("Damage");
@@ -77,16 +71,7 @@ namespace Project1.Handlers
             }
         }
 
-        public static void HandleCollision(IItem item, Link Link)
-        {
-            if (item.GetCollider() != null && Link.GetCollider().Intersects(item.GetCollider()))
-            {
-                //Debug.WriteLine("⚠️ Link picked up an item!");
-                Link.Pickup(item);
-                item.pickup();
-                //delete item
-            }
-        }
+        
 
         public static void HandleCollision(CollisionBox sword, IEnemy enemy)
         {
@@ -108,13 +93,6 @@ namespace Project1.Handlers
             }
         }
 
-        public static void HandleCollision(BombProjectile projectile, CrackedWallTile wall)
-        {
-            if (wall.GetCollider() != null && projectile.GetCollider() != null && projectile.GetCollidingSide(projectile.GetCollider()) != CollisionSide.None)
-            {
-                // blow up wall
-                wall.Break();
-            }
-        }
+        
     }
 }
