@@ -1,14 +1,15 @@
-﻿using Project1.HUDNamespace;
+﻿using Project1.Entities;
+using Project1.HUDNamespace;
 using Project1.Interfaces;
 
-namespace Project1.Entities
+namespace Project1.Commands
 {
-    internal class MoveUpCommand : ICommand
+    internal class MoveDownCommand : ICommand
     {
         private readonly Link _link;
         private readonly HUD _hud;
 
-        public MoveUpCommand(Link link, HUD hud)
+        public MoveDownCommand(Link link, HUD hud)
         {
             _link = link;
             _hud = hud;
@@ -17,10 +18,10 @@ namespace Project1.Entities
         public void Execute()
         {
 
-            _link.MoveUp();
+            _link.MoveDown();
             if (_hud.active)
             {
-                _hud.moveSelectorUp();
+                _hud.moveSelectorDown();
             }
         }
     }

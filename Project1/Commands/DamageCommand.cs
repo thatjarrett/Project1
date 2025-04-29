@@ -1,7 +1,8 @@
 ﻿using System;
+using Project1.Entities;
 using Project1.Interfaces;
 
-namespace Project1.Entities
+namespace Project1.Commands
 {
     internal class DamageCommand : ICommand
     {

@@ -3,8 +3,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Project1.Interfaces;
 using System.Diagnostics;
+using Project1.Entities;
 
-namespace Project1.Entities
+namespace Project1.Commands
 {
     internal class AttackCommand : ICommand
     {

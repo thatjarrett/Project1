@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
+using Project1.Entities;
 using Project1.HUDNamespace;
 using Project1.Interfaces;
 
-namespace Project1.Entities
+namespace Project1.Commands
 {
     internal class MoveRightCommand : ICommand
     {
