@@ -12,12 +12,6 @@ namespace Project1.Entities
         private double movementDuration = 0.25;
         Random random = new Random();
 
-
-        public void Enter(IEnemy skeleton)
-        {
-            //N/A
-        }
-
         public void Update(IEnemy enemy, GameTime gameTime)
         {
             if (enemy is KeySkeleton skeleton)

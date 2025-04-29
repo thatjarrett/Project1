@@ -63,11 +63,7 @@ namespace Project1.Entities
 
         public void ChangeState(IEnemyState newState)
         {
-            //Debug.WriteLine($"Changing state to: {newState.GetType().Name}");
 
-            // Change the current state
-            currentState = newState;
-            currentState.Enter(this);
         }
 
         public void SetInvincible(bool value)

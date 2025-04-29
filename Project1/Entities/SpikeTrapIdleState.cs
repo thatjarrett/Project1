@@ -8,11 +8,6 @@ namespace Project1.Entities
         private Direction movingDirection = Direction.Up;
         private double movementDuration = 1.0;
 
-
-        public void Enter(IEnemy spikeTrap)
-        {
-            //N/A
-        }
         public void Update(IEnemy spikeTrap, GameTime gameTime)
         {
             

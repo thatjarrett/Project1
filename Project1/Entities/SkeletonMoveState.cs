@@ -15,10 +15,7 @@ namespace Project1.Entities
             movementDuration = duration;
             movingDirection = d;
         }
-        public void Enter(IEnemy skeleton)
-        {
-            //N/A
-        }
+
         public void Update(IEnemy skeleton, GameTime gameTime)
         {
             double timeStep = gameTime.ElapsedGameTime.TotalSeconds;

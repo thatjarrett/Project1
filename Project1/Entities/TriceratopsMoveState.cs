@@ -15,11 +15,6 @@ namespace Project1.Entities
             tired = b;
         }
 
-        public void Enter(IEnemy dino)
-        {
-           
-        }
-
         public void Update(IEnemy enemy, GameTime gameTime)
         {
             if(enemy is Triceratops dino)

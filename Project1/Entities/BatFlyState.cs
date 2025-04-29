@@ -19,11 +19,6 @@ namespace Project1.Entities
             movingDirection = d;
         }
 
-        public void Enter(IEnemy bat)
-        {
-            bat.SetAnimation("walk");   //?????
-        }
-
         public Direction GetDirection()
         {
             return movingDirection;

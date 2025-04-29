@@ -16,10 +16,6 @@ namespace Project1.Entities
              movingDirection = Direction.Down;
              movementDuration = 0.25;
         }
-        public void Enter(IEnemy enemy)
-        {
-            enemy.SetAnimation("Attack");
-        }
 
         public void Update(IEnemy enemy, GameTime gameTime)
         {

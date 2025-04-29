@@ -17,11 +17,6 @@ namespace Project1.Entities
             movingDirection = dir;
         }
 
-
-        public void Enter(IEnemy spikeTrap)
-        {
-            //N/A
-        }
         public void Update(IEnemy spikeTrap, GameTime gameTime)
         {
             if (movingDirection == Direction.Left)

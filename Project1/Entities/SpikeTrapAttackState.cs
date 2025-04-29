@@ -15,12 +15,6 @@ namespace Project1.Entities
         {
             this.movingDirection = dir;
         }
-
-
-        public void Enter(IEnemy spikeTrap)
-        {
-            //N/A
-        }
         public void Update(IEnemy spikeTrap, GameTime gameTime)
         {
             accelTime -= gameTime.ElapsedGameTime.TotalMilliseconds;

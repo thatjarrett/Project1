@@ -50,7 +50,15 @@ namespace Project1.Entities
 
             // Change the current state
             currentState = newState;
-            currentState.Enter(this);
+            if(currentState is AquamentusAttackState attack)
+            {
+                attack.Enter(this);
+            } 
+            else if(currentState is AquamentusWalkState walk)
+            {
+                walk.Enter(this);
+            }
+            
         }
 
         public void SetInvincible(bool value)

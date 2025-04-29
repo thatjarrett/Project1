@@ -16,12 +16,6 @@ namespace Project1.Entities
             this.movingDirection = dir;
         }
 
-
-        public void Enter(IEnemy dino)
-        {
-            //N/A
-        }
-
         public void Update(IEnemy dino, GameTime gameTime)
         {
             accelTime -= gameTime.ElapsedGameTime.TotalMilliseconds;

@@ -13,11 +13,6 @@ namespace Project1.Entities
         Random random = new Random();
         bool stopped = false;
 
-        public void Enter(IEnemy slime)
-        {
-            //N/A
-        }
-
         public void Update(IEnemy slime, GameTime gameTime)
         {
             double timeStep = gameTime.ElapsedGameTime.TotalSeconds;
