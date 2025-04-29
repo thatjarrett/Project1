@@ -15,6 +15,7 @@ namespace Project1.LevelLoading
 {
     public class TileBuilder
     {
+        private static int HudOffset = 48;
         ISprite statueLeftSprite;
         ISprite statueRightSprite;
         ISprite squareBlockSprite;
@@ -173,35 +174,35 @@ namespace Project1.LevelLoading
                     }
                 case 7:
                     {
-                        tile = new wallTile(location, 768, 96);       // need to remove ID requirement from wallTile
+                        tile = new wallTile(location, 768, 96);   
                         tile.setSprite(this.topWallSprite);
                         break;
                     }
                 case 8:
                     {
-                        tile = new doorTile(location);        // need to remove ID requirement from doorTile
+                        tile = new doorTile(location); 
                         tile.setSprite(this.topPlainWallSprite);
                         break;
                     }
                 case 9:
                     {
-                        tile = new doorTile(location);        // need to remove ID requirement from doorTile
+                        tile = new doorTile(location);  
                         tile.setSprite(this.topOpenDoorSprite);
                         if(tile is doorTile door)
                         {
                             door.SetOpen(true);
-                            door.SetCollider((int)location.X, (int)location.Y, 96, 48);
+                            door.SetCollider((int)location.X, (int)location.Y, 96, HudOffset);
                         }
                         break;
                     }
                 case 10:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                        tile = new doorTile(location);      
                         tile.setSprite(this.topBombedOpeningSprite);
                         if (tile is doorTile door)
                         {
                             door.SetOpen(true);
-                            door.SetCollider((int)location.X, (int)location.Y, 96, 48);
+                            door.SetCollider((int)location.X, (int)location.Y, 96, HudOffset);
                         }
                         break;
                     }
@@ -212,44 +213,40 @@ namespace Project1.LevelLoading
                     }
                 case 12:
                     {
-                        //tile = new doorTile(location);       // need to remove ID requirement from doorTile
                         tile = new LockedDoorTile(location, this.topDiamondLockedDoorSprite, this.topOpenDoorSprite, Entities.Direction.Up);
-                       // tile.setSprite(this.topDiamondLockedDoorSprite);
                         break;
                     }
                 case 13:
                     {
-                        tile = new wallTile(location, 768, 96);       // need to remove ID requirement from wallTile
+                        tile = new wallTile(location, 768, 96);   
                         tile.setSprite(this.bottomWallSprite);
                         break;
                     }
                 case 14:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                        tile = new doorTile(location);     
                         tile.setSprite(this.bottomPlainWallSprite);
                         break;
                     }
                 case 15:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                        tile = new doorTile(location);   
                         tile.setSprite(this.bottomOpenDoorSprite);
-                        //tile.setCollision(false);
                         if (tile is doorTile door)
                         {
                             door.SetOpen(true);
-                            door.SetCollider((int)location.X, (int)location.Y + 48, 96, 48);
+                            door.SetCollider((int)location.X, (int)location.Y + HudOffset, 96, HudOffset);
                         }
                         break;
                     }
                 case 16:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                        tile = new doorTile(location);    
                         tile.setSprite(this.bottomBombedOpeningSprite);
-                        //tile.setCollision(false);
                         if (tile is doorTile door)
                         {
                             door.SetOpen(true);
-                            door.SetCollider((int)location.X, (int)location.Y + 48, 96, 48);
+                            door.SetCollider((int)location.X, (int)location.Y + HudOffset, 96, HudOffset);
                         }
                         break;
                     }
@@ -259,43 +256,41 @@ namespace Project1.LevelLoading
                         break;
                     }
                 case 18:
-                    {
-                        //tile = new doorTile(location);       // need to remove ID requirement from doorTile //cheap solution to big problem
+                    { 
                         tile = new LockedDoorTile(location, this.bottomDiamondLockedDoorSprite, this.bottomOpenDoorSprite, Entities.Direction.Down);
-                        //tile.setSprite(this.bottomDiamondLockedDoorSprite);
                         break;
                     }
                 case 19:
                     {
-                        tile = new wallTile(location, 96, 336, false);       // need to remove ID requirement from doorTile
+                        tile = new wallTile(location, 96, 336, false);     
                         tile.setSprite(this.leftWallSprite);
                         break;
                     }
                 case 20:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from wallTile
+                        tile = new doorTile(location);    
                         tile.setSprite(this.leftPlainWallSprite);
                         break;
                     }
                 case 21:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                        tile = new doorTile(location);  
                         tile.setSprite(this.leftOpenDoorSprite);
                         if (tile is doorTile door)
                         {
                             door.SetOpen(true);
-                            door.SetCollider((int)location.X, (int)location.Y, 48, 96);
+                            door.SetCollider((int)location.X, (int)location.Y, HudOffset, 96);
                         }
                         break;
                     }
                 case 22:
                     {
-                        tile = new doorTile(location);       // need to remove ID requirement from doorTile
+                        tile = new doorTile(location);
                         tile.setSprite(this.leftBombedOpeningSprite);
                         if (tile is doorTile door)
                         {
                             door.SetOpen(true);
-                            door.SetCollider((int)location.X, (int)location.Y, 48, 96);
+                            door.SetCollider((int)location.X, (int)location.Y, HudOffset, 96);
                         }
                         break;
                     }
@@ -306,9 +301,7 @@ namespace Project1.LevelLoading
                     }
                 case 24:
                     {
-                        //tile = new doorTile(location);
                         tile = new LockedDoorTile(location, this.leftDiamondLockedDoorSprite, this.leftOpenDoorSprite, Entities.Direction.Left);
-                       // tile.setSprite(this.leftDiamondLockedDoorSprite);
                         break;
                     }
                 case 25:
@@ -330,7 +323,7 @@ namespace Project1.LevelLoading
                         if (tile is doorTile door)
                         {
                             door.SetOpen(true);
-                            door.SetCollider((int)location.X + 48, (int)location.Y, 48, 96);
+                            door.SetCollider((int)location.X + HudOffset, (int)location.Y, HudOffset, 96);
                         }
                         break;
                     }
@@ -341,7 +334,7 @@ namespace Project1.LevelLoading
                         if (tile is doorTile door)
                         {
                             door.SetOpen(true);
-                            door.SetCollider((int)location.X + 48, (int)location.Y, 48, 96);
+                            door.SetCollider((int)location.X + HudOffset, (int)location.Y, HudOffset, 96);
                         }
                         break;
                     }
@@ -352,9 +345,7 @@ namespace Project1.LevelLoading
                     }
                 case 30:
                     {
-                        //tile = new doorTile(location);
                         tile = new LockedDoorTile(location, this.rightDiamondLockedDoorSprite, this.rightOpenDoorSprite, Entities.Direction.Right);
-                        //tile.setSprite(this.rightDiamondLockedDoorSprite);
                         break;
                     }
                 case 31:
@@ -431,47 +422,3 @@ namespace Project1.LevelLoading
 
     }
 }
-/*
- *        
-    
-        environmentTile pushBlock = new pushableBlock(new Vector2(100, 100));    not in dictionary as stands
-
-  spritesIDs = new Dictionary<int, ISprite>
-        {
-            {0,this.statueLeftSprite},
-            { 1,this.statueRightSprite},
-            { 2,this.squareBlockSprite},
-            { 3,this.blueGapSprite},
-            { 4,this.stairsSprite},
-            { 5,this.fireSprite},
-            { 6,this.oldManSprite},
-            { 7,this.topWallSprite},
-            { 8,this.topPlainWallSprite},
-            { 9,this.topOpenDoorSprite},
-            { 10,this.topBombedOpeningSprite},
-            { 11,this.topKeyLockedDoorSprite},
-            { 12,this.topDiamondLockedDoorSprite},
-            { 13,this.bottomWallSprite},
-            { 14,this.bottomPlainWallSprite},
-            { 15,this.bottomOpenDoorSprite},
-            { 16,this.bottomBombedOpeningSprite},
-            { 17,this.bottomKeyLockedDoorSprite},
-            { 18,this.bottomDiamondLockedDoorSprite},
-            { 19,this.leftWallSprite},
-            { 20,this.leftPlainWallSprite},
-            { 21,this.leftOpenDoorSprite},
-            { 22,this.leftBombedOpeningSprite},
-            { 23,this.leftKeyLockedDoorSprite},
-            { 24,this.leftDiamondLockedDoorSprite},
-            { 25,this.rightWallSprite},
-            { 26,this.rightPlainWallSprite},
-            { 27,this.rightOpenDoorSprite},
-            { 28,this.rightBombedOpeningSprite},
-            { 29,this.rightKeyLockedDoorSprite},
-            { 30,this.rightDiamondLockedDoorSprite},
-            { 31,this.blueFloorSprite},
-            { 32,this.blueSandSprite },
-            { 33, this.ladderSprite},
-            { 34, this.whiteBrickSprite}
-        };
- */

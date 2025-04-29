@@ -26,6 +26,10 @@ namespace Project1.LevelLoading
         int[,] levelEntities = new int[7, 12];
         int roomOffsetX=0;
         int roomOffsetY=0;
+        private static int tileSize = 16;
+        private static int ScaleMult = 3;
+        private static int ThickTileSize = 32;
+
 
         public Level(string tileFile, string entityFile,int X,int Y)
         {
@@ -63,18 +67,19 @@ namespace Project1.LevelLoading
         }  
         
 
+
         public List<environmentTile> buildTiles(TileBuilder tileBuilder)
         {
             List<environmentTile> tileList = new List<environmentTile>();
-            int x = 16 * 3;
-            int y = 16 * 3;
+            int x = tileSize * ScaleMult;
+            int y = tileSize * ScaleMult;
             for (int i = 0; i < 7; i++)
             {
                 for(int j = 0; j < 12; j++)
                 {
                     int tileNum = levelTiles[i, j];    
-                    int destinationx = roomOffsetX+(3*32) + (x * j);
-                    int destinationy = roomOffsetY +(3*32)+120 + (y * i);
+                    int destinationx = roomOffsetX+(ScaleMult * ThickTileSize) + (x * j);
+                    int destinationy = roomOffsetY +(ScaleMult * ThickTileSize) +120 + (y * i);
                     int index = tileList.Count;
                     tileList.Add(tileBuilder.buildTile(tileNum, new Vector2(destinationx, destinationy)));
                     if(tileNum == 35)
@@ -87,30 +92,30 @@ namespace Project1.LevelLoading
             }
             //Big walls
             tileList.Add(tileBuilder.buildTile(levelTiles[7, 0], new Vector2(roomOffsetX+0, roomOffsetY + 120)));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 1], new Vector2(roomOffsetX + 0, roomOffsetY + (120 +(32+(16*7))*3))));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 2], new Vector2(roomOffsetX + 0, roomOffsetY + (120 +32*3))));
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 3], new Vector2(roomOffsetX + (3 * 32) + (12 * 48), roomOffsetY + (3 * 32) + 120)));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 1], new Vector2(roomOffsetX + 0, roomOffsetY + (120 +(ThickTileSize + (tileSize*7))* ScaleMult))));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 2], new Vector2(roomOffsetX + 0, roomOffsetY + (120 + ThickTileSize * ScaleMult))));
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 3], new Vector2(roomOffsetX + (ScaleMult * ThickTileSize) + (12 * 48), roomOffsetY + (ScaleMult * ThickTileSize) + 120)));
 
             //Door slots
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 4], new Vector2(roomOffsetX + (112 *3), roomOffsetY + 120)));     //top
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 5], new Vector2(roomOffsetX + (112 *3), roomOffsetY + (120 +(32 + (16 * 7)) * 3))));       //bottom
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 6], new Vector2(roomOffsetX + 0, roomOffsetY + (120 +(72)*3))));       //left
-            tileList.Add(tileBuilder.buildTile(levelTiles[7, 7], new Vector2(roomOffsetX + ((32 + (16 * 12)) * 3), roomOffsetY + (120 +(72) * 3))));        //right
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 4], new Vector2(roomOffsetX + (112 * ScaleMult), roomOffsetY + 120)));     //top
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 5], new Vector2(roomOffsetX + (112 * ScaleMult), roomOffsetY + (120 +(ThickTileSize + (tileSize * 7)) * ScaleMult))));       //bottom
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 6], new Vector2(roomOffsetX + 0, roomOffsetY + (120 +(72)* ScaleMult))));       //left
+            tileList.Add(tileBuilder.buildTile(levelTiles[7, 7], new Vector2(roomOffsetX + ((ThickTileSize + (tileSize * 12)) * ScaleMult), roomOffsetY + (120 +(72) * ScaleMult))));        //right
             return tileList;
         }
         public (List<IItem>, List<IEnemy>) buildEntities(EntityBuilder EntityBuilder)
         {
             List<IItem> itemList = new List<IItem>();
             List<IEnemy> enemyList = new List<IEnemy>();
-            int x = 16 * 3;
-            int y = 16 * 3;
+            int x = tileSize * ScaleMult;
+            int y = tileSize * ScaleMult;
             for (int i = 0; i < 7; i++)
             {
                 for (int j = 0; j < 12; j++)
                 {
                     int entityNum = levelEntities[i, j];
-                    int destinationx = roomOffsetX + (3 * 32) + (x * j);
-                    int destinationy = roomOffsetY + 120 + (3 * 32) + (y * i);
+                    int destinationx = roomOffsetX + (ScaleMult * ThickTileSize) + (x * j);
+                    int destinationy = roomOffsetY + 120 + (ScaleMult * ThickTileSize) + (y * i);
                     if (entityNum >=1 && entityNum <= 7 || entityNum > 20)
                     {
                         enemyList.Add(EntityBuilder.buildEnemy(entityNum, new Vector2(destinationx, destinationy)));
@@ -136,14 +141,3 @@ namespace Project1.LevelLoading
 
 
 
-/*        public void drawBG(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(background, new Rectangle(16 * 3, 16 * 3, 16 * 12 * 3, 16 * 7 * 3), new Rectangle(1, 24 * 8, 16 * 12, 16 * 7), Color.White);
-        }
-public void drawBG(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(this.TileTex, new Rectangle(0, 0, 16 * 16 * 3, 16 * 10 * 3), new Rectangle(1, 1, 256, 160), Color.White);
-            
-        }
-
-*/
